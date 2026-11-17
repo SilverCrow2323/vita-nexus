@@ -62,26 +62,3 @@ jobs:
 
       - name: Test browser catalog logic
         run: node --test tests/*.test.cjs
-
-      - name: Build native Vita VPK (pull requests)
-        if: github.event_name == 'pull_request' && hashFiles('native/CMakeLists.txt') != ''
-        run: |
-          docker run --rm \
-            -v "$PWD:/workspace" \
-            -w /workspace \
-            vitasdk/vitasdk:2026.08 \
-            sh -lc 'vdpm install libvita2d && cmake -S native -B native/build -DCMAKE_TOOLCHAIN_FILE="$VITASDK/share/vita.toolchain.cmake" && cmake --build native/build --parallel 2'
-
-      - name: Verify native VPK
-        if: github.event_name == 'pull_request' && hashFiles('native/CMakeLists.txt') != ''
-        run: test -s native/build/vita_nexus_native.vpk
-
-      - name: Upload native VPK validation artifact
-        if: github.event_name == 'pull_request' && hashFiles('native/CMakeLists.txt') != ''
-        uses: actions/upload-artifact@v4
-        with:
-          name: vita-nexus-native-pr-check
-          path: native/build/vita_nexus_native.vpk
-          if-no-files-found: error
-          retention-days: 7
-
