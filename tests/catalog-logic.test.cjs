@@ -78,11 +78,12 @@ test("empty source arrays fall back to curated editorial metadata on both sides"
     features: []
   };
   const sourceOverride = {genres: ["Action RPG"], themes: ["Space opera"]};
-  vm.runInContext("state.catalog = {games: [source, candidate]}; state.overrides = {source: sourceOverride, candidate: {genres: ['Action RPG'], themes: ['Space opera']}};", context);
-  context.source = source;
-  context.sourceOverride = sourceOverride;
+  context.testSource = source;
+  context.testCandidate = candidate;
+  context.testOverride = sourceOverride;
+  vm.runInContext("state.catalog = {games: [testSource, testCandidate]}; state.overrides = {source: testOverride, candidate: {genres: ['Action RPG'], themes: ['Space opera']}};", context);
 
-  const picks = context.getRecommendations(context.source, context.sourceOverride);
+  const picks = context.getRecommendations(context.testSource, context.testOverride);
   assert.equal(picks.length, 1);
   assert.equal(picks[0].game.gameId, "candidate");
   assert.equal(picks[0].label, "METADATA MATCH");
@@ -114,9 +115,10 @@ test("empty in-record relations fall back to curated override relations", () => 
     }]
   };
 
-  vm.runInContext("state.catalog = {games: [source, candidate]};", context);
-  context.source = source;
-  const picks = context.getRecommendations(context.source, override);
+  context.testSource = source;
+  context.testCandidate = candidate;
+  vm.runInContext("state.catalog = {games: [testSource, testCandidate]};", context);
+  const picks = context.getRecommendations(context.testSource, override);
   assert.equal(picks.length, 1);
   assert.equal(picks[0].game.gameId, "candidate");
   assert.equal(picks[0].label, "SAME SERIES");
