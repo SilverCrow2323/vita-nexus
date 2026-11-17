@@ -13,7 +13,7 @@ include("${VITASDK}/share/vita.cmake" REQUIRED)
 
 set(VITA_APP_NAME "VITA NEXUS")
 set(VITA_TITLEID "VNXS00001")
-set(VITA_VERSION "00.06")
+set(VITA_VERSION "00.07")
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -53,4 +53,7 @@ vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME})
 vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   VERSION ${VITA_VERSION}
   NAME ${VITA_APP_NAME}
+  FILE
+    ${CMAKE_CURRENT_SOURCE_DIR}/assets/fonts/BarlowCondensed-Medium.ttf assets/fonts/BarlowCondensed-Medium.ttf
+    ${CMAKE_CURRENT_SOURCE_DIR}/assets/fonts/BarlowCondensed-Bold.ttf assets/fonts/BarlowCondensed-Bold.ttf
 )
