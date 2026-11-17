@@ -174,7 +174,18 @@ def parse_dataset(dataset: str, text: str, source_url: str) -> tuple[list[dict[s
             }
         )
 
-    return releases, skipped
+    # A source TSV may repeat the same platform/title/region/content tuple.
+    # Keep one deterministic release record; the title map in build_catalog uses
+    # the final row for that same key, so both pieces of metadata stay aligned.
+    unique_releases: dict[str, dict[str, Any]] = {}
+    for release in releases:
+        release_id = release["releaseId"]
+        current = unique_releases.get(release_id)
+        if current is None or release["sourceUpdatedAt"] > current["sourceUpdatedAt"]:
+            unique_releases[release_id] = release
+
+    duplicate_count = len(releases) - len(unique_releases)
+    return list(unique_releases.values()), skipped + duplicate_count
 
 
 def build_catalog(
