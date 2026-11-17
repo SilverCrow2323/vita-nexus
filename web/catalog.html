@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="catalog.css">
   <link rel="stylesheet" href="manga.css">
+  <script src="lists.js" defer></script>
   <script src="catalog.js" defer></script>
 </head>
 <body class="catalog-page">
@@ -85,6 +86,31 @@
         <a href="https://github.com/SilverCrow2323/vita-nexus/actions/workflows/catalog-sync.yml" target="_blank" rel="noreferrer">Run the catalog sync ↗</a>
       </div>
       <div class="load-more-wrap"><button id="load-more" class="button button-quiet" type="button" hidden>Show more games <span>＋</span></button></div>
+    </section>
+
+    <section class="personal-lists" aria-labelledby="personal-lists-heading">
+      <div class="browser-heading">
+        <div><div class="section-kicker">YOUR BACKLOG. YOUR RULES.</div><h2 id="personal-lists-heading">Personal lists</h2></div>
+        <span class="catalog-live"><i></i> SAVED IN THIS BROWSER</span>
+      </div>
+      <p class="lists-intro">Build your own collections, rank the order, and carry them between devices with a JSON export. No account. No server. No nonsense.</p>
+      <form id="list-create-form" class="list-create-form">
+        <label class="sr-only" for="list-name">New list name</label>
+        <input id="list-name" name="name" maxlength="80" placeholder="Name your list…" required>
+        <button class="button button-primary" type="submit">Create list +</button>
+      </form>
+      <div class="lists-toolbar">
+        <label for="list-select">CURRENT LIST
+          <select id="list-select" aria-label="Choose a personal list"><option value="">Create a list to get started</option></select>
+        </label>
+        <div class="list-file-actions">
+          <button id="list-export" class="button button-quiet" type="button" disabled>Export JSON ↗</button>
+          <label class="button button-quiet list-import-label" for="list-import">Import JSON ↙</label>
+          <input id="list-import" type="file" accept="application/json,.json" hidden>
+        </div>
+      </div>
+      <p id="lists-status" class="lists-status" role="status" aria-live="polite">Your lists stay on this device until you export them.</p>
+      <ol id="list-entries" class="list-entries" aria-label="Games in the selected list"></ol>
     </section>
 
     <section class="catalog-note">

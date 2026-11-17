@@ -63,8 +63,8 @@ The roadmap is organized around testable milestones. A feature is not complete b
 ## Milestone 5 — Rankings and community
 
 - [ ] Personal and platform rankings.
-- [ ] Custom list creation and reordering.
-- [ ] JSON export/import.
+- [x] Browser-local custom list creation, ordering and removal.
+- [x] Versioned JSON export/import for personal lists (local-only; no account or backend).
 - [ ] Rating aggregation with vote counts and confidence.
 - [ ] Define optional backend and moderation model.
 - [ ] Public community submissions and voting only after backend implementation.
@@ -99,4 +99,5 @@ The static website now has a project landing page, searchable catalog browser an
 - [x] Public catalog snapshot generated and validated: **9,732 games / 12,357 releases** on 2026-11-17.
 - [ ] Add curated metadata and relation seeds for reviewed commercial titles.
 - [ ] Enable GitHub Pages in repository settings and confirm a successful deploy.
-- [ ] Add static ranking snapshots and browser-local custom lists.
+- [ ] Add static ranking snapshots and public ranking methodology.
+- [x] Browser-local custom lists with ordered entries and JSON backup/restore.
