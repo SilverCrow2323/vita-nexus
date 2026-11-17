@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-11-17T17:03:17Z",
+  "generatedAt": "2026-11-17T19:11:22Z",
   "sources": [
     {
       "sourceId": "nopaystation",
       "name": "NoPayStation",
       "dataset": "PSV_GAMES",
       "url": "https://nopaystation.org/tsv/PSV_GAMES.tsv",
-      "fetchedAt": "2026-11-17T17:03:15Z",
+      "fetchedAt": "2026-11-17T19:11:20Z",
       "recordCount": 3784,
       "notes": "Metadata-only import; 44 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -16,7 +16,7 @@
       "name": "NoPayStation",
       "dataset": "PSP_GAMES",
       "url": "https://nopaystation.org/tsv/PSP_GAMES.tsv",
-      "fetchedAt": "2026-11-17T17:03:15Z",
+      "fetchedAt": "2026-11-17T19:11:20Z",
       "recordCount": 2459,
       "notes": "Metadata-only import; 4 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -25,7 +25,7 @@
       "name": "NoPayStation",
       "dataset": "PSX_GAMES",
       "url": "https://nopaystation.org/tsv/PSX_GAMES.tsv",
-      "fetchedAt": "2026-11-17T17:03:15Z",
+      "fetchedAt": "2026-11-17T19:11:20Z",
       "recordCount": 1648,
       "notes": "Metadata-only import; 20 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -34,8 +34,8 @@
       "name": "VitaHomebrewDB",
       "dataset": "apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-17T17:03:17Z",
-      "recordCount": 1370,
+      "fetchedAt": "2026-11-17T19:11:22Z",
+      "recordCount": 1372,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     },
     {
@@ -43,14 +43,14 @@
       "name": "VitaHomebrewDB",
       "dataset": "psp_apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-17T17:03:17Z",
+      "fetchedAt": "2026-11-17T19:11:22Z",
       "recordCount": 3096,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     }
   ],
   "totals": {
-    "games": 9732,
-    "releases": 12357
+    "games": 9734,
+    "releases": 12359
   },
   "games": [
     {
@@ -10018,7 +10018,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "DeQxJ00",
-        "version": "v.1.5.2",
+        "version": "v.1.5.4",
         "categoryCode": "5",
         "requirements": "- libshacccg.suprx\n- CapUnlocker.skprx",
         "changelog": "- First Release",
@@ -10037,12 +10037,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.5.2",
-          "packageSizeBytes": 30352507,
+          "version": "v.1.5.4",
+          "packageSizeBytes": 30380875,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-16T17:05:10Z",
+          "sourceUpdatedAt": "2026-11-17T18:26:58Z",
           "sourceItemId": "1606",
           "titleId": "ART3DIR01"
         }
@@ -62097,7 +62097,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Asukate",
-        "version": "v.0.5.3-alpha",
+        "version": "v.0.6.0-alpha",
         "categoryCode": "5",
         "requirements": "- libshacccg.suprx",
         "changelog": "- First Release",
@@ -62116,12 +62116,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.5.3-alpha",
-          "packageSizeBytes": 25399388,
+          "version": "v.0.6.0-alpha",
+          "packageSizeBytes": 30849928,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-13T21:37:08Z",
+          "sourceUpdatedAt": "2026-11-17T18:24:05Z",
           "sourceItemId": "1678",
           "titleId": "HARDRPG01"
         }
@@ -100836,6 +100836,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4822",
+      "title": "Not Tetris 2",
+      "sortTitle": "Not Tetris 2",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Physics based Tetris clone for PSVita.",
+      "description": "Physics based Tetris clone for PSVita.",
+      "developer": "wld-16",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "wld-16",
+        "version": "v.0.7",
+        "categoryCode": "2",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4822",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/b8b3caf5e53914cc41c470a186588cd47fe0ddb62622e6c57edb45498b0f3bf2.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/wld-16/nottetris2",
+        "releasePageUrl": "https://github.com/wld-16/nottetris2/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4822",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.7",
+          "packageSizeBytes": 5022205,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-17",
+          "sourceItemId": "4822",
+          "titleId": "WLDD00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3047",
       "title": "Not Trust",
       "sortTitle": "Not Trust",
@@ -103554,6 +103598,50 @@
           "sourceUpdatedAt": "2008-07-16",
           "sourceItemId": "4079",
           "titleId": "OPEN01053"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4821",
+      "title": "OpenCMR2",
+      "sortTitle": "OpenCMR2",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Colin McRae Rally 2 for PSVita.",
+      "description": "Port of Colin McRae Rally 2 for PSVita.",
+      "developer": "Drakon",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Drakon",
+        "version": "v.1.8.7",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: PC",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4821",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/387dac87257e7a8cba2bc98ee2ccc99ad31559c268e892a3c9397f89d7b6490d.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/DrakonPL/OpenCMR2Vita",
+        "releasePageUrl": "https://github.com/DrakonPL/OpenCMR2Vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4821",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.8.7",
+          "packageSizeBytes": 1984700,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-17",
+          "sourceItemId": "4821",
+          "titleId": "OCMR20001"
         }
       ]
     },
@@ -117632,7 +117720,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "DrinkingSubset",
-        "version": "v.1.2.1",
+        "version": "v.1.2.3",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -117651,12 +117739,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.2.1",
-          "packageSizeBytes": 590548,
+          "version": "v.1.2.3",
+          "packageSizeBytes": 602773,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-11",
+          "sourceUpdatedAt": "2026-11-17T18:19:45Z",
           "sourceItemId": "1790",
           "titleId": "RECM00001"
         }
@@ -141578,7 +141666,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "rsn8887",
-        "version": "v.1.2.0",
+        "version": "v.1.3.0",
         "categoryCode": "1",
         "requirements": "",
         "changelog": "- First Release",
@@ -141597,12 +141685,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.2.0",
-          "packageSizeBytes": 1979933,
+          "version": "v.1.3.0",
+          "packageSizeBytes": 2069264,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-13T21:37:08Z",
+          "sourceUpdatedAt": "2026-11-17T18:21:52Z",
           "sourceItemId": "1769",
           "titleId": "RLYM00001"
         }
@@ -366882,7 +366970,7 @@
     }
   ],
   "homebrewImport": {
-    "lastImported": "2026-11-17T17:03:17Z",
-    "recordsAdded": 4466
+    "lastImported": "2026-11-17T19:11:22Z",
+    "recordsAdded": 4468
   }
 }
