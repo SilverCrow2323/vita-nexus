@@ -224,7 +224,7 @@ static void draw_home(vita2d_pgf *font, int selected)
     ui_draw_text_with_font(font, 516, 220, COLOR_PINK, 0.72f, "MODULE STATUS");
     ui_draw_text_with_font(font, 516, 264, COLOR_PAPER, 0.9f, menu_items[selected].label);
     ui_draw_text_with_font(font, 516, 294, COLOR_ACID, 0.62f, menu_items[selected].status);
-    ui_draw_text_with_font(font, 516, 344, COLOR_MUTED, 0.58f, menu_items[selected].description);
+    ui_draw_fit_text(516, 344, COLOR_MUTED, 0.58f, 372, menu_items[selected].description);
     vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
     ui_draw_text_with_font(font, 54, 484, COLOR_CYAN, 0.62f, "D-PAD SELECT    X OPEN    START EXIT");
     ui_draw_text_with_font(font, 54, 501, COLOR_MUTED, 0.48f, "DISCOVER READS THE SHARED, OFFLINE CATALOG");
@@ -267,8 +267,8 @@ static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platfo
             vita2d_draw_rectangle(42, y - 22, 876, 34, COLOR_PANEL);
             vita2d_draw_rectangle(42, y - 22, 4, 34, COLOR_PINK);
         }
-        ui_draw_textf_with_font(font, 58, y, index == selected ? COLOR_ACID : COLOR_PAPER,
-            0.66f, "%s", entry->title);
+        ui_draw_fit_text(58, y, index == selected ? COLOR_ACID : COLOR_PAPER,
+            0.66f, 710, entry->title);
         ui_draw_textf_with_font(font, 790, y, COLOR_CYAN, 0.5f, "%s", platform_label(entry->platform_mask));
     }
 
@@ -400,10 +400,10 @@ static void draw_library(vita2d_pgf *font, const VitaNexusLibrary *library,
     }
     for (size_t row = 0; row < CATALOG_ROWS && start + row < library_visible_count; ++row) {
         const VitaNexusLibraryRecord *record = &library->records[library_visible[start + row]];
-        const int y = 158 + (int)row * 34;
+        const int y = 156 + (int)row * 36;
         if (start + row == selected) {
-            vita2d_draw_rectangle(42, y - 20, 876, 30, COLOR_PANEL);
-            vita2d_draw_rectangle(42, y - 20, 4, 30, COLOR_CYAN);
+            vita2d_draw_rectangle(42, y - 21, 876, 32, COLOR_PANEL);
+            vita2d_draw_rectangle(42, y - 21, 4, 32, COLOR_CYAN);
         }
         ui_draw_text_with_font(font, 58, y, start + row == selected ? COLOR_ACID : COLOR_PAPER, 0.6f, record->game_id);
         ui_draw_textf_with_font(font, 650, y, COLOR_PINK, 0.46f, "%s%s%s  /  %u/10",
@@ -447,10 +447,12 @@ static void draw_profiles(vita2d_pgf *font, size_t selected, bool import_confirm
         if (result == VITA_NEXUS_STORE_INVALID || result == VITA_NEXUS_STORE_IO_ERROR) {
             ui_draw_text_with_font(font, 500, y, COLOR_PINK, 0.58f, "DATA ERROR - RESTORE BACKUP");
         } else {
-            ui_draw_textf_with_font(font, 500, y, COLOR_CYAN, 0.56f,
+            char stats_line[128];
+            (void)snprintf(stats_line, sizeof(stats_line),
                 "%lu ITEMS  /  FAV %lu  BACKLOG %lu  DONE %lu",
                 (unsigned long)stats.total, (unsigned long)stats.favorites,
                 (unsigned long)stats.backlog, (unsigned long)stats.completed);
+            ui_draw_fit_text(500, y, COLOR_CYAN, 0.56f, 400, stats_line);
         }
         ui_draw_textf_with_font(font, 64, y + 25, COLOR_MUTED, 0.48f,
             "RATING DATA  %lu ENTRIES", (unsigned long)stats.rated);
@@ -490,14 +492,14 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
         ui_draw_text_with_font(font, 600, 212, COLOR_MUTED, 0.62f, "YEAR  UNKNOWN");
 
     ui_draw_text_with_font(font, 54, 300, COLOR_ACID, 0.65f, "DEVELOPER");
-    ui_draw_text_with_font(font, 54, 326, COLOR_PAPER, 0.62f,
+    ui_draw_fit_text(54, 326, COLOR_PAPER, 0.62f, 390,
         entry->developer[0] ? entry->developer : "Not available");
     ui_draw_text_with_font(font, 500, 300, COLOR_ACID, 0.65f, "PUBLISHER");
-    ui_draw_text_with_font(font, 500, 326, COLOR_PAPER, 0.62f,
+    ui_draw_fit_text(500, 326, COLOR_PAPER, 0.62f, 410,
         entry->publisher[0] ? entry->publisher : "Not available");
 
     ui_draw_text_with_font(font, 54, 365, COLOR_PINK, 0.62f, "GENRES");
-    ui_draw_text_with_font(font, 54, 389, COLOR_PAPER, 0.58f,
+    ui_draw_fit_text(54, 389, COLOR_PAPER, 0.58f, 850,
         entry->genres[0] ? entry->genres : "Not classified");
 
     const uint8_t flags = library_flags(&g_library, entry->game_id);
