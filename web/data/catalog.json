@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-11-17T14:50:41Z",
+  "generatedAt": "2026-11-17T14:56:20Z",
   "sources": [
     {
       "sourceId": "nopaystation",
       "name": "NoPayStation",
       "dataset": "PSV_GAMES",
       "url": "https://nopaystation.org/tsv/PSV_GAMES.tsv",
-      "fetchedAt": "2026-11-17T14:50:41Z",
+      "fetchedAt": "2026-11-17T14:56:20Z",
       "recordCount": 3828,
       "notes": "Metadata-only import; 0 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -16,7 +16,7 @@
       "name": "NoPayStation",
       "dataset": "PSP_GAMES",
       "url": "https://nopaystation.org/tsv/PSP_GAMES.tsv",
-      "fetchedAt": "2026-11-17T14:50:41Z",
+      "fetchedAt": "2026-11-17T14:56:20Z",
       "recordCount": 2463,
       "notes": "Metadata-only import; 0 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -25,7 +25,7 @@
       "name": "NoPayStation",
       "dataset": "PSX_GAMES",
       "url": "https://nopaystation.org/tsv/PSX_GAMES.tsv",
-      "fetchedAt": "2026-11-17T14:50:41Z",
+      "fetchedAt": "2026-11-17T14:56:20Z",
       "recordCount": 1668,
       "notes": "Metadata-only import; 0 malformed rows skipped. Package URLs, license values and digests are discarded."
     }
