@@ -203,6 +203,12 @@ function addReleaseRow(release) {
   return row;
 }
 
+function firstNonEmptyArray(primary, fallback) {
+  if (Array.isArray(primary) && primary.length) return primary;
+  if (Array.isArray(fallback) && fallback.length) return fallback;
+  return Array.isArray(primary) ? primary : Array.isArray(fallback) ? fallback : [];
+}
+
 function normalizedTags(values) {
   return new Set((values || []).map((value) => String(value).trim().toLocaleLowerCase()).filter(Boolean));
 }
@@ -218,7 +224,7 @@ function recommendationPlatforms(game) {
 
 function getRecommendations(game, override) {
   const allGames = (state.catalog && state.catalog.games) || [];
-  const relationRecords = game.relations || override.relations || [];
+  const relationRecords = firstNonEmptyArray(game.relations, override.relations);
   const byId = new Map(allGames.map((item) => [item.gameId, item]));
   const nativePlatforms = new Set(["psvita", "psp", "ps1"]);
   const sourcePlatforms = new Set([...recommendationPlatforms(game)].filter((platform) => nativePlatforms.has(platform)));
@@ -252,17 +258,18 @@ function getRecommendations(game, override) {
       });
     });
 
-  const sourceGenres = normalizedTags(game.genres || override.genres);
-  const sourceThemes = normalizedTags(game.themes || override.themes);
-  const sourceFeatures = normalizedTags(game.features || override.features);
+  const sourceGenres = normalizedTags(firstNonEmptyArray(game.genres, override.genres));
+  const sourceThemes = normalizedTags(firstNonEmptyArray(game.themes, override.themes));
+  const sourceFeatures = normalizedTags(firstNonEmptyArray(game.features, override.features));
   const ranked = [];
 
   if (sourceGenres.size || sourceThemes.size || sourceFeatures.size) {
     allGames.forEach((candidate) => {
       if (selectedIds.has(candidate.gameId)) return;
-      const genres = normalizedTags(candidate.genres);
-      const themes = normalizedTags(candidate.themes);
-      const features = normalizedTags(candidate.features);
+      const candidateOverride = state.overrides[candidate.gameId] || {};
+      const genres = normalizedTags(firstNonEmptyArray(candidate.genres, candidateOverride.genres));
+      const themes = normalizedTags(firstNonEmptyArray(candidate.themes, candidateOverride.themes));
+      const features = normalizedTags(firstNonEmptyArray(candidate.features, candidateOverride.features));
       const sharedGenres = [...genres].filter((tag) => sourceGenres.has(tag));
       const sharedThemes = [...themes].filter((tag) => sourceThemes.has(tag));
       const sharedFeatures = [...features].filter((tag) => sourceFeatures.has(tag));
@@ -334,9 +341,9 @@ function createRecommendationCard(item) {
 
 function renderEditorialFacts(game, override, body) {
   const tags = [
-    ...(game.genres || override.genres || []).map((value) => ({kind:"GENRE",value})),
-    ...(game.themes || override.themes || []).map((value) => ({kind:"THEME",value})),
-    ...(game.features || override.features || []).map((value) => ({kind:"FEATURE",value}))
+    ...firstNonEmptyArray(game.genres, override.genres).map((value) => ({kind:"GENRE",value})),
+    ...firstNonEmptyArray(game.themes, override.themes).map((value) => ({kind:"THEME",value})),
+    ...firstNonEmptyArray(game.features, override.features).map((value) => ({kind:"FEATURE",value}))
   ];
   if (tags.length) {
     const section = element("section", "editorial-facts");
@@ -349,7 +356,7 @@ function renderEditorialFacts(game, override, body) {
     body.append(section);
   }
 
-  const ageRatings = game.ageRatings || override.ageRatings || [];
+  const ageRatings = firstNonEmptyArray(game.ageRatings, override.ageRatings);
   if (ageRatings.length) {
     const section = element("section", "age-rating-section");
     section.append(element("h3", "", "Age rating"));
@@ -365,7 +372,7 @@ function renderEditorialFacts(game, override, body) {
     body.append(section);
   }
 
-  const externalScores = game.externalScores || override.externalScores || [];
+  const externalScores = firstNonEmptyArray(game.externalScores, override.externalScores);
   if (externalScores.length) {
     const section = element("section", "external-scores-section");
     section.append(element("h3", "", "Review scores"));
