@@ -1,6 +1,6 @@
 # ✦ VITA NEXUS
 
-<p align="center"><strong>YOUR PLAYSTATION UNIVERSE. CONNECTED.</strong><br>A discovery-first companion for PS Vita, PSP, PS1 and homebrew.</p>
+<p align="center"><strong>THE BACKLOG NEVER SLEEPS.</strong><br>PS Vita, PSP, PS1 and homebrew. One place to dig up your next obsession.</p>
 
 <p align="center">
   <img alt="Status" src="https://img.shields.io/badge/status-early%20development-8b7cff?style=flat-square">
@@ -11,7 +11,7 @@
 > [!NOTE]
 > **Foundation phase.** This repository currently contains the product blueprint, documentation and first web companion shell. The native app, scanner, catalog engine and tracker are not implemented yet.
 
-## 🌌 The idea
+## 🧨 The idea
 
 VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher. It brings four corners of the PlayStation portable ecosystem into one organized place: discover games, understand your collection, find unexpected recommendations, track playtime and build personal rankings.
 
@@ -82,9 +82,9 @@ The native app owns console access and local play data. The website consumes pub
 
 ## 🎨 Design language
 
-VITA NEXUS should feel like a premium game-discovery magazine: cinematic hero artwork, confident typography, precise metadata, playful category names and motion that never gets in the way.
+VITA NEXUS looks like an underground cyberpunk manga zine: rough ink, halftone dots, ripped-poster edges, loud condensed type and electric pink, acid yellow, cyan and violet. It should feel printed, pasted and a little dangerous—not like a generic SaaS dashboard.
 
-The product UI is **English**. Project documentation is also written in English for consistency and accessibility.
+Keep the interface readable. Use short labels, plain English and direct copy. No corporate filler, fake urgency or claims that a planned feature already works. The product UI and project documentation stay in **English**.
 
 ## 🚦 Current status
 
@@ -115,4 +115,4 @@ The contribution workflow will be documented as implementation begins. Feature p
 
 ---
 
-<p align="center"><strong>VITA NEXUS</strong><br><sub>Find your next favorite. Rediscover the ones you forgot.</sub></p>
+<p align="center"><strong>VITA NEXUS</strong><br><sub>Good games don’t stay buried.</sub></p>
