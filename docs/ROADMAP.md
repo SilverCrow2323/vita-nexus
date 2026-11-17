@@ -113,7 +113,7 @@ The static website now has a project landing page, searchable catalog browser an
 
 ## Native foundation progress
 
-The native application lives in `native/` and uses the pinned VitaSDK 2026.08 toolchain, libvita2d and SceCtrl. The current 00.09 line includes Home, offline Discover, metadata detail sheets, personal Library, three local profiles, backups, bundled typography and lightweight transitions. A 00.05 smoke test was confirmed on a PS Vita 1000; subsequent UI/catalog revisions still need device revalidation. Installed-title discovery and automatic session tracking remain unimplemented.
+The native application lives in `native/` and uses the pinned VitaSDK 2026.08 toolchain, libvita2d and SceCtrl. The current 00.10 line includes Home, offline Discover, editorial game files, personal Library, three local profiles, backups, bundled typography, lightweight transitions and a consistent PSM-inspired magazine page system across every screen. A 00.05 smoke test was confirmed on a PS Vita 1000; the 00.10 layouts still need device revalidation. Installed-title discovery and automatic session tracking remain unimplemented.
 
 
 
