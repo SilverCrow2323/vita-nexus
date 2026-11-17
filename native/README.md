@@ -133,6 +133,6 @@ The transition and pulse calculations live in `native/src/ui_motion.h` and are c
 
 ## Editorial game cards (00.09)
 
-The native catalog index now carries the editorial fields already defined by schema 1.0.0: content kind, features, themes, age ratings and external scores. The index builder selects PEGI first for the European audience, then falls back to the first supported classification; it never fabricates a default age rating. External scores retain their provider, source, scale and vote count. Scores without a known scale are displayed without an invented denominator.
+The native catalog index now carries the editorial fields already defined by schema 1.0.0: content kind, features, themes, age ratings and external scores. The index builder selects PEGI first for the European audience, then falls back to the first supported classification; it never fabricates a default age rating. External scores retain the provider, supplied scale and vote count. Scores without a known scale are displayed without an invented denominator. The builder compacts these into three bounded display strings per game to keep the VPK footprint controlled.
 
 The game sheet groups this information into compact panels with platform coverage, release metadata, age guidance, review score, developer/publisher, genres, feature tags and the editorial note. The shared offline catalog remains the only source of truth. The VPK version is **00.09**; the expanded metadata layout requires a fresh hardware visual check.
