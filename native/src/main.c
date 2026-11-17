@@ -16,8 +16,11 @@
 
 #define ACTIVE_PROFILE_PATH "ux0:data/VitaNexus-active-profile-v1.dat"
 
-#define COLOR_BG       RGBA8(11, 9, 16, 255)
+#define COLOR_BG       RGBA8(8, 7, 12, 255)
+#define COLOR_SHEET    RGBA8(16, 13, 21, 255)
 #define COLOR_PANEL    RGBA8(24, 17, 29, 255)
+#define COLOR_CARD     RGBA8(34, 26, 39, 255)
+#define COLOR_HAIRLINE RGBA8(76, 61, 78, 255)
 #define COLOR_PINK     RGBA8(255, 61, 168, 255)
 #define COLOR_ACID     RGBA8(234, 255, 59, 255)
 #define COLOR_CYAN     RGBA8(44, 232, 242, 255)
@@ -128,7 +131,7 @@ static void ui_draw_textf_with_font(vita2d_pgf *fallback_font, int x, int y,
     ui_draw_text(x, y, color, scale, buffer);
 }
 
-#define CATALOG_ROWS 8
+#define CATALOG_ROWS 6
 #define MAX_VISIBLE_GAMES 20000
 
 static size_t visible_games[MAX_VISIBLE_GAMES];
@@ -216,43 +219,169 @@ static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
     }
 }
 
+
+/* -------------------------------------------------------------------------
+ * VITA NEXUS / PLAYER'S FIELD MAGAZINE
+ *
+ * Original editorial UI language: loud cover lines, printed folios, compact
+ * columns, hard rules, issue codes and source-led information panels.
+ * Designed for the Vita's fixed 960x544 framebuffer and controller focus.
+ * ---------------------------------------------------------------------- */
+
+static void draw_magazine_barcode(int x, int y, unsigned int color)
+{
+    static const uint8_t bars[] = {2, 1, 3, 1, 2, 4, 1, 2, 1, 3, 2, 1, 4, 1, 2};
+    int cursor = x;
+    for (size_t i = 0; i < sizeof(bars) / sizeof(bars[0]); ++i) {
+        vita2d_draw_rectangle(cursor, y, bars[i], 15, color);
+        cursor += (int)bars[i] + 2;
+    }
+}
+
+static void draw_magazine_canvas(unsigned int accent)
+{
+    vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
+    vita2d_draw_rectangle(18, 14, 924, 516, COLOR_SHEET);
+    vita2d_draw_rectangle(18, 14, 924, 5, accent);
+    vita2d_draw_rectangle(18, 14, 4, 516, accent);
+    vita2d_draw_rectangle(36, 32, 888, 1, COLOR_HAIRLINE);
+    vita2d_draw_rectangle(36, 481, 888, 1, COLOR_HAIRLINE);
+
+    /* Print registration ticks and a restrained halftone block in the gutter. */
+    for (int i = 0; i < 5; ++i) {
+        vita2d_draw_rectangle(923, 177 + i * 7, 3, 3, COLOR_HAIRLINE);
+        vita2d_draw_rectangle(923, 216 + i * 7, 3, 3, COLOR_HAIRLINE);
+    }
+}
+
+static void draw_magazine_header(vita2d_pgf *font, const char *section,
+    const char *headline, const char *strapline, const char *issue,
+    unsigned int accent)
+{
+    draw_magazine_canvas(accent);
+    ui_draw_text_with_font(font, 48, 55, COLOR_PAPER, 0.62f, "VITA NEXUS");
+    ui_draw_text_with_font(font, 168, 55, COLOR_MUTED, 0.48f, "PLAYER'S FIELD MAGAZINE");
+    ui_draw_fit_text(675, 55, accent, 0.48f, 185, issue);
+    draw_magazine_barcode(868, 36, accent);
+
+    ui_draw_text_with_font(font, 48, 91, accent, 0.54f, section);
+    ui_draw_fit_text(625, 91, COLOR_MUTED, 0.48f, 285, strapline);
+    ui_draw_fit_text(48, 133, COLOR_ACID, 1.02f, 862, headline);
+    vita2d_draw_rectangle(48, 148, 864, 2, accent);
+}
+
+static void draw_magazine_footer(vita2d_pgf *font, const char *controls,
+    const char *folio, unsigned int accent)
+{
+    vita2d_draw_rectangle(48, 495, 864, 2, accent);
+    ui_draw_fit_text(54, 519, COLOR_MUTED, 0.43f, 790, controls);
+    vita2d_draw_rectangle(864, 503, 48, 25, accent);
+    ui_draw_fit_text(869, 521, COLOR_BG, 0.52f, 38, folio);
+}
+
+static void draw_magazine_panel(int x, int y, int width, int height,
+    unsigned int accent)
+{
+    vita2d_draw_rectangle(x, y, width, height, COLOR_PANEL);
+    vita2d_draw_rectangle(x, y, width, 4, accent);
+    vita2d_draw_rectangle(x, y + height - 1, width, 1, COLOR_HAIRLINE);
+}
+
+static void draw_magazine_kicker(vita2d_pgf *font, int x, int y,
+    const char *label, unsigned int accent)
+{
+    vita2d_draw_rectangle(x, y + 2, 4, 13, accent);
+    ui_draw_text_with_font(font, x + 11, y + 1, accent, 0.50f, label);
+}
+
+static void draw_magazine_chip(vita2d_pgf *font, int x, int y, int width,
+    const char *label, unsigned int accent)
+{
+    vita2d_draw_rectangle(x, y, width, 23, COLOR_CARD);
+    vita2d_draw_rectangle(x, y, 3, 23, accent);
+    ui_draw_fit_text(x + 10, y + 16, COLOR_PAPER, 0.48f, width - 17, label);
+}
+
+static void draw_magazine_progress(vita2d_pgf *font, int x, int y, int width,
+    const char *label, size_t value, size_t total, unsigned int accent)
+{
+    char count[48];
+    int fill = 0;
+    (void)snprintf(count, sizeof(count), "%lu / %lu",
+        (unsigned long)value, (unsigned long)total);
+    ui_draw_text_with_font(font, x, y, COLOR_PAPER, 0.48f, label);
+    ui_draw_fit_text(x + width - 76, y, COLOR_MUTED, 0.44f, 76, count);
+    vita2d_draw_rectangle(x, y + 9, width, 5, COLOR_CARD);
+    if (total > 0) {
+        fill = (int)((value * (size_t)width) / total);
+        if (fill > width) fill = width;
+    }
+    if (fill > 0) vita2d_draw_rectangle(x, y + 9, fill, 5, accent);
+}
+
+static const VitaNexusCatalogEntry *find_catalog_entry(const char *game_id)
+{
+    if (!game_id || !game_id[0]) return NULL;
+    for (size_t i = 0; i < vita_nexus_catalog_count; ++i) {
+        if (strcmp(vita_nexus_catalog[i].game_id, game_id) == 0)
+            return &vita_nexus_catalog[i];
+    }
+    return NULL;
+}
+
 static void draw_home(vita2d_pgf *font, int selected)
 {
-    const int menu_x = 54, menu_y = 184, row_h = 48;
-    vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
-    vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
-    vita2d_draw_rectangle(40, 38, 880, 2, COLOR_PAPER);
-    ui_draw_text_with_font(font, 52, 76, COLOR_ACID, 1.25f, "VITA NEXUS");
-    ui_draw_text_with_font(font, 53, 101, COLOR_CYAN, 0.72f, "THE BACKLOG NEVER SLEEPS");
-    ui_draw_text_with_font(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.08");
-    vita2d_draw_rectangle(48, 132, 864, 1, COLOR_PINK);
-    ui_draw_text_with_font(font, 54, 163, COLOR_MUTED, 0.68f, "01  /  SELECT A MODULE");
+    static const char *folios[] = {"06", "04", "11", "08", "12"};
+    const int menu_x = 48, menu_y = 176, row_h = 55;
+    if (selected < 0 || selected >= (int)(sizeof(menu_items) / sizeof(menu_items[0])))
+        selected = 0;
 
+    draw_magazine_header(font, "EDITOR'S DESK", "THE BACKLOG NEVER SLEEPS",
+        "VOL. 01  /  CONSOLE EDITION", "ISSUE 010", COLOR_PINK);
+
+    draw_magazine_kicker(font, 48, 168, "IN THIS ISSUE", COLOR_CYAN);
     for (int i = 0; i < 5; ++i) {
         const int y = menu_y + (i * row_h);
         const bool active = i == selected;
-        if (active) {
-            vita2d_draw_rectangle(menu_x - 8, y - 22, 388, 44, COLOR_PANEL);
-            vita2d_draw_rectangle(menu_x - 8, y - 22, 5, 44, COLOR_PINK);
-            vita2d_draw_rectangle(menu_x + 4, y + 16,
-                64 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_CYAN);
-        }
-        ui_draw_textf_with_font(font, menu_x + 10, y + 5, active ? COLOR_ACID : COLOR_MUTED,
-            0.9f, "%02d  %s", i + 1, menu_items[i].label);
+        draw_magazine_panel(menu_x, y, 280, 46, active ? COLOR_PINK : COLOR_HAIRLINE);
+        if (active) vita2d_draw_rectangle(menu_x, y, 280, 46, COLOR_CARD);
+        ui_draw_textf_with_font(font, menu_x + 14, y + 30,
+            active ? COLOR_ACID : COLOR_MUTED, 0.68f, "%02d", i + 1);
+        ui_draw_fit_text(menu_x + 58, y + 29,
+            active ? COLOR_PAPER : COLOR_MUTED, 0.76f, 175, menu_items[i].label);
+        ui_draw_text_with_font(font, menu_x + 238, y + 29,
+            active ? COLOR_CYAN : COLOR_HAIRLINE, 0.45f, folios[i]);
+        if (active)
+            vita2d_draw_rectangle(menu_x + 58, y + 36,
+                50 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 22, 48), 2, COLOR_CYAN);
     }
 
-    vita2d_draw_rectangle(490, 184, 420, 228, COLOR_PANEL);
-    vita2d_draw_rectangle(490, 184, 420, 4, COLOR_CYAN);
-    ui_draw_text_with_font(font, 516, 220, COLOR_PINK, 0.72f, "MODULE STATUS");
-    ui_draw_text_with_font(font, 516, 264, COLOR_PAPER, 0.9f, menu_items[selected].label);
-    ui_draw_text_with_font(font, 516, 294, COLOR_ACID, 0.62f, menu_items[selected].status);
-    ui_draw_fit_text(516, 344, COLOR_MUTED, 0.58f, 372, menu_items[selected].description);
-    vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
-    ui_draw_text_with_font(font, 54, 484, COLOR_CYAN, 0.62f, "D-PAD SELECT    X OPEN    START EXIT");
-    ui_draw_text_with_font(font, 54, 501, COLOR_MUTED, 0.48f, "DISCOVER READS THE SHARED, OFFLINE CATALOG");
-    ui_draw_text_with_font(font, 54, 516, COLOR_MUTED, 0.52f, "NO INSTALLATION SCAN  /  NO SYSTEM FILES MODIFIED");
-}
+    draw_magazine_panel(348, 168, 564, 311, COLOR_CYAN);
+    draw_magazine_kicker(font, 372, 190, "COVER STORY  /  SELECTED SECTION", COLOR_PINK);
+    ui_draw_textf_with_font(font, 372, 246, COLOR_PAPER, 1.45f,
+        "%02d", selected + 1);
+    ui_draw_fit_text(450, 245, COLOR_ACID, 1.12f, 425, menu_items[selected].label);
+    ui_draw_fit_text(374, 278, COLOR_CYAN, 0.62f, 510, menu_items[selected].status);
+    draw_wrapped(font, 374, 315, COLOR_PAPER, 0.60f,
+        menu_items[selected].description, 505, 3);
+    ui_draw_text_with_font(font, 374, 379, COLOR_MUTED, 0.46f,
+        "A FIELD NOTE FROM THE VITA NEXUS EDITORIAL DESK");
+    draw_magazine_barcode(822, 365, COLOR_PINK);
 
+    draw_magazine_panel(370, 400, 164, 62, COLOR_PINK);
+    draw_magazine_panel(546, 400, 164, 62, COLOR_ACID);
+    draw_magazine_panel(722, 400, 166, 62, COLOR_CYAN);
+    ui_draw_text_with_font(font, 383, 425, COLOR_MUTED, 0.43f, "CATALOG");
+    ui_draw_textf_with_font(font, 383, 450, COLOR_PAPER, 0.72f, "%lu GAMES",
+        (unsigned long)vita_nexus_catalog_count);
+    ui_draw_text_with_font(font, 559, 425, COLOR_MUTED, 0.43f, "FORMATS");
+    ui_draw_text_with_font(font, 559, 450, COLOR_PAPER, 0.72f, "VITA / PSP / PS1");
+    ui_draw_text_with_font(font, 735, 425, COLOR_MUTED, 0.43f, "PLAYER SLOTS");
+    ui_draw_text_with_font(font, 735, 450, COLOR_PAPER, 0.72f, "03 / LOCAL");
+
+    draw_magazine_footer(font, "D-PAD  TURN THE PAGE     CROSS  OPEN SECTION     START  EXIT",
+        "01", COLOR_PINK);
+}
 
 static void rebuild_visible_games(unsigned int platform_filter, int letter_filter)
 {
@@ -269,41 +398,72 @@ static void rebuild_visible_games(unsigned int platform_filter, int letter_filte
     }
 }
 
-static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platform_filter, int letter_filter)
+static void draw_discover(vita2d_pgf *font, size_t selected,
+    unsigned int platform_filter, int letter_filter)
 {
     const size_t start = selected >= CATALOG_ROWS ? selected - CATALOG_ROWS + 1 : 0;
-    vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
-    vita2d_draw_rectangle(0, 0, 960, 8, COLOR_CYAN);
-    ui_draw_text_with_font(font, 48, 62, COLOR_ACID, 1.0f, "DISCOVER / CATALOG");
-    ui_draw_textf_with_font(font, 650, 60, COLOR_PINK, 0.54f, "%lu / %lu",
-        (unsigned long)visible_count, (unsigned long)vita_nexus_catalog_count);
-    ui_draw_textf_with_font(font, 48, 105, COLOR_CYAN, 0.48f, "FILTER  %s     INITIAL  %s",
-        platform_filters[platform_filter], letter_filter < 0 ? "ALL" : (char[2]){'A' + letter_filter, '\0'});
-    vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
+    char filter_note[96];
+
+    draw_magazine_header(font, "THE INDEX  /  DISCOVER", "FIND YOUR NEXT OBSESSION",
+        "9,732 FILES  /  FOUR PLAYSTATION WORLDS", "INDEX / 04", COLOR_CYAN);
+    draw_magazine_chip(font, 48, 165, 255, platform_filters[platform_filter], COLOR_CYAN);
+    (void)snprintf(filter_note, sizeof(filter_note), "INITIAL  %s",
+        letter_filter < 0 ? "ALL" : (char[2]){'A' + letter_filter, '\0'});
+    draw_magazine_chip(font, 315, 165, 170, filter_note, COLOR_PINK);
+    draw_magazine_chip(font, 495, 165, 190, "SQUARE  /  RESET FILTERS", COLOR_ACID);
+
+    draw_magazine_panel(48, 199, 640, 280, COLOR_CYAN);
+    draw_magazine_panel(704, 199, 208, 280, COLOR_PINK);
+    draw_magazine_kicker(font, 68, 218, "THE GAME REGISTER", COLOR_CYAN);
+    ui_draw_text_with_font(font, 535, 220, COLOR_MUTED, 0.43f, "PLATFORM");
+    vita2d_draw_rectangle(64, 236, 608, 1, COLOR_HAIRLINE);
+
+    if (visible_count == 0) {
+        ui_draw_text_with_font(font, 82, 300, COLOR_PAPER, 0.88f, "NO MATCHES IN THIS EDITION");
+        ui_draw_text_with_font(font, 82, 330, COLOR_MUTED, 0.55f, "Clear a filter and try the index again.");
+    }
 
     for (size_t row = 0; row < CATALOG_ROWS && start + row < visible_count; ++row) {
         const size_t index = visible_games[start + row];
         const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[index];
-        const int y = 125 + (int)row * 39;
-        if (start + row == selected) {
-            vita2d_draw_rectangle(42, y - 22, 876, 34, COLOR_PANEL);
-            vita2d_draw_rectangle(42, y - 22, 4, 34, COLOR_PINK);
-            vita2d_draw_rectangle(58, y + 8,
-                64 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_CYAN);
+        const int y = 263 + (int)row * 34;
+        const bool active = start + row == selected;
+        if (active) {
+            vita2d_draw_rectangle(64, y - 22, 608, 30, COLOR_CARD);
+            vita2d_draw_rectangle(64, y - 22, 4, 30, COLOR_PINK);
+            vita2d_draw_rectangle(79, y + 5,
+                46 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 20, 48), 2, COLOR_CYAN);
+        } else {
+            vita2d_draw_rectangle(78, y + 8, 594, 1, COLOR_HAIRLINE);
         }
-        ui_draw_fit_text(58, y, start + row == selected ? COLOR_ACID : COLOR_PAPER,
-            0.66f, 710, entry->title);
-        ui_draw_textf_with_font(font, 790, y, COLOR_CYAN, 0.5f, "%s", platform_label(entry->platform_mask));
+        ui_draw_textf_with_font(font, 82, y, COLOR_MUTED, 0.46f, "%02lu",
+            (unsigned long)(start + row + 1));
+        ui_draw_fit_text(122, y, active ? COLOR_ACID : COLOR_PAPER,
+            0.66f, 405, entry->title);
+        ui_draw_fit_text(538, y, COLOR_CYAN, 0.47f, 120,
+            platform_label(entry->platform_mask));
     }
+
+    draw_magazine_kicker(font, 724, 218, "INDEX NOTES", COLOR_PINK);
+    ui_draw_text_with_font(font, 727, 269, COLOR_MUTED, 0.44f, "MATCHES");
+    ui_draw_textf_with_font(font, 724, 311, COLOR_ACID, 1.16f, "%lu",
+        (unsigned long)visible_count);
+    vita2d_draw_rectangle(724, 324, 166, 1, COLOR_HAIRLINE);
+    ui_draw_text_with_font(font, 727, 350, COLOR_MUTED, 0.44f, "ALL CATALOG FILES");
+    ui_draw_textf_with_font(font, 727, 378, COLOR_PAPER, 0.70f, "%lu",
+        (unsigned long)vita_nexus_catalog_count);
+    ui_draw_text_with_font(font, 727, 408, COLOR_MUTED, 0.44f, "CURRENT EDITION");
+    ui_draw_fit_text(727, 434, COLOR_CYAN, 0.53f, 164,
+        platform_filters[platform_filter]);
+    ui_draw_text_with_font(font, 727, 459, COLOR_PINK, 0.44f,
+        "CROSS / OPEN GAME FILE");
 
     if (selected < visible_count) {
         const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[visible_games[selected]];
-        vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
-        ui_draw_textf_with_font(font, 54, 477, COLOR_PINK, 0.58f, "GAME ID  %s", entry->game_id);
-        ui_draw_textf_with_font(font, 54, 499, COLOR_CYAN, 0.58f, "%u RELEASE RECORDS  /  %s",
-            (unsigned int)entry->release_count, platform_label(entry->platform_mask));
+        ui_draw_fit_text(54, 474, COLOR_MUTED, 0.40f, 620, entry->game_id);
     }
-    ui_draw_text_with_font(font, 54, 525, COLOR_MUTED, 0.46f, "UP/DOWN BROWSE  L/R INITIAL  TRIANGLE PLATFORM  SQUARE RESET  X DETAILS");
+    draw_magazine_footer(font, "UP / DOWN  BROWSE     L / R  INITIAL     TRIANGLE  PLATFORM     CROSS  GAME FILE",
+        "04", COLOR_CYAN);
 }
 
 static VitaNexusLibrary g_library;
@@ -405,162 +565,223 @@ static void activate_profile(unsigned int selected, const char **notice)
 static void draw_library(vita2d_pgf *font, const VitaNexusLibrary *library,
     size_t selected, unsigned int filter, bool remove_confirm)
 {
-    const size_t start = selected >= CATALOG_ROWS ? selected - CATALOG_ROWS + 1 : 0;
     VitaNexusProfileStats stats;
+    const size_t start = selected >= CATALOG_ROWS ? selected - CATALOG_ROWS + 1 : 0;
     vita_nexus_profile_get_stats(library, &stats);
-    vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
-    vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
-    ui_draw_textf_with_font(font, 48, 62, COLOR_ACID, 1.0f, "MY LIBRARY / PLAYER %u", active_profile + 1);
-    ui_draw_textf_with_font(font, 760, 60, COLOR_CYAN, 0.6f, "%lu ITEMS",
-        (unsigned long)stats.total);
-    vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
-    ui_draw_textf_with_font(font, 54, 112, COLOR_PINK, 0.52f, "%s   FAV %lu   BACKLOG %lu   DONE %lu   RATED %lu",
-        library_filter_labels[filter], (unsigned long)stats.favorites, (unsigned long)stats.backlog,
-        (unsigned long)stats.completed, (unsigned long)stats.rated);
+
+    draw_magazine_header(font, "PLAYER'S LOG  /  LIBRARY", "YOUR COLLECTION, IN PRINT",
+        "PRIVATE NOTES  /  PLAYER PROFILE", "LOG / 06", COLOR_PINK);
+
+    const size_t metric_values[] = {stats.total, stats.favorites, stats.backlog, stats.completed};
+    const char *metric_labels[] = {"TRACKED TITLES", "FAVORITES", "BACKLOG", "COMPLETED"};
+    const unsigned int metric_colors[] = {COLOR_CYAN, COLOR_PINK, COLOR_ACID, COLOR_CYAN};
+    for (int i = 0; i < 4; ++i) {
+        const int x = 48 + i * 219;
+        draw_magazine_panel(x, 165, 207, 62, metric_colors[i]);
+        ui_draw_text_with_font(font, x + 13, 188, COLOR_MUTED, 0.43f, metric_labels[i]);
+        ui_draw_textf_with_font(font, x + 13, 216, COLOR_PAPER, 0.82f, "%lu",
+            (unsigned long)metric_values[i]);
+    }
+
+    draw_magazine_panel(48, 242, 610, 237, COLOR_CYAN);
+    draw_magazine_panel(674, 242, 238, 237, COLOR_PINK);
+    draw_magazine_kicker(font, 68, 261, "THE PERSONAL REGISTER", COLOR_CYAN);
+    ui_draw_fit_text(480, 263, COLOR_MUTED, 0.44f, 158, library_filter_labels[filter]);
+    vita2d_draw_rectangle(64, 280, 578, 1, COLOR_HAIRLINE);
 
     if (library_visible_count == 0) {
-        ui_draw_text_with_font(font, 72, 210, COLOR_PAPER, 0.82f, "NO GAMES IN THIS VIEW.");
-        ui_draw_text_with_font(font, 72, 246, COLOR_MUTED, 0.58f, "Track games from DISCOVER or switch the L/R filter.");
+        ui_draw_text_with_font(font, 82, 337, COLOR_PAPER, 0.82f, "NOTHING ON FILE. YET.");
+        ui_draw_text_with_font(font, 82, 367, COLOR_MUTED, 0.53f,
+            "Open a game in DISCOVER and add it to your personal log.");
     }
+
     for (size_t row = 0; row < CATALOG_ROWS && start + row < library_visible_count; ++row) {
-        const VitaNexusLibraryRecord *record = &library->records[library_visible[start + row]];
-        const int y = 156 + (int)row * 36;
-        if (start + row == selected) {
-            vita2d_draw_rectangle(42, y - 21, 876, 32, COLOR_PANEL);
-            vita2d_draw_rectangle(42, y - 21, 4, 32, COLOR_CYAN);
-            vita2d_draw_rectangle(58, y + 8,
-                64 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_PINK);
+        const VitaNexusLibraryRecord *record =
+            &library->records[library_visible[start + row]];
+        const VitaNexusCatalogEntry *entry = find_catalog_entry(record->game_id);
+        const int y = 309 + (int)row * 27;
+        const bool active = start + row == selected;
+        const char *title = entry ? entry->title : record->game_id;
+        char status[72] = "";
+        if (record->flags & VITA_NEXUS_LIBRARY_FAVORITE)
+            (void)strncat(status, "FAV  ", sizeof(status) - strlen(status) - 1);
+        if (record->flags & VITA_NEXUS_LIBRARY_BACKLOG)
+            (void)strncat(status, "BACKLOG  ", sizeof(status) - strlen(status) - 1);
+        if (record->flags & VITA_NEXUS_LIBRARY_COMPLETED)
+            (void)strncat(status, "DONE", sizeof(status) - strlen(status) - 1);
+        if (active) {
+            vita2d_draw_rectangle(64, y - 18, 578, 24, COLOR_CARD);
+            vita2d_draw_rectangle(64, y - 18, 4, 24, COLOR_PINK);
         }
-        ui_draw_text_with_font(font, 58, y, start + row == selected ? COLOR_ACID : COLOR_PAPER, 0.6f, record->game_id);
-        ui_draw_textf_with_font(font, 650, y, COLOR_PINK, 0.46f, "%s%s%s  /  %u/10",
-            (record->flags & VITA_NEXUS_LIBRARY_FAVORITE) ? "FAV " : "",
-            (record->flags & VITA_NEXUS_LIBRARY_BACKLOG) ? "BACKLOG " : "",
-            (record->flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "DONE" : "",
-            (unsigned int)record->rating);
+        ui_draw_textf_with_font(font, 78, y, COLOR_MUTED, 0.43f, "%02lu",
+            (unsigned long)(start + row + 1));
+        ui_draw_fit_text(115, y, active ? COLOR_ACID : COLOR_PAPER,
+            0.58f, 285, title);
+        ui_draw_fit_text(410, y, COLOR_CYAN, 0.41f, 166,
+            status[0] ? status : "UNFILED");
+        ui_draw_textf_with_font(font, 594, y, COLOR_PINK, 0.48f,
+            "%u/10", (unsigned int)record->rating);
+        if (!active) vita2d_draw_rectangle(78, y + 7, 560, 1, COLOR_HAIRLINE);
     }
-    vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
+
+    draw_magazine_kicker(font, 694, 261, "COLLECTION REPORT", COLOR_PINK);
+    ui_draw_textf_with_font(font, 694, 302, COLOR_PAPER, 0.78f,
+        "PLAYER %02u", active_profile + 1);
+    draw_magazine_progress(font, 694, 332, 198, "FAVORITES",
+        stats.favorites, stats.total, COLOR_PINK);
+    draw_magazine_progress(font, 694, 367, 198, "BACKLOG",
+        stats.backlog, stats.total, COLOR_ACID);
+    draw_magazine_progress(font, 694, 402, 198, "COMPLETED",
+        stats.completed, stats.total, COLOR_CYAN);
+    ui_draw_textf_with_font(font, 694, 454, COLOR_MUTED, 0.42f,
+        "%lu RATED ENTRIES", (unsigned long)stats.rated);
+
     if (active_profile_read_only) {
-        ui_draw_text_with_font(font, 54, 478, COLOR_PINK, 0.52f, "PROFILE DATA IS DAMAGED - RESTORE A VALID BACKUP IN PROFILES");
+        ui_draw_fit_text(54, 473, COLOR_PINK, 0.43f, 580,
+            "DATA ERROR  /  RESTORE A VALID BACKUP IN PROFILES");
     } else if (remove_confirm) {
-        ui_draw_text_with_font(font, 54, 478, COLOR_PINK, 0.55f, "REMOVE THIS TRACKER ENTRY?  X CONFIRM  CIRCLE CANCEL");
-    } else {
-        ui_draw_text_with_font(font, 54, 478, COLOR_CYAN, 0.52f, "UP/DOWN SELECT  X OPEN  L/R FILTER  SQUARE REMOVE");
+        ui_draw_fit_text(54, 473, COLOR_PINK, 0.46f, 580,
+            "REMOVE THIS ENTRY?  CROSS CONFIRM  /  CIRCLE CANCEL");
     }
-    ui_draw_text_with_font(font, 54, 508, COLOR_MUTED, 0.46f, "CIRCLE HOME  /  LOCAL COLLECTION ONLY");
+    draw_magazine_footer(font,
+        "UP / DOWN  SELECT     CROSS  OPEN FILE     L / R  FILTER     SQUARE  REMOVE",
+        "06", COLOR_PINK);
 }
 
-static void draw_profiles(vita2d_pgf *font, size_t selected, bool import_confirm, const char *notice)
+static void draw_profiles(vita2d_pgf *font, size_t selected,
+    bool import_confirm, const char *notice)
 {
-    vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
-    vita2d_draw_rectangle(0, 0, 960, 8, COLOR_CYAN);
-    ui_draw_text_with_font(font, 48, 62, COLOR_ACID, 1.0f, "LOCAL PROFILES / BACKUP BAY");
-    vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
+    draw_magazine_header(font, "PLAYER DOSSIERS  /  BACKUP BAY",
+        "THREE PLAYERS. THREE COLLECTIONS.",
+        "LOCAL PROFILES  /  PORTABLE BACKUPS", "DOSSIER / 08", COLOR_CYAN);
 
     for (unsigned int i = 0; i < VITA_NEXUS_PROFILE_COUNT; ++i) {
         VitaNexusLibrary snapshot;
         VitaNexusProfileStats stats;
         const VitaNexusStoreResult result = read_profile(i, &snapshot);
         vita_nexus_profile_get_stats(&snapshot, &stats);
-        const int y = 148 + (int)i * 91;
+        const int x = 48 + (int)i * 292;
+        const int y = 169;
         const bool active = i == active_profile;
         const bool focus = i == selected;
-        if (focus) {
-            vita2d_draw_rectangle(42, y - 30, 876, 76, COLOR_PANEL);
-            vita2d_draw_rectangle(42, y - 30, 5, 76, COLOR_PINK);
-            vita2d_draw_rectangle(64, y + 38,
-                72 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_CYAN);
-        }
-        ui_draw_textf_with_font(font, 64, y, focus ? COLOR_ACID : COLOR_PAPER, 0.82f,
-            "PLAYER %02u%s", i + 1, active ? "  /  ACTIVE" : "");
-        if (result == VITA_NEXUS_STORE_INVALID || result == VITA_NEXUS_STORE_IO_ERROR) {
-            ui_draw_text_with_font(font, 500, y, COLOR_PINK, 0.58f, "DATA ERROR - RESTORE BACKUP");
+        const unsigned int accent = focus ? COLOR_PINK : (i == 1 ? COLOR_ACID : COLOR_CYAN);
+
+        draw_magazine_panel(x, y, 280, 281, accent);
+        draw_magazine_kicker(font, x + 18, y + 19,
+            focus ? "CURRENT SELECTION" : "PLAYER DOSSIER", accent);
+        ui_draw_textf_with_font(font, x + 18, y + 91, COLOR_PAPER, 1.68f,
+            "%02u", i + 1);
+        ui_draw_textf_with_font(font, x + 108, y + 77, focus ? COLOR_ACID : COLOR_PAPER,
+            0.78f, "PLAYER %02u", i + 1);
+        if (active) {
+            draw_magazine_chip(font, x + 108, y + 88, 126, "ACTIVE PROFILE", COLOR_CYAN);
         } else {
-            char stats_line[128];
-            (void)snprintf(stats_line, sizeof(stats_line),
-                "%lu ITEMS  /  FAV %lu  BACKLOG %lu  DONE %lu",
-                (unsigned long)stats.total, (unsigned long)stats.favorites,
-                (unsigned long)stats.backlog, (unsigned long)stats.completed);
-            ui_draw_fit_text(500, y, COLOR_CYAN, 0.56f, 400, stats_line);
+            draw_magazine_chip(font, x + 108, y + 88, 126, "LOCAL SLOT", COLOR_HAIRLINE);
         }
-        ui_draw_textf_with_font(font, 64, y + 25, COLOR_MUTED, 0.48f,
-            "RATING DATA  %lu ENTRIES", (unsigned long)stats.rated);
+
+        vita2d_draw_rectangle(x + 18, y + 124, 244, 1, COLOR_HAIRLINE);
+        if (result == VITA_NEXUS_STORE_INVALID || result == VITA_NEXUS_STORE_IO_ERROR) {
+            ui_draw_fit_text(x + 18, y + 165, COLOR_PINK, 0.56f, 238,
+                "DATA DAMAGED  /  RESTORE BACKUP");
+        } else {
+            ui_draw_text_with_font(font, x + 18, y + 153, COLOR_MUTED, 0.43f, "COLLECTION");
+            ui_draw_textf_with_font(font, x + 18, y + 187, COLOR_PAPER, 0.88f,
+                "%lu TITLES", (unsigned long)stats.total);
+            ui_draw_textf_with_font(font, x + 18, y + 218, COLOR_CYAN, 0.49f,
+                "%lu FAV   /   %lu BACKLOG",
+                (unsigned long)stats.favorites, (unsigned long)stats.backlog);
+            draw_magazine_progress(font, x + 18, y + 240, 244, "COMPLETED",
+                stats.completed, stats.total, COLOR_PINK);
+            ui_draw_textf_with_font(font, x + 18, y + 268, COLOR_MUTED, 0.43f,
+                "%lu PERSONAL SCORES", (unsigned long)stats.rated);
+        }
     }
 
-    vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
     if (import_confirm) {
-        ui_draw_textf_with_font(font, 54, 476, COLOR_PINK, 0.56f, "RESTORE PLAYER %02lu FROM BACKUP?", (unsigned long)selected + 1);
-        ui_draw_text_with_font(font, 54, 501, COLOR_CYAN, 0.52f, "X CONFIRM OVERWRITE  /  CIRCLE CANCEL");
-    } else {
-        ui_draw_text_with_font(font, 54, 476, COLOR_CYAN, 0.52f, "UP/DOWN SLOT  X ACTIVATE  TRIANGLE EXPORT  SQUARE RESTORE");
-        ui_draw_text_with_font(font, 54, 501, COLOR_MUTED, 0.48f, "CIRCLE HOME  /  RESTORE REQUIRES A SECOND CONFIRMATION");
+        draw_magazine_panel(48, 461, 864, 27, COLOR_PINK);
+        ui_draw_fit_text(64, 481, COLOR_PAPER, 0.49f, 830,
+            "RESTORE PLAYER BACKUP?  CROSS CONFIRM OVERWRITE  /  CIRCLE CANCEL");
+    } else if (notice && notice[0]) {
+        draw_magazine_panel(48, 461, 864, 27, COLOR_ACID);
+        ui_draw_fit_text(64, 481, COLOR_PAPER, 0.48f, 830, notice);
     }
-    if (notice && notice[0]) ui_draw_text_with_font(font, 54, 528, COLOR_ACID, 0.44f, notice);
+
+    draw_magazine_footer(font,
+        "UP / DOWN  SELECT PLAYER     CROSS  ACTIVATE     TRIANGLE  EXPORT     SQUARE  RESTORE",
+        "08", COLOR_CYAN);
 }
 
 static void draw_game_detail(vita2d_pgf *font, size_t selected)
 {
     if (selected >= vita_nexus_catalog_count) return;
     const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[selected];
-
-    vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
-    vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
-    ui_draw_text_with_font(font, 48, 54, COLOR_CYAN, 0.65f, "DISCOVER / GAME FILE");
-    ui_draw_fit_text(48, 102, COLOR_ACID, 1.05f, 864, entry->title);
-    vita2d_draw_rectangle(48, 124, 864, 2, COLOR_PINK);
-
-    /* Two compact editorial panels keep the important facts above the fold. */
-    vita2d_draw_rectangle(48, 145, 420, 144, COLOR_PANEL);
-    vita2d_draw_rectangle(484, 145, 428, 144, COLOR_PANEL);
-    vita2d_draw_rectangle(48, 145, 420, 3, COLOR_CYAN);
-    vita2d_draw_rectangle(484, 145, 428, 3, COLOR_PINK);
-
-    ui_draw_text_with_font(font, 70, 173, COLOR_PINK, 0.58f, "PLATFORM COVERAGE");
-    ui_draw_fit_text(70, 199, COLOR_PAPER, 0.86f, 370, platform_label(entry->platform_mask));
-    ui_draw_text_with_font(font, 70, 231, COLOR_CYAN, 0.48f, "RELEASES");
-    ui_draw_textf_with_font(font, 70, 256, COLOR_PAPER, 0.62f, "%u", (unsigned int)entry->release_count);
-    ui_draw_text_with_font(font, 222, 231, COLOR_CYAN, 0.48f, "YEAR");
-    if (entry->release_year)
-        ui_draw_textf_with_font(font, 222, 256, COLOR_PAPER, 0.62f, "%u", (unsigned int)entry->release_year);
-    else
-        ui_draw_text_with_font(font, 222, 256, COLOR_MUTED, 0.52f, "UNKNOWN");
-
-    ui_draw_text_with_font(font, 506, 173, COLOR_PINK, 0.58f, "AGE GUIDANCE");
-    ui_draw_fit_text(506, 197, COLOR_PAPER, 0.62f, 380,
-        entry->age_guidance[0] ? entry->age_guidance : "NOT LISTED IN SOURCE DATA");
-    ui_draw_text_with_font(font, 506, 244, COLOR_CYAN, 0.48f, "EXTERNAL SCORE");
-    ui_draw_fit_text(506, 267, entry->external_score[0] ? COLOR_PAPER : COLOR_MUTED,
-        0.48f, 380, entry->external_score[0] ? entry->external_score : "NO EXTERNAL SCORE");
-
-    vita2d_draw_rectangle(48, 303, 864, 112, COLOR_PANEL);
-    ui_draw_text_with_font(font, 70, 327, COLOR_ACID, 0.53f, "DEVELOPER");
-    ui_draw_fit_text(70, 350, COLOR_PAPER, 0.56f, 370,
-        entry->developer[0] ? entry->developer : "Not available");
-    ui_draw_text_with_font(font, 70, 379, COLOR_ACID, 0.53f, "PUBLISHER");
-    ui_draw_fit_text(70, 401, COLOR_PAPER, 0.56f, 370,
-        entry->publisher[0] ? entry->publisher : "Not available");
-
-    ui_draw_text_with_font(font, 500, 327, COLOR_PINK, 0.53f, "GENRES");
-    ui_draw_fit_text(500, 350, COLOR_PAPER, 0.54f, 386,
-        entry->genres[0] ? entry->genres : "Not classified");
-    ui_draw_text_with_font(font, 500, 379, COLOR_PINK, 0.53f, "TYPE / FEATURES / THEMES");
-    ui_draw_fit_text(500, 401, COLOR_PAPER, 0.50f, 386,
-        entry->editorial_tags[0] ? entry->editorial_tags : "No editorial tags");
-
-    ui_draw_text_with_font(font, 54, 437, COLOR_CYAN, 0.56f, "EDITORIAL NOTE");
-    draw_wrapped(font, 54, 458, COLOR_PAPER, 0.47f, entry->summary, 850, 2);
-
     const uint8_t flags = library_flags(&g_library, entry->game_id);
     const uint8_t rating = library_rating(&g_library, entry->game_id);
-    ui_draw_text_with_font(font, 54, 500, COLOR_PINK, 0.47f, "YOUR TRACKER");
-    ui_draw_textf_with_font(font, 184, 500, COLOR_PAPER, 0.47f, "%s%s%s  /  PERSONAL SCORE %u/10",
-        (flags & VITA_NEXUS_LIBRARY_FAVORITE) ? "FAVORITE " : "",
-        (flags & VITA_NEXUS_LIBRARY_BACKLOG) ? "BACKLOG " : "",
-        (flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "COMPLETED" : (flags ? "" : "NOT TRACKED"),
-        (unsigned int)rating);
+    char personal_score[48];
 
-    vita2d_draw_rectangle(48, 518, 864, 1, COLOR_PAPER);
-    ui_draw_text_with_font(font, 54, 539, COLOR_MUTED, 0.42f,
-        "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK");
+    (void)snprintf(personal_score, sizeof(personal_score),
+        rating ? "%u / 10" : "NOT RATED", (unsigned int)rating);
+    draw_magazine_header(font, "GAME FILE  /  THE REVIEW DESK", entry->title,
+        "EDITORIAL PROFILE  /  SOURCE-LED DATA", "FILE / 09", COLOR_PINK);
+
+    draw_magazine_panel(48, 165, 230, 314, COLOR_PINK);
+    draw_magazine_kicker(font, 66, 184, "COVER FILE", COLOR_PINK);
+    ui_draw_text_with_font(font, 66, 229, COLOR_PAPER, 1.62f, "01");
+    ui_draw_fit_text(66, 250, COLOR_ACID, 0.72f, 192, entry->title);
+    vita2d_draw_rectangle(66, 286, 194, 2, COLOR_CYAN);
+    draw_magazine_chip(font, 66, 300, 194, platform_label(entry->platform_mask), COLOR_CYAN);
+    ui_draw_text_with_font(font, 66, 346, COLOR_MUTED, 0.43f, "RELEASE YEAR");
+    if (entry->release_year)
+        ui_draw_textf_with_font(font, 66, 372, COLOR_PAPER, 0.74f, "%u",
+            (unsigned int)entry->release_year);
+    else
+        ui_draw_text_with_font(font, 66, 372, COLOR_MUTED, 0.53f, "UNKNOWN");
+
+    ui_draw_text_with_font(font, 66, 402, COLOR_PINK, 0.45f, "EDITOR'S NOTE");
+    draw_wrapped(font, 66, 420, COLOR_PAPER, 0.45f,
+        entry->summary, 190, 2);
+    vita2d_draw_rectangle(66, 456, 194, 1, COLOR_HAIRLINE);
+    ui_draw_text_with_font(font, 66, 474, COLOR_MUTED, 0.42f, "YOUR SCORE");
+    ui_draw_fit_text(169, 474, COLOR_ACID, 0.55f, 90, personal_score);
+
+    draw_magazine_panel(294, 165, 300, 139, COLOR_CYAN);
+    draw_magazine_panel(608, 165, 304, 139, COLOR_ACID);
+    draw_magazine_kicker(font, 313, 185, "RELEASE DESK", COLOR_CYAN);
+    ui_draw_text_with_font(font, 313, 226, COLOR_MUTED, 0.45f, "PLATFORMS");
+    ui_draw_fit_text(313, 250, COLOR_PAPER, 0.63f, 260,
+        platform_label(entry->platform_mask));
+    ui_draw_text_with_font(font, 313, 279, COLOR_MUTED, 0.43f, "RELEASE RECORDS");
+    ui_draw_textf_with_font(font, 476, 279, COLOR_PAPER, 0.57f, "%u",
+        (unsigned int)entry->release_count);
+
+    draw_magazine_kicker(font, 627, 185, "AGE / REVIEW DESK", COLOR_PINK);
+    ui_draw_text_with_font(font, 627, 220, COLOR_MUTED, 0.43f, "AGE GUIDANCE");
+    ui_draw_fit_text(627, 245, COLOR_PAPER, 0.59f, 263,
+        entry->age_guidance[0] ? entry->age_guidance : "NOT LISTED IN SOURCE DATA");
+    ui_draw_text_with_font(font, 627, 271, COLOR_MUTED, 0.43f, "EXTERNAL SCORE");
+    ui_draw_fit_text(627, 293, entry->external_score[0] ? COLOR_ACID : COLOR_MUTED,
+        0.48f, 263, entry->external_score[0] ? entry->external_score : "NO SCORE ON FILE");
+
+    draw_magazine_panel(294, 316, 618, 91, COLOR_PINK);
+    draw_magazine_kicker(font, 313, 335, "CREDITS / PRODUCTION NOTES", COLOR_PINK);
+    ui_draw_text_with_font(font, 313, 366, COLOR_MUTED, 0.43f, "DEVELOPER");
+    ui_draw_fit_text(313, 389, COLOR_PAPER, 0.55f, 264,
+        entry->developer[0] ? entry->developer : "NOT AVAILABLE");
+    ui_draw_text_with_font(font, 615, 366, COLOR_MUTED, 0.43f, "PUBLISHER");
+    ui_draw_fit_text(615, 389, COLOR_PAPER, 0.55f, 280,
+        entry->publisher[0] ? entry->publisher : "NOT AVAILABLE");
+
+    draw_magazine_panel(294, 419, 618, 60, COLOR_CYAN);
+    ui_draw_text_with_font(font, 313, 443, COLOR_CYAN, 0.43f, "GENRES");
+    ui_draw_fit_text(390, 443, COLOR_PAPER, 0.47f, 500,
+        entry->genres[0] ? entry->genres : "NOT CLASSIFIED");
+    ui_draw_text_with_font(font, 313, 467, COLOR_PINK, 0.43f, "TAGS");
+    ui_draw_fit_text(390, 467, COLOR_PAPER, 0.45f, 500,
+        entry->editorial_tags[0] ? entry->editorial_tags : "NO EDITORIAL TAGS");
+
+    draw_magazine_footer(font,
+        "L  FAVORITE     R  BACKLOG     TRIANGLE  COMPLETED     LEFT / RIGHT  PERSONAL SCORE     CIRCLE  BACK",
+        "09", COLOR_PINK);
 }
 
 int main(void)

@@ -15,6 +15,21 @@ Think bootleg manga zine, late-night arcade flyer and photocopied gig poster—p
 
 Avoid glossy glass cards, soft pastel gradients, generic startup illustrations and over-rounded components. Do not bury important information under texture.
 
+## Native UI: PSM-inspired magazine pages
+
+The Vita application is an original gaming magazine you can navigate—not a generic utility skin. Use the editorial energy of classic PlayStation magazines such as PSM as a reference, while keeping VITA NEXUS branding, graphics and page compositions original. Never reproduce a magazine logo, cover, scan or proprietary page artwork.
+
+Every screen should have a deliberate page grammar:
+- **Masthead + issue code:** the VITA NEXUS name, section label and page/issue identity.
+- **Cover line:** one strong headline that explains the page's job.
+- **Editorial grid:** varied columns, sidebars, numbered entries and information panels; avoid repeating the same stack of identical cards.
+- **Print details:** hard rules, crop/registration marks, restrained barcode/halftone cues and a visible folio.
+- **Controller footer:** clear controls in a consistent bottom strip, never hidden under decorative elements.
+
+Give each destination a different magazine role: Home is the contents/cover story, Discover is the catalogue index, Library is the player's log, Profiles are player dossiers and a game detail is a review/release file. Use the same grid, typography and colour rules so they belong to one issue.
+
+Game information always wins over decoration. Keep scores, age ratings, platforms, credits and compatibility source-led; never create fake editorial quotes, review results or classifications to fill a panel. Keep the 960×544 Vita layout readable at arm's length and let the selected controller item remain unmistakable.
+
 ## The voice: say it straight
 
 Write like a person who knows the hardware and respects the reader's time.

@@ -136,3 +136,20 @@ The transition and pulse calculations live in `native/src/ui_motion.h` and are c
 The native catalog index now carries the editorial fields already defined by schema 1.0.0: content kind, features, themes, age ratings and external scores. The index builder selects PEGI first for the European audience, then falls back to the first supported classification; it never fabricates a default age rating. External scores retain the provider, supplied scale and vote count. Scores without a known scale are displayed without an invented denominator. The builder compacts these into three bounded display strings per game to keep the VPK footprint controlled.
 
 The game sheet groups this information into compact panels with platform coverage, release metadata, age guidance, review score, developer/publisher, genres, feature tags and the editorial note. The shared offline catalog remains the only source of truth. The VPK version is **00.09**; the expanded metadata layout requires a fresh hardware visual check.
+
+
+## Player's Field Magazine interface (00.10)
+
+The native shell now follows an original **PSM-inspired editorial magazine** design system. It does not copy the PSM logo, page artwork or proprietary layouts; it uses the magazine's strong editorial rhythm as a reference while keeping VITA NEXUS's own identity.
+
+Every screen is composed as a printed page: a VITA NEXUS masthead, section kicker, large cover line, issue/folio code, hard column rules, sharp information panels and a consistent control/footer strip. Small barcode and registration details are used as print cues, not decoration that competes with game data.
+
+The five native screens have distinct editorial jobs:
+
+- **Home — Editor's Desk:** a table-of-contents column, selected cover story and three quick-reference stats.
+- **Discover — The Index:** a catalogue register with platform/initial filters, numbered entries and a compact index-notes sidebar. Navigation remains controller-driven.
+- **Library — Player's Log:** personal collection stats, a numbered title register, status and rating marks, plus progress bars in a collection-report sidebar. Known catalog IDs resolve to full game titles; unknown IDs remain visible as their saved identifiers.
+- **Profiles — Player Dossiers:** three separate profile cards with active/selected stamps, collection counts, completion bars and backup actions.
+- **Game File — Review Desk:** a typographic cover panel plus release, age/review, production-credit, genre and tag columns. The player's own score is kept separate from external scores.
+
+The layout is authored for the fixed 960×544 framebuffer: the page grid, title widths, row count and footer keep controller instructions and selected state visible. No network artwork is fetched at runtime; the page styling stays local, fast and offline. The package version is **00.10**. CI confirms the native compile and VPK integrity, but the new page compositions still require a fresh visual check on a real Vita.

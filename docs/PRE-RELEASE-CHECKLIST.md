@@ -29,7 +29,7 @@ This checklist separates the **web catalog alpha** from the future **native Vita
 - [ ] Resolve the native app ID/title metadata and verify the package manifest.
 - [ ] Implement local database creation and migrations.
 - [ ] Implement read-only installed-title discovery with bounded metadata parsing.
-- [ ] Verify D-pad, analog, touchscreen, focus and suspend/resume on a real Vita.
+- [ ] Verify D-pad navigation, the 00.10 magazine page layouts, typography, focus and suspend/resume on a real Vita.
 - [ ] Verify offline startup, corrupt/missing catalog handling and interrupted scan recovery.
 - [ ] Implement local profiles and session journal before claiming automatic playtime.
 - [ ] Test install, update and rollback on PS Vita 1000 and 2000 where available.
