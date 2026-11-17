@@ -31,7 +31,7 @@ It is not an application server. Do not place API secrets, private user data or 
 | Browse catalog JSON | ✅ | Static data files |
 | Search and filter | ✅ | Browser-side index |
 | Read public rankings | ✅ | Published JSON snapshots |
-| Save a list in the current browser | ✅ | Local browser storage / export |
+| Save a list in the current browser | ✅ | Local browser storage / JSON export-import |
 | Public accounts and profiles | ❌ | Authenticated backend |
 | Submit and vote on public lists | ❌ | API, validation and moderation |
 | Cloud sync with a Vita | ❌ | Opt-in sync service |
@@ -78,3 +78,8 @@ Only after a backend is selected: public accounts, submissions, voting, moderati
 - Lazy-loaded artwork with explicit dimensions.
 - Search/filter should remain useful without external scripts or third-party trackers.
 - Keep the initial payload small; publish artwork separately from metadata where practical.
+
+
+## Browser-local personal lists
+
+The catalog includes a local list workspace. Visitors can create named collections, add games from their detail sheets, reorder entries, remove games, and export/import a versioned JSON backup. Data is stored in that browser's local storage; it is not uploaded, shared or synchronized between devices. Import appends lists rather than overwriting existing collections. This is deliberately not presented as community voting or public rankings: those require a separate backend and moderation.
