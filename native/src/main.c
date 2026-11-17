@@ -6,6 +6,7 @@
 #include "menu_state.h"
 #include "library_store.h"
 #include "profile_store.h"
+#include "ui_motion.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -221,7 +222,7 @@ static void draw_home(vita2d_pgf *font, int selected)
     vita2d_draw_rectangle(40, 38, 880, 2, COLOR_PAPER);
     ui_draw_text_with_font(font, 52, 76, COLOR_ACID, 1.25f, "VITA NEXUS");
     ui_draw_text_with_font(font, 53, 101, COLOR_CYAN, 0.72f, "THE BACKLOG NEVER SLEEPS");
-    ui_draw_text_with_font(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.07");
+    ui_draw_text_with_font(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.08");
     vita2d_draw_rectangle(48, 132, 864, 1, COLOR_PINK);
     ui_draw_text_with_font(font, 54, 163, COLOR_MUTED, 0.68f, "01  /  SELECT A MODULE");
 
@@ -231,6 +232,8 @@ static void draw_home(vita2d_pgf *font, int selected)
         if (active) {
             vita2d_draw_rectangle(menu_x - 8, y - 22, 388, 44, COLOR_PANEL);
             vita2d_draw_rectangle(menu_x - 8, y - 22, 5, 44, COLOR_PINK);
+            vita2d_draw_rectangle(menu_x + 4, y + 16,
+                64 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_CYAN);
         }
         ui_draw_textf_with_font(font, menu_x + 10, y + 5, active ? COLOR_ACID : COLOR_MUTED,
             0.9f, "%02d  %s", i + 1, menu_items[i].label);
@@ -280,9 +283,11 @@ static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platfo
         const size_t index = visible_games[start + row];
         const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[index];
         const int y = 125 + (int)row * 39;
-        if (index == selected) {
+        if (start + row == selected) {
             vita2d_draw_rectangle(42, y - 22, 876, 34, COLOR_PANEL);
             vita2d_draw_rectangle(42, y - 22, 4, 34, COLOR_PINK);
+            vita2d_draw_rectangle(58, y + 8,
+                64 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_CYAN);
         }
         ui_draw_fit_text(58, y, index == selected ? COLOR_ACID : COLOR_PAPER,
             0.66f, 710, entry->title);
@@ -421,6 +426,8 @@ static void draw_library(vita2d_pgf *font, const VitaNexusLibrary *library,
         if (start + row == selected) {
             vita2d_draw_rectangle(42, y - 21, 876, 32, COLOR_PANEL);
             vita2d_draw_rectangle(42, y - 21, 4, 32, COLOR_CYAN);
+            vita2d_draw_rectangle(58, y + 8,
+                64 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_PINK);
         }
         ui_draw_text_with_font(font, 58, y, start + row == selected ? COLOR_ACID : COLOR_PAPER, 0.6f, record->game_id);
         ui_draw_textf_with_font(font, 650, y, COLOR_PINK, 0.46f, "%s%s%s  /  %u/10",
@@ -458,6 +465,8 @@ static void draw_profiles(vita2d_pgf *font, size_t selected, bool import_confirm
         if (focus) {
             vita2d_draw_rectangle(42, y - 30, 876, 76, COLOR_PANEL);
             vita2d_draw_rectangle(42, y - 30, 5, 76, COLOR_PINK);
+            vita2d_draw_rectangle(64, y + 38,
+                72 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_CYAN);
         }
         ui_draw_textf_with_font(font, 64, y, focus ? COLOR_ACID : COLOR_PAPER, 0.82f,
             "PLAYER %02u%s", i + 1, active ? "  /  ACTIVE" : "");
@@ -562,6 +571,8 @@ int main(void)
     }
 
     vita2d_set_clear_color(COLOR_BG);
+    vita_nexus_ui_motion_init(&g_ui_motion);
+    vita_nexus_ui_motion_begin_transition(&g_ui_motion);
     vita_nexus_library_init(&g_library);
     load_startup_profile();
     rebuild_visible_library(&g_library, library_filter);
@@ -575,6 +586,7 @@ int main(void)
         return 2;
     }
 
+    VitaNexusScreenId previous_screen = VITA_NEXUS_SCREEN_HOME;
     while (running) {
         sceCtrlPeekBufferPositive(0, &pad, 1);
         const uint32_t pressed = pad.buttons & ~previous_buttons;
@@ -748,6 +760,14 @@ int main(void)
             if (pressed & SCE_CTRL_START) running = false;
         }
 
+        const VitaNexusScreenId current_screen = vita_nexus_ui_screen_id(
+            in_detail, in_profiles, in_library, in_discover);
+        if (current_screen != previous_screen) {
+            vita_nexus_ui_motion_begin_transition(&g_ui_motion);
+            previous_screen = current_screen;
+        }
+        const uint8_t fade_alpha = vita_nexus_ui_motion_tick(&g_ui_motion);
+
         vita2d_start_drawing();
         vita2d_clear_screen();
         if (in_detail) draw_game_detail(font, detail_catalog_index);
@@ -755,6 +775,9 @@ int main(void)
         else if (in_library) draw_library(font, &g_library, library_selected, library_filter, library_remove_confirm);
         else if (in_discover) draw_discover(font, catalog_selected, platform_filter, letter_filter);
         else draw_home(font, (int)menu_state.selected);
+        if (fade_alpha > 0) {
+            vita2d_draw_rectangle(0, 0, 960, 544, RGBA8(8, 6, 13, fade_alpha));
+        }
         vita2d_end_drawing();
         vita2d_swap_buffers();
     }
