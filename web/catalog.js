@@ -28,7 +28,6 @@ const state = {
   loadError: false,
   userLists: [],
   activeListId: ""
-}
 };
 
 function element(tag, className, text) {
