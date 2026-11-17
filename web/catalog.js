@@ -220,12 +220,23 @@ function getRecommendations(game, override) {
   const allGames = (state.catalog && state.catalog.games) || [];
   const relationRecords = game.relations || override.relations || [];
   const byId = new Map(allGames.map((item) => [item.gameId, item]));
+  const nativePlatforms = new Set(["psvita", "psp", "ps1"]);
+  const sourcePlatforms = new Set([...recommendationPlatforms(game)].filter((platform) => nativePlatforms.has(platform)));
+  const isCrossPlatform = (candidate) => [...recommendationPlatforms(candidate)].some(
+    (platform) => nativePlatforms.has(platform) && !sourcePlatforms.has(platform)
+  );
   const selected = [];
   const selectedIds = new Set([game.gameId]);
 
   relationRecords
     .slice()
-    .sort((a, b) => (b.confidence || 0) - (a.confidence || 0))
+    .sort((a, b) => {
+      const gameA = byId.get(a.gameId);
+      const gameB = byId.get(b.gameId);
+      const crossBonusA = gameA && isCrossPlatform(gameA) ? 0.08 : 0;
+      const crossBonusB = gameB && isCrossPlatform(gameB) ? 0.08 : 0;
+      return ((b.confidence || 0) + crossBonusB) - ((a.confidence || 0) + crossBonusA);
+    })
     .forEach((relation) => {
       const candidate = byId.get(relation.gameId);
       if (!candidate || selectedIds.has(candidate.gameId)) return;
@@ -261,7 +272,13 @@ function getRecommendations(game, override) {
       if (sharedGenres.length) reasons.push("Shared genres: " + sharedGenres.slice(0, 2).join(", "));
       if (sharedThemes.length) reasons.push("Similar themes: " + sharedThemes.slice(0, 2).join(", "));
       if (sharedFeatures.length) reasons.push("Shared features: " + sharedFeatures.slice(0, 2).join(", "));
-      ranked.push({game: candidate, reason: reasons.join(" · "), score});
+      const crossPlatform = isCrossPlatform(candidate);
+      ranked.push({
+        game: candidate,
+        reason: reasons.join(" · "),
+        score: score + (crossPlatform ? 2 : 0),
+        crossPlatform
+      });
     });
 
     ranked.sort((a, b) => b.score - a.score || a.game.title.localeCompare(b.game.title));
