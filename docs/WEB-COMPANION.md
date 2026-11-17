@@ -16,7 +16,7 @@ The address becomes usable only after Pages is enabled and the first deployment 
 
 The first browser route is `catalog.html`. It reads `data/catalog.json` and `data/editorial-overrides.json`, and supports title/identifier/region search, platform filters, sorting, regional release details and progressive loading.
 
-The public JSON contract is defined in `catalog/schema/catalog.schema.json`. The metadata-only source importer is documented in [NPS catalog import](NPS-CATALOG-IMPORT.md).
+The public JSON contract is defined in `catalog/schema/catalog.schema.json`. The Homebrew filter includes separate Vita and PSP target labels, with upstream author, version, requirements, source links and screenshot references where supplied. The metadata-only source importer is documented in [NPS catalog import](NPS-CATALOG-IMPORT.md).
 
 ## What Pages can host
 
