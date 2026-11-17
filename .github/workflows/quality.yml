@@ -17,6 +17,7 @@ on:
       - "catalog/schema/**"
       - "tools/catalog-builder/**"
       - "tests/**"
+      - "native/**"
       - ".github/workflows/quality.yml"
   workflow_dispatch:
 
@@ -61,6 +62,7 @@ jobs:
 
       - name: Test browser catalog logic
         run: node --test tests/*.test.cjs
+
       - name: Build native Vita VPK (pull requests)
         if: github.event_name == 'pull_request' && hashFiles('native/CMakeLists.txt') != ''
         run: |
