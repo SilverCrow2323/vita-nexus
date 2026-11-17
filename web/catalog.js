@@ -64,7 +64,8 @@ function gameSearchText(game) {
     .map((release) => [release.titleId, release.contentId, release.region].join(" "))
     .join(" ");
   const homebrewText = game.homebrew ? [game.homebrew.author, game.homebrew.version, game.homebrew.categoryCode].join(" ") : "";
-  return [game.title, game.sortTitle, game.summary, game.developer, homebrewText, releaseText].join(" ").toLocaleLowerCase();
+  const editorialText = [...(game.genres || []), ...(game.themes || []), ...(game.features || [])].join(" ");
+  return [game.title, game.sortTitle, game.summary, game.developer, homebrewText, editorialText, releaseText].join(" ").toLocaleLowerCase();
 }
 
 function filteredGames() {
@@ -187,14 +188,183 @@ function render() {
 function addReleaseRow(release) {
   const row = element("div", "release-row");
   const main = element("div", "release-main");
-  main.append(element("strong", "", release.region + " edition"));
-  main.append(element("span", "", release.titleId));
+  const targetLabel = release.targetPlatform === "psp" ? "PSP" : "PS VITA";
+  const editionLabel = release.platform === "homebrew"
+    ? "Homebrew for " + targetLabel
+    : ({EU: "Europe", US: "North America", JP: "Japan", AS: "Asia", INT: "International", KR: "Korea", CN: "China"}[release.region] || release.region) + " edition";
+  main.append(element("strong", "", editionLabel));
+  if (release.titleId) main.append(element("span", "", release.titleId));
+  if (release.sourceItemId) main.append(element("small", "", "SOURCE ENTRY · " + release.sourceItemId));
   if (release.contentId) main.append(element("small", "", release.contentId));
   const details = element("div", "release-details");
-  details.append(element("span", "", formatBytes(release.packageSizeBytes)));
+  if (release.packageSizeBytes) details.append(element("span", "", formatBytes(release.packageSizeBytes)));
   if (release.requiredFirmware) details.append(element("span", "", "FW " + release.requiredFirmware));
   row.append(main, details);
   return row;
+}
+
+function normalizedTags(values) {
+  return new Set((values || []).map((value) => String(value).trim().toLocaleLowerCase()).filter(Boolean));
+}
+
+function recommendationPlatforms(game) {
+  const releases = game.releases || [];
+  const platforms = new Set(gamePlatforms(game));
+  releases.forEach((release) => {
+    if (release.targetPlatform) platforms.add(release.targetPlatform);
+  });
+  return platforms;
+}
+
+function getRecommendations(game, override) {
+  const allGames = (state.catalog && state.catalog.games) || [];
+  const relationRecords = game.relations || override.relations || [];
+  const byId = new Map(allGames.map((item) => [item.gameId, item]));
+  const selected = [];
+  const selectedIds = new Set([game.gameId]);
+
+  relationRecords
+    .slice()
+    .sort((a, b) => (b.confidence || 0) - (a.confidence || 0))
+    .forEach((relation) => {
+      const candidate = byId.get(relation.gameId);
+      if (!candidate || selectedIds.has(candidate.gameId)) return;
+      selectedIds.add(candidate.gameId);
+      selected.push({
+        game: candidate,
+        reason: relation.reason || "Curated by the VITA NEXUS editorial catalog.",
+        label: relation.relationType === "same-vibe" ? "SAME VIBE"
+          : relation.relationType === "same-series" ? "SAME SERIES"
+          : relation.relationType === "spiritual-successor" ? "SPIRITUAL SUCCESSOR"
+          : "SIMILAR EXPERIENCE",
+        confidence: relation.confidence || 0
+      });
+    });
+
+  const sourceGenres = normalizedTags(game.genres || override.genres);
+  const sourceThemes = normalizedTags(game.themes || override.themes);
+  const sourceFeatures = normalizedTags(game.features || override.features);
+  const ranked = [];
+
+  if (sourceGenres.size || sourceThemes.size || sourceFeatures.size) {
+    allGames.forEach((candidate) => {
+      if (selectedIds.has(candidate.gameId)) return;
+      const genres = normalizedTags(candidate.genres);
+      const themes = normalizedTags(candidate.themes);
+      const features = normalizedTags(candidate.features);
+      const sharedGenres = [...genres].filter((tag) => sourceGenres.has(tag));
+      const sharedThemes = [...themes].filter((tag) => sourceThemes.has(tag));
+      const sharedFeatures = [...features].filter((tag) => sourceFeatures.has(tag));
+      const score = sharedGenres.length * 4 + sharedThemes.length * 2 + sharedFeatures.length * 3;
+      if (!score) return;
+      const reasons = [];
+      if (sharedGenres.length) reasons.push("Shared genres: " + sharedGenres.slice(0, 2).join(", "));
+      if (sharedThemes.length) reasons.push("Similar themes: " + sharedThemes.slice(0, 2).join(", "));
+      if (sharedFeatures.length) reasons.push("Shared features: " + sharedFeatures.slice(0, 2).join(", "));
+      ranked.push({game: candidate, reason: reasons.join(" · "), score});
+    });
+
+    ranked.sort((a, b) => b.score - a.score || a.game.title.localeCompare(b.game.title));
+    const platformCounts = new Map();
+    ranked.forEach((item) => {
+      if (selected.length >= 6) return;
+      if (selectedIds.has(item.game.gameId)) return;
+      const primaryPlatform = [...recommendationPlatforms(item.game)][0] || "unknown";
+      const count = platformCounts.get(primaryPlatform) || 0;
+      if (count >= 2) return;
+      platformCounts.set(primaryPlatform, count + 1);
+      selectedIds.add(item.game.gameId);
+      selected.push({
+        game: item.game,
+        reason: item.reason,
+        label: "METADATA MATCH",
+        confidence: Math.min(1, item.score / 12)
+      });
+    });
+  }
+
+  return selected.slice(0, 6);
+}
+
+function createRecommendationCard(item) {
+  const game = item.game;
+  const card = element("button", "recommendation-card");
+  card.type = "button";
+  const artwork = game.artwork || state.overrides[game.gameId]?.artwork || {};
+  const imageUrl = (artwork.cover && artwork.cover.url) || (game.homebrew && game.homebrew.iconUrl);
+  const visual = element("div", "recommendation-visual");
+  if (imageUrl) {
+    const image = element("img", game.homebrew && !(artwork.cover && artwork.cover.url) ? "recommendation-icon" : "");
+    image.src = imageUrl;
+    image.alt = game.title + " artwork";
+    image.loading = "lazy";
+    visual.append(image);
+  } else {
+    visual.append(element("span", "", game.title.slice(0, 1).toUpperCase()));
+  }
+
+  const content = element("div", "recommendation-copy");
+  content.append(element("span", "recommendation-type", item.label));
+  content.append(element("strong", "", game.title));
+  const badges = element("div", "recommendation-platforms");
+  gamePlatforms(game).forEach((platform) => badges.append(makePlatformBadge(platform)));
+  content.append(badges);
+  content.append(element("p", "", item.reason));
+  card.append(visual, content);
+  card.addEventListener("click", () => openGame(game));
+  return card;
+}
+
+function renderEditorialFacts(game, override, body) {
+  const tags = [
+    ...(game.genres || override.genres || []).map((value) => ({kind:"GENRE",value})),
+    ...(game.themes || override.themes || []).map((value) => ({kind:"THEME",value})),
+    ...(game.features || override.features || []).map((value) => ({kind:"FEATURE",value}))
+  ];
+  if (tags.length) {
+    const section = element("section", "editorial-facts");
+    section.append(element("h3", "", "Game characteristics"));
+    const list = element("div", "editorial-tags");
+    tags.slice(0, 24).forEach((tag) => {
+      list.append(element("span", "editorial-tag", tag.value));
+    });
+    section.append(list);
+    body.append(section);
+  }
+
+  const ageRatings = game.ageRatings || override.ageRatings || [];
+  if (ageRatings.length) {
+    const section = element("section", "age-rating-section");
+    section.append(element("h3", "", "Age classification"));
+    ageRatings.forEach((rating) => {
+      const row = element("div", "age-rating-row");
+      row.append(element("strong", "", rating.system + " · " + rating.value));
+      row.append(element("span", "", rating.territory || "Territory not specified"));
+      if (rating.descriptors && rating.descriptors.length) {
+        row.append(element("small", "", rating.descriptors.join(" · ")));
+      }
+      section.append(row);
+    });
+    body.append(section);
+  }
+
+  const externalScores = game.externalScores || override.externalScores || [];
+  if (externalScores.length) {
+    const section = element("section", "external-scores-section");
+    section.append(element("h3", "", "External review scores"));
+    const list = element("div", "external-scores-list");
+    externalScores.forEach((score) => {
+      const row = element("div", "external-score-row");
+      row.append(element("strong", "", score.provider));
+      row.append(element("span", "external-score-value", String(score.value) + (score.scale ? " / " + score.scale : "")));
+      if (score.voteCount !== undefined && score.voteCount !== null) {
+        row.append(element("small", "", Number(score.voteCount).toLocaleString() + " votes"));
+      }
+      list.append(row);
+    });
+    section.append(list);
+    body.append(section);
+  }
 }
 
 function openGame(game) {
@@ -235,6 +405,7 @@ function openGame(game) {
   if (game.homebrew && game.homebrew.author) facts.append(element("span", "", "AUTHOR · " + game.homebrew.author));
   if (game.homebrew && game.homebrew.version) facts.append(element("span", "", "VERSION · " + game.homebrew.version));
   body.append(facts);
+  renderEditorialFacts(game, override, body);
 
   const releasesHeading = element("div", "release-heading");
   releasesHeading.append(element("h3", "", "Available editions"));
@@ -296,11 +467,27 @@ function openGame(game) {
     body.append(metadata);
   }
 
+  const recommendations = getRecommendations(game, override);
+  const recommendationSection = element("section", "similar-games-section");
+  recommendationSection.append(element("h3", "", "You may also like…"));
+  recommendationSection.append(element("p", "similar-games-intro", "A few more discoveries from across the PlayStation universe."));
+  if (recommendations.length) {
+    const recommendationGrid = element("div", "recommendation-grid");
+    recommendations.forEach((item) => recommendationGrid.append(createRecommendationCard(item)));
+    recommendationSection.append(recommendationGrid);
+  } else {
+    recommendationSection.append(element("p", "similar-games-empty", "Cross-platform recommendations will appear here as verified genre, theme and gameplay metadata is added to this title."));
+  }
+  body.append(recommendationSection);
+
   const note = element("p", "dialog-source-note", "Release identifiers and descriptive fields are sourced from public metadata indexes. Package URLs, payloads and license material are not part of VITA NEXUS. Homebrew artwork remains hosted by its original catalog source and belongs to its respective creators.");
   body.append(note);
   dialogContent.append(body);
-  if (typeof dialog.showModal === "function") dialog.showModal();
-  else dialog.setAttribute("open", "");
+  if (typeof dialog.showModal === "function") {
+    if (!dialog.open) dialog.showModal();
+  } else {
+    dialog.setAttribute("open", "");
+  }
 }
 
 async function loadCatalog() {
