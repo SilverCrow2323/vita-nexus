@@ -12,7 +12,7 @@ from tools.verify_vpk import VpkValidationError, validate_vpk
 TITLE_ID = "VNXS00001"
 
 
-def write_vpk(path: Path, entries: dict[str, bytes] | None = None, *, include_fonts: bool = True) -> None:
+def write_vpk(path: Path, entries: dict[str, bytes] | None = None, *, include_fonts: bool = True, include_license: bool = True) -> None:
     payload = entries or {
         "eboot.bin": b"native-self-placeholder",
         "sce_sys/param.sfo": bytes.fromhex("005449544C455F494400564E5853303030303100"),
@@ -21,7 +21,8 @@ def write_vpk(path: Path, entries: dict[str, bytes] | None = None, *, include_fo
     if include_fonts:
         payload.setdefault("assets/fonts/BarlowCondensed-Medium.ttf", bytes.fromhex("00010000") + bytes(32))
         payload.setdefault("assets/fonts/BarlowCondensed-Bold.ttf", bytes.fromhex("00010000") + bytes(32))
-        payload.setdefault("assets/fonts/OFL.txt", b"SIL OPEN FONT LICENSE Version 1.1")
+        if include_license:
+            payload.setdefault("assets/fonts/OFL.txt", b"SIL OPEN FONT LICENSE Version 1.1")
     with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_STORED) as archive:
         for name, data in payload.items():
             archive.writestr(name, data)
@@ -118,7 +119,7 @@ def test_rejects_invalid_bundled_font_signature(tmp_path: Path):
 
 def test_rejects_missing_font_license(tmp_path: Path):
     package = tmp_path / "missing-font-license.vpk"
-    write_vpk(package, include_fonts=False)
+    write_vpk(package, include_license=False)
 
     with pytest.raises(VpkValidationError, match="missing required"):
         validate_vpk(package, TITLE_ID)
@@ -126,6 +127,10 @@ def test_rejects_missing_font_license(tmp_path: Path):
 
 def test_rejects_invalid_font_license(tmp_path: Path):
     package = tmp_path / "invalid-font-license.vpk"
-    write_vpk(package, {"assets/fonts/OFL.txt": b"not the OFL"})
+    write_vpk(package, {
+        "eboot.bin": b"self",
+        "sce_sys/param.sfo": b"VNXS00001",
+        "assets/fonts/OFL.txt": b"not the OFL",
+    })
     with pytest.raises(VpkValidationError, match="font license"):
         validate_vpk(package, TITLE_ID)
