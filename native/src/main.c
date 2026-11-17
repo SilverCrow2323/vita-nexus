@@ -189,14 +189,14 @@ static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
         cursor += word_length;
 
         const size_t line_length = strlen(line);
-        const size_t word_length = strlen(word);
+        const size_t candidate_word_length = strlen(word);
         const size_t separator = line_length ? 1u : 0u;
         char candidate[256];
         candidate[0] = '\0';
-        if (line_length + separator + word_length < sizeof(candidate)) {
+        if (line_length + separator + candidate_word_length < sizeof(candidate)) {
             (void)memcpy(candidate, line, line_length);
             if (separator) candidate[line_length] = ' ';
-            (void)memcpy(candidate + line_length + separator, word, word_length + 1u);
+            (void)memcpy(candidate + line_length + separator, word, candidate_word_length + 1u);
         } else {
             candidate[0] = '\0';
         }
