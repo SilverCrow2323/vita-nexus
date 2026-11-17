@@ -14,8 +14,13 @@ enum {
 typedef struct {
     const char *game_id;
     const char *title;
+    const char *summary;
+    const char *developer;
+    const char *publisher;
+    const char *genres;
     uint8_t platform_mask;
     uint16_t release_count;
+    uint16_t release_year;
 } VitaNexusCatalogEntry;
 
 extern const VitaNexusCatalogEntry vita_nexus_catalog[];
