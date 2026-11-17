@@ -1,6 +1,12 @@
 name: Sync public catalog metadata
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/catalog-builder/**"
+      - ".github/workflows/catalog-sync.yml"
   schedule:
     - cron: "17 4 * * *"
   workflow_dispatch:
@@ -30,6 +36,9 @@ jobs:
 
       - name: Import public metadata indexes
         run: python tools/catalog-builder/import_nps_tsv.py --output web/data/catalog.json
+
+      - name: Validate public catalog snapshot
+        run: python tools/catalog-builder/validate_catalog.py web/data/catalog.json
 
       - name: Commit catalog snapshot when changed
         run: |
