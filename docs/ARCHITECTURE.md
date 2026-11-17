@@ -153,3 +153,8 @@ The initial native shell is a small C application built with VitaSDK CMake helpe
 The native Discover view now consumes the same schema v1.0.0 snapshot as the web app. CI compiles `web/data/catalog.json` into a static C index containing stable game IDs, display titles, platform masks and release counts. This avoids a second metadata source and keeps the full browsing dataset available offline without introducing an unverified VitaSDK JSON or SQLite dependency.
 
 The index is read-only and generated at build time. It does not contain package URLs, license material, payload data or installation paths. SQLite remains a later storage milestone for user-owned state and migration support; the current catalog index itself is not a database.
+
+
+## Native game detail view (implemented)
+
+The native Discover list opens a read-only game detail sheet. The build-time index includes bounded optional summary, developer, publisher, genres and release year fields in addition to IDs, titles, platform masks and release counts. The view reports missing metadata explicitly and does not infer values. This is a presentation layer over the shared catalog, not an installation scanner or a local database.
