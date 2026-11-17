@@ -67,9 +67,9 @@ The generated C file is a build output and is intentionally not committed. Run t
 
 ## Native game detail sheet
 
-The Discover browser can open a metadata detail sheet for the selected catalog entry. It shows platform coverage, release count, year, developer, publisher, genres, stable game ID and a short editorial summary when those fields exist. Missing values are labelled as unavailable instead of guessed.
+The Discover browser opens a magazine-style metadata sheet for the selected catalog entry. Alongside platform coverage, release count, year, developer, publisher, genres and editorial summary, the sheet can show the content kind, age guidance (preferring PEGI when supplied), rating descriptors, an external score with its provider and vote count, plus feature/theme tags.
 
-The detail fields are generated from the same shared JSON snapshot. The index builder bounds optional text fields to keep the native binary predictable. The sheet also exposes the personal tracker controls; it does not launch games, inspect installed content or access save data.
+Every field is read from the same shared JSON snapshot. The native index builder bounds optional text and ignores invalid score shapes; missing ratings and scores remain explicitly unavailable. This screen does not claim emulator compatibility, launch games, inspect installed content or access save data. The personal tracker remains a separate, local-only score and status.
 
 
 ## Discover filters
@@ -129,3 +129,10 @@ The native UI now uses a small, deterministic motion helper with no dynamic allo
 The selected row in Home, Discover, Library and Profiles receives a short animated underline. Its width follows a bounded triangular pulse over a 48-frame cycle. Discover selection rendering uses the filtered-list position consistently for both the highlight and the title color, so the active row stays visually aligned when platform or alphabetical filters are enabled.
 
 The transition and pulse calculations live in `native/src/ui_motion.h` and are covered by a VitaSDK-independent host test. The package version is **00.08**. Effects are intentionally limited to a few rectangles and integer calculations to keep the UI responsive on real hardware.
+
+
+## Editorial game cards (00.09)
+
+The native catalog index now carries the editorial fields already defined by schema 1.0.0: content kind, features, themes, age ratings and external scores. The index builder selects PEGI first for the European audience, then falls back to the first supported classification; it never fabricates a default age rating. External scores retain the provider, supplied scale and vote count. Scores without a known scale are displayed without an invented denominator. The builder compacts these into three bounded display strings per game to keep the VPK footprint controlled.
+
+The game sheet groups this information into compact panels with platform coverage, release metadata, age guidance, review score, developer/publisher, genres, feature tags and the editorial note. The shared offline catalog remains the only source of truth. The VPK version is **00.09**; the expanded metadata layout requires a fresh hardware visual check.

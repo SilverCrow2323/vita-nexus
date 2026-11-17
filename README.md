@@ -9,7 +9,7 @@
 </p>
 
 > [!NOTE]
-> **The web catalog is implemented; the native Vita runtime is the next major build.** The static catalog, NPS/homebrew metadata import, regional release browser, editorial layer and cross-platform recommendations are in the repository. The native VPK, on-device scanner, local profiles and automatic playtime tracker are still planned—not quietly pretending to exist.
+> **The web companion and native Vita alpha foundation are implemented.** The native VPK now includes an offline catalog browser, game detail sheets, a personal Library and three local profiles with backups. An installed-title scanner, SQLite migration, automatic playtime and community sync remain separate future milestones. The earlier 00.05 baseline was confirmed on a PS Vita 1000; the newer 00.09 editorial layout still needs a fresh device check.
 
 ## 🧨 The idea
 
@@ -17,10 +17,10 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 
 | Native · PS Vita | Web · GitHub Pages |
 |---|---|
-| Installed-game scanner | Public project hub |
-| Automatic playtime tracking | Browseable catalog experience |
-| Local multi-user profiles | Public rankings and community lists* |
-| Offline recommendations | Game pages and discovery |
+| Offline catalog + personal tracker | Public project hub |
+| Local profiles and backups | Browseable catalog experience |
+| Installed-title scanner (future) | Public rankings and community lists* |
+| Automatic playtime (future) | Game pages and discovery |
 | On-device library and statistics | Documentation and releases |
 
 \* Public accounts, voting and cloud sync require a separate backend. GitHub Pages is static hosting, not an application server.
@@ -29,13 +29,13 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 
 - **HOME** — an animated editorial dashboard with useful recommendations.
 - **GENERATOR** — playful modes such as *Chaos Pick*, *Hidden Treasure*, *Retro Detour* and *Backlog Punishment*.
-- **LIBRARY** — installed PS Vita, PSP and PS1 titles.
+- **LIBRARY** — a personal game tracker with favorites, backlog, completion and local scores; installed-title scanning remains future work.
 - **HOMEBREW** — Vita and PSP homebrew apps, tools and ports with source attribution.
 - **DISCOVER** — explore the wider catalog, including games not installed.
 - **STORE** — indexed releases and regional variants. An information layer, not a commercial package host.
 - **GAME PAGES** — descriptions, artwork, screenshots, age ratings, feature indicators and cross-platform recommendations.
 - **RANKINGS** — global charts, personal scores, custom lists and later community submissions.
-- **PROFILES** — separate local histories, preferences, favorites and statistics.
+- **PROFILES** — three local collections with independent stats and portable backup/restore.
 - **PLAYTIME** — automatic session tracking where reliable lifecycle signals exist.
 
 ## 🧭 Project map
@@ -101,8 +101,10 @@ Keep the interface readable. Use short labels, plain English and direct copy. No
 | Public catalog snapshot | 🟢 9,732 games · 12,357 releases · 4,466 homebrew entries |
 | Regional editions and release details | 🟢 Implemented |
 | Cross-platform recommendation engine | 🟢 Implemented; curated editorial coverage is growing |
-| Native PS Vita application / VPK | ⚪ Not implemented |
-| Installed-title scanner and local database | ⚪ Not implemented |
+| Native PS Vita application / VPK | 🟢 Implemented · native 00.09 (visual recheck pending) |
+| Offline Discover + metadata detail sheets | 🟢 Implemented · shared catalog snapshot |
+| Local Library, 3 profiles and backups | 🟢 Implemented · app-owned files only |
+| Installed-title scanner / SQLite migration | ⚪ Not implemented |
 | Automatic playtime tracker | ⚪ Not implemented |
 | Community accounts, votes and cloud sync | ⚪ Future backend phase |
 

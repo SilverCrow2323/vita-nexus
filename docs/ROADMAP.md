@@ -21,7 +21,8 @@ The roadmap is organized around testable milestones. A feature is not complete b
 - [x] Add the first controller-driven native shell with honest placeholder module states.
 - [x] Build a minimal VPK in the pinned VitaSDK CI container.
 - [x] Implement the first controller-driven native screen (hardware visual check still pending).
-- [ ] Handle D-pad, analog and touchscreen input.
+- [x] Implement controller-driven digital D-pad navigation across the native screens.
+- [ ] Add analog-stick and touchscreen input.
 - [ ] Create and migrate the local SQLite database for user-owned state.
 - [x] Generate a read-only native index from the shared schema v1.0.0 catalog snapshot.
 - [ ] Scan a supported set of PS Vita application metadata.
@@ -43,7 +44,7 @@ The roadmap is organized around testable milestones. A feature is not complete b
 ## Milestone 3 — Discovery experience
 
 - [x] Animated web Home Hero and responsive navigation.
-- [ ] Native Library view.
+- [x] Native personal Library view with filters, status flags and personal scores.
 - [x] Native Discover catalog browser (offline, controller-driven, shared catalog source).
 - [x] Native game metadata detail sheet with attributed catalog fields and honest missing-data states.
 - [x] Native Discover platform and A–Z initial filters with filtered result navigation.
@@ -56,13 +57,14 @@ The roadmap is organized around testable milestones. A feature is not complete b
 
 ## Milestone 4 — Personal gaming
 
-- [ ] Multiple local profiles.
-- [ ] Favorites, personal scores and backlog states.
+- [x] Three independent local profiles with active-profile persistence and backups.
+- [x] Favorites, personal scores, backlog and completed states.
 - [ ] Session/event journal.
 - [ ] Tracker proof of concept for native Vita games.
 - [ ] Validate suspend/resume and crash recovery.
 - [ ] Investigate and test PSP/Adrenaline and PS1/POPS tracking individually.
-- [ ] Personal statistics and session correction.
+- [x] Per-profile collection statistics.
+- [ ] Session history, session correction and playtime reconciliation.
 
 **Exit gate:** reliable session attribution and recoverable local profiles on supported test setups.
 
@@ -111,13 +113,13 @@ The static website now has a project landing page, searchable catalog browser an
 
 ## Native foundation progress
 
-The first native shell lives in `native/`. It uses the official VitaSDK CMake helpers, libvita2d for rendering and SceCtrl for D-pad input. The CI job builds a safe VPK in the pinned VitaSDK 2026.08 container and publishes it as a short-lived workflow artifact. This proves the toolchain/package pipeline only; physical console testing, scanner behavior and real module screens remain open gates.
+The native application lives in `native/` and uses the pinned VitaSDK 2026.08 toolchain, libvita2d and SceCtrl. The current 00.09 line includes Home, offline Discover, metadata detail sheets, personal Library, three local profiles, backups, bundled typography and lightweight transitions. A 00.05 smoke test was confirmed on a PS Vita 1000; subsequent UI/catalog revisions still need device revalidation. Installed-title discovery and automatic session tracking remain unimplemented.
 
 
 
 ## Native catalog progress
 
-The native Discover screen now browses the shared public snapshot offline. CI generates a compact C index from `web/data/catalog.json` (9,732 game records in the 2026-11-17 snapshot), tests the generator, compiles the Vita app and verifies the VPK. This does not yet provide SQLite persistence, installed-title scanning, detail pages or hardware validation.
+The native Discover screen browses the shared public snapshot offline. CI generates a compact C index from `web/data/catalog.json`; the index carries the same source-backed age ratings, review scores, genres, features, themes and editorial text used by the web companion. The native app also contains its own local Library, three profiles and backups. SQLite migration, installed-title scanning and automatic playtime remain outside the current build.
 
 
 ### Native Discover filters
