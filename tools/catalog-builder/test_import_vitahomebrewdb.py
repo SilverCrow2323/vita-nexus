@@ -1,16 +1,16 @@
-import copy
 import unittest
 
 from import_vitahomebrewdb import merge_catalog, normalize_entry
 
 
-BASE = {
-    "schemaVersion": "1.0.0",
-    "generatedAt": "2026-11-17T00:00:00Z",
-    "sources": [],
-    "totals": {"games": 0, "releases": 0},
-    "games": [],
-}
+def new_catalog():
+    return {
+        "schemaVersion": "1.0.0",
+        "generatedAt": "2026-11-17T00:00:00Z",
+        "sources": [],
+        "totals": {"games": 0, "releases": 0},
+        "games": [],
+    }
 
 
 class VitaHomebrewImporterTests(unittest.TestCase):
@@ -60,7 +60,7 @@ class VitaHomebrewImporterTests(unittest.TestCase):
         vita = {"id": "1", "name": "Same Title", "type": "2"}
         psp = {"id": "1", "name": "Same Title", "type": "2"}
         result = merge_catalog(
-            dict(BASE),
+            new_catalog(),
             {"apps.json": [vita], "psp_apps.json": [psp]},
             fetched_at="2026-11-17T12:00:00Z",
         )
@@ -72,7 +72,7 @@ class VitaHomebrewImporterTests(unittest.TestCase):
 
     def test_reimport_is_idempotent(self):
         dataset = {"apps.json": [{"id": "7", "name": "Stable App"}]}
-        first = merge_catalog(copy.deepcopy(BASE), dataset, fetched_at="2026-11-17T12:00:00Z")
+        first = merge_catalog(new_catalog(), dataset, fetched_at="2026-11-17T12:00:00Z")
         second = merge_catalog(first, dataset, fetched_at="2026-11-17T12:00:00Z")
         self.assertEqual(second["totals"], {"games": 1, "releases": 1})
 
