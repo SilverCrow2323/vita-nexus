@@ -81,3 +81,21 @@ The roadmap is organized around testable milestones. A feature is not complete b
 ## Release philosophy
 
 The first public release must be useful even if advanced tracking or community features are still limited. Unsupported environments should be reported accurately, not hidden behind a green checkmark.
+
+
+## 🌐 Web companion progress
+
+The static website now has a project landing page, searchable catalog browser and visual documentation portal.
+
+- [x] Responsive landing page and navigation.
+- [x] Catalog search by title, identifiers and region.
+- [x] PS Vita / PSP / PS1 / Homebrew filters.
+- [x] Regional release detail modal.
+- [x] Homebrew icons, screenshots, source attribution and target-platform labels.
+- [x] Editorial fields for game features, age ratings and external scores.
+- [x] Cross-platform recommendation rendering and metadata-match ranking.
+- [x] Visual documentation portal with project chapters.
+- [x] Public catalog snapshot generated and validated: **9,732 games / 12,357 releases** on 2026-11-17.
+- [ ] Add curated metadata and relation seeds for reviewed commercial titles.
+- [ ] Enable GitHub Pages in repository settings and confirm a successful deploy.
+- [ ] Add static ranking snapshots and browser-local custom lists.
