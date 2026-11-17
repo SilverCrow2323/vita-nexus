@@ -9,7 +9,7 @@
 </p>
 
 > [!NOTE]
-> **Foundation phase.** This repository currently contains the product blueprint, documentation and first web companion shell. The native app, scanner, catalog engine and tracker are not implemented yet.
+> **The web catalog is implemented; the native Vita runtime is the next major build.** The static catalog, NPS/homebrew metadata import, regional release browser, editorial layer and cross-platform recommendations are in the repository. The native VPK, on-device scanner, local profiles and automatic playtime tracker are still planned—not quietly pretending to exist.
 
 ## 🧨 The idea
 
@@ -90,14 +90,16 @@ Keep the interface readable. Use short labels, plain English and direct copy. No
 
 | Capability | Status |
 |---|---|
-| Product direction and requirements | 🟢 Defined |
-| Repository and documentation foundation | 🟡 In progress |
-| GitHub Pages shell | 🟡 First scaffold |
-| Native Vita application | ⚪ Not started |
-| Catalog import and release matching | ⚪ Not started |
-| Installed-game scanner | ⚪ Not started |
-| Automatic tracker plugin | ⚪ Not started |
-| Rankings and community backend | ⚪ Future phase |
+| Product direction, architecture and visual system | 🟢 Defined |
+| Cyberpunk manga web portal and catalog browser | 🟢 Implemented |
+| NPS + Vita/PSP homebrew metadata pipeline | 🟢 Implemented; metadata-only |
+| Public catalog snapshot | 🟢 9,732 games · 12,357 releases · 4,466 homebrew entries |
+| Regional editions and release details | 🟢 Implemented |
+| Cross-platform recommendation engine | 🟢 Implemented; curated editorial coverage is growing |
+| Native PS Vita application / VPK | ⚪ Not implemented |
+| Installed-title scanner and local database | ⚪ Not implemented |
+| Automatic playtime tracker | ⚪ Not implemented |
+| Community accounts, votes and cloud sync | ⚪ Future backend phase |
 
 ## 🛠 Development principles
 
