@@ -63,3 +63,26 @@ The scheduled workflow runs daily and can also be started manually from GitHub A
 NPS rows do not provide the complete editorial content expected by VITA NEXUS. Descriptions, genre tags, age ratings, screenshots, cover art, hero artwork and logos belong in the separate editorial enrichment layer.
 
 Each external asset and score must have source attribution and usage terms recorded. Missing metadata should stay missing rather than being guessed.
+
+
+## Homebrew catalog source
+
+PS Vita and PSP homebrew metadata is imported from [VitaHomebrewDB](https://github.com/DrDecki/VitaHomebrewDB), using its public `apps.json` and `psp_apps.json` datasets. The upstream catalog preserves metadata such as app name, author, version, description, changelog, requirements, icon and screenshots.
+
+VITA NEXUS keeps descriptive metadata and references icons/screenshots at the upstream static host. It does **not** copy binaries, package URLs, hashes or payload fields into the public catalog.
+
+### Attribution and ownership
+
+The upstream README explicitly states that the catalog data is not covered by the repository's MIT license: names, descriptions, changelogs, icons and screenshots belong to the original creators. VITA NEXUS therefore:
+
+- links back to VitaHomebrewDB;
+- retains the original author and project-source links where supplied;
+- points artwork references at the upstream host instead of mirroring assets;
+- treats images as externally hosted material, not VITA NEXUS-owned artwork;
+- can remove or correct entries when upstream creators request it.
+
+See the [VitaHomebrewDB README and credits](https://github.com/DrDecki/VitaHomebrewDB#license).
+
+A homebrew release is represented as a `homebrew` catalog release with a separate `targetPlatform` value (`psvita` or `psp`). It is not merged into commercial NPS releases. The upstream entry ID remains the stable source item identifier.
+
+The importer deliberately excludes `url`, `data`, `hash`, `hash2`, checksum and package payload fields. Project source and release-page links are retained only as ordinary informational links.
