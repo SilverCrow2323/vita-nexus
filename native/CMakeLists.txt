@@ -13,7 +13,7 @@ include("${VITASDK}/share/vita.cmake" REQUIRED)
 
 set(VITA_APP_NAME "VITA NEXUS")
 set(VITA_TITLEID "VNXS00001")
-set(VITA_VERSION "00.05")
+set(VITA_VERSION "00.06")
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -27,6 +27,7 @@ endif()
 add_executable(${PROJECT_NAME}
   src/main.c
   src/library_store.c
+  src/profile_store.c
   ${NATIVE_CATALOG_INDEX}
 )
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
