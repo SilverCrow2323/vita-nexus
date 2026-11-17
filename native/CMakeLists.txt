@@ -25,7 +25,17 @@ target_link_libraries(${PROJECT_NAME}
   SceCtrl_stub
   SceDisplay_stub
   SceGxm_stub
-  SceLibKernel_stub
+  SceSysmodule_stub
+  ScePgf_stub
+  ScePvf_stub
+  SceCommonDialog_stub
+  SceAppMgr_stub
+  freetype
+  png
+  jpeg
+  z
+  m
+  c
 )
 
 vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME})
