@@ -742,10 +742,10 @@ int main(void)
         vita2d_swap_buffers();
     }
 
+    vita2d_fini();
     if (ui_font_medium) vita2d_free_font(ui_font_medium);
     if (ui_font_bold) vita2d_free_font(ui_font_bold);
     if (font) vita2d_free_pgf(font);
-    vita2d_fini();
     sceKernelExitProcess(0);
     return 0;
 }
