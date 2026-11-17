@@ -35,6 +35,12 @@ int main(void)
     assert(loaded.count == before.count);
     assert(vita_nexus_library_find(&loaded, "future-catalog-id") != NULL);
 
+    FILE *empty_number = fopen(bad_path, "wb");
+    assert(empty_number != NULL);
+    fputs("VNXLIB|1\nempty-number||3\nEND|00000000\n", empty_number);
+    fclose(empty_number);
+    assert(vita_nexus_library_load(&loaded, bad_path) == VITA_NEXUS_STORE_INVALID);
+
     remove(path);
     remove(bad_path);
     return 0;

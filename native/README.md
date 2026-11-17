@@ -1,6 +1,6 @@
 # Native Vita foundation
 
-This directory contains the first native VITA NEXUS shell. It is intentionally small: it proves the VitaSDK CMake/VPK pipeline and gives the project a real controller-driven entry point without pretending that the library scanner, catalog database, profiles or tracker already exist.
+This directory contains the native VITA NEXUS application: an offline catalog browser, a local personal tracker and a three-slot profile manager. It deliberately does not scan installed titles or touch game save data.
 
 ## Toolchain baseline
 
@@ -26,16 +26,17 @@ Expected output: native/build/vita_nexus_native.vpk.
 
 ## Controls
 
-- D-pad up/down: select a module.
+- D-pad up/down: select a module or move through the current list.
 - START: exit.
-- X on DISCOVER opens the selected game's metadata sheet; X on other modules remains inactive.
-- Circle returns from a game sheet to results, then from results to the module selector.
-- L/R cycles the alphabetical initial filter; Triangle cycles platform filters; Square clears filters.
-- D-pad wraparound is implemented in a VitaSDK-independent state helper and covered by a host-side C regression test.
+- LIBRARY: X opens a matching catalog entry; L/R cycles All, Favorites, Backlog and Completed; Square removes an entry after confirmation.
+- DISCOVER: X opens the selected game's metadata sheet; L/R cycles alphabetical initials; Triangle cycles platforms; Square clears filters.
+- Game detail: L toggles Favorite, R toggles Backlog, Triangle toggles Completed, Left/Right adjusts the personal score (0–10).
+- PROFILES: X activates a slot, Triangle exports its backup, Square starts a restore confirmation; X confirms and Circle cancels.
+- Circle returns to the previous screen. D-pad wraparound is covered by a host-side C regression test.
 
 ## Safety boundary
 
-This shell only renders a screen and reads controller input. It does not scan storage, write to app folders, modify saves, inspect license material or connect to a service. A successful CI package is not hardware certification. Install and test on a real console before claiming compatibility.
+The app reads controller input and writes only its own small profile, library and backup files under the `ux0:data/` namespace. It does not scan installed titles, modify game saves, inspect license material or connect to a service. The owner has confirmed the native application launches and works on a PS Vita 1000 (17 November 2026); other hardware/firmware combinations still need their own validation.
 
 
 ## Host-side menu test
@@ -59,7 +60,7 @@ Before upload, the native build workflow runs `tools/verify_vpk.py` against the 
 
 The native build consumes the same `web/data/catalog.json` snapshot as the web companion. Before the VitaSDK container build, `tools/catalog-builder/build_native_index.py` validates schema version `1.0.0` and emits `native/generated/catalog_index.c`. The generated file is a compact, read-only index of game ID, title, platform bitmask and release count; it is not a second hand-maintained catalog and it contains no package URLs, license material or payloads.
 
-The generated index is compiled into the VPK, so Discover works offline. On the home screen select DISCOVER and press Cross; use Up/Down to browse and Circle to return. The list shows catalog titles, platform labels, game IDs and release counts. The Library, Rankings and Settings modules remain explicitly incomplete.
+The generated index is compiled into the VPK, so Discover works offline. On the home screen select DISCOVER and press Cross; use Up/Down to browse and Circle to return. The list shows catalog titles, platform labels, game IDs and release counts. Rankings and Settings remain planned modules.
 
 The generated C file is a build output and is intentionally not committed. Run the generator before configuring CMake. CI tests the generator, compiles the Vita binary, verifies the VPK and uploads a temporary artifact. This is still a build-level validation, not a physical-console certification.
 
@@ -68,7 +69,7 @@ The generated C file is a build output and is intentionally not committed. Run t
 
 The Discover browser can open a metadata detail sheet for the selected catalog entry. It shows platform coverage, release count, year, developer, publisher, genres, stable game ID and a short editorial summary when those fields exist. Missing values are labelled as unavailable instead of guessed.
 
-The detail fields are generated from the same shared JSON snapshot. The index builder bounds optional text fields to keep the native binary predictable. The screen is read-only; it does not launch games, inspect installed content or access save data.
+The detail fields are generated from the same shared JSON snapshot. The index builder bounds optional text fields to keep the native binary predictable. The sheet also exposes the personal tracker controls; it does not launch games, inspect installed content or access save data.
 
 
 ## Discover filters
@@ -83,8 +84,7 @@ The result counter reports visible matches against the complete catalog. D-pad n
 
 ## Native personal Library (00.05)
 
-The native Library stores a personal collection in the app's own data namespace:
-`ux0:data/VitaNexus-library-v1.dat`. It does not enumerate storage, inspect installed titles, touch game saves, read licenses or modify system files.
+The native Library stores a personal collection in the app's own data namespace. The first profile retains the original `ux0:data/VitaNexus-library-v1.dat` path so existing 00.05 users keep their collection. Profiles 2 and 3 use separate app-owned files. It does not enumerate storage, inspect installed titles, touch game saves, read licenses or modify system files.
 
 From a game's Discover detail sheet:
 - **L trigger** toggles Favorite.
@@ -96,3 +96,16 @@ From a game's Discover detail sheet:
 The versioned `VNXLIB|1` format is bounded to 512 records, validates stable game IDs and field ranges, rejects duplicate IDs and malformed/checksum-invalid files, and loads into a temporary in-memory structure before replacing live state. Unknown catalog IDs are retained so a catalog update does not silently erase a user's data. Host tests cover round-trip persistence, toggles/removal, ratings, unknown IDs and corruption handling.
 
 The Library screen lists locally tracked records. Selecting an entry opens its catalog detail when that game ID is present in the current catalog. This milestone is a local tracker, not an installed-title scanner, cloud sync or multi-profile system. CI builds and verifies the VPK; a real PS Vita test is still required.
+
+
+## Profiles, collection tools and backups (00.06)
+
+The home screen now has a dedicated **PROFILES** module with three local slots: Player 01, Player 02 and Player 03. Each slot has an independent Library file. The active slot is remembered in `ux0:data/VitaNexus-active-profile-v1.dat`; Player 01 reuses the original 00.05 data file to preserve an existing collection during the upgrade.
+
+The profile manager shows per-slot totals, favorites, backlog, completed and rated counts. Press **X** to activate the selected slot. Empty slots start clean; switching back restores their own data.
+
+Each slot has a separate backup file under `ux0:data/`. Press **Triangle** to export the selected profile. Press **Square** to request a restore, then **X** to confirm or **Circle** to cancel. Import validates the complete versioned data and checksum before replacing the profile file. A corrupt or missing backup never partially replaces the profile. Restore is explicit because it overwrites that slot.
+
+The Library screen now has four views: All, Favorites, Backlog and Completed (L/R). Press **Square** on an entry to request removal, then **X** to confirm or **Circle** to cancel. Per-profile statistics stay local and are not uploaded.
+
+The profile selector, profile metadata, export/import and statistics helpers are covered by host-side C tests. The native package version is **00.06**. A device-level smoke test was confirmed on the owner's PS Vita 1000 on 17 November 2026; CI remains the repeatable build and integrity gate.
