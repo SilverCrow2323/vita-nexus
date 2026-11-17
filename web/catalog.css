@@ -25,3 +25,31 @@ body.catalog-page{min-height:100vh}.main-nav a.active{color:#f5f4ff}.catalog-wra
 .homebrew-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .homebrew-gallery img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:#0b101c}
 @media(max-width:640px){.cover-image-icon{padding:17px}.homebrew-details{padding:13px}.homebrew-gallery{grid-template-columns:1fr}}
+
+/* Editorial game facts and cross-platform recommendations */
+.editorial-facts,.age-rating-section,.external-scores-section{margin-top:24px;padding:17px;border:1px solid var(--line);border-radius:10px;background:rgba(18,24,38,.52)}
+.editorial-facts h3,.age-rating-section h3,.external-scores-section h3,.similar-games-section h3{margin:0 0 12px;font-size:13px;letter-spacing:-.015em}
+.editorial-tags{display:flex;flex-wrap:wrap;gap:7px}
+.editorial-tag{display:inline-flex;padding:6px 9px;border-radius:5px;border:1px solid rgba(155,131,255,.22);background:rgba(155,131,255,.08);color:#c9bdff;font-size:9px;line-height:1.3}
+.age-rating-row,.external-score-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line)}
+.age-rating-row:first-of-type,.external-score-row:first-of-type{border-top:0}
+.age-rating-row strong,.external-score-row strong{font-size:10px}
+.age-rating-row span,.external-score-row small{color:#8d9ab2;font-size:9px}
+.age-rating-row small{width:100%;color:#a6b2c8;font-size:9px}
+.external-score-value{color:#9fe9e3;font:12px var(--mono)}
+.similar-games-section{margin-top:29px;padding-top:22px;border-top:1px solid var(--line)}
+.similar-games-intro{margin:-5px 0 15px;color:#8491aa;font-size:10px;line-height:1.7}
+.recommendation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.recommendation-card{display:grid;grid-template-columns:74px minmax(0,1fr);gap:10px;align-items:stretch;padding:8px;text-align:left;border:1px solid var(--line);border-radius:8px;background:linear-gradient(145deg,rgba(27,34,52,.94),rgba(15,20,32,.96));color:var(--text);cursor:pointer;transition:transform .2s,border-color .2s,background .2s;min-width:0}
+.recommendation-card:hover{transform:translateY(-3px);border-color:rgba(155,131,255,.44);background:#1b2134}
+.recommendation-visual{display:grid;place-items:center;overflow:hidden;min-height:86px;border-radius:5px;background:radial-gradient(circle,rgba(155,131,255,.2),transparent 65%),#101728;color:#c9bdff;font-size:28px;font-weight:800}
+.recommendation-visual img{width:100%;height:100%;min-height:86px;object-fit:cover}
+.recommendation-visual img.recommendation-icon{object-fit:contain;padding:10px}
+.recommendation-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;min-width:0}
+.recommendation-type{color:#9e8cff;font:7px var(--mono);letter-spacing:.08em}
+.recommendation-copy strong{font-size:10px;line-height:1.4}
+.recommendation-platforms{display:flex;flex-wrap:wrap;gap:4px}
+.recommendation-platforms .platform-badge{font-size:7px;padding:3px 5px}
+.recommendation-copy p{margin:0;color:#8794ac;font-size:8px;line-height:1.55}
+.similar-games-empty{margin:0;padding:15px;border:1px dashed rgba(155,131,255,.22);border-radius:8px;color:#8491aa;font-size:9px;line-height:1.7}
+@media(max-width:640px){.editorial-facts,.age-rating-section,.external-scores-section{padding:13px}.recommendation-grid{grid-template-columns:1fr}.recommendation-card{grid-template-columns:68px minmax(0,1fr)}}
