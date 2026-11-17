@@ -28,7 +28,7 @@ Expected output: native/build/vita_nexus_native.vpk.
 
 - D-pad up/down: select a module.
 - START: exit.
-- X is intentionally not advertised as an action until module screens are implemented.
+- X on DISCOVER opens the selected game's metadata sheet; X on other modules remains inactive.\n- Circle returns from a game sheet to results, then from results to the module selector.
 - D-pad wraparound is implemented in a VitaSDK-independent state helper and covered by a host-side C regression test.
 
 ## Safety boundary
@@ -60,3 +60,10 @@ The native build consumes the same `web/data/catalog.json` snapshot as the web c
 The generated index is compiled into the VPK, so Discover works offline. On the home screen select DISCOVER and press Cross; use Up/Down to browse and Circle to return. The list shows catalog titles, platform labels, game IDs and release counts. The Library, Rankings and Settings modules remain explicitly incomplete.
 
 The generated C file is a build output and is intentionally not committed. Run the generator before configuring CMake. CI tests the generator, compiles the Vita binary, verifies the VPK and uploads a temporary artifact. This is still a build-level validation, not a physical-console certification.
+
+
+## Native game detail sheet
+
+The Discover browser can open a metadata detail sheet for the selected catalog entry. It shows platform coverage, release count, year, developer, publisher, genres, stable game ID and a short editorial summary when those fields exist. Missing values are labelled as unavailable instead of guessed.
+
+The detail fields are generated from the same shared JSON snapshot. The index builder bounds optional text fields to keep the native binary predictable. The screen is read-only; it does not launch games, inspect installed content or access save data.
