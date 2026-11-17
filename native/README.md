@@ -79,3 +79,20 @@ The offline catalog browser supports two independent filters without allocating 
 - **Reset:** Square restores All platforms and All initials.
 
 The result counter reports visible matches against the complete catalog. D-pad navigation and the game detail sheet operate on the filtered result set. Search is currently filter-based rather than free-text; a virtual keyboard is a separate UX milestone.
+
+
+## Native personal Library (00.05)
+
+The native Library stores a personal collection in the app's own data namespace:
+`ux0:data/VitaNexus-library-v1.dat`. It does not enumerate storage, inspect installed titles, touch game saves, read licenses or modify system files.
+
+From a game's Discover detail sheet:
+- **L trigger** toggles Favorite.
+- **R trigger** toggles Backlog.
+- **Triangle** toggles Completed.
+- **Left / Right** adjusts a personal score from 0 to 10 (0 means unrated).
+- Changes are written immediately to a temporary sibling file and committed with a rename.
+
+The versioned `VNXLIB|1` format is bounded to 512 records, validates stable game IDs and field ranges, rejects duplicate IDs and malformed/checksum-invalid files, and loads into a temporary in-memory structure before replacing live state. Unknown catalog IDs are retained so a catalog update does not silently erase a user's data. Host tests cover round-trip persistence, toggles/removal, ratings, unknown IDs and corruption handling.
+
+The Library screen lists locally tracked records. Selecting an entry opens its catalog detail when that game ID is present in the current catalog. This milestone is a local tracker, not an installed-title scanner, cloud sync or multi-profile system. CI builds and verifies the VPK; a real PS Vita test is still required.

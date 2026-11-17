@@ -4,11 +4,14 @@
 
 #include "catalog_index.h"
 #include "menu_state.h"
+#include "library_store.h"
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+
+#define LIBRARY_PATH "ux0:data/VitaNexus-library-v1.dat"
 
 #define COLOR_BG       RGBA8(11, 9, 16, 255)
 #define COLOR_PANEL    RGBA8(24, 17, 29, 255)
@@ -32,7 +35,7 @@ typedef struct {
 } MenuItem;
 
 static const MenuItem menu_items[] = {
-    {"LIBRARY", "NOT WIRED YET", "Installed titles and local collection."},
+    {"LIBRARY", "LOCAL COLLECTION READY", "Favorites, backlog, completion and personal scores."},
     {"DISCOVER", "SHARED CATALOG READY", "Browse Vita, PSP, PS1 and homebrew metadata."},
     {"RANKINGS", "PLANNED", "Personal scores, lists and public chart snapshots."},
     {"SETTINGS", "PLANNED", "Profiles, storage and offline preferences."}
@@ -162,6 +165,56 @@ static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platfo
     vita2d_pgf_draw_text(font, 54, 525, COLOR_MUTED, 0.46f, "UP/DOWN BROWSE  L/R INITIAL  TRIANGLE PLATFORM  SQUARE RESET  X DETAILS");
 }
 
+static VitaNexusLibrary g_library;
+
+static uint8_t library_flags(const VitaNexusLibrary *library, const char *game_id)
+{
+    const VitaNexusLibraryRecord *record = vita_nexus_library_find(library, game_id);
+    return record ? record->flags : 0;
+}
+
+static uint8_t library_rating(const VitaNexusLibrary *library, const char *game_id)
+{
+    const VitaNexusLibraryRecord *record = vita_nexus_library_find(library, game_id);
+    return record ? record->rating : 0;
+}
+
+static void save_library(const VitaNexusLibrary *library)
+{
+    (void)vita_nexus_library_save(library, LIBRARY_PATH);
+}
+
+static void draw_library(vita2d_pgf *font, const VitaNexusLibrary *library, size_t selected)
+{
+    const size_t start = selected >= CATALOG_ROWS ? selected - CATALOG_ROWS + 1 : 0;
+    vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
+    vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
+    vita2d_pgf_draw_text(font, 48, 62, COLOR_ACID, 1.0f, "MY LIBRARY / OFFLINE");
+    vita2d_pgf_draw_textf(font, 760, 60, COLOR_CYAN, 0.6f, "%lu ITEMS", (unsigned long)library->count);
+    vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
+    if (library->count == 0) {
+        vita2d_pgf_draw_text(font, 72, 180, COLOR_PAPER, 0.85f, "YOUR COLLECTION IS A BLANK PAGE.");
+        vita2d_pgf_draw_text(font, 72, 220, COLOR_MUTED, 0.62f, "Open a game in DISCOVER and use L / R / TRIANGLE to track it.");
+    }
+    for (size_t row = 0; row < CATALOG_ROWS && start + row < library->count; ++row) {
+        const VitaNexusLibraryRecord *record = &library->records[start + row];
+        const int y = 135 + (int)row * 38;
+        if (start + row == selected) {
+            vita2d_draw_rectangle(42, y - 22, 876, 34, COLOR_PANEL);
+            vita2d_draw_rectangle(42, y - 22, 4, 34, COLOR_CYAN);
+        }
+        vita2d_pgf_draw_text(font, 58, y, start + row == selected ? COLOR_ACID : COLOR_PAPER, 0.64f, record->game_id);
+        vita2d_pgf_draw_textf(font, 650, y, COLOR_PINK, 0.5f, "%s%s%s  /  %u/10",
+            (record->flags & VITA_NEXUS_LIBRARY_FAVORITE) ? "FAV " : "",
+            (record->flags & VITA_NEXUS_LIBRARY_BACKLOG) ? "BACKLOG " : "",
+            (record->flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "DONE" : "",
+            (unsigned int)record->rating);
+    }
+    vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
+    vita2d_pgf_draw_text(font, 54, 484, COLOR_CYAN, 0.55f, "UP/DOWN SELECT  X OPEN GAME  CIRCLE HOME");
+    vita2d_pgf_draw_text(font, 54, 508, COLOR_MUTED, 0.48f, "LOCAL FILE ONLY  /  NO GAME SAVES OR SYSTEM DATA TOUCHED");
+}
+
 static void draw_game_detail(vita2d_pgf *font, size_t selected)
 {
     if (selected >= vita_nexus_catalog_count) return;
@@ -195,12 +248,19 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
     vita2d_pgf_draw_text(font, 54, 389, COLOR_PAPER, 0.58f,
         entry->genres[0] ? entry->genres : "Not classified");
 
-    vita2d_pgf_draw_text(font, 54, 426, COLOR_CYAN, 0.62f, "EDITORIAL SUMMARY");
-    draw_wrapped(font, 54, 451, COLOR_PAPER, 0.55f, entry->summary, 112, 3);
+    const uint8_t flags = library_flags(&g_library, entry->game_id);
+    const uint8_t rating = library_rating(&g_library, entry->game_id);
+    vita2d_pgf_draw_text(font, 54, 416, COLOR_CYAN, 0.58f, "YOUR TRACKER");
+    vita2d_pgf_draw_textf(font, 54, 438, COLOR_PAPER, 0.52f, "%s%s%s   SCORE %u/10",
+        (flags & VITA_NEXUS_LIBRARY_FAVORITE) ? "FAVORITE  " : "",
+        (flags & VITA_NEXUS_LIBRARY_BACKLOG) ? "BACKLOG  " : "",
+        (flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "COMPLETED" : "NOT TRACKED",
+        (unsigned int)rating);
+    vita2d_pgf_draw_text(font, 54, 462, COLOR_PINK, 0.55f, "EDITORIAL SUMMARY");
+    draw_wrapped(font, 54, 484, COLOR_PAPER, 0.48f, entry->summary, 145, 1);
 
     vita2d_draw_rectangle(48, 518, 864, 1, COLOR_PAPER);
-    vita2d_pgf_draw_textf(font, 54, 539, COLOR_MUTED, 0.48f, "GAME ID  %s     CIRCLE BACK TO RESULTS",
-        entry->game_id);
+    vita2d_pgf_draw_text(font, 54, 539, COLOR_MUTED, 0.42f, "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK");
 }
 
 int main(void)
@@ -209,9 +269,13 @@ int main(void)
     uint32_t previous_buttons = 0;
     VitaNexusMenuState menu_state = {0};
     size_t catalog_selected = 0;
+    size_t detail_catalog_index = 0;
+    size_t library_selected = 0;
     unsigned int platform_filter = 0;
     int letter_filter = -1;
     bool in_discover = false;
+    bool in_library = false;
+    bool detail_from_library = false;
     bool in_detail = false;
     bool running = true;
 
@@ -222,6 +286,8 @@ int main(void)
     }
 
     vita2d_set_clear_color(COLOR_BG);
+    vita_nexus_library_init(&g_library);
+    (void)vita_nexus_library_load(&g_library, LIBRARY_PATH);
     vita2d_pgf *font = vita2d_load_default_pgf();
     if (!font) {
         vita2d_fini();
@@ -235,7 +301,30 @@ int main(void)
         previous_buttons = pad.buttons;
 
         if (in_detail) {
-            if (pressed & SCE_CTRL_CIRCLE) in_detail = false;
+            if (detail_catalog_index < vita_nexus_catalog_count) {
+                const char *game_id = vita_nexus_catalog[detail_catalog_index].game_id;
+                const VitaNexusLibraryRecord *existing = vita_nexus_library_find(&g_library, game_id);
+                uint8_t flags = existing ? existing->flags : 0;
+                uint8_t rating = existing ? existing->rating : 0;
+                if (pressed & SCE_CTRL_LTRIGGER) { flags ^= VITA_NEXUS_LIBRARY_FAVORITE; vita_nexus_library_set(&g_library, game_id, flags, rating); save_library(&g_library); }
+                if (pressed & SCE_CTRL_RTRIGGER) { flags ^= VITA_NEXUS_LIBRARY_BACKLOG; vita_nexus_library_set(&g_library, game_id, flags, rating); save_library(&g_library); }
+                if (pressed & SCE_CTRL_TRIANGLE) { flags ^= VITA_NEXUS_LIBRARY_COMPLETED; vita_nexus_library_set(&g_library, game_id, flags, rating); save_library(&g_library); }
+                if (pressed & SCE_CTRL_LEFT) { if (rating > 0) --rating; vita_nexus_library_set(&g_library, game_id, flags, rating); save_library(&g_library); }
+                if (pressed & SCE_CTRL_RIGHT) { if (rating < 10) ++rating; vita_nexus_library_set(&g_library, game_id, flags, rating); save_library(&g_library); }
+            }
+            if (pressed & SCE_CTRL_CIRCLE) { in_detail = false; if (detail_from_library) in_library = true; }
+        } else if (in_library) {
+            if (pressed & SCE_CTRL_UP) { if (library_selected > 0) --library_selected; }
+            else if (pressed & SCE_CTRL_DOWN) { if (library_selected + 1 < g_library.count) ++library_selected; }
+            if ((pressed & SCE_CTRL_CROSS) && library_selected < g_library.count) {
+                const char *game_id = g_library.records[library_selected].game_id;
+                for (size_t i = 0; i < vita_nexus_catalog_count; ++i) {
+                    if (strcmp(vita_nexus_catalog[i].game_id, game_id) == 0) {
+                        detail_catalog_index = i; in_detail = true; detail_from_library = true; in_library = false; break;
+                    }
+                }
+            }
+            if (pressed & SCE_CTRL_CIRCLE) in_library = false;
         } else if (in_discover) {
             if (pressed & SCE_CTRL_UP) {
                 if (catalog_selected > 0) --catalog_selected;
@@ -262,14 +351,15 @@ int main(void)
                 catalog_selected = 0;
                 rebuild_visible_games(platform_filter, letter_filter);
             }
-            if ((pressed & SCE_CTRL_CROSS) && catalog_selected < visible_count)
-                in_detail = true;
+            if ((pressed & SCE_CTRL_CROSS) && catalog_selected < visible_count) { detail_catalog_index = visible_games[catalog_selected]; in_detail = true; detail_from_library = false; }
             if (pressed & SCE_CTRL_CIRCLE) in_discover = false;
         } else {
             if (pressed & SCE_CTRL_UP) vita_nexus_menu_move(&menu_state, -1);
             else if (pressed & SCE_CTRL_DOWN) vita_nexus_menu_move(&menu_state, 1);
+            if ((pressed & SCE_CTRL_CROSS) && menu_state.selected == 0) { in_library = true; library_selected = 0; }
             if ((pressed & SCE_CTRL_CROSS) && menu_state.selected == 1) {
                 in_discover = true;
+                detail_from_library = false;
                 rebuild_visible_games(platform_filter, letter_filter);
                 catalog_selected = 0;
             }
@@ -278,7 +368,8 @@ int main(void)
 
         vita2d_start_drawing();
         vita2d_clear_screen();
-        if (in_detail && catalog_selected < visible_count) draw_game_detail(font, visible_games[catalog_selected]);
+        if (in_detail) draw_game_detail(font, detail_catalog_index);
+        else if (in_library) draw_library(font, &g_library, library_selected);
         else if (in_discover) draw_discover(font, catalog_selected, platform_filter, letter_filter);
         else draw_home(font, (int)menu_state.selected);
         vita2d_end_drawing();
