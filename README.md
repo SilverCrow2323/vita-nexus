@@ -9,7 +9,7 @@
 </p>
 
 > [!NOTE]
-> **The web companion and native Vita alpha foundation are implemented.** The native VPK now includes an offline catalog browser, game detail sheets, a personal Library and three local profiles with backups. An installed-title scanner, SQLite migration, automatic playtime and community sync remain separate future milestones. The earlier 00.05 baseline was confirmed on a PS Vita 1000; the newer 00.09 editorial layout still needs a fresh device check.
+> **The web companion and native Vita alpha foundation are implemented.** The native VPK now includes an offline catalog browser, game detail sheets, a personal Library and three local profiles with backups. An installed-title scanner, SQLite migration, automatic playtime and community sync remain separate future milestones. The earlier 00.05 baseline was confirmed on a PS Vita 1000; the 00.10 magazine-page redesign is now built in CI and needs a fresh device visual check.
 
 ## 🧨 The idea
 
@@ -101,7 +101,7 @@ Keep the interface readable. Use short labels, plain English and direct copy. No
 | Public catalog snapshot | 🟢 9,732 games · 12,357 releases · 4,466 homebrew entries |
 | Regional editions and release details | 🟢 Implemented |
 | Cross-platform recommendation engine | 🟢 Implemented; curated editorial coverage is growing |
-| Native PS Vita application / VPK | 🟢 Implemented · native 00.09 (visual recheck pending) |
+| Native PS Vita application / VPK | 🟢 Implemented · native 00.10 (magazine redesign; visual recheck pending) |
 | Offline Discover + metadata detail sheets | 🟢 Implemented · shared catalog snapshot |
 | Local Library, 3 profiles and backups | 🟢 Implemented · app-owned files only |
 | Installed-title scanner / SQLite migration | ⚪ Not implemented |
