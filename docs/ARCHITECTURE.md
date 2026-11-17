@@ -125,3 +125,12 @@ Do not infer perfect session boundaries from a single process query. Validate ea
 - Any future cloud sync must be opt-in and authenticated.
 - Community submissions require validation, rate limiting and moderation.
 - Untrusted catalog strings must be escaped before rendering.
+
+
+## Catalog ingestion and public web snapshot
+
+The first source adapter imports the PS Vita, PSP and PS1 game TSV indexes published by NoPayStation. Its layout maps follow PKGj's platform-specific column positions. The importer intentionally discards package URLs, zRIF/license values and package digests.
+
+The normalized snapshot is written to `web/data/catalog.json`, which is consumed by both the public catalog browser and, later, the native database importer. `catalog/schema/catalog.schema.json` is the versioned contract. Curated descriptions, artwork, age ratings and external scores live in `web/data/editorial-overrides.json` and must include attribution before publication.
+
+Automatic grouping is deliberately conservative: identical normalized titles are grouped within one platform. A game appearing on multiple platforms remains separate until an explicit cross-platform relationship or curated canonical mapping is supplied.
