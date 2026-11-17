@@ -5,11 +5,15 @@ on:
     branches: [main]
     paths:
       - "native/**"
+      - "tools/catalog-builder/build_native_index.py"
+      - "web/data/catalog.json"
       - ".github/workflows/native-build.yml"
       - "tools/verify_vpk.py"
   pull_request:
     paths:
       - "native/**"
+      - "tools/catalog-builder/build_native_index.py"
+      - "web/data/catalog.json"
       - ".github/workflows/native-build.yml"
   workflow_dispatch:
 
@@ -22,6 +26,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
+      - name: Build and test shared native catalog index
+        run: |
+          python3 tools/catalog-builder/build_native_index.py web/data/catalog.json native/generated/catalog_index.c
+          python3 -m unittest discover -s tools/catalog-builder -p 'test_build_native_index.py' -v
 
       - name: Build with pinned VitaSDK container
         run: |
