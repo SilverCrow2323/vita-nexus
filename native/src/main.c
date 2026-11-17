@@ -500,6 +500,36 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
 {
     if (selected >= vita_nexus_catalog_count) return;
     const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[selected];
+    char score_line[192];
+    char editorial_tags[256];
+
+    if (entry->has_external_score) {
+        if (entry->score_scale > 0.0f) {
+            (void)snprintf(score_line, sizeof(score_line), "%.1f / %.1f  %s",
+                entry->score_value, entry->score_scale, entry->score_provider);
+        } else {
+            (void)snprintf(score_line, sizeof(score_line), "%.1f  %s",
+                entry->score_value, entry->score_provider);
+        }
+        if (entry->score_votes > 0) {
+            const size_t used = strlen(score_line);
+            (void)snprintf(score_line + used, sizeof(score_line) - used,
+                "  /  %lu votes", (unsigned long)entry->score_votes);
+        }
+    } else {
+        (void)snprintf(score_line, sizeof(score_line), "%s", "NO EXTERNAL SCORE");
+    }
+
+    if (entry->features[0] && entry->themes[0]) {
+        (void)snprintf(editorial_tags, sizeof(editorial_tags), "%s  /  %s",
+            entry->features, entry->themes);
+    } else if (entry->features[0]) {
+        (void)snprintf(editorial_tags, sizeof(editorial_tags), "%s", entry->features);
+    } else if (entry->themes[0]) {
+        (void)snprintf(editorial_tags, sizeof(editorial_tags), "%s", entry->themes);
+    } else {
+        (void)snprintf(editorial_tags, sizeof(editorial_tags), "%s", "No feature or theme tags");
+    }
 
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
@@ -507,41 +537,63 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
     ui_draw_fit_text(48, 102, COLOR_ACID, 1.05f, 864, entry->title);
     vita2d_draw_rectangle(48, 124, 864, 2, COLOR_PINK);
 
-    vita2d_draw_rectangle(48, 150, 864, 112, COLOR_PANEL);
-    ui_draw_text_with_font(font, 70, 180, COLOR_PINK, 0.62f, "PLATFORMS");
-    ui_draw_text_with_font(font, 70, 212, COLOR_PAPER, 0.9f, platform_label(entry->platform_mask));
-    ui_draw_textf_with_font(font, 600, 180, COLOR_PINK, 0.62f, "RELEASES  %u",
-        (unsigned int)entry->release_count);
-    if (entry->release_year)
-        ui_draw_textf_with_font(font, 600, 212, COLOR_CYAN, 0.72f, "YEAR  %u",
-            (unsigned int)entry->release_year);
-    else
-        ui_draw_text_with_font(font, 600, 212, COLOR_MUTED, 0.62f, "YEAR  UNKNOWN");
+    /* Two compact editorial panels keep the important facts above the fold. */
+    vita2d_draw_rectangle(48, 145, 420, 144, COLOR_PANEL);
+    vita2d_draw_rectangle(484, 145, 428, 144, COLOR_PANEL);
+    vita2d_draw_rectangle(48, 145, 420, 3, COLOR_CYAN);
+    vita2d_draw_rectangle(484, 145, 428, 3, COLOR_PINK);
 
-    ui_draw_text_with_font(font, 54, 300, COLOR_ACID, 0.65f, "DEVELOPER");
-    ui_draw_fit_text(54, 326, COLOR_PAPER, 0.62f, 390,
+    ui_draw_text_with_font(font, 70, 173, COLOR_PINK, 0.58f, "PLATFORM COVERAGE");
+    ui_draw_fit_text(70, 199, COLOR_PAPER, 0.86f, 370, platform_label(entry->platform_mask));
+    ui_draw_text_with_font(font, 70, 231, COLOR_CYAN, 0.48f, "RELEASES");
+    ui_draw_textf_with_font(font, 70, 256, COLOR_PAPER, 0.62f, "%u", (unsigned int)entry->release_count);
+    ui_draw_text_with_font(font, 222, 231, COLOR_CYAN, 0.48f, "YEAR");
+    if (entry->release_year)
+        ui_draw_textf_with_font(font, 222, 256, COLOR_PAPER, 0.62f, "%u", (unsigned int)entry->release_year);
+    else
+        ui_draw_text_with_font(font, 222, 256, COLOR_MUTED, 0.52f, "UNKNOWN");
+    ui_draw_text_with_font(font, 328, 231, COLOR_CYAN, 0.48f, "ENTRY TYPE");
+    ui_draw_fit_text(328, 256, COLOR_PAPER, 0.52f, 118,
+        entry->content_kind[0] ? entry->content_kind : "UNCLASSIFIED");
+
+    ui_draw_text_with_font(font, 506, 173, COLOR_PINK, 0.58f, "AGE GUIDANCE");
+    ui_draw_fit_text(506, 197, COLOR_PAPER, 0.7f, 380,
+        entry->age_rating[0] ? entry->age_rating : "NOT LISTED IN SOURCE DATA");
+    ui_draw_fit_text(506, 220, COLOR_MUTED, 0.43f, 380,
+        entry->age_descriptors[0] ? entry->age_descriptors : "No descriptors supplied");
+    ui_draw_text_with_font(font, 506, 244, COLOR_CYAN, 0.48f, "EXTERNAL SCORE");
+    ui_draw_fit_text(506, 267, entry->has_external_score ? COLOR_PAPER : COLOR_MUTED,
+        0.48f, 380, score_line);
+
+    vita2d_draw_rectangle(48, 303, 864, 112, COLOR_PANEL);
+    ui_draw_text_with_font(font, 70, 327, COLOR_ACID, 0.53f, "DEVELOPER");
+    ui_draw_fit_text(70, 350, COLOR_PAPER, 0.56f, 370,
         entry->developer[0] ? entry->developer : "Not available");
-    ui_draw_text_with_font(font, 500, 300, COLOR_ACID, 0.65f, "PUBLISHER");
-    ui_draw_fit_text(500, 326, COLOR_PAPER, 0.62f, 410,
+    ui_draw_text_with_font(font, 70, 379, COLOR_ACID, 0.53f, "PUBLISHER");
+    ui_draw_fit_text(70, 401, COLOR_PAPER, 0.56f, 370,
         entry->publisher[0] ? entry->publisher : "Not available");
 
-    ui_draw_text_with_font(font, 54, 365, COLOR_PINK, 0.62f, "GENRES");
-    ui_draw_fit_text(54, 389, COLOR_PAPER, 0.58f, 850,
+    ui_draw_text_with_font(font, 500, 327, COLOR_PINK, 0.53f, "GENRES");
+    ui_draw_fit_text(500, 350, COLOR_PAPER, 0.54f, 386,
         entry->genres[0] ? entry->genres : "Not classified");
+    ui_draw_text_with_font(font, 500, 379, COLOR_PINK, 0.53f, "FEATURES / THEMES");
+    ui_draw_fit_text(500, 401, COLOR_PAPER, 0.50f, 386, editorial_tags);
+
+    ui_draw_text_with_font(font, 54, 437, COLOR_CYAN, 0.56f, "EDITORIAL NOTE");
+    draw_wrapped(font, 54, 458, COLOR_PAPER, 0.47f, entry->summary, 850, 2);
 
     const uint8_t flags = library_flags(&g_library, entry->game_id);
     const uint8_t rating = library_rating(&g_library, entry->game_id);
-    ui_draw_text_with_font(font, 54, 416, COLOR_CYAN, 0.58f, "YOUR TRACKER");
-    ui_draw_textf_with_font(font, 54, 438, COLOR_PAPER, 0.52f, "%s%s%s   SCORE %u/10",
-        (flags & VITA_NEXUS_LIBRARY_FAVORITE) ? "FAVORITE  " : "",
-        (flags & VITA_NEXUS_LIBRARY_BACKLOG) ? "BACKLOG  " : "",
-        (flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "COMPLETED" : "NOT TRACKED",
+    ui_draw_text_with_font(font, 54, 500, COLOR_PINK, 0.47f, "YOUR TRACKER");
+    ui_draw_textf_with_font(font, 184, 500, COLOR_PAPER, 0.47f, "%s%s%s  /  PERSONAL SCORE %u/10",
+        (flags & VITA_NEXUS_LIBRARY_FAVORITE) ? "FAVORITE " : "",
+        (flags & VITA_NEXUS_LIBRARY_BACKLOG) ? "BACKLOG " : "",
+        (flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "COMPLETED" : (flags ? "" : "NOT TRACKED"),
         (unsigned int)rating);
-    ui_draw_text_with_font(font, 54, 462, COLOR_PINK, 0.55f, "EDITORIAL SUMMARY");
-    draw_wrapped(font, 54, 484, COLOR_PAPER, 0.48f, entry->summary, 850, 2);
 
     vita2d_draw_rectangle(48, 518, 864, 1, COLOR_PAPER);
-    ui_draw_text_with_font(font, 54, 539, COLOR_MUTED, 0.42f, "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK");
+    ui_draw_text_with_font(font, 54, 539, COLOR_MUTED, 0.42f,
+        "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK");
 }
 
 int main(void)
