@@ -85,19 +85,36 @@ static int ui_text_width_at_size(float scale, unsigned int size, const char *tex
 static void ui_draw_fit_text(int x, int y, unsigned int color, float scale,
     int max_width, const char *text)
 {
-    unsigned int size = ui_font_size(scale);
     vita2d_font *selected = ui_text_has_non_ascii(text) ? NULL : ui_font_for_scale(scale);
     if (!selected) {
-        ui_draw_text(x, y, color, scale, text);
+        float fitted_scale = scale;
+        while (ui_fallback_font && fitted_scale > 0.42f &&
+            vita2d_pgf_text_width(ui_fallback_font, fitted_scale, text ? text : "") > max_width) {
+            fitted_scale -= 0.04f;
+        }
+        ui_draw_text(x, y, color, fitted_scale, text);
         return;
     }
-    while (size > 14 && ui_text_width_at_size(scale, size, text) > max_width) {
+
+    unsigned int size = ui_font_size(scale);
+    char fitted[256];
+    (void)snprintf(fitted, sizeof(fitted), "%s", text ? text : "");
+    while (size > 12 && vita2d_font_text_width(selected, size, fitted) > max_width) {
         --size;
-        /* Re-measure using the smaller size below rather than changing global style. */
-        int measured = vita2d_font_text_width(selected, size, text ? text : "");
-        if (measured <= max_width) break;
     }
-    (void)vita2d_font_draw_text(selected, x, y, color, size, text ? text : "");
+
+    if (vita2d_font_text_width(selected, size, fitted) > max_width) {
+        const int ellipsis_width = vita2d_font_text_width(selected, size, "...");
+        size_t length = strlen(fitted);
+        while (length > 0 &&
+            vita2d_font_text_width(selected, size, fitted) + ellipsis_width > max_width) {
+            fitted[--length] = '\0';
+        }
+        if (length > 0 && ellipsis_width <= max_width) {
+            (void)strncat(fitted, "...", sizeof(fitted) - strlen(fitted) - 1);
+        }
+    }
+    (void)vita2d_font_draw_text(selected, x, y, color, size, fitted);
 }
 
 static void ui_draw_text_with_font(vita2d_pgf *fallback_font, int x, int y,
