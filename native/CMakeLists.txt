@@ -56,4 +56,5 @@ vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   FILE
     ${CMAKE_CURRENT_SOURCE_DIR}/assets/fonts/BarlowCondensed-Medium.ttf assets/fonts/BarlowCondensed-Medium.ttf
     ${CMAKE_CURRENT_SOURCE_DIR}/assets/fonts/BarlowCondensed-Bold.ttf assets/fonts/BarlowCondensed-Bold.ttf
+    ${CMAKE_CURRENT_SOURCE_DIR}/assets/fonts/OFL.txt assets/fonts/OFL.txt
 )
