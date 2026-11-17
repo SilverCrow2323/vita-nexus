@@ -52,6 +52,7 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 | [Recommendation engine](docs/CROSS-PLATFORM-RECOMMENDATIONS.md) | Cross-platform similarity signals and ranking behavior |
 | [Web catalog](web/catalog.html) | Searchable PS Vita / PSP / PS1 release browser |
 | [Web preview](web/index.html) | Project landing page |
+| [Native Vita foundation](native/README.md) | VitaSDK baseline, VPK build and shell status |
 
 ## 📚 Public catalog snapshot
 
