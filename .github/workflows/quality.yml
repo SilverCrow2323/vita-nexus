@@ -8,12 +8,14 @@ on:
       - "web/**"
       - "catalog/schema/**"
       - "tools/catalog-builder/**"
+      - "tests/**"
       - ".github/workflows/quality.yml"
   pull_request:
     paths:
       - "web/**"
       - "catalog/schema/**"
       - "tools/catalog-builder/**"
+      - "tests/**"
       - ".github/workflows/quality.yml"
   workflow_dispatch:
 
@@ -45,7 +47,15 @@ jobs:
       - name: Validate public catalog data
         run: python tools/catalog-builder/validate_catalog.py web/data/catalog.json
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
       - name: Check JavaScript syntax
         run: |
           node --check web/app.js
           node --check web/catalog.js
+
+      - name: Test browser catalog logic
+        run: node --test tests/*.test.cjs
