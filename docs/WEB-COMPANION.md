@@ -57,17 +57,17 @@ To activate it:
 
 The responsive landing page and searchable catalog interface are scaffolded. The catalog remains empty until the first index synchronization completes.
 
-### Phase 2 — Enriched catalog browser
-A responsive landing page, clear project status, feature overview and links to documentation.
+### Phase 2 — Enriched catalog
 
-### Phase 2 — Catalog browser
-A shared, versioned game/release dataset with platform filters, search and game detail routes.
+Add curated summaries, verified developers/publishers, cover and hero artwork, screenshots, age classifications, feature indicators and cross-platform game relationships. Each item must retain attribution and usage terms.
 
-### Phase 3 — Rankings and lists
-Publish static global charts and allow browser-local custom lists with JSON export/import.
+### Phase 3 — Rankings and personal lists
+
+Publish static global charts and support browser-local custom lists with JSON export/import. Native profiles and local playtime remain separate from website state.
 
 ### Phase 4 — Community services
-Only after a backend is selected: accounts, public submissions, voting, moderation and optional cross-device sync.
+
+Only after a backend is selected: public accounts, submissions, voting, moderation and optional cross-device sync.
 
 ## Performance and accessibility
 
