@@ -74,6 +74,11 @@ jobs:
           cc -std=c11 -Wall -Wextra -Werror -pedantic -Inative/src native/src/library_store.c native/src/profile_store.c tests/native_profile_store_test.c -o "$RUNNER_TEMP/native-profile-store-test"
           "$RUNNER_TEMP/native-profile-store-test"
 
+      - name: Run native UI motion host tests
+        run: |
+          cc -std=c11 -Wall -Wextra -Werror -pedantic -Inative/src tests/native_ui_motion_test.c -o "$RUNNER_TEMP/native-ui-motion-test"
+          "$RUNNER_TEMP/native-ui-motion-test"
+
       - name: Run native menu state host tests
         run: |
           cc -std=c11 -Wall -Wextra -Werror -pedantic -Inative/src tests/native_menu_state_test.c -o "$RUNNER_TEMP/native-menu-state-test"
