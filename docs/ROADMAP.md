@@ -12,11 +12,13 @@ The roadmap is organized around testable milestones. A feature is not complete b
 - [x] Establish initial architecture and documentation.
 - [x] Add the GitHub Pages publishing workflow and web shell.
 - [ ] Add contribution, security and licensing policy.
-- [ ] Choose and pin the VitaSDK/toolchain baseline.
+- [x] Choose and pin the VitaSDK 2026.08/toolchain baseline.
 - [x] Establish quality CI for catalog schema/data, importer tests, JavaScript syntax and browser-logic regression tests.
 
 ## Milestone 1 — Native proof of concept
 
+- [x] Establish a pinned VitaSDK 2026.08 CMake/VPK project baseline and CI build job.
+- [x] Add the first controller-driven native shell with honest placeholder module states.
 - [ ] Build a minimal VPK.
 - [ ] Render the first native screen.
 - [ ] Handle D-pad, analog and touchscreen input.
@@ -101,3 +103,8 @@ The static website now has a project landing page, searchable catalog browser an
 - [x] Configure the GitHub Pages deployment workflow for the web companion; keep deployment health in the pre-release checklist.
 - [ ] Add static ranking snapshots and public ranking methodology.
 - [x] Browser-local custom lists with ordered entries and JSON backup/restore.
+
+
+## Native foundation progress
+
+The first native shell lives in `native/`. It uses the official VitaSDK CMake helpers, libvita2d for rendering and SceCtrl for D-pad input. The CI job builds a safe VPK in the pinned VitaSDK 2026.08 container and publishes it as a short-lived workflow artifact. This proves the toolchain/package pipeline only; physical console testing, scanner behavior and real module screens remain open gates.
