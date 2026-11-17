@@ -11,8 +11,11 @@ PLATFORM_BITS = {"psvita": 1, "psp": 2, "ps1": 4, "homebrew": 8}
 
 
 def c_string(value: str) -> str:
-    # JSON string escaping is valid for the quote/backslash/control subset used here.
     return json.dumps(value, ensure_ascii=False)
+
+
+def optional_text(value: object, limit: int) -> str:
+    return value.strip()[:limit] if isinstance(value, str) else ""
 
 
 def build(source: Path, destination: Path) -> int:
@@ -44,14 +47,31 @@ def build(source: Path, destination: Path) -> int:
             mask |= PLATFORM_BITS[platform]
         if len(releases) > 65535:
             raise ValueError(f"too many releases for {game_id}")
-        rows.append((game_id, title, mask, len(releases)))
+
+        year = game.get("releaseYear")
+        if not isinstance(year, int) or isinstance(year, bool) or not 1970 <= year <= 2100:
+            year = 0
+        genres_value = game.get("genres", [])
+        genres = " / ".join(item.strip() for item in genres_value
+                            if isinstance(item, str) and item.strip()) if isinstance(genres_value, list) else ""
+        rows.append((
+            game_id, title.strip(),
+            optional_text(game.get("summary"), 260),
+            optional_text(game.get("developer"), 100),
+            optional_text(game.get("publisher"), 100),
+            genres[:120], mask, len(releases), year
+        ))
 
     destination.parent.mkdir(parents=True, exist_ok=True)
     with destination.open("w", encoding="utf-8", newline="\n") as out:
         out.write('#include "catalog_index.h"\n\n')
         out.write("const VitaNexusCatalogEntry vita_nexus_catalog[] = {\n")
-        for game_id, title, mask, count in rows:
-            out.write(f"    {{{c_string(game_id)}, {c_string(title)}, {mask}u, {count}u}},\n")
+        for game_id, title, summary, developer, publisher, genres, mask, count, year in rows:
+            out.write(
+                f"    {{{c_string(game_id)}, {c_string(title)}, {c_string(summary)}, "
+                f"{c_string(developer)}, {c_string(publisher)}, {c_string(genres)}, "
+                f"{mask}u, {count}u, {year}u}},\n"
+            )
         out.write("};\n\n")
         out.write("const size_t vita_nexus_catalog_count =\n")
         out.write("    sizeof(vita_nexus_catalog) / sizeof(vita_nexus_catalog[0]);\n")
