@@ -9,7 +9,7 @@
 </p>
 
 > [!NOTE]
-> **The web catalog is implemented; the native Vita runtime is the next major build.** The static catalog, NPS/homebrew metadata import, regional release browser, editorial layer and cross-platform recommendations are in the repository. The native VPK, on-device scanner, local profiles and automatic playtime tracker are still planned—not quietly pretending to exist.
+> **The web catalog is implemented and the first native Vita shell now builds.** The static catalog, metadata-only NPS/homebrew import, regional release browser and cross-platform recommendations are live in the repository. VitaSDK 2026.08 produces a VPK and CI verifies its SFO, Title ID and payload boundary. The shell is still a foundation: installed-title scanning, real catalog screens, local profiles and automatic playtime tracking are not implemented.
 
 ## 🧨 The idea
 
@@ -101,7 +101,9 @@ Keep the interface readable. Use short labels, plain English and direct copy. No
 | Public catalog snapshot | 🟢 9,732 games · 12,357 releases · 4,466 homebrew entries |
 | Regional editions and release details | 🟢 Implemented |
 | Cross-platform recommendation engine | 🟢 Implemented; curated editorial coverage is growing |
-| Native PS Vita application / VPK | ⚪ Not implemented |
+| Native Vita shell + VPK pipeline | 🟡 Initial menu and CI-built VPK; real-device validation pending |
+| Native VPK integrity gate | 🟢 SFO, Title ID and archive payload checks in CI |
+| D-pad menu state logic | 🟢 Host regression-tested; physical input pending |
 | Installed-title scanner and local database | ⚪ Not implemented |
 | Automatic playtime tracker | ⚪ Not implemented |
 | Community accounts, votes and cloud sync | ⚪ Future backend phase |
