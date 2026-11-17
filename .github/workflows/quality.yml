@@ -8,6 +8,7 @@ on:
       - "web/**"
       - "catalog/schema/**"
       - "tools/catalog-builder/**"
+      - "tests/**"
       - ".github/workflows/quality.yml"
   pull_request:
     paths:
@@ -49,6 +50,11 @@ jobs:
         run: |
           node --check web/app.js
           node --check web/catalog.js
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
 
       - name: Test browser catalog logic
         run: node --test tests/*.test.cjs
