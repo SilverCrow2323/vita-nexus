@@ -25,7 +25,10 @@ const state = {
   platform: "all",
   sort: "title",
   visible: PAGE_SIZE,
-  loadError: false
+  loadError: false,
+  userLists: [],
+  activeListId: ""
+}
 };
 
 function element(tag, className, text) {
@@ -419,6 +422,10 @@ function openGame(game) {
   const platformLine = element("div", "dialog-platforms");
   gamePlatforms(game).forEach((platform) => platformLine.append(makePlatformBadge(platform)));
   body.append(platformLine);
+  const listAction = element("button", "button button-primary dialog-list-action", "ADD TO LIST +");
+  listAction.type = "button";
+  listAction.addEventListener("click", () => addGameToActiveList(game));
+  body.append(listAction);
   body.append(element("h2", "dialog-title", game.title));
   body.append(element("p", "dialog-summary", game.description || override.description || game.summary || override.summary || "No description yet. The release details are still worth a look."));
 
@@ -514,6 +521,169 @@ function openGame(game) {
   }
 }
 
+
+const listCreateForm = document.querySelector("#list-create-form");
+const listNameInput = document.querySelector("#list-name");
+const listSelect = document.querySelector("#list-select");
+const listEntries = document.querySelector("#list-entries");
+const listStatus = document.querySelector("#lists-status");
+const listExportButton = document.querySelector("#list-export");
+const listImportInput = document.querySelector("#list-import");
+
+function saveUserLists() {
+  try {
+    localStorage.setItem(VitaNexusLists.STORAGE_KEY, JSON.stringify(state.userLists));
+    return true;
+  } catch (error) {
+    console.error("Could not save personal lists", error);
+    listStatus.textContent = "Browser storage is unavailable or full. Export your lists to keep a copy.";
+    return false;
+  }
+}
+
+function loadUserLists() {
+  try {
+    const stored = localStorage.getItem(VitaNexusLists.STORAGE_KEY);
+    state.userLists = stored ? VitaNexusLists.normalizeLists(JSON.parse(stored)) : [];
+  } catch (error) {
+    console.error("Could not read personal lists", error);
+    state.userLists = [];
+    listStatus.textContent = "Saved lists could not be read. Import a backup or check browser storage.";
+  }
+  state.activeListId = state.userLists[0]?.id || "";
+}
+
+function renderUserLists() {
+  const currentId = state.activeListId;
+  listSelect.replaceChildren();
+  if (!state.userLists.length) {
+    const option = element("option", "", "Create a list to get started");
+    option.value = "";
+    listSelect.append(option);
+    listSelect.disabled = true;
+  } else {
+    state.userLists.forEach((list) => {
+      const option = element("option", "", list.name + " (" + list.games.length + ")");
+      option.value = list.id;
+      listSelect.append(option);
+    });
+    listSelect.disabled = false;
+    if (state.userLists.some((list) => list.id === currentId)) state.activeListId = currentId;
+    else state.activeListId = state.userLists[0].id;
+    listSelect.value = state.activeListId;
+  }
+  const active = state.userLists.find((list) => list.id === state.activeListId);
+  listExportButton.disabled = !active;
+  listEntries.replaceChildren();
+  if (!active) {
+    listEntries.append(element("li", "list-empty", "No list yet. Create one, then add games from any catalog card."));
+    return;
+  }
+  if (!active.games.length) {
+    listEntries.append(element("li", "list-empty", "This list is empty. Open a game and hit ADD TO LIST."));
+    return;
+  }
+  active.games.forEach((gameId, index) => {
+    const game = state.catalog?.games?.find((item) => item.gameId === gameId);
+    const row = element("li", "list-entry");
+    const title = element("span", "list-entry-title", game ? game.title : "Unknown catalog entry · " + gameId);
+    const position = element("span", "list-entry-position", String(index + 1).padStart(2, "0"));
+    const actions = element("div", "list-entry-actions");
+    const moveUp = element("button", "", "↑");
+    moveUp.type = "button";
+    moveUp.disabled = index === 0;
+    moveUp.setAttribute("aria-label", "Move " + (game?.title || gameId) + " up");
+    moveUp.addEventListener("click", () => updateUserLists(VitaNexusLists.moveGame(state.userLists, active.id, gameId, -1)));
+    const moveDown = element("button", "", "↓");
+    moveDown.type = "button";
+    moveDown.disabled = index === active.games.length - 1;
+    moveDown.setAttribute("aria-label", "Move " + (game?.title || gameId) + " down");
+    moveDown.addEventListener("click", () => updateUserLists(VitaNexusLists.moveGame(state.userLists, active.id, gameId, 1)));
+    const remove = element("button", "", "×");
+    remove.type = "button";
+    remove.setAttribute("aria-label", "Remove " + (game?.title || gameId));
+    remove.addEventListener("click", () => updateUserLists(VitaNexusLists.removeGame(state.userLists, active.id, gameId)));
+    actions.append(moveUp, moveDown, remove);
+    row.append(position, title, actions);
+    listEntries.append(row);
+  });
+}
+
+function updateUserLists(lists, message) {
+  state.userLists = lists;
+  saveUserLists();
+  renderUserLists();
+  if (message) listStatus.textContent = message;
+}
+
+function addGameToActiveList(game) {
+  if (!state.activeListId) {
+    listStatus.textContent = "Create or select a list first.";
+    return;
+  }
+  const active = state.userLists.find((list) => list.id === state.activeListId);
+  if (active?.games.includes(game.gameId)) {
+    listStatus.textContent = game.title + " is already in " + active.name + ".";
+    return;
+  }
+  updateUserLists(VitaNexusLists.addGame(state.userLists, state.activeListId, game.gameId), game.title + " added to " + (active?.name || "your list") + ".");
+}
+
+listCreateForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  try {
+    const name = listNameInput.value;
+    const list = VitaNexusLists.createList(state.userLists, name);
+    state.activeListId = list[list.length - 1].id;
+    updateUserLists(list, "List created. Now go fill it with good stuff.");
+    listNameInput.value = "";
+  } catch (error) {
+    listStatus.textContent = error.message;
+  }
+});
+
+listSelect.addEventListener("change", () => {
+  state.activeListId = listSelect.value;
+  renderUserLists();
+});
+
+listExportButton.addEventListener("click", () => {
+  const active = state.userLists.find((list) => list.id === state.activeListId);
+  if (!active) return;
+  const payload = VitaNexusLists.exportLists([active]);
+  const blob = new Blob([payload], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const anchor = element("a", "", "");
+  anchor.href = url;
+  anchor.download = "vita-nexus-" + active.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".json";
+  anchor.click();
+  URL.revokeObjectURL(url);
+  listStatus.textContent = "Exported " + active.name + ". Keep that file somewhere safe.";
+});
+
+listImportInput.addEventListener("change", async () => {
+  const file = listImportInput.files && listImportInput.files[0];
+  if (!file) return;
+  try {
+    const imported = VitaNexusLists.importLists(await file.text());
+    const existingIds = new Set(state.userLists.map((list) => list.id));
+    const additions = imported.map((list, index) => ({
+      ...list,
+      id: existingIds.has(list.id) ? list.id + "-imported-" + Date.now().toString(36) + "-" + index : list.id
+    }));
+    if (state.userLists.length + additions.length > 100) throw new Error("Import would exceed the 100-list limit.");
+    updateUserLists([...state.userLists, ...additions], "Imported " + additions.length + " list(s). Nothing already saved was overwritten.");
+    if (additions.length) {
+      state.activeListId = additions[0].id;
+      renderUserLists();
+    }
+  } catch (error) {
+    listStatus.textContent = error.message;
+  } finally {
+    listImportInput.value = "";
+  }
+});
+
 async function loadCatalog() {
   grid.setAttribute("aria-busy", "true");
   try {
@@ -583,4 +753,5 @@ if (menuButton && navigation) {
   });
 }
 
-loadCatalog();
+loadUserLists();
+loadCatalog().then(() => renderUserLists());
