@@ -10,7 +10,7 @@ Expected project URL:
 
 **https://silvercrow2323.github.io/vita-nexus/**
 
-The address becomes usable only after Pages is enabled and the first deployment succeeds.
+The workflow publishes the contents of web/ to this project URL. A successful quality check is not itself a Pages deployment; use the Pages workflow result to confirm the published site.
 
 ## Catalog browser
 
@@ -37,7 +37,7 @@ It is not an application server. Do not place API secrets, private user data or 
 | Cloud sync with a Vita | ❌ | Opt-in sync service |
 | Read Vita memory-card contents | ❌ | Native app only |
 
-The native application remains fully useful offline. A web sign-in must never be required to use local profiles or playtime tracking.
+The planned native application must remain fully useful offline. A web sign-in must never be required for local profiles or playtime tracking.
 
 ## Initial deployment
 
@@ -45,17 +45,16 @@ The workflow is stored at **.github/workflows/pages.yml**. It publishes only the
 
 To activate it:
 
-1. Open the repository on GitHub.
-2. Go to **Settings → Pages**.
-3. Under **Build and deployment**, choose **GitHub Actions** as the source.
-4. Push to **main** or run the workflow manually from **Actions**.
-5. Open the deployment URL shown by the workflow.
+1. Open the repository's **Actions** tab.
+2. Select **Deploy VITA NEXUS Web** and inspect the latest run.
+3. Confirm the deployment job completed and open its published URL.
+4. If deployment is blocked, check **Settings → Pages** and ensure **GitHub Actions** is selected as the source.
 
 ## Web experience roadmap
 
 ### Phase 1 — Project portal and catalog shell
 
-The responsive landing page and searchable catalog interface are scaffolded. The catalog remains empty until the first index synchronization completes.
+The responsive landing page, underground cyberpunk manga design system, searchable catalog browser and editorial game sheets are implemented. The public metadata snapshot was generated and validated on 17 November 2026: 9,732 canonical games, 12,357 releases and 4,466 Vita/PSP homebrew entries.
 
 ### Phase 2 — Enriched catalog
 
