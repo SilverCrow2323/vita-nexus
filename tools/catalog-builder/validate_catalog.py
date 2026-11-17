@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the published VITA NEXUS catalog snapshot without third-party packages."""
+"""Validate the public VITA NEXUS catalog snapshot."""
 
 from __future__ import annotations
 
@@ -7,15 +7,9 @@ import json
 import sys
 from pathlib import Path
 
-FORBIDDEN_RELEASE_KEYS = {
-    "zrif",
-    "license",
-    "licensekey",
-    "pkgurl",
-    "packageurl",
-    "downloadurl",
-    "digest",
-    "sha256",
+FORBIDDEN_KEYS = {
+    "url", "downloadurl", "packageurl", "pkgurl", "data", "hash", "hash2",
+    "sha256", "md5", "zrif", "licensekey", "digest"
 }
 ALLOWED_PLATFORMS = {"psvita", "psp", "ps1", "homebrew"}
 ALLOWED_REGIONS = {"EU", "US", "JP", "AS", "INT", "KR", "CN", "UNKNOWN"}
@@ -24,6 +18,18 @@ ALLOWED_REGIONS = {"EU", "US", "JP", "AS", "INT", "KR", "CN", "UNKNOWN"}
 def fail(message: str) -> None:
     print("CATALOG VALIDATION ERROR: " + message, file=sys.stderr)
     raise SystemExit(1)
+
+
+def inspect_forbidden(value: object, location: str = "root") -> None:
+    if isinstance(value, dict):
+        for key, child in value.items():
+            normalized = str(key).replace("_", "").casefold()
+            if normalized in FORBIDDEN_KEYS:
+                fail(f"forbidden package, payload or integrity field at {location}.{key}")
+            inspect_forbidden(child, f"{location}.{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            inspect_forbidden(child, f"{location}[{index}]")
 
 
 def main() -> int:
@@ -38,40 +44,50 @@ def main() -> int:
     if not isinstance(catalog.get("games"), list):
         fail("games must be an array")
 
+    inspect_forbidden(catalog)
     seen_game_ids: set[str] = set()
+    seen_release_ids: set[str] = set()
     release_count = 0
 
     for game in catalog["games"]:
         if not isinstance(game, dict):
             fail("every game must be an object")
         game_id = game.get("gameId")
-        title = game.get("title")
         if not isinstance(game_id, str) or not game_id:
             fail("every game needs a non-empty gameId")
         if game_id in seen_game_ids:
             fail(f"duplicate gameId: {game_id}")
         seen_game_ids.add(game_id)
-        if not isinstance(title, str) or not title.strip():
+        if not isinstance(game.get("title"), str) or not game["title"].strip():
             fail(f"game {game_id} has no title")
 
         releases = game.get("releases")
         if not isinstance(releases, list) or not releases:
             fail(f"game {game_id} must have at least one release")
 
-        for release in releases:
-            if not isinstance(release, dict):
+        for item in releases:
+            if not isinstance(item, dict):
                 fail(f"game {game_id} contains a non-object release")
             release_count += 1
-            for key in FORBIDDEN_RELEASE_KEYS:
-                if key in {str(name).replace("_", "").casefold() for name in release}:
-                    fail(f"forbidden package/license field in release {release.get('releaseId')}")
-            if release.get("platform") not in ALLOWED_PLATFORMS:
-                fail(f"unsupported platform in {release.get('releaseId')}")
-            if release.get("region") not in ALLOWED_REGIONS:
-                fail(f"unsupported region in {release.get('releaseId')}")
-            for required in ("releaseId", "titleId", "sourceId", "sourceDataset"):
-                if not isinstance(release.get(required), str) or not release[required]:
-                    fail(f"release in {game_id} is missing {required}")
+            release_id = item.get("releaseId")
+            if not isinstance(release_id, str) or not release_id:
+                fail(f"game {game_id} has a release without releaseId")
+            if release_id in seen_release_ids:
+                fail(f"duplicate releaseId: {release_id}")
+            seen_release_ids.add(release_id)
+            if item.get("platform") not in ALLOWED_PLATFORMS:
+                fail(f"unsupported platform in {release_id}")
+            if item.get("region") not in ALLOWED_REGIONS:
+                fail(f"unsupported region in {release_id}")
+            for required in ("sourceId", "sourceDataset"):
+                if not isinstance(item.get(required), str) or not item[required]:
+                    fail(f"release {release_id} is missing {required}")
+            if item.get("platform") == "homebrew":
+                if item.get("targetPlatform") not in {"psvita", "psp"}:
+                    fail(f"homebrew release {release_id} is missing targetPlatform")
+                metadata = game.get("homebrew", {})
+                if not metadata.get("sourceCatalogUrl"):
+                    fail(f"homebrew game {game_id} is missing source attribution")
 
     totals = catalog.get("totals", {})
     if totals.get("games") != len(catalog["games"]):
