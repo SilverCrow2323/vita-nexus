@@ -146,3 +146,10 @@ The source adapter retains names, descriptions, author, version, category code, 
 ## Native shell implementation status
 
 The initial native shell is a small C application built with VitaSDK CMake helpers. It renders a controller-driven module selector with libvita2d and the system PGF font. It is deliberately isolated from catalog and storage code: no filesystem scan, save access, package install, network request or tracker hook is performed by this shell. The next native slices should add versioned catalog loading and SQLite migration before any installed-title scanner is allowed to inspect console metadata.
+
+
+## Native catalog index (implemented)
+
+The native Discover view now consumes the same schema v1.0.0 snapshot as the web app. CI compiles `web/data/catalog.json` into a static C index containing stable game IDs, display titles, platform masks and release counts. This avoids a second metadata source and keeps the full browsing dataset available offline without introducing an unverified VitaSDK JSON or SQLite dependency.
+
+The index is read-only and generated at build time. It does not contain package URLs, license material, payload data or installation paths. SQLite remains a later storage milestone for user-owned state and migration support; the current catalog index itself is not a database.
