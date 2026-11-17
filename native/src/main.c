@@ -91,10 +91,24 @@ static void ui_draw_fit_text(int x, int y, unsigned int color, float scale,
     (void)vita2d_font_draw_text(selected, x, y, color, size, text ? text : "");
 }
 
-#define vita2d_pgf_draw_text(font, x, y, color, scale, text) \\
-    do { (void)(font); ui_draw_text((x), (y), (color), (scale), (text)); } while (0)
-#define vita2d_pgf_draw_textf(font, x, y, color, scale, ...) \\
-    do { (void)(font); ui_draw_textf((x), (y), (color), (scale), __VA_ARGS__); } while (0)
+static void ui_draw_text_with_font(vita2d_pgf *fallback_font, int x, int y,
+    unsigned int color, float scale, const char *text)
+{
+    (void)fallback_font;
+    ui_draw_text(x, y, color, scale, text);
+}
+
+static void ui_draw_textf_with_font(vita2d_pgf *fallback_font, int x, int y,
+    unsigned int color, float scale, const char *format, ...)
+{
+    char buffer[512];
+    va_list args;
+    (void)fallback_font;
+    va_start(args, format);
+    (void)vsnprintf(buffer, sizeof(buffer), format, args);
+    va_end(args);
+    ui_draw_text(x, y, color, scale, buffer);
+}
 
 #define CATALOG_ROWS 8
 #define MAX_VISIBLE_GAMES 20000
@@ -133,7 +147,7 @@ static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
     float scale, const char *value, int max_width, int max_lines)
 {
     if (!value || !value[0]) {
-        vita2d_pgf_draw_text(font, x, y, COLOR_MUTED, scale, "No editorial summary available.");
+        ui_draw_text_with_font(font, x, y, COLOR_MUTED, scale, "No editorial summary available.");
         return;
     }
 
@@ -160,7 +174,7 @@ static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
         (void)snprintf(candidate, sizeof(candidate), "%s%s%s",
             line, line[0] ? " " : "", word);
         if (line[0] && ui_text_width_at_size(scale, ui_font_size(scale), candidate) > max_width) {
-            vita2d_pgf_draw_text(font, x, y + (line_number * 18), color, scale, line);
+            ui_draw_text_with_font(font, x, y + (line_number * 18), color, scale, line);
             ++line_number;
             line[0] = '\0';
             (void)snprintf(line, sizeof(line), "%s", word);
@@ -169,7 +183,7 @@ static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
         }
     }
     if (line[0] && line_number < max_lines) {
-        vita2d_pgf_draw_text(font, x, y + (line_number * 18), color, scale, line);
+        ui_draw_text_with_font(font, x, y + (line_number * 18), color, scale, line);
     }
 }
 
@@ -179,11 +193,11 @@ static void draw_home(vita2d_pgf *font, int selected)
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
     vita2d_draw_rectangle(40, 38, 880, 2, COLOR_PAPER);
-    vita2d_pgf_draw_text(font, 52, 76, COLOR_ACID, 1.25f, "VITA NEXUS");
-    vita2d_pgf_draw_text(font, 53, 101, COLOR_CYAN, 0.72f, "THE BACKLOG NEVER SLEEPS");
-    vita2d_pgf_draw_text(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.07");
+    ui_draw_text_with_font(font, 52, 76, COLOR_ACID, 1.25f, "VITA NEXUS");
+    ui_draw_text_with_font(font, 53, 101, COLOR_CYAN, 0.72f, "THE BACKLOG NEVER SLEEPS");
+    ui_draw_text_with_font(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.07");
     vita2d_draw_rectangle(48, 132, 864, 1, COLOR_PINK);
-    vita2d_pgf_draw_text(font, 54, 163, COLOR_MUTED, 0.68f, "01  /  SELECT A MODULE");
+    ui_draw_text_with_font(font, 54, 163, COLOR_MUTED, 0.68f, "01  /  SELECT A MODULE");
 
     for (int i = 0; i < 5; ++i) {
         const int y = menu_y + (i * row_h);
@@ -192,20 +206,20 @@ static void draw_home(vita2d_pgf *font, int selected)
             vita2d_draw_rectangle(menu_x - 8, y - 22, 388, 44, COLOR_PANEL);
             vita2d_draw_rectangle(menu_x - 8, y - 22, 5, 44, COLOR_PINK);
         }
-        vita2d_pgf_draw_textf(font, menu_x + 10, y + 5, active ? COLOR_ACID : COLOR_MUTED,
+        ui_draw_textf_with_font(font, menu_x + 10, y + 5, active ? COLOR_ACID : COLOR_MUTED,
             0.9f, "%02d  %s", i + 1, menu_items[i].label);
     }
 
     vita2d_draw_rectangle(490, 184, 420, 228, COLOR_PANEL);
     vita2d_draw_rectangle(490, 184, 420, 4, COLOR_CYAN);
-    vita2d_pgf_draw_text(font, 516, 220, COLOR_PINK, 0.72f, "MODULE STATUS");
-    vita2d_pgf_draw_text(font, 516, 264, COLOR_PAPER, 0.9f, menu_items[selected].label);
-    vita2d_pgf_draw_text(font, 516, 294, COLOR_ACID, 0.62f, menu_items[selected].status);
-    vita2d_pgf_draw_text(font, 516, 344, COLOR_MUTED, 0.58f, menu_items[selected].description);
+    ui_draw_text_with_font(font, 516, 220, COLOR_PINK, 0.72f, "MODULE STATUS");
+    ui_draw_text_with_font(font, 516, 264, COLOR_PAPER, 0.9f, menu_items[selected].label);
+    ui_draw_text_with_font(font, 516, 294, COLOR_ACID, 0.62f, menu_items[selected].status);
+    ui_draw_text_with_font(font, 516, 344, COLOR_MUTED, 0.58f, menu_items[selected].description);
     vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
-    vita2d_pgf_draw_text(font, 54, 484, COLOR_CYAN, 0.62f, "D-PAD SELECT    X OPEN    START EXIT");
-    vita2d_pgf_draw_text(font, 54, 501, COLOR_MUTED, 0.48f, "DISCOVER READS THE SHARED, OFFLINE CATALOG");
-    vita2d_pgf_draw_text(font, 54, 516, COLOR_MUTED, 0.52f, "NO INSTALLATION SCAN  /  NO SYSTEM FILES MODIFIED");
+    ui_draw_text_with_font(font, 54, 484, COLOR_CYAN, 0.62f, "D-PAD SELECT    X OPEN    START EXIT");
+    ui_draw_text_with_font(font, 54, 501, COLOR_MUTED, 0.48f, "DISCOVER READS THE SHARED, OFFLINE CATALOG");
+    ui_draw_text_with_font(font, 54, 516, COLOR_MUTED, 0.52f, "NO INSTALLATION SCAN  /  NO SYSTEM FILES MODIFIED");
 }
 
 
@@ -229,10 +243,10 @@ static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platfo
     const size_t start = selected >= CATALOG_ROWS ? selected - CATALOG_ROWS + 1 : 0;
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_CYAN);
-    vita2d_pgf_draw_text(font, 48, 62, COLOR_ACID, 1.0f, "DISCOVER / CATALOG");
-    vita2d_pgf_draw_textf(font, 650, 60, COLOR_PINK, 0.54f, "%lu / %lu",
+    ui_draw_text_with_font(font, 48, 62, COLOR_ACID, 1.0f, "DISCOVER / CATALOG");
+    ui_draw_textf_with_font(font, 650, 60, COLOR_PINK, 0.54f, "%lu / %lu",
         (unsigned long)visible_count, (unsigned long)vita_nexus_catalog_count);
-    vita2d_pgf_draw_textf(font, 48, 105, COLOR_CYAN, 0.48f, "FILTER  %s     INITIAL  %s",
+    ui_draw_textf_with_font(font, 48, 105, COLOR_CYAN, 0.48f, "FILTER  %s     INITIAL  %s",
         platform_filters[platform_filter], letter_filter < 0 ? "ALL" : (char[2]){'A' + letter_filter, '\0'});
     vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
 
@@ -244,19 +258,19 @@ static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platfo
             vita2d_draw_rectangle(42, y - 22, 876, 34, COLOR_PANEL);
             vita2d_draw_rectangle(42, y - 22, 4, 34, COLOR_PINK);
         }
-        vita2d_pgf_draw_textf(font, 58, y, index == selected ? COLOR_ACID : COLOR_PAPER,
+        ui_draw_textf_with_font(font, 58, y, index == selected ? COLOR_ACID : COLOR_PAPER,
             0.66f, "%s", entry->title);
-        vita2d_pgf_draw_textf(font, 790, y, COLOR_CYAN, 0.5f, "%s", platform_label(entry->platform_mask));
+        ui_draw_textf_with_font(font, 790, y, COLOR_CYAN, 0.5f, "%s", platform_label(entry->platform_mask));
     }
 
     if (selected < visible_count) {
         const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[visible_games[selected]];
         vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
-        vita2d_pgf_draw_textf(font, 54, 477, COLOR_PINK, 0.58f, "GAME ID  %s", entry->game_id);
-        vita2d_pgf_draw_textf(font, 54, 499, COLOR_CYAN, 0.58f, "%u RELEASE RECORDS  /  %s",
+        ui_draw_textf_with_font(font, 54, 477, COLOR_PINK, 0.58f, "GAME ID  %s", entry->game_id);
+        ui_draw_textf_with_font(font, 54, 499, COLOR_CYAN, 0.58f, "%u RELEASE RECORDS  /  %s",
             (unsigned int)entry->release_count, platform_label(entry->platform_mask));
     }
-    vita2d_pgf_draw_text(font, 54, 525, COLOR_MUTED, 0.46f, "UP/DOWN BROWSE  L/R INITIAL  TRIANGLE PLATFORM  SQUARE RESET  X DETAILS");
+    ui_draw_text_with_font(font, 54, 525, COLOR_MUTED, 0.46f, "UP/DOWN BROWSE  L/R INITIAL  TRIANGLE PLATFORM  SQUARE RESET  X DETAILS");
 }
 
 static VitaNexusLibrary g_library;
@@ -363,17 +377,17 @@ static void draw_library(vita2d_pgf *font, const VitaNexusLibrary *library,
     vita_nexus_profile_get_stats(library, &stats);
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
-    vita2d_pgf_draw_textf(font, 48, 62, COLOR_ACID, 1.0f, "MY LIBRARY / PLAYER %u", active_profile + 1);
-    vita2d_pgf_draw_textf(font, 760, 60, COLOR_CYAN, 0.6f, "%lu ITEMS",
+    ui_draw_textf_with_font(font, 48, 62, COLOR_ACID, 1.0f, "MY LIBRARY / PLAYER %u", active_profile + 1);
+    ui_draw_textf_with_font(font, 760, 60, COLOR_CYAN, 0.6f, "%lu ITEMS",
         (unsigned long)stats.total);
     vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
-    vita2d_pgf_draw_textf(font, 54, 112, COLOR_PINK, 0.52f, "%s   FAV %lu   BACKLOG %lu   DONE %lu   RATED %lu",
+    ui_draw_textf_with_font(font, 54, 112, COLOR_PINK, 0.52f, "%s   FAV %lu   BACKLOG %lu   DONE %lu   RATED %lu",
         library_filter_labels[filter], (unsigned long)stats.favorites, (unsigned long)stats.backlog,
         (unsigned long)stats.completed, (unsigned long)stats.rated);
 
     if (library_visible_count == 0) {
-        vita2d_pgf_draw_text(font, 72, 210, COLOR_PAPER, 0.82f, "NO GAMES IN THIS VIEW.");
-        vita2d_pgf_draw_text(font, 72, 246, COLOR_MUTED, 0.58f, "Track games from DISCOVER or switch the L/R filter.");
+        ui_draw_text_with_font(font, 72, 210, COLOR_PAPER, 0.82f, "NO GAMES IN THIS VIEW.");
+        ui_draw_text_with_font(font, 72, 246, COLOR_MUTED, 0.58f, "Track games from DISCOVER or switch the L/R filter.");
     }
     for (size_t row = 0; row < CATALOG_ROWS && start + row < library_visible_count; ++row) {
         const VitaNexusLibraryRecord *record = &library->records[library_visible[start + row]];
@@ -382,8 +396,8 @@ static void draw_library(vita2d_pgf *font, const VitaNexusLibrary *library,
             vita2d_draw_rectangle(42, y - 20, 876, 30, COLOR_PANEL);
             vita2d_draw_rectangle(42, y - 20, 4, 30, COLOR_CYAN);
         }
-        vita2d_pgf_draw_text(font, 58, y, start + row == selected ? COLOR_ACID : COLOR_PAPER, 0.6f, record->game_id);
-        vita2d_pgf_draw_textf(font, 650, y, COLOR_PINK, 0.46f, "%s%s%s  /  %u/10",
+        ui_draw_text_with_font(font, 58, y, start + row == selected ? COLOR_ACID : COLOR_PAPER, 0.6f, record->game_id);
+        ui_draw_textf_with_font(font, 650, y, COLOR_PINK, 0.46f, "%s%s%s  /  %u/10",
             (record->flags & VITA_NEXUS_LIBRARY_FAVORITE) ? "FAV " : "",
             (record->flags & VITA_NEXUS_LIBRARY_BACKLOG) ? "BACKLOG " : "",
             (record->flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "DONE" : "",
@@ -391,20 +405,20 @@ static void draw_library(vita2d_pgf *font, const VitaNexusLibrary *library,
     }
     vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
     if (active_profile_read_only) {
-        vita2d_pgf_draw_text(font, 54, 478, COLOR_PINK, 0.52f, "PROFILE DATA IS DAMAGED - RESTORE A VALID BACKUP IN PROFILES");
+        ui_draw_text_with_font(font, 54, 478, COLOR_PINK, 0.52f, "PROFILE DATA IS DAMAGED - RESTORE A VALID BACKUP IN PROFILES");
     } else if (remove_confirm) {
-        vita2d_pgf_draw_text(font, 54, 478, COLOR_PINK, 0.55f, "REMOVE THIS TRACKER ENTRY?  X CONFIRM  CIRCLE CANCEL");
+        ui_draw_text_with_font(font, 54, 478, COLOR_PINK, 0.55f, "REMOVE THIS TRACKER ENTRY?  X CONFIRM  CIRCLE CANCEL");
     } else {
-        vita2d_pgf_draw_text(font, 54, 478, COLOR_CYAN, 0.52f, "UP/DOWN SELECT  X OPEN  L/R FILTER  SQUARE REMOVE");
+        ui_draw_text_with_font(font, 54, 478, COLOR_CYAN, 0.52f, "UP/DOWN SELECT  X OPEN  L/R FILTER  SQUARE REMOVE");
     }
-    vita2d_pgf_draw_text(font, 54, 508, COLOR_MUTED, 0.46f, "CIRCLE HOME  /  LOCAL COLLECTION ONLY");
+    ui_draw_text_with_font(font, 54, 508, COLOR_MUTED, 0.46f, "CIRCLE HOME  /  LOCAL COLLECTION ONLY");
 }
 
 static void draw_profiles(vita2d_pgf *font, size_t selected, bool import_confirm, const char *notice)
 {
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_CYAN);
-    vita2d_pgf_draw_text(font, 48, 62, COLOR_ACID, 1.0f, "LOCAL PROFILES / BACKUP BAY");
+    ui_draw_text_with_font(font, 48, 62, COLOR_ACID, 1.0f, "LOCAL PROFILES / BACKUP BAY");
     vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
 
     for (unsigned int i = 0; i < VITA_NEXUS_PROFILE_COUNT; ++i) {
@@ -419,29 +433,29 @@ static void draw_profiles(vita2d_pgf *font, size_t selected, bool import_confirm
             vita2d_draw_rectangle(42, y - 30, 876, 76, COLOR_PANEL);
             vita2d_draw_rectangle(42, y - 30, 5, 76, COLOR_PINK);
         }
-        vita2d_pgf_draw_textf(font, 64, y, focus ? COLOR_ACID : COLOR_PAPER, 0.82f,
+        ui_draw_textf_with_font(font, 64, y, focus ? COLOR_ACID : COLOR_PAPER, 0.82f,
             "PLAYER %02u%s", i + 1, active ? "  /  ACTIVE" : "");
         if (result == VITA_NEXUS_STORE_INVALID || result == VITA_NEXUS_STORE_IO_ERROR) {
-            vita2d_pgf_draw_text(font, 500, y, COLOR_PINK, 0.58f, "DATA ERROR - RESTORE BACKUP");
+            ui_draw_text_with_font(font, 500, y, COLOR_PINK, 0.58f, "DATA ERROR - RESTORE BACKUP");
         } else {
-            vita2d_pgf_draw_textf(font, 500, y, COLOR_CYAN, 0.56f,
+            ui_draw_textf_with_font(font, 500, y, COLOR_CYAN, 0.56f,
                 "%lu ITEMS  /  FAV %lu  BACKLOG %lu  DONE %lu",
                 (unsigned long)stats.total, (unsigned long)stats.favorites,
                 (unsigned long)stats.backlog, (unsigned long)stats.completed);
         }
-        vita2d_pgf_draw_textf(font, 64, y + 25, COLOR_MUTED, 0.48f,
+        ui_draw_textf_with_font(font, 64, y + 25, COLOR_MUTED, 0.48f,
             "RATING DATA  %lu ENTRIES", (unsigned long)stats.rated);
     }
 
     vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
     if (import_confirm) {
-        vita2d_pgf_draw_textf(font, 54, 476, COLOR_PINK, 0.56f, "RESTORE PLAYER %02lu FROM BACKUP?", (unsigned long)selected + 1);
-        vita2d_pgf_draw_text(font, 54, 501, COLOR_CYAN, 0.52f, "X CONFIRM OVERWRITE  /  CIRCLE CANCEL");
+        ui_draw_textf_with_font(font, 54, 476, COLOR_PINK, 0.56f, "RESTORE PLAYER %02lu FROM BACKUP?", (unsigned long)selected + 1);
+        ui_draw_text_with_font(font, 54, 501, COLOR_CYAN, 0.52f, "X CONFIRM OVERWRITE  /  CIRCLE CANCEL");
     } else {
-        vita2d_pgf_draw_text(font, 54, 476, COLOR_CYAN, 0.52f, "UP/DOWN SLOT  X ACTIVATE  TRIANGLE EXPORT  SQUARE RESTORE");
-        vita2d_pgf_draw_text(font, 54, 501, COLOR_MUTED, 0.48f, "CIRCLE HOME  /  RESTORE REQUIRES A SECOND CONFIRMATION");
+        ui_draw_text_with_font(font, 54, 476, COLOR_CYAN, 0.52f, "UP/DOWN SLOT  X ACTIVATE  TRIANGLE EXPORT  SQUARE RESTORE");
+        ui_draw_text_with_font(font, 54, 501, COLOR_MUTED, 0.48f, "CIRCLE HOME  /  RESTORE REQUIRES A SECOND CONFIRMATION");
     }
-    if (notice && notice[0]) vita2d_pgf_draw_text(font, 54, 528, COLOR_ACID, 0.44f, notice);
+    if (notice && notice[0]) ui_draw_text_with_font(font, 54, 528, COLOR_ACID, 0.44f, notice);
 }
 
 static void draw_game_detail(vita2d_pgf *font, size_t selected)
@@ -451,45 +465,45 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
 
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
-    vita2d_pgf_draw_text(font, 48, 54, COLOR_CYAN, 0.65f, "DISCOVER / GAME FILE");
+    ui_draw_text_with_font(font, 48, 54, COLOR_CYAN, 0.65f, "DISCOVER / GAME FILE");
     ui_draw_fit_text(48, 102, COLOR_ACID, 1.05f, 864, entry->title);
     vita2d_draw_rectangle(48, 124, 864, 2, COLOR_PINK);
 
     vita2d_draw_rectangle(48, 150, 864, 112, COLOR_PANEL);
-    vita2d_pgf_draw_text(font, 70, 180, COLOR_PINK, 0.62f, "PLATFORMS");
-    vita2d_pgf_draw_text(font, 70, 212, COLOR_PAPER, 0.9f, platform_label(entry->platform_mask));
-    vita2d_pgf_draw_textf(font, 600, 180, COLOR_PINK, 0.62f, "RELEASES  %u",
+    ui_draw_text_with_font(font, 70, 180, COLOR_PINK, 0.62f, "PLATFORMS");
+    ui_draw_text_with_font(font, 70, 212, COLOR_PAPER, 0.9f, platform_label(entry->platform_mask));
+    ui_draw_textf_with_font(font, 600, 180, COLOR_PINK, 0.62f, "RELEASES  %u",
         (unsigned int)entry->release_count);
     if (entry->release_year)
-        vita2d_pgf_draw_textf(font, 600, 212, COLOR_CYAN, 0.72f, "YEAR  %u",
+        ui_draw_textf_with_font(font, 600, 212, COLOR_CYAN, 0.72f, "YEAR  %u",
             (unsigned int)entry->release_year);
     else
-        vita2d_pgf_draw_text(font, 600, 212, COLOR_MUTED, 0.62f, "YEAR  UNKNOWN");
+        ui_draw_text_with_font(font, 600, 212, COLOR_MUTED, 0.62f, "YEAR  UNKNOWN");
 
-    vita2d_pgf_draw_text(font, 54, 300, COLOR_ACID, 0.65f, "DEVELOPER");
-    vita2d_pgf_draw_text(font, 54, 326, COLOR_PAPER, 0.62f,
+    ui_draw_text_with_font(font, 54, 300, COLOR_ACID, 0.65f, "DEVELOPER");
+    ui_draw_text_with_font(font, 54, 326, COLOR_PAPER, 0.62f,
         entry->developer[0] ? entry->developer : "Not available");
-    vita2d_pgf_draw_text(font, 500, 300, COLOR_ACID, 0.65f, "PUBLISHER");
-    vita2d_pgf_draw_text(font, 500, 326, COLOR_PAPER, 0.62f,
+    ui_draw_text_with_font(font, 500, 300, COLOR_ACID, 0.65f, "PUBLISHER");
+    ui_draw_text_with_font(font, 500, 326, COLOR_PAPER, 0.62f,
         entry->publisher[0] ? entry->publisher : "Not available");
 
-    vita2d_pgf_draw_text(font, 54, 365, COLOR_PINK, 0.62f, "GENRES");
-    vita2d_pgf_draw_text(font, 54, 389, COLOR_PAPER, 0.58f,
+    ui_draw_text_with_font(font, 54, 365, COLOR_PINK, 0.62f, "GENRES");
+    ui_draw_text_with_font(font, 54, 389, COLOR_PAPER, 0.58f,
         entry->genres[0] ? entry->genres : "Not classified");
 
     const uint8_t flags = library_flags(&g_library, entry->game_id);
     const uint8_t rating = library_rating(&g_library, entry->game_id);
-    vita2d_pgf_draw_text(font, 54, 416, COLOR_CYAN, 0.58f, "YOUR TRACKER");
-    vita2d_pgf_draw_textf(font, 54, 438, COLOR_PAPER, 0.52f, "%s%s%s   SCORE %u/10",
+    ui_draw_text_with_font(font, 54, 416, COLOR_CYAN, 0.58f, "YOUR TRACKER");
+    ui_draw_textf_with_font(font, 54, 438, COLOR_PAPER, 0.52f, "%s%s%s   SCORE %u/10",
         (flags & VITA_NEXUS_LIBRARY_FAVORITE) ? "FAVORITE  " : "",
         (flags & VITA_NEXUS_LIBRARY_BACKLOG) ? "BACKLOG  " : "",
         (flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "COMPLETED" : "NOT TRACKED",
         (unsigned int)rating);
-    vita2d_pgf_draw_text(font, 54, 462, COLOR_PINK, 0.55f, "EDITORIAL SUMMARY");
+    ui_draw_text_with_font(font, 54, 462, COLOR_PINK, 0.55f, "EDITORIAL SUMMARY");
     draw_wrapped(font, 54, 484, COLOR_PAPER, 0.48f, entry->summary, 850, 2);
 
     vita2d_draw_rectangle(48, 518, 864, 1, COLOR_PAPER);
-    vita2d_pgf_draw_text(font, 54, 539, COLOR_MUTED, 0.42f, "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK");
+    ui_draw_text_with_font(font, 54, 539, COLOR_MUTED, 0.42f, "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK");
 }
 
 int main(void)
