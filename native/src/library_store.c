@@ -118,9 +118,9 @@ VitaNexusStoreResult vita_nexus_library_load(VitaNexusLibrary *library, const ch
         if (!valid_id(line) || strchr(second, '|')) { fclose(file); return VITA_NEXUS_STORE_INVALID; }
         char *end = NULL;
         unsigned long flags = strtoul(first, &end, 10);
-        if (!end || *end != '\0') { fclose(file); return VITA_NEXUS_STORE_INVALID; }
+        if (!end || end == first || *end != '\0') { fclose(file); return VITA_NEXUS_STORE_INVALID; }
         unsigned long rating = strtoul(second, &end, 10);
-        if (!end || *end != '\0' || flags > 7 || rating > 10) {
+        if (!end || end == second || *end != '\0' || flags > 7 || rating > 10) {
             fclose(file);
             return VITA_NEXUS_STORE_INVALID;
         }
