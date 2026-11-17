@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://silvercrow2323.github.io/vita-nexus/schemas/catalog-1.0.0.json",
+  "title": "VITA NEXUS Catalog",
+  "description": "Public metadata contract shared by the web companion and native application. Store/package URLs and license material are intentionally excluded.",
+  "type": "object",
+  "required": ["schemaVersion", "generatedAt", "sources", "games", "totals"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sourceId", "name", "dataset", "url", "recordCount"],
+        "properties": {
+          "sourceId": { "type": "string" },
+          "name": { "type": "string" },
+          "dataset": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "fetchedAt": { "type": ["string", "null"], "format": "date-time" },
+          "recordCount": { "type": "integer", "minimum": 0 },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "totals": {
+      "type": "object",
+      "required": ["games", "releases"],
+      "properties": {
+        "games": { "type": "integer", "minimum": 0 },
+        "releases": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "games": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gameId", "title", "platforms", "releases"],
+        "properties": {
+          "gameId": { "type": "string" },
+          "title": { "type": "string", "minLength": 1 },
+          "sortTitle": { "type": "string" },
+          "platforms": {
+            "type": "array",
+            "items": { "enum": ["psvita", "psp", "ps1", "homebrew"] },
+            "uniqueItems": true
+          },
+          "summary": { "type": "string" },
+          "description": { "type": "string" },
+          "genres": { "type": "array", "items": { "type": "string" } },
+          "themes": { "type": "array", "items": { "type": "string" } },
+          "features": { "type": "array", "items": { "type": "string" } },
+          "developer": { "type": "string" },
+          "publisher": { "type": "string" },
+          "releaseYear": { "type": ["integer", "null"], "minimum": 1970, "maximum": 2100 },
+          "artwork": {
+            "type": "object",
+            "properties": {
+              "cover": { "$ref": "#/$defs/artworkAsset" },
+              "hero": { "$ref": "#/$defs/artworkAsset" },
+              "logo": { "$ref": "#/$defs/artworkAsset" },
+              "screenshots": { "type": "array", "items": { "$ref": "#/$defs/artworkAsset" } }
+            },
+            "additionalProperties": false
+          },
+          "ageRatings": { "type": "array", "items": { "$ref": "#/$defs/ageRating" } },
+          "externalScores": { "type": "array", "items": { "$ref": "#/$defs/externalScore" } },
+          "relations": { "type": "array", "items": { "$ref": "#/$defs/gameRelation" } },
+          "releases": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/$defs/release" }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "artworkAsset": {
+      "type": "object",
+      "required": ["url", "alt", "source"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "alt": { "type": "string" },
+        "source": { "type": "string" },
+        "credit": { "type": "string" },
+        "license": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "ageRating": {
+      "type": "object",
+      "required": ["system", "value", "territory", "source"],
+      "properties": {
+        "system": { "enum": ["PEGI", "ESRB", "CERO", "USK", "ACB", "OTHER"] },
+        "value": { "type": "string" },
+        "territory": { "type": "string" },
+        "descriptors": { "type": "array", "items": { "type": "string" } },
+        "source": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "externalScore": {
+      "type": "object",
+      "required": ["provider", "value", "source"],
+      "properties": {
+        "provider": { "type": "string" },
+        "value": { "type": "number", "minimum": 0 },
+        "scale": { "type": "number", "exclusiveMinimum": 0 },
+        "voteCount": { "type": ["integer", "null"], "minimum": 0 },
+        "source": { "type": "string" },
+        "retrievedAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "gameRelation": {
+      "type": "object",
+      "required": ["gameId", "relationType", "reason"],
+      "properties": {
+        "gameId": { "type": "string" },
+        "relationType": { "enum": ["similar-gameplay", "same-vibe", "same-series", "spiritual-successor", "editor-pick"] },
+        "reason": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "release": {
+      "type": "object",
+      "required": ["releaseId", "platform", "titleId", "region", "sourceId", "sourceDataset"],
+      "properties": {
+        "releaseId": { "type": "string" },
+        "platform": { "enum": ["psvita", "psp", "ps1", "homebrew"] },
+        "titleId": { "type": "string" },
+        "contentId": { "type": ["string", "null"] },
+        "region": { "enum": ["EU", "US", "JP", "AS", "INT", "KR", "CN", "UNKNOWN"] },
+        "languageCodes": { "type": "array", "items": { "type": "string" } },
+        "version": { "type": "string" },
+        "packageSizeBytes": { "type": ["integer", "null"], "minimum": 0 },
+        "requiredFirmware": { "type": "string" },
+        "sourceId": { "type": "string" },
+        "sourceDataset": { "type": "string" },
+        "sourceUpdatedAt": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
