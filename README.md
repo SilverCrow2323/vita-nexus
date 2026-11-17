@@ -46,7 +46,7 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 | [Web companion](docs/WEB-COMPANION.md) | Pages scope, deployment and backend boundary |
 | [Documentation style](docs/DOCUMENTATION-STYLEGUIDE.md) | Visual and editorial language |
 | [Roadmap](docs/ROADMAP.md) | Milestones and release gates |
-| [NPS catalog import](docs/NPS-CATALOG-IMPORT.md) | Metadata-only TSV ingestion, homebrew source and regional grouping |\n| [Web catalog](web/catalog.html) | Searchable PS Vita / PSP / PS1 release browser |\n| [Web preview](web/index.html) | Project landing page |
+| [NPS catalog import](docs/NPS-CATALOG-IMPORT.md) | Metadata-only TSV ingestion, homebrew source and regional grouping |\n| [Recommendation engine](docs/CROSS-PLATFORM-RECOMMENDATIONS.md) | Cross-platform similarity signals and ranking behavior |\n| [Web catalog](web/catalog.html) | Searchable PS Vita / PSP / PS1 release browser |\n| [Web preview](web/index.html) | Project landing page |
 
 ## 🧩 Architecture at a glance
 
