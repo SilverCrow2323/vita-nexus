@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <string.h>
 
 #define ACTIVE_PROFILE_PATH "ux0:data/VitaNexus-active-profile-v1.dat"
@@ -21,6 +22,80 @@
 #define COLOR_CYAN     RGBA8(44, 232, 242, 255)
 #define COLOR_PAPER    RGBA8(247, 241, 232, 255)
 #define COLOR_MUTED    RGBA8(174, 160, 180, 255)
+
+#define UI_FONT_MEDIUM_PATH "app0:assets/fonts/BarlowCondensed-Medium.ttf"
+#define UI_FONT_BOLD_PATH   "app0:assets/fonts/BarlowCondensed-Bold.ttf"
+
+static vita2d_font *ui_font_medium;
+static vita2d_font *ui_font_bold;
+static vita2d_pgf *ui_fallback_font;
+
+static unsigned int ui_font_size(float scale)
+{
+    int size = (int)(scale * 24.0f + 0.5f);
+    if (size < 10) size = 10;
+    if (size > 32) size = 32;
+    return (unsigned int)size;
+}
+
+static vita2d_font *ui_font_for_scale(float scale)
+{
+    if (scale >= 0.82f && ui_font_bold) return ui_font_bold;
+    if (ui_font_medium) return ui_font_medium;
+    return ui_font_bold;
+}
+
+static void ui_draw_text(int x, int y, unsigned int color, float scale, const char *text)
+{
+    vita2d_font *selected = ui_font_for_scale(scale);
+    if (selected) {
+        (void)vita2d_font_draw_text(selected, x, y, color, ui_font_size(scale), text ? text : "");
+    } else if (ui_fallback_font) {
+        (void)vita2d_pgf_draw_text(ui_fallback_font, x, y, color, scale, text ? text : "");
+    }
+}
+
+static void ui_draw_textf(int x, int y, unsigned int color, float scale, const char *format, ...)
+{
+    char buffer[512];
+    va_list args;
+    va_start(args, format);
+    (void)vsnprintf(buffer, sizeof(buffer), format, args);
+    va_end(args);
+    ui_draw_text(x, y, color, scale, buffer);
+}
+
+static int ui_text_width_at_size(float scale, unsigned int size, const char *text)
+{
+    vita2d_font *selected = ui_font_for_scale(scale);
+    if (selected) return vita2d_font_text_width(selected, size, text ? text : "");
+    if (ui_fallback_font) return vita2d_pgf_text_width(ui_fallback_font, scale, text ? text : "");
+    return 0;
+}
+
+static void ui_draw_fit_text(int x, int y, unsigned int color, float scale,
+    int max_width, const char *text)
+{
+    unsigned int size = ui_font_size(scale);
+    vita2d_font *selected = ui_font_for_scale(scale);
+    if (!selected) {
+        ui_draw_text(x, y, color, scale, text);
+        return;
+    }
+    while (size > 14 && ui_text_width_at_size(scale, size, text) > max_width) {
+        --size;
+        /* Re-measure using the smaller size below rather than changing global style. */
+        int measured = vita2d_font_text_width(selected, size, text ? text : "");
+        if (measured <= max_width) break;
+    }
+    (void)vita2d_font_draw_text(selected, x, y, color, size, text ? text : "");
+}
+
+#define vita2d_pgf_draw_text(font, x, y, color, scale, text) \\
+    do { (void)(font); ui_draw_text((x), (y), (color), (scale), (text)); } while (0)
+#define vita2d_pgf_draw_textf(font, x, y, color, scale, ...) \\
+    do { (void)(font); ui_draw_textf((x), (y), (color), (scale), __VA_ARGS__); } while (0)
+
 #define CATALOG_ROWS 8
 #define MAX_VISIBLE_GAMES 20000
 
@@ -55,7 +130,7 @@ static const char *platform_label(uint8_t mask)
 }
 
 static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
-    float scale, const char *value, size_t max_bytes, int max_lines)
+    float scale, const char *value, int max_width, int max_lines)
 {
     if (!value || !value[0]) {
         vita2d_pgf_draw_text(font, x, y, COLOR_MUTED, scale, "No editorial summary available.");
@@ -63,21 +138,38 @@ static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
     }
 
     const char *cursor = value;
-    for (int line = 0; line < max_lines && *cursor; ++line) {
-        size_t length = strlen(cursor);
-        if (length > max_bytes) {
-            size_t split = max_bytes;
-            while (split > 0 && cursor[split] != ' ') --split;
-            if (split == 0) split = max_bytes;
-            length = split;
+    int line_number = 0;
+    char line[256] = "";
+    while (*cursor && line_number < max_lines) {
+        while (*cursor == ' ' || *cursor == '\\t' || *cursor == '\\n') ++cursor;
+        if (!*cursor) break;
+
+        char word[128];
+        size_t word_length = 0;
+        while (cursor[word_length] && cursor[word_length] != ' ' &&
+               cursor[word_length] != '\\t' && cursor[word_length] != '\\n' &&
+               word_length < sizeof(word) - 1) {
+            ++word_length;
         }
-        char buffer[128];
-        if (length >= sizeof(buffer)) length = sizeof(buffer) - 1;
-        memcpy(buffer, cursor, length);
-        buffer[length] = '\0';
-        vita2d_pgf_draw_text(font, x, y + (line * 24), color, scale, buffer);
-        cursor += length;
-        while (*cursor == ' ') ++cursor;
+        if (word_length == 0) break;
+        memcpy(word, cursor, word_length);
+        word[word_length] = '\0';
+        cursor += word_length;
+
+        char candidate[256];
+        (void)snprintf(candidate, sizeof(candidate), "%s%s%s",
+            line, line[0] ? " " : "", word);
+        if (line[0] && ui_text_width_at_size(scale, ui_font_size(scale), candidate) > max_width) {
+            vita2d_pgf_draw_text(font, x, y + (line_number * 18), color, scale, line);
+            ++line_number;
+            line[0] = '\0';
+            (void)snprintf(line, sizeof(line), "%s", word);
+        } else {
+            (void)snprintf(line, sizeof(line), "%s", candidate);
+        }
+    }
+    if (line[0] && line_number < max_lines) {
+        vita2d_pgf_draw_text(font, x, y + (line_number * 18), color, scale, line);
     }
 }
 
@@ -89,7 +181,7 @@ static void draw_home(vita2d_pgf *font, int selected)
     vita2d_draw_rectangle(40, 38, 880, 2, COLOR_PAPER);
     vita2d_pgf_draw_text(font, 52, 76, COLOR_ACID, 1.25f, "VITA NEXUS");
     vita2d_pgf_draw_text(font, 53, 101, COLOR_CYAN, 0.72f, "THE BACKLOG NEVER SLEEPS");
-    vita2d_pgf_draw_text(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.06");
+    vita2d_pgf_draw_text(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.07");
     vita2d_draw_rectangle(48, 132, 864, 1, COLOR_PINK);
     vita2d_pgf_draw_text(font, 54, 163, COLOR_MUTED, 0.68f, "01  /  SELECT A MODULE");
 
@@ -360,7 +452,7 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
     vita2d_pgf_draw_text(font, 48, 54, COLOR_CYAN, 0.65f, "DISCOVER / GAME FILE");
-    vita2d_pgf_draw_text(font, 48, 102, COLOR_ACID, 1.05f, entry->title);
+    ui_draw_fit_text(48, 102, COLOR_ACID, 1.05f, 864, entry->title);
     vita2d_draw_rectangle(48, 124, 864, 2, COLOR_PINK);
 
     vita2d_draw_rectangle(48, 150, 864, 112, COLOR_PANEL);
@@ -394,7 +486,7 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
         (flags & VITA_NEXUS_LIBRARY_COMPLETED) ? "COMPLETED" : "NOT TRACKED",
         (unsigned int)rating);
     vita2d_pgf_draw_text(font, 54, 462, COLOR_PINK, 0.55f, "EDITORIAL SUMMARY");
-    draw_wrapped(font, 54, 484, COLOR_PAPER, 0.48f, entry->summary, 145, 1);
+    draw_wrapped(font, 54, 484, COLOR_PAPER, 0.48f, entry->summary, 850, 2);
 
     vita2d_draw_rectangle(48, 518, 864, 1, COLOR_PAPER);
     vita2d_pgf_draw_text(font, 54, 539, COLOR_MUTED, 0.42f, "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK");
@@ -431,8 +523,11 @@ int main(void)
     vita_nexus_library_init(&g_library);
     load_startup_profile();
     rebuild_visible_library(&g_library, library_filter);
-    vita2d_pgf *font = vita2d_load_default_pgf();
-    if (!font) {
+    ui_font_medium = vita2d_load_font_file(UI_FONT_MEDIUM_PATH);
+    ui_font_bold = vita2d_load_font_file(UI_FONT_BOLD_PATH);
+    ui_fallback_font = vita2d_load_default_pgf();
+    vita2d_pgf *font = ui_fallback_font;
+    if (!ui_font_medium && !ui_font_bold && !font) {
         vita2d_fini();
         sceKernelExitProcess(2);
         return 2;
@@ -622,7 +717,9 @@ int main(void)
         vita2d_swap_buffers();
     }
 
-    vita2d_free_pgf(font);
+    if (ui_font_medium) vita2d_free_font(ui_font_medium);
+    if (ui_font_bold) vita2d_free_font(ui_font_bold);
+    if (font) vita2d_free_pgf(font);
     vita2d_fini();
     sceKernelExitProcess(0);
     return 0;
