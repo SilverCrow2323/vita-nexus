@@ -139,7 +139,7 @@ static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platfo
         platform_filters[platform_filter], letter_filter < 0 ? "ALL" : (char[2]){'A' + letter_filter, '\0'});
     vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
 
-    for (size_t row = 0; row < CATALOG_ROWS && start + row < vita_nexus_catalog_count; ++row) {
+    for (size_t row = 0; row < CATALOG_ROWS && start + row < visible_count; ++row) {
         const size_t index = visible_games[start + row];
         const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[index];
         const int y = 125 + (int)row * 39;
@@ -278,7 +278,7 @@ int main(void)
 
         vita2d_start_drawing();
         vita2d_clear_screen();
-        if (in_detail) draw_game_detail(font, catalog_selected);
+        if (in_detail && catalog_selected < visible_count) draw_game_detail(font, visible_games[catalog_selected]);
         else if (in_discover) draw_discover(font, catalog_selected, platform_filter, letter_filter);
         else draw_home(font, (int)menu_state.selected);
         vita2d_end_drawing();
