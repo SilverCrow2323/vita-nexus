@@ -63,7 +63,8 @@ function gameSearchText(game) {
   const releaseText = (game.releases || [])
     .map((release) => [release.titleId, release.contentId, release.region].join(" "))
     .join(" ");
-  return [game.title, game.sortTitle, game.summary, releaseText].join(" ").toLocaleLowerCase();
+  const homebrewText = game.homebrew ? [game.homebrew.author, game.homebrew.version, game.homebrew.categoryCode].join(" ") : "";
+  return [game.title, game.sortTitle, game.summary, game.developer, homebrewText, releaseText].join(" ").toLocaleLowerCase();
 }
 
 function filteredGames() {
@@ -100,12 +101,13 @@ function createGameCard(game) {
   );
   const artwork = game.artwork || state.overrides[game.gameId]?.artwork || {};
   const cover = element("div", "game-cover");
-  const imageUrl = artwork.cover && artwork.cover.url;
+  const homebrewIcon = game.homebrew && game.homebrew.iconUrl;
+  const imageUrl = (artwork.cover && artwork.cover.url) || homebrewIcon;
 
   if (imageUrl) {
-    const image = element("img", "cover-image");
+    const image = element("img", homebrewIcon && !(artwork.cover && artwork.cover.url) ? "cover-image cover-image-icon" : "cover-image");
     image.src = imageUrl;
-    image.alt = artwork.cover.alt || (game.title + " cover artwork");
+    image.alt = (artwork.cover && artwork.cover.alt) || (game.title + (homebrewIcon ? " homebrew icon" : " cover artwork"));
     image.loading = "lazy";
     image.decoding = "async";
     image.addEventListener("error", () => {
@@ -123,6 +125,7 @@ function createGameCard(game) {
   const info = element("div", "game-card-info");
   const meta = element("div", "game-card-meta");
   platforms.forEach((platform) => meta.append(makePlatformBadge(platform)));
+  if (game.homebrew) meta.append(element("span", "target-badge", "FOR " + (game.releases?.[0]?.targetPlatform === "psp" ? "PSP" : "PS VITA")));
   info.append(meta);
   info.append(element("h3", "game-card-title", game.title));
 
@@ -205,6 +208,13 @@ function openGame(game) {
     heroImage.src = artwork.hero.url;
     heroImage.alt = artwork.hero.alt || (game.title + " artwork");
     hero.append(heroImage);
+  } else if (game.homebrew && game.homebrew.iconUrl) {
+    hero.classList.add("dialog-hero-homebrew");
+    const iconImage = element("img", "dialog-hero-homebrew-icon");
+    iconImage.src = game.homebrew.iconUrl;
+    iconImage.alt = game.title + " homebrew icon";
+    iconImage.loading = "lazy";
+    hero.append(iconImage);
   } else {
     hero.classList.add("dialog-hero-fallback");
     hero.append(element("span", "", game.title.slice(0, 1).toUpperCase()));
@@ -222,6 +232,8 @@ function openGame(game) {
   if (game.developer || override.developer) facts.append(element("span", "", "DEVELOPER · " + (game.developer || override.developer)));
   if (game.publisher || override.publisher) facts.append(element("span", "", "PUBLISHER · " + (game.publisher || override.publisher)));
   if (game.releaseYear || override.releaseYear) facts.append(element("span", "", "YEAR · " + (game.releaseYear || override.releaseYear)));
+  if (game.homebrew && game.homebrew.author) facts.append(element("span", "", "AUTHOR · " + game.homebrew.author));
+  if (game.homebrew && game.homebrew.version) facts.append(element("span", "", "VERSION · " + game.homebrew.version));
   body.append(facts);
 
   const releasesHeading = element("div", "release-heading");
@@ -244,7 +256,47 @@ function openGame(game) {
   });
   body.append(releaseList);
 
-  const note = element("p", "dialog-source-note", "Release identifiers and descriptive fields are sourced from public metadata indexes. Package URLs and license material are not part of VITA NEXUS.");
+  if (game.homebrew) {
+    const metadata = element("section", "homebrew-details");
+    metadata.append(element("h3", "", "Homebrew details"));
+    if (game.homebrew.requirements) metadata.append(element("p", "homebrew-requirements", "REQUIREMENTS · " + game.homebrew.requirements));
+    if (game.homebrew.changelog) {
+      const change = element("details", "homebrew-changelog");
+      change.append(element("summary", "", "Release notes"));
+      change.append(element("p", "", game.homebrew.changelog));
+      metadata.append(change);
+    }
+    const links = element("div", "homebrew-links");
+    const addExternalLink = (label, url) => {
+      if (typeof url !== "string" || !url.startsWith("https://")) return;
+      const anchor = element("a", "", label + " ↗");
+      anchor.href = url;
+      anchor.target = "_blank";
+      anchor.rel = "noopener noreferrer";
+      links.append(anchor);
+    };
+    addExternalLink("Project source", game.homebrew.sourceProjectUrl);
+    addExternalLink("Release page", game.homebrew.releasePageUrl);
+    addExternalLink("Catalog attribution", game.homebrew.sourceCatalogUrl);
+    if (links.childElementCount) metadata.append(links);
+    const screenshots = game.homebrew.screenshotUrls || [];
+    if (screenshots.length) {
+      metadata.append(element("h3", "homebrew-screenshots-heading", "Screenshots"));
+      const gallery = element("div", "homebrew-gallery");
+      screenshots.forEach((url, index) => {
+        if (typeof url !== "string" || !url.startsWith("https://")) return;
+        const image = element("img", "");
+        image.src = url;
+        image.alt = game.title + " screenshot " + (index + 1);
+        image.loading = "lazy";
+        gallery.append(image);
+      });
+      if (gallery.childElementCount) metadata.append(gallery);
+    }
+    body.append(metadata);
+  }
+
+  const note = element("p", "dialog-source-note", "Release identifiers and descriptive fields are sourced from public metadata indexes. Package URLs, payloads and license material are not part of VITA NEXUS. Homebrew artwork remains hosted by its original catalog source and belongs to its respective creators.");
   body.append(note);
   dialogContent.append(body);
   if (typeof dialog.showModal === "function") dialog.showModal();
