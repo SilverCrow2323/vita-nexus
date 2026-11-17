@@ -29,7 +29,8 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 
 - **HOME** — an animated editorial dashboard with useful recommendations.
 - **GENERATOR** — playful modes such as *Chaos Pick*, *Hidden Treasure*, *Retro Detour* and *Backlog Punishment*.
-- **LIBRARY** — installed PS Vita, PSP and PS1 titles.\n- **HOMEBREW** — Vita and PSP homebrew apps, tools and ports with source attribution.
+- **LIBRARY** — installed PS Vita, PSP and PS1 titles.
+- **HOMEBREW** — Vita and PSP homebrew apps, tools and ports with source attribution.
 - **DISCOVER** — explore the wider catalog, including games not installed.
 - **STORE** — indexed releases and regional variants. An information layer, not a commercial package host.
 - **GAME PAGES** — descriptions, artwork, screenshots, age ratings, feature indicators and cross-platform recommendations.
@@ -46,7 +47,10 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 | [Web companion](docs/WEB-COMPANION.md) | Pages scope, deployment and backend boundary |
 | [Documentation style](docs/DOCUMENTATION-STYLEGUIDE.md) | Visual and editorial language |
 | [Roadmap](docs/ROADMAP.md) | Milestones and release gates |
-| [NPS catalog import](docs/NPS-CATALOG-IMPORT.md) | Metadata-only TSV ingestion, homebrew source and regional grouping |\n| [Recommendation engine](docs/CROSS-PLATFORM-RECOMMENDATIONS.md) | Cross-platform similarity signals and ranking behavior |\n| [Web catalog](web/catalog.html) | Searchable PS Vita / PSP / PS1 release browser |\n| [Web preview](web/index.html) | Project landing page |
+| [NPS catalog import](docs/NPS-CATALOG-IMPORT.md) | Metadata-only TSV ingestion, homebrew source and regional grouping |
+| [Recommendation engine](docs/CROSS-PLATFORM-RECOMMENDATIONS.md) | Cross-platform similarity signals and ranking behavior |
+| [Web catalog](web/catalog.html) | Searchable PS Vita / PSP / PS1 release browser |
+| [Web preview](web/index.html) | Project landing page |
 
 ## 📚 Public catalog snapshot
 
