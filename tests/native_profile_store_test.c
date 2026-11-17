@@ -32,6 +32,13 @@ int main(void)
     assert(vita_nexus_profile_load_active(active_path, &active) == VITA_NEXUS_STORE_OK);
     assert(active == 2);
     assert(vita_nexus_profile_save_active(active_path, VITA_NEXUS_PROFILE_COUNT) == VITA_NEXUS_STORE_INVALID);
+    FILE *broken_active = fopen(active_path, "wb");
+    assert(broken_active != NULL);
+    fputs("VNXP|1\\n1\\n00000000\\n", broken_active);
+    fclose(broken_active);
+    assert(vita_nexus_profile_load_active(active_path, &active) == VITA_NEXUS_STORE_INVALID);
+    assert(active == 2);
+    assert(vita_nexus_profile_save_active(active_path, 2) == VITA_NEXUS_STORE_OK);
 
     vita_nexus_library_init(&profile);
     assert(vita_nexus_library_set(&profile, "game-favorite", VITA_NEXUS_LIBRARY_FAVORITE, 9) == VITA_NEXUS_STORE_OK);
