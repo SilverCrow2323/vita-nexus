@@ -52,7 +52,8 @@ function loadCatalogContext() {
     Promise
   };
   const source = fs.readFileSync(path.join(__dirname, "../web/catalog.js"), "utf8");
-  vm.runInNewContext(source, context, {filename: "catalog.js"});
+  vm.createContext(context);
+  vm.runInContext(source, context, {filename: "catalog.js"});
   return context;
 }
 
@@ -76,13 +77,12 @@ test("empty source arrays fall back to curated editorial metadata on both sides"
     themes: [],
     features: []
   };
-  context.state.catalog = {games: [source, candidate]};
-  context.state.overrides = {
-    source: {genres: ["Action RPG"], themes: ["Space opera"]},
-    candidate: {genres: ["Action RPG"], themes: ["Space opera"]}
-  };
+  const sourceOverride = {genres: ["Action RPG"], themes: ["Space opera"]};
+  vm.runInContext("state.catalog = {games: [source, candidate]}; state.overrides = {source: sourceOverride, candidate: {genres: ['Action RPG'], themes: ['Space opera']}};", context);
+  context.source = source;
+  context.sourceOverride = sourceOverride;
 
-  const picks = context.getRecommendations(source, context.state.overrides.source);
+  const picks = context.getRecommendations(context.source, context.sourceOverride);
   assert.equal(picks.length, 1);
   assert.equal(picks[0].game.gameId, "candidate");
   assert.equal(picks[0].label, "METADATA MATCH");
@@ -105,7 +105,6 @@ test("empty in-record relations fall back to curated override relations", () => 
     platforms: ["ps1"],
     releases: []
   };
-  context.state.catalog = {games: [source, candidate]};
   const override = {
     relations: [{
       gameId: "candidate",
@@ -115,7 +114,9 @@ test("empty in-record relations fall back to curated override relations", () => 
     }]
   };
 
-  const picks = context.getRecommendations(source, override);
+  vm.runInContext("state.catalog = {games: [source, candidate]};", context);
+  context.source = source;
+  const picks = context.getRecommendations(context.source, override);
   assert.equal(picks.length, 1);
   assert.equal(picks[0].game.gameId, "candidate");
   assert.equal(picks[0].label, "SAME SERIES");
