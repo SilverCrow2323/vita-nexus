@@ -48,6 +48,20 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 | [Roadmap](docs/ROADMAP.md) | Milestones and release gates |
 | [NPS catalog import](docs/NPS-CATALOG-IMPORT.md) | Metadata-only TSV ingestion, homebrew source and regional grouping |\n| [Recommendation engine](docs/CROSS-PLATFORM-RECOMMENDATIONS.md) | Cross-platform similarity signals and ranking behavior |\n| [Web catalog](web/catalog.html) | Searchable PS Vita / PSP / PS1 release browser |\n| [Web preview](web/index.html) | Project landing page |
 
+## 📚 Public catalog snapshot
+
+The metadata-only catalog build currently contains:
+
+| Collection | Entries |
+|---|---:|
+| Canonical game records | **9,732** |
+| Release records | **12,357** |
+| Vita + PSP homebrew entries | **4,466** |
+
+<sub>Snapshot generated and validated on 2026-11-17. The scheduled catalog workflow refreshes these figures as upstream indexes change.</sub>
+
+Browse the [catalog interface](web/catalog.html) or inspect the [raw catalog snapshot](web/data/catalog.json).
+
 ## 🧩 Architecture at a glance
 
 ~~~mermaid
