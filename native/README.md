@@ -46,3 +46,8 @@ cc -std=c11 -Wall -Wextra -Werror -pedantic -Inative/src tests/native_menu_state
 ```
 
 The quality workflow runs the same test. This checks navigation state only; it does not emulate Vita hardware or certify rendered input.
+
+
+## VPK integrity gate
+
+Before upload, the native build workflow runs `tools/verify_vpk.py` against the generated package. It checks ZIP integrity, required `eboot.bin` and `sce_sys/param.sfo` entries, the expected nine-character Title ID, unsafe paths, duplicate entries, symlinks, encrypted entries, oversized archives and forbidden game/license payloads. It records the package SHA-256 in the Actions summary. The verifier itself has host-side regression tests in `tests/test_verify_vpk.py`.
