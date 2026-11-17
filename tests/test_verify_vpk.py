@@ -12,15 +12,18 @@ from tools.verify_vpk import VpkValidationError, validate_vpk
 TITLE_ID = "VNXS00001"
 
 
-def write_vpk(path: Path, entries: dict[str, bytes] | None = None) -> None:
+def write_vpk(path: Path, entries: dict[str, bytes] | None = None, *, include_fonts: bool = True) -> None:
     payload = entries or {
         "eboot.bin": b"native-self-placeholder",
-        "sce_sys/param.sfo": b"\x00TITLE_ID\x00VNXS00001\x00",
+        "sce_sys/param.sfo": b"\\x00TITLE_ID\\x00VNXS00001\\x00",
     }
+    payload = dict(payload)
+    if include_fonts:
+        payload.setdefault("assets/fonts/BarlowCondensed-Medium.ttf", bytes.fromhex("00010000") + bytes(32))
+        payload.setdefault("assets/fonts/BarlowCondensed-Bold.ttf", bytes.fromhex("00010000") + bytes(32))
     with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_STORED) as archive:
         for name, data in payload.items():
             archive.writestr(name, data)
-
 
 def test_valid_vpk_reports_integrity_and_title_id(tmp_path: Path):
     package = tmp_path / "valid.vpk"
