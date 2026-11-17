@@ -39,7 +39,7 @@ jobs:
       - name: Import public metadata indexes
         run: python tools/catalog-builder/import_nps_tsv.py --output web/data/catalog.json
 
-      - name: Validate public catalog snapshot
+      - name: Import Vita and PSP homebrew metadata\n        run: python tools/catalog-builder/import_vitahomebrewdb.py --catalog web/data/catalog.json --output web/data/catalog.json\n\n      - name: Validate public catalog snapshot
         run: python tools/catalog-builder/validate_catalog.py web/data/catalog.json
 
       - name: Commit catalog snapshot when changed
