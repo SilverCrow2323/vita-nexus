@@ -181,13 +181,13 @@ static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
     int line_number = 0;
     char line[256] = "";
     while (*cursor && line_number < max_lines) {
-        while (*cursor == ' ' || *cursor == '\\t' || *cursor == '\\n') ++cursor;
+        while (*cursor == ' ' || *cursor == '\t' || *cursor == '\n') ++cursor;
         if (!*cursor) break;
 
         char word[128];
         size_t word_length = 0;
         while (cursor[word_length] && cursor[word_length] != ' ' &&
-               cursor[word_length] != '\\t' && cursor[word_length] != '\\n' &&
+               cursor[word_length] != '\t' && cursor[word_length] != '\n' &&
                word_length < sizeof(word) - 1) {
             ++word_length;
         }
