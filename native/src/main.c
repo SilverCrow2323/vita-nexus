@@ -32,9 +32,9 @@ static vita2d_pgf *ui_fallback_font;
 
 static unsigned int ui_font_size(float scale)
 {
-    int size = (int)(scale * 24.0f + 0.5f);
-    if (size < 10) size = 10;
-    if (size > 32) size = 32;
+    int size = (int)(scale * 26.0f + 0.5f);
+    if (size < 11) size = 11;
+    if (size > 34) size = 34;
     return (unsigned int)size;
 }
 
@@ -45,9 +45,18 @@ static vita2d_font *ui_font_for_scale(float scale)
     return ui_font_bold;
 }
 
+static bool ui_text_has_non_ascii(const char *text)
+{
+    if (!text) return false;
+    for (const unsigned char *cursor = (const unsigned char *)text; *cursor; ++cursor) {
+        if (*cursor >= 0x80u) return true;
+    }
+    return false;
+}
+
 static void ui_draw_text(int x, int y, unsigned int color, float scale, const char *text)
 {
-    vita2d_font *selected = ui_font_for_scale(scale);
+    vita2d_font *selected = ui_text_has_non_ascii(text) ? NULL : ui_font_for_scale(scale);
     if (selected) {
         (void)vita2d_font_draw_text(selected, x, y, color, ui_font_size(scale), text ? text : "");
     } else if (ui_fallback_font) {
@@ -67,7 +76,7 @@ static void ui_draw_textf(int x, int y, unsigned int color, float scale, const c
 
 static int ui_text_width_at_size(float scale, unsigned int size, const char *text)
 {
-    vita2d_font *selected = ui_font_for_scale(scale);
+    vita2d_font *selected = ui_text_has_non_ascii(text) ? NULL : ui_font_for_scale(scale);
     if (selected) return vita2d_font_text_width(selected, size, text ? text : "");
     if (ui_fallback_font) return vita2d_pgf_text_width(ui_fallback_font, scale, text ? text : "");
     return 0;
@@ -77,7 +86,7 @@ static void ui_draw_fit_text(int x, int y, unsigned int color, float scale,
     int max_width, const char *text)
 {
     unsigned int size = ui_font_size(scale);
-    vita2d_font *selected = ui_font_for_scale(scale);
+    vita2d_font *selected = ui_text_has_non_ascii(text) ? NULL : ui_font_for_scale(scale);
     if (!selected) {
         ui_draw_text(x, y, color, scale, text);
         return;
