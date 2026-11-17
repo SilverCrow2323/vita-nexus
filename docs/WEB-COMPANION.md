@@ -12,6 +12,12 @@ Expected project URL:
 
 The address becomes usable only after Pages is enabled and the first deployment succeeds.
 
+## Catalog browser
+
+The first browser route is `catalog.html`. It reads `data/catalog.json` and `data/editorial-overrides.json`, and supports title/identifier/region search, platform filters, sorting, regional release details and progressive loading.
+
+The public JSON contract is defined in `catalog/schema/catalog.schema.json`. The metadata-only source importer is documented in [NPS catalog import](NPS-CATALOG-IMPORT.md).
+
 ## What Pages can host
 
 GitHub Pages serves static HTML, CSS, JavaScript and build output. That is ideal for a polished project landing page, documentation and release notes, a read-only catalog backed by versioned JSON, browser-side search and filters, game detail pages, and static public ranking snapshots.
@@ -47,7 +53,11 @@ To activate it:
 
 ## Web experience roadmap
 
-### Phase 1 — Project portal
+### Phase 1 — Project portal and catalog shell
+
+The responsive landing page and searchable catalog interface are scaffolded. The catalog remains empty until the first index synchronization completes.
+
+### Phase 2 — Enriched catalog browser
 A responsive landing page, clear project status, feature overview and links to documentation.
 
 ### Phase 2 — Catalog browser
