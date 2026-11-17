@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-enum { VITA_NEXUS_MENU_COUNT = 4 };
+enum { VITA_NEXUS_MENU_COUNT = 5 };
 
 typedef struct {
     size_t selected;
