@@ -18,6 +18,12 @@
 #define COLOR_PAPER    RGBA8(247, 241, 232, 255)
 #define COLOR_MUTED    RGBA8(174, 160, 180, 255)
 #define CATALOG_ROWS 8
+#define MAX_VISIBLE_GAMES 20000
+
+static size_t visible_games[MAX_VISIBLE_GAMES];
+static size_t visible_count = 0;
+static const char *platform_filters[] = {"ALL PLATFORMS", "PS VITA", "PSP", "PS1", "HOMEBREW"};
+static const uint8_t platform_filter_bits[] = {0, VITA_NEXUS_PLATFORM_PSVITA, VITA_NEXUS_PLATFORM_PSP, VITA_NEXUS_PLATFORM_PS1, VITA_NEXUS_PLATFORM_HOMEBREW};
 
 typedef struct {
     const char *label;
@@ -105,18 +111,36 @@ static void draw_home(vita2d_pgf *font, int selected)
     vita2d_pgf_draw_text(font, 54, 516, COLOR_MUTED, 0.52f, "NO INSTALLATION SCAN  /  NO SYSTEM FILES MODIFIED");
 }
 
-static void draw_discover(vita2d_pgf *font, size_t selected)
+
+static void rebuild_visible_games(unsigned int platform_filter, int letter_filter)
+{
+    visible_count = 0;
+    for (size_t i = 0; i < vita_nexus_catalog_count && visible_count < MAX_VISIBLE_GAMES; ++i) {
+        const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[i];
+        if (platform_filter && !(entry->platform_mask & platform_filter_bits[platform_filter])) continue;
+        if (letter_filter >= 0) {
+            const unsigned char first = (unsigned char)entry->title[0];
+            const int normalized = (first >= 'a' && first <= 'z') ? first - 'a' + 'A' : first;
+            if (normalized != ('A' + letter_filter)) continue;
+        }
+        visible_games[visible_count++] = i;
+    }
+}
+
+static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platform_filter, int letter_filter)
 {
     const size_t start = selected >= CATALOG_ROWS ? selected - CATALOG_ROWS + 1 : 0;
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_CYAN);
     vita2d_pgf_draw_text(font, 48, 62, COLOR_ACID, 1.0f, "DISCOVER / CATALOG");
-    vita2d_pgf_draw_textf(font, 720, 60, COLOR_PINK, 0.58f, "%lu TITLES",
-        (unsigned long)vita_nexus_catalog_count);
+    vita2d_pgf_draw_textf(font, 650, 60, COLOR_PINK, 0.54f, "%lu / %lu",
+        (unsigned long)visible_count, (unsigned long)vita_nexus_catalog_count);
+    vita2d_pgf_draw_textf(font, 48, 105, COLOR_CYAN, 0.48f, "FILTER  %s     INITIAL  %s",
+        platform_filters[platform_filter], letter_filter < 0 ? "ALL" : (char[2]){'A' + letter_filter, '\0'});
     vita2d_draw_rectangle(48, 86, 864, 2, COLOR_PINK);
 
-    for (size_t row = 0; row < CATALOG_ROWS && start + row < vita_nexus_catalog_count; ++row) {
-        const size_t index = start + row;
+    for (size_t row = 0; row < CATALOG_ROWS && start + row < visible_count; ++row) {
+        const size_t index = visible_games[start + row];
         const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[index];
         const int y = 125 + (int)row * 39;
         if (index == selected) {
@@ -128,14 +152,14 @@ static void draw_discover(vita2d_pgf *font, size_t selected)
         vita2d_pgf_draw_textf(font, 790, y, COLOR_CYAN, 0.5f, "%s", platform_label(entry->platform_mask));
     }
 
-    if (selected < vita_nexus_catalog_count) {
-        const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[selected];
+    if (selected < visible_count) {
+        const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[visible_games[selected]];
         vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
         vita2d_pgf_draw_textf(font, 54, 477, COLOR_PINK, 0.58f, "GAME ID  %s", entry->game_id);
         vita2d_pgf_draw_textf(font, 54, 499, COLOR_CYAN, 0.58f, "%u RELEASE RECORDS  /  %s",
             (unsigned int)entry->release_count, platform_label(entry->platform_mask));
     }
-    vita2d_pgf_draw_text(font, 54, 525, COLOR_MUTED, 0.5f, "UP / DOWN BROWSE    X DETAILS    CIRCLE BACK");
+    vita2d_pgf_draw_text(font, 54, 525, COLOR_MUTED, 0.46f, "UP/DOWN BROWSE  L/R INITIAL  TRIANGLE PLATFORM  SQUARE RESET  X DETAILS");
 }
 
 static void draw_game_detail(vita2d_pgf *font, size_t selected)
@@ -185,6 +209,8 @@ int main(void)
     uint32_t previous_buttons = 0;
     VitaNexusMenuState menu_state = {0};
     size_t catalog_selected = 0;
+    unsigned int platform_filter = 0;
+    int letter_filter = -1;
     bool in_discover = false;
     bool in_detail = false;
     bool running = true;
@@ -214,22 +240,46 @@ int main(void)
             if (pressed & SCE_CTRL_UP) {
                 if (catalog_selected > 0) --catalog_selected;
             } else if (pressed & SCE_CTRL_DOWN) {
-                if (catalog_selected + 1 < vita_nexus_catalog_count) ++catalog_selected;
+                if (catalog_selected + 1 < visible_count) ++catalog_selected;
             }
-            if ((pressed & SCE_CTRL_CROSS) && catalog_selected < vita_nexus_catalog_count)
+            if (pressed & SCE_CTRL_LTRIGGER) {
+                letter_filter = letter_filter < 0 ? 25 : (letter_filter + 25) % 26;
+                catalog_selected = 0;
+                rebuild_visible_games(platform_filter, letter_filter);
+            } else if (pressed & SCE_CTRL_RTRIGGER) {
+                letter_filter = letter_filter < 0 ? 0 : (letter_filter + 1) % 26;
+                catalog_selected = 0;
+                rebuild_visible_games(platform_filter, letter_filter);
+            }
+            if (pressed & SCE_CTRL_TRIANGLE) {
+                platform_filter = (platform_filter + 1) % 5;
+                catalog_selected = 0;
+                rebuild_visible_games(platform_filter, letter_filter);
+            }
+            if (pressed & SCE_CTRL_SQUARE) {
+                platform_filter = 0;
+                letter_filter = -1;
+                catalog_selected = 0;
+                rebuild_visible_games(platform_filter, letter_filter);
+            }
+            if ((pressed & SCE_CTRL_CROSS) && catalog_selected < visible_count)
                 in_detail = true;
             if (pressed & SCE_CTRL_CIRCLE) in_discover = false;
         } else {
             if (pressed & SCE_CTRL_UP) vita_nexus_menu_move(&menu_state, -1);
             else if (pressed & SCE_CTRL_DOWN) vita_nexus_menu_move(&menu_state, 1);
-            if ((pressed & SCE_CTRL_CROSS) && menu_state.selected == 1) in_discover = true;
+            if ((pressed & SCE_CTRL_CROSS) && menu_state.selected == 1) {
+                in_discover = true;
+                rebuild_visible_games(platform_filter, letter_filter);
+                catalog_selected = 0;
+            }
             if (pressed & SCE_CTRL_START) running = false;
         }
 
         vita2d_start_drawing();
         vita2d_clear_screen();
-        if (in_detail) draw_game_detail(font, catalog_selected);
-        else if (in_discover) draw_discover(font, catalog_selected);
+        if (in_detail && catalog_selected < visible_count) draw_game_detail(font, visible_games[catalog_selected]);
+        else if (in_discover) draw_discover(font, catalog_selected, platform_filter, letter_filter);
         else draw_home(font, (int)menu_state.selected);
         vita2d_end_drawing();
         vita2d_swap_buffers();
