@@ -30,6 +30,7 @@
 static vita2d_font *ui_font_medium;
 static vita2d_font *ui_font_bold;
 static vita2d_pgf *ui_fallback_font;
+static VitaNexusUiMotion g_ui_motion;
 
 static unsigned int ui_font_size(float scale)
 {
