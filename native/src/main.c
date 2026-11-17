@@ -260,8 +260,7 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
     draw_wrapped(font, 54, 484, COLOR_PAPER, 0.48f, entry->summary, 145, 1);
 
     vita2d_draw_rectangle(48, 518, 864, 1, COLOR_PAPER);
-    vita2d_pgf_draw_textf(font, 54, 539, COLOR_MUTED, 0.48f, "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK",
-        entry->game_id);
+    vita2d_pgf_draw_text(font, 54, 539, COLOR_MUTED, 0.42f, "L FAV  R BACKLOG  TRIANGLE DONE  LEFT/RIGHT SCORE  CIRCLE BACK");
 }
 
 int main(void)
@@ -270,6 +269,7 @@ int main(void)
     uint32_t previous_buttons = 0;
     VitaNexusMenuState menu_state = {0};
     size_t catalog_selected = 0;
+    size_t detail_catalog_index = 0;
     size_t library_selected = 0;
     unsigned int platform_filter = 0;
     int letter_filter = -1;
@@ -302,7 +302,7 @@ int main(void)
 
         if (in_detail) {
             if (catalog_selected < vita_nexus_catalog_count) {
-                const char *game_id = vita_nexus_catalog[catalog_selected].game_id;
+                const char *game_id = vita_nexus_catalog[detail_catalog_index].game_id;
                 const VitaNexusLibraryRecord *existing = vita_nexus_library_find(&g_library, game_id);
                 uint8_t flags = existing ? existing->flags : 0;
                 uint8_t rating = existing ? existing->rating : 0;
@@ -320,7 +320,7 @@ int main(void)
                 const char *game_id = g_library.records[library_selected].game_id;
                 for (size_t i = 0; i < vita_nexus_catalog_count; ++i) {
                     if (strcmp(vita_nexus_catalog[i].game_id, game_id) == 0) {
-                        catalog_selected = i; in_detail = true; detail_from_library = true; in_library = false; break;
+                        detail_catalog_index = i; in_detail = true; detail_from_library = true; in_library = false; break;
                     }
                 }
             }
@@ -351,15 +351,14 @@ int main(void)
                 catalog_selected = 0;
                 rebuild_visible_games(platform_filter, letter_filter);
             }
-            if ((pressed & SCE_CTRL_CROSS) && catalog_selected < visible_count)
-                in_detail = true;
+            if ((pressed & SCE_CTRL_CROSS) && catalog_selected < visible_count) { detail_catalog_index = visible_games[catalog_selected]; in_detail = true; detail_from_library = false; }
             if (pressed & SCE_CTRL_CIRCLE) in_discover = false;
         } else {
             if (pressed & SCE_CTRL_UP) vita_nexus_menu_move(&menu_state, -1);
             else if (pressed & SCE_CTRL_DOWN) vita_nexus_menu_move(&menu_state, 1);
             if ((pressed & SCE_CTRL_CROSS) && menu_state.selected == 0) { in_library = true; library_selected = 0; }
-            if ((pressed & SCE_CTRL_CROSS) && menu_state.selected == 0) { in_library = true; library_selected = 0; }\n            if ((pressed & SCE_CTRL_CROSS) && menu_state.selected == 1) {
-                in_discover = true;\n                detail_from_library = false;
+            if ((pressed & SCE_CTRL_CROSS) && menu_state.selected == 1) {
+                in_discover = true;
                 detail_from_library = false;
                 rebuild_visible_games(platform_filter, letter_filter);
                 catalog_selected = 0;
