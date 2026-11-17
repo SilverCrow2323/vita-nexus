@@ -115,7 +115,7 @@ The profile selector, profile metadata, export/import and statistics helpers are
 
 The 960×544 native interface now uses **Barlow Condensed** instead of relying on the system PGF face for the whole UI. The bundled Medium and Bold TrueType files are loaded through libvita2d's FreeType font API; medium is used for interface copy and metadata, while bold is reserved for major headings and active navigation. The original PGF renderer remains available as a fallback for missing font assets and non-ASCII catalog text.
 
-The font files ship inside the VPK at `app0:assets/fonts/`, so rendering stays offline. Their upstream source is pinned to the Google Fonts snapshot at commit `89f5431ff0db41bd2fe3f7ba21a723a01622428b`; the SIL Open Font License 1.1 is included at `native/assets/fonts/OFL.txt`. The VPK integrity gate now requires both font files and checks their SFNT signatures before upload.
+The font files and their SIL Open Font License 1.1 ship inside the VPK at `app0:assets/fonts/`, so rendering stays offline. Their upstream source is pinned to the Google Fonts snapshot at commit `89f5431ff0db41bd2fe3f7ba21a723a01622428b`; the license source is also included at `native/assets/fonts/OFL.txt`. The VPK integrity gate requires both font files and the license text, and checks their SFNT signatures before upload.
 
 The layout uses a consistent 48 px content gutter and more deliberate spacing between list rows, information panels and footer controls. Font sizes are mapped to real pixel sizes, long game titles and metadata are fitted to their available column widths, and editorial summaries wrap by measured text width rather than an arbitrary character count. The Library row height has been increased slightly to use the 544 px screen more evenly.
 
