@@ -52,15 +52,10 @@ class NativeIndexBuilderTests(unittest.TestCase):
             self.assertIn('"A compact test summary."', generated)
             self.assertIn('"Studio Test"', generated)
             self.assertIn('"Action / Adventure"', generated)
-            self.assertIn('"homebrew"', generated)
-            self.assertIn('"Touchscreen / Online co-op"', generated)
-            self.assertIn('"Cyberpunk"', generated)
-            self.assertIn('"PEGI 12 (Europe)"', generated)
-            self.assertIn('"Violence / Bad language"', generated)
-            self.assertIn('"https://ratings.test/pegi"', generated)
-            self.assertIn('"OpenCritic"', generated)
-            self.assertIn('"https://scores.test/game"', generated)
-            self.assertIn(", 3u, 3u, 2004u, 82.000f, 100.000f, 42u, 1u}", generated)
+            self.assertIn('"HOMEBREW / Touchscreen / Online co-op / Cyberpunk"', generated)
+            self.assertIn('"PEGI 12 (Europe) / Violence / Bad language"', generated)
+            self.assertIn('"82 / 100 - OpenCritic (42 votes)"', generated)
+            self.assertIn(", 3u, 3u, 2004u}", generated)
 
     def test_missing_editorial_metadata_stays_unknown(self):
         data = self.fixture()
@@ -74,8 +69,19 @@ class NativeIndexBuilderTests(unittest.TestCase):
             source.write_text(json.dumps(data), encoding="utf-8")
             build(source, output)
             generated = output.read_text(encoding="utf-8")
-            self.assertIn('"", "", "", "", "", "", "", ""', generated)
-            self.assertIn(", 3u, 3u, 2004u, 0.000f, 0.000f, 0u, 0u}", generated)
+            self.assertIn('"Action / Adventure", "", "", ""', generated)
+
+    def test_external_score_without_scale_does_not_assume_one(self):
+        data = self.fixture()
+        data["games"][0]["externalScores"][0].pop("scale")
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / "catalog.json"
+            output = root / "catalog_index.c"
+            source.write_text(json.dumps(data), encoding="utf-8")
+            build(source, output)
+            generated = output.read_text(encoding="utf-8")
+            self.assertIn('"82 - OpenCritic (42 votes)"', generated)
 
     def test_rejects_unsupported_platform(self):
         with tempfile.TemporaryDirectory() as temp:
