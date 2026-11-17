@@ -124,3 +124,48 @@ test("empty in-record relations fall back to curated override relations", () => 
   assert.equal(picks[0].label, "SAME SERIES");
   assert.equal(picks[0].reason, "Same series, different platform.");
 });
+
+
+test("platform filters include release-derived platforms and search release identifiers", () => {
+  const context = loadCatalogContext();
+  const games = [
+    {
+      gameId: "vita-game",
+      title: "Alpha",
+      platforms: ["psvita"],
+      releases: [{platform: "psvita", titleId: "PCSE00001", region: "EU"}]
+    },
+    {
+      gameId: "psp-game",
+      title: "Beta",
+      platforms: [],
+      releases: [{platform: "psp", titleId: "ULUS12345", contentId: "NPUH10001", region: "US"}]
+    },
+    {
+      gameId: "ps1-game",
+      title: "Gamma",
+      platforms: ["ps1"],
+      releases: [{platform: "ps1", titleId: "SCUS90001", region: "JP"}]
+    }
+  ];
+  context.testGames = games;
+  vm.runInContext("state.catalog = {games: testGames}; state.platform = 'psp'; state.query = ''; state.sort = 'title';", context);
+  assert.deepEqual(Array.from(context.filteredGames(), game => game.gameId), ["psp-game"]);
+
+  vm.runInContext("state.platform = 'all'; state.query = 'ULUS12345';", context);
+  assert.deepEqual(Array.from(context.filteredGames(), game => game.gameId), ["psp-game"]);
+
+  vm.runInContext("state.query = 'JP';", context);
+  assert.deepEqual(Array.from(context.filteredGames(), game => game.gameId), ["ps1-game"]);
+});
+
+test("size sorting uses the largest release package size and remains deterministic", () => {
+  const context = loadCatalogContext();
+  context.testGames = [
+    {gameId: "small", title: "Alpha", platforms: ["psvita"], releases: [{packageSizeBytes: 100}]},
+    {gameId: "large", title: "Beta", platforms: ["psp"], releases: [{packageSizeBytes: 500}, {packageSizeBytes: 900}]},
+    {gameId: "medium", title: "Gamma", platforms: ["ps1"], releases: [{packageSizeBytes: 400}]}
+  ];
+  vm.runInContext("state.catalog = {games: testGames}; state.platform = 'all'; state.query = ''; state.sort = 'size';", context);
+  assert.deepEqual(Array.from(context.filteredGames(), game => game.gameId), ["large", "medium", "small"]);
+});
