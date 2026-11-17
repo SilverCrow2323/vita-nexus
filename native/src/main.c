@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #define COLOR_BG       RGBA8(11, 9, 16, 255)
 #define COLOR_PANEL    RGBA8(24, 17, 29, 255)
@@ -33,13 +34,40 @@ static const MenuItem menu_items[] = {
 
 static const char *platform_label(uint8_t mask)
 {
-    if (mask & VITA_NEXUS_PLATFORM_HOMEBREW) return "HB";
+    if (mask & VITA_NEXUS_PLATFORM_HOMEBREW) return "HOMEBREW";
     if ((mask & (VITA_NEXUS_PLATFORM_PSVITA | VITA_NEXUS_PLATFORM_PSP | VITA_NEXUS_PLATFORM_PS1)) ==
         (VITA_NEXUS_PLATFORM_PSVITA | VITA_NEXUS_PLATFORM_PSP | VITA_NEXUS_PLATFORM_PS1)) return "VITA / PSP / PS1";
     if (mask & VITA_NEXUS_PLATFORM_PSVITA) return "PS VITA";
     if (mask & VITA_NEXUS_PLATFORM_PSP) return "PSP";
     if (mask & VITA_NEXUS_PLATFORM_PS1) return "PS1";
     return "MULTI";
+}
+
+static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
+    float scale, const char *value, size_t max_bytes, int max_lines)
+{
+    if (!value || !value[0]) {
+        vita2d_pgf_draw_text(font, x, y, COLOR_MUTED, scale, "No editorial summary available.");
+        return;
+    }
+
+    const char *cursor = value;
+    for (int line = 0; line < max_lines && *cursor; ++line) {
+        size_t length = strlen(cursor);
+        if (length > max_bytes) {
+            size_t split = max_bytes;
+            while (split > 0 && cursor[split] != ' ') --split;
+            if (split == 0) split = max_bytes;
+            length = split;
+        }
+        char buffer[128];
+        if (length >= sizeof(buffer)) length = sizeof(buffer) - 1;
+        memcpy(buffer, cursor, length);
+        buffer[length] = '\0';
+        vita2d_pgf_draw_text(font, x, y + (line * 24), color, scale, buffer);
+        cursor += length;
+        while (*cursor == ' ') ++cursor;
+    }
 }
 
 static void draw_home(vita2d_pgf *font, int selected)
@@ -50,7 +78,7 @@ static void draw_home(vita2d_pgf *font, int selected)
     vita2d_draw_rectangle(40, 38, 880, 2, COLOR_PAPER);
     vita2d_pgf_draw_text(font, 52, 76, COLOR_ACID, 1.25f, "VITA NEXUS");
     vita2d_pgf_draw_text(font, 53, 101, COLOR_CYAN, 0.72f, "THE BACKLOG NEVER SLEEPS");
-    vita2d_pgf_draw_text(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.02");
+    vita2d_pgf_draw_text(font, 760, 72, COLOR_PINK, 0.65f, "NATIVE / 00.03");
     vita2d_draw_rectangle(48, 132, 864, 1, COLOR_PINK);
     vita2d_pgf_draw_text(font, 54, 163, COLOR_MUTED, 0.68f, "01  /  SELECT A MODULE");
 
@@ -107,7 +135,48 @@ static void draw_discover(vita2d_pgf *font, size_t selected)
         vita2d_pgf_draw_textf(font, 54, 499, COLOR_CYAN, 0.58f, "%u RELEASE RECORDS  /  %s",
             (unsigned int)entry->release_count, platform_label(entry->platform_mask));
     }
-    vita2d_pgf_draw_text(font, 54, 525, COLOR_MUTED, 0.5f, "UP / DOWN BROWSE    CIRCLE BACK");
+    vita2d_pgf_draw_text(font, 54, 525, COLOR_MUTED, 0.5f, "UP / DOWN BROWSE    X DETAILS    CIRCLE BACK");
+}
+
+static void draw_game_detail(vita2d_pgf *font, size_t selected)
+{
+    if (selected >= vita_nexus_catalog_count) return;
+    const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[selected];
+
+    vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
+    vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
+    vita2d_pgf_draw_text(font, 48, 54, COLOR_CYAN, 0.65f, "DISCOVER / GAME FILE");
+    vita2d_pgf_draw_text(font, 48, 102, COLOR_ACID, 1.05f, entry->title);
+    vita2d_draw_rectangle(48, 124, 864, 2, COLOR_PINK);
+
+    vita2d_draw_rectangle(48, 150, 864, 112, COLOR_PANEL);
+    vita2d_pgf_draw_text(font, 70, 180, COLOR_PINK, 0.62f, "PLATFORMS");
+    vita2d_pgf_draw_text(font, 70, 212, COLOR_PAPER, 0.9f, platform_label(entry->platform_mask));
+    vita2d_pgf_draw_textf(font, 600, 180, COLOR_PINK, 0.62f, "RELEASES  %u",
+        (unsigned int)entry->release_count);
+    if (entry->release_year)
+        vita2d_pgf_draw_textf(font, 600, 212, COLOR_CYAN, 0.72f, "YEAR  %u",
+            (unsigned int)entry->release_year);
+    else
+        vita2d_pgf_draw_text(font, 600, 212, COLOR_MUTED, 0.62f, "YEAR  UNKNOWN");
+
+    vita2d_pgf_draw_text(font, 54, 300, COLOR_ACID, 0.65f, "DEVELOPER");
+    vita2d_pgf_draw_text(font, 54, 326, COLOR_PAPER, 0.62f,
+        entry->developer[0] ? entry->developer : "Not available");
+    vita2d_pgf_draw_text(font, 500, 300, COLOR_ACID, 0.65f, "PUBLISHER");
+    vita2d_pgf_draw_text(font, 500, 326, COLOR_PAPER, 0.62f,
+        entry->publisher[0] ? entry->publisher : "Not available");
+
+    vita2d_pgf_draw_text(font, 54, 365, COLOR_PINK, 0.62f, "GENRES");
+    vita2d_pgf_draw_text(font, 54, 389, COLOR_PAPER, 0.58f,
+        entry->genres[0] ? entry->genres : "Not classified");
+
+    vita2d_pgf_draw_text(font, 54, 426, COLOR_CYAN, 0.62f, "EDITORIAL SUMMARY");
+    draw_wrapped(font, 54, 451, COLOR_PAPER, 0.55f, entry->summary, 112, 3);
+
+    vita2d_draw_rectangle(48, 518, 864, 1, COLOR_PAPER);
+    vita2d_pgf_draw_textf(font, 54, 539, COLOR_MUTED, 0.48f, "GAME ID  %s     CIRCLE BACK TO RESULTS",
+        entry->game_id);
 }
 
 int main(void)
@@ -117,6 +186,7 @@ int main(void)
     VitaNexusMenuState menu_state = {0};
     size_t catalog_selected = 0;
     bool in_discover = false;
+    bool in_detail = false;
     bool running = true;
 
     sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
@@ -138,12 +208,16 @@ int main(void)
         const uint32_t pressed = pad.buttons & ~previous_buttons;
         previous_buttons = pad.buttons;
 
-        if (in_discover) {
+        if (in_detail) {
+            if (pressed & SCE_CTRL_CIRCLE) in_detail = false;
+        } else if (in_discover) {
             if (pressed & SCE_CTRL_UP) {
                 if (catalog_selected > 0) --catalog_selected;
             } else if (pressed & SCE_CTRL_DOWN) {
                 if (catalog_selected + 1 < vita_nexus_catalog_count) ++catalog_selected;
             }
+            if ((pressed & SCE_CTRL_CROSS) && catalog_selected < vita_nexus_catalog_count)
+                in_detail = true;
             if (pressed & SCE_CTRL_CIRCLE) in_discover = false;
         } else {
             if (pressed & SCE_CTRL_UP) vita_nexus_menu_move(&menu_state, -1);
@@ -154,7 +228,8 @@ int main(void)
 
         vita2d_start_drawing();
         vita2d_clear_screen();
-        if (in_discover) draw_discover(font, catalog_selected);
+        if (in_detail) draw_game_detail(font, catalog_selected);
+        else if (in_discover) draw_discover(font, catalog_selected);
         else draw_home(font, (int)menu_state.selected);
         vita2d_end_drawing();
         vita2d_swap_buffers();
