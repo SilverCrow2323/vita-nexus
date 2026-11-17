@@ -29,7 +29,7 @@ def test_valid_vpk_reports_integrity_and_title_id(tmp_path: Path):
     report = validate_vpk(package, TITLE_ID)
 
     assert report["title_id"] == TITLE_ID
-    assert report["entries"] == 2
+    assert report["entries"] == 4
     assert len(report["sha256"]) == 64
     assert report["size_bytes"] == package.stat().st_size
 
@@ -90,3 +90,23 @@ def test_rejects_invalid_title_id_shape(tmp_path: Path):
 
     with pytest.raises(VpkValidationError, match="exactly nine"):
         validate_vpk(package, "bad")
+
+
+def test_rejects_missing_bundled_font(tmp_path: Path):
+    package = tmp_path / "missing-font.vpk"
+    write_vpk(package, include_fonts=False)
+
+    with pytest.raises(VpkValidationError, match="missing required"):
+        validate_vpk(package, TITLE_ID)
+
+
+def test_rejects_invalid_bundled_font_signature(tmp_path: Path):
+    package = tmp_path / "invalid-font.vpk"
+    write_vpk(package, {
+        "eboot.bin": b"self",
+        "sce_sys/param.sfo": b"VNXS00001",
+        "assets/fonts/BarlowCondensed-Medium.ttf": b"not-a-font",
+    })
+
+    with pytest.raises(VpkValidationError, match="invalid TrueType/OpenType signature"):
+        validate_vpk(package, TITLE_ID)
