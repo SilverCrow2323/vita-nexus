@@ -28,14 +28,14 @@ The roadmap is organized around testable milestones. A feature is not complete b
 
 ## Milestone 2 — Catalog foundation
 
-- [ ] Define and version the canonical game/release schema.
-- [ ] Implement source adapters and provenance tracking.
+- [x] Define and version the canonical game/release schema.
+- [x] Add the first metadata-only NoPayStation TSV source adapter and provenance tracking.
 - [ ] Import Vita, PSP, PS1 and homebrew catalog data.
 - [ ] Implement region and edition matching.
 - [ ] Validate duplicate and ambiguous releases.
-- [ ] Publish the first static catalog snapshot for the web companion.
+- [x] Add the static catalog snapshot contract and web browser; first live import remains to be run.
 
-**Exit gate:** the same canonical records can be consumed by the native database importer and web frontend.
+**Exit gate:** the live source import must pass validation and the same canonical records must be consumed by the native database importer and web frontend.
 
 ## Milestone 3 — Discovery experience
 
