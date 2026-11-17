@@ -22,7 +22,8 @@ The roadmap is organized around testable milestones. A feature is not complete b
 - [x] Build a minimal VPK in the pinned VitaSDK CI container.
 - [x] Implement the first controller-driven native screen (hardware visual check still pending).
 - [ ] Handle D-pad, analog and touchscreen input.
-- [ ] Create and migrate the local SQLite database for user-owned state.\n- [x] Generate a read-only native index from the shared schema v1.0.0 catalog snapshot.
+- [ ] Create and migrate the local SQLite database for user-owned state.
+- [x] Generate a read-only native index from the shared schema v1.0.0 catalog snapshot.
 - [ ] Scan a supported set of PS Vita application metadata.
 - [ ] Validate read-only behavior on hardware.
 
@@ -42,7 +43,10 @@ The roadmap is organized around testable milestones. A feature is not complete b
 ## Milestone 3 — Discovery experience
 
 - [x] Animated web Home Hero and responsive navigation.
-- [ ] Native Library view.\n- [x] Native Discover catalog browser (offline, controller-driven, shared catalog source).\n- [x] Native game metadata detail sheet with attributed catalog fields and honest missing-data states.
+- [ ] Native Library view.
+- [x] Native Discover catalog browser (offline, controller-driven, shared catalog source).
+- [x] Native game metadata detail sheet with attributed catalog fields and honest missing-data states.
+- [x] Native Discover platform and A–Z initial filters with filtered result navigation.
 - [x] Web Store/catalog index and regional release grouping.
 - [x] Game detail sheets with attributed artwork and editorial indicators.
 - [x] Cross-platform "You may also like" recommendation engine.
@@ -114,3 +118,8 @@ The first native shell lives in `native/`. It uses the official VitaSDK CMake he
 ## Native catalog progress
 
 The native Discover screen now browses the shared public snapshot offline. CI generates a compact C index from `web/data/catalog.json` (9,732 game records in the 2026-11-17 snapshot), tests the generator, compiles the Vita app and verifies the VPK. This does not yet provide SQLite persistence, installed-title scanning, detail pages or hardware validation.
+
+
+### Native Discover filters
+
+The native catalog browser now filters the shared offline index by platform and alphabetical initial. Multi-platform records match each applicable platform; Triangle cycles All / Vita / PSP / PS1 / Homebrew, L/R cycles A–Z, and Square clears both filters. A free-text virtual keyboard remains a separate future enhancement.
