@@ -28,8 +28,26 @@ Expected output: native/build/vita_nexus_native.vpk.
 
 - D-pad up/down: select a module.
 - START: exit.
-- The X button is shown as the future open action; module screens are not wired yet.
+- X is intentionally not advertised as an action until module screens are implemented.
+- D-pad wraparound is implemented in a VitaSDK-independent state helper and covered by a host-side C regression test.
 
 ## Safety boundary
 
 This shell only renders a screen and reads controller input. It does not scan storage, write to app folders, modify saves, inspect license material or connect to a service. A successful CI package is not hardware certification. Install and test on a real console before claiming compatibility.
+
+
+## Host-side menu test
+
+Run without VitaSDK:
+
+```sh
+cc -std=c11 -Wall -Wextra -Werror -pedantic -Inative/src tests/native_menu_state_test.c -o /tmp/vita-nexus-menu-test
+/tmp/vita-nexus-menu-test
+```
+
+The quality workflow runs the same test. This checks navigation state only; it does not emulate Vita hardware or certify rendered input.
+
+
+## VPK integrity gate
+
+Before upload, the native build workflow runs `tools/verify_vpk.py` against the generated package. It checks ZIP integrity, required `eboot.bin` and `sce_sys/param.sfo` entries, the expected nine-character Title ID, unsafe paths, duplicate entries, symlinks, encrypted entries, oversized archives and forbidden game/license payloads. It records the package SHA-256 in the Actions summary. The verifier itself has host-side regression tests in `tests/test_verify_vpk.py`.

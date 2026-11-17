@@ -2,6 +2,8 @@
 #include <psp2/kernel/processmgr.h>
 #include <vita2d.h>
 
+#include "menu_state.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -62,7 +64,8 @@ static void draw_menu(vita2d_pgf *font, int selected)
     vita2d_pgf_draw_text(font, 516, 344, COLOR_MUTED, 0.58f, menu_items[selected].description);
 
     vita2d_draw_rectangle(48, 448, 864, 1, COLOR_PAPER);
-    vita2d_pgf_draw_text(font, 54, 484, COLOR_CYAN, 0.62f, "D-PAD  SELECT     X  OPEN     START  EXIT");
+    vita2d_pgf_draw_text(font, 54, 484, COLOR_CYAN, 0.62f, "D-PAD  SELECT     START  EXIT");
+    vita2d_pgf_draw_text(font, 54, 501, COLOR_MUTED, 0.48f, "MODULE OPEN ACTIONS ARE NOT WIRED YET");
     vita2d_pgf_draw_text(font, 54, 516, COLOR_MUTED, 0.52f, "FOUNDATION BUILD  /  OFFLINE-FIRST  /  NO SYSTEM FILES MODIFIED");
 }
 
@@ -70,7 +73,7 @@ int main(void)
 {
     SceCtrlData pad;
     uint32_t previous_buttons = 0;
-    int selected = 0;
+    VitaNexusMenuState menu_state = {0};
     bool running = true;
 
     sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
@@ -95,9 +98,9 @@ int main(void)
         previous_buttons = pad.buttons;
 
         if (pressed & SCE_CTRL_UP) {
-            selected = (selected + 3) % 4;
+            vita_nexus_menu_move(&menu_state, -1);
         } else if (pressed & SCE_CTRL_DOWN) {
-            selected = (selected + 1) % 4;
+            vita_nexus_menu_move(&menu_state, 1);
         }
 
         if (pressed & SCE_CTRL_START) {
@@ -106,7 +109,7 @@ int main(void)
 
         vita2d_start_drawing();
         vita2d_clear_screen();
-        draw_menu(font, selected);
+        draw_menu(font, (int)menu_state.selected);
         vita2d_end_drawing();
         vita2d_swap_buffers();
     }
