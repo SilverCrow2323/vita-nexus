@@ -12,15 +12,20 @@ from tools.verify_vpk import VpkValidationError, validate_vpk
 TITLE_ID = "VNXS00001"
 
 
-def write_vpk(path: Path, entries: dict[str, bytes] | None = None) -> None:
+def write_vpk(path: Path, entries: dict[str, bytes] | None = None, *, include_fonts: bool = True, include_license: bool = True) -> None:
     payload = entries or {
         "eboot.bin": b"native-self-placeholder",
-        "sce_sys/param.sfo": b"\x00TITLE_ID\x00VNXS00001\x00",
+        "sce_sys/param.sfo": bytes.fromhex("005449544C455F494400564E5853303030303100"),
     }
+    payload = dict(payload)
+    if include_fonts:
+        payload.setdefault("assets/fonts/BarlowCondensed-Medium.ttf", bytes.fromhex("00010000") + bytes(32))
+        payload.setdefault("assets/fonts/BarlowCondensed-Bold.ttf", bytes.fromhex("00010000") + bytes(32))
+        if include_license:
+            payload.setdefault("assets/fonts/OFL.txt", b"SIL OPEN FONT LICENSE Version 1.1")
     with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_STORED) as archive:
         for name, data in payload.items():
             archive.writestr(name, data)
-
 
 def test_valid_vpk_reports_integrity_and_title_id(tmp_path: Path):
     package = tmp_path / "valid.vpk"
@@ -29,7 +34,7 @@ def test_valid_vpk_reports_integrity_and_title_id(tmp_path: Path):
     report = validate_vpk(package, TITLE_ID)
 
     assert report["title_id"] == TITLE_ID
-    assert report["entries"] == 2
+    assert report["entries"] == 5
     assert len(report["sha256"]) == 64
     assert report["size_bytes"] == package.stat().st_size
 
@@ -90,3 +95,42 @@ def test_rejects_invalid_title_id_shape(tmp_path: Path):
 
     with pytest.raises(VpkValidationError, match="exactly nine"):
         validate_vpk(package, "bad")
+
+
+def test_rejects_missing_bundled_font(tmp_path: Path):
+    package = tmp_path / "missing-font.vpk"
+    write_vpk(package, include_fonts=False)
+
+    with pytest.raises(VpkValidationError, match="missing required"):
+        validate_vpk(package, TITLE_ID)
+
+
+def test_rejects_invalid_bundled_font_signature(tmp_path: Path):
+    package = tmp_path / "invalid-font.vpk"
+    write_vpk(package, {
+        "eboot.bin": b"self",
+        "sce_sys/param.sfo": b"VNXS00001",
+        "assets/fonts/BarlowCondensed-Medium.ttf": b"not-a-font",
+    })
+
+    with pytest.raises(VpkValidationError, match="invalid TrueType/OpenType signature"):
+        validate_vpk(package, TITLE_ID)
+
+
+def test_rejects_missing_font_license(tmp_path: Path):
+    package = tmp_path / "missing-font-license.vpk"
+    write_vpk(package, include_license=False)
+
+    with pytest.raises(VpkValidationError, match="missing required"):
+        validate_vpk(package, TITLE_ID)
+
+
+def test_rejects_invalid_font_license(tmp_path: Path):
+    package = tmp_path / "invalid-font-license.vpk"
+    write_vpk(package, {
+        "eboot.bin": b"self",
+        "sce_sys/param.sfo": b"VNXS00001",
+        "assets/fonts/OFL.txt": b"not the OFL",
+    })
+    with pytest.raises(VpkValidationError, match="font license"):
+        validate_vpk(package, TITLE_ID)

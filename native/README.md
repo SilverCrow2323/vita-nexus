@@ -109,3 +109,14 @@ Each slot has a separate backup file under `ux0:data/`. Press **Triangle** to ex
 The Library screen now has four views: All, Favorites, Backlog and Completed (L/R). Press **Square** on an entry to request removal, then **X** to confirm or **Circle** to cancel. Per-profile statistics stay local and are not uploaded.
 
 The profile selector, profile metadata, export/import and statistics helpers are covered by host-side C tests. The native package version is **00.06**. A device-level smoke test was confirmed on the owner's PS Vita 1000 on 17 November 2026; CI remains the repeatable build and integrity gate.
+
+
+## Native UI typography and layout refresh (00.07)
+
+The 960×544 native interface now uses **Barlow Condensed** instead of relying on the system PGF face for the whole UI. The bundled Medium and Bold TrueType files are loaded through libvita2d's FreeType font API; medium is used for interface copy and metadata, while bold is reserved for major headings and active navigation. The original PGF renderer remains available as a fallback for missing font assets and non-ASCII catalog text.
+
+The font files and their SIL Open Font License 1.1 ship inside the VPK at `app0:assets/fonts/`, so rendering stays offline. Their upstream source is pinned to the Google Fonts snapshot at commit `89f5431ff0db41bd2fe3f7ba21a723a01622428b`; the license source is also included at `native/assets/fonts/OFL.txt`. The VPK integrity gate requires both font files and the license text, and checks their SFNT signatures before upload.
+
+The layout uses a consistent 48 px content gutter and more deliberate spacing between list rows, information panels and footer controls. Font sizes are mapped to real pixel sizes, long game titles and metadata are fitted to their available column widths, and editorial summaries wrap by measured text width rather than an arbitrary character count. The Library row height has been increased slightly to use the 544 px screen more evenly.
+
+The new VPK is **00.07**. CI verifies the font assets are packaged and the text-rendering code compiles; this version still needs a quick device check on the PS Vita 1000 before calling the visual refresh hardware-verified.

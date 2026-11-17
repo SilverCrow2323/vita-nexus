@@ -20,6 +20,12 @@ class VpkValidationError(ValueError):
 FORBIDDEN_SUFFIXES = (".iso", ".zrif", ".rif", ".rap", ".pkg")
 FORBIDDEN_NAMES = {"game.iso", "disc-image.txt", "work.bin"}
 MAX_UNCOMPRESSED_BYTES = 32 * 1024 * 1024
+REQUIRED_LICENSE_PATH = "assets/fonts/OFL.txt"
+REQUIRED_FONT_PATHS = (
+    "assets/fonts/BarlowCondensed-Medium.ttf",
+    "assets/fonts/BarlowCondensed-Bold.ttf",
+)
+VALID_TTF_SIGNATURES = (bytes.fromhex("00010000"), b"OTTO", b"true", b"typ1")
 
 
 def validate_vpk(path: str | Path, title_id: str) -> dict[str, object]:
@@ -70,13 +76,22 @@ def validate_vpk(path: str | Path, title_id: str) -> dict[str, object]:
                 if total_size > MAX_UNCOMPRESSED_BYTES:
                     raise VpkValidationError("uncompressed VPK exceeds the 32 MiB safety limit")
 
-            required = {"eboot.bin", "sce_sys/param.sfo"}
+            required = {"eboot.bin", "sce_sys/param.sfo", REQUIRED_LICENSE_PATH, *REQUIRED_FONT_PATHS}
             missing = sorted(required - names)
             if missing:
                 raise VpkValidationError("missing required VPK entries: " + ", ".join(missing))
 
             if archive.getinfo("eboot.bin").file_size == 0:
                 raise VpkValidationError("eboot.bin is empty")
+            license_text = archive.read(REQUIRED_LICENSE_PATH).decode("utf-8", errors="replace")
+            if "SIL OPEN FONT LICENSE Version 1.1" not in license_text:
+                raise VpkValidationError("bundled font license is missing or invalid")
+
+            for font_path in REQUIRED_FONT_PATHS:
+                font_data = archive.read(font_path)
+                if len(font_data) < 16 or font_data[:4] not in VALID_TTF_SIGNATURES:
+                    raise VpkValidationError(f"bundled font is missing or has an invalid TrueType/OpenType signature: {font_path}")
+
             sfo = archive.read("sce_sys/param.sfo")
             if title_id.encode("ascii") not in sfo:
                 raise VpkValidationError(f"sce_sys/param.sfo does not contain Title ID {title_id}")

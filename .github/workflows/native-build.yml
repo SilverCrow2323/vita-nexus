@@ -38,7 +38,7 @@ jobs:
             -v "$PWD:/workspace" \
             -w /workspace \
             vitasdk/vitasdk:2026.08 \
-            sh -lc 'vdpm install libvita2d && cmake -S native -B native/build -DCMAKE_TOOLCHAIN_FILE="$VITASDK/share/vita.toolchain.cmake" && cmake --build native/build --parallel 2'
+            sh -lc 'vdpm install libvita2d bzip2 && cmake -S native -B native/build -DCMAKE_TOOLCHAIN_FILE="$VITASDK/share/vita.toolchain.cmake" && cmake --build native/build --parallel 2'
 
       - name: Verify VPK artifact exists
         run: test -s native/build/vita_nexus_native.vpk
