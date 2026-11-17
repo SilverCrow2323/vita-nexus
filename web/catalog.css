@@ -7,3 +7,21 @@ body.catalog-page{min-height:100vh}.main-nav a.active{color:#f5f4ff}.catalog-wra
 @media(max-width:900px){.catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.catalog-hero{min-height:330px}.catalog-orbit{transform:scale(.8);margin-right:-20px}.catalog-note{grid-template-columns:35px 1fr}.catalog-note>a{grid-column:2}}
 @media(max-width:640px){.catalog-wrap{width:calc(100% - 36px)}.catalog-hero{padding:52px 0 35px;min-height:auto}.catalog-orbit{display:none}.catalog-hero h1{font-size:49px}.catalog-stats{padding:17px 12px;margin-bottom:60px}.catalog-stats>div{padding-left:10px}.catalog-stats strong{font-size:19px}.catalog-stats span{font-size:7px;line-height:1.5}.browser-heading{display:block}.catalog-live{margin-top:14px}.search-box{height:54px;padding:0 12px}.search-box input{font-size:11px}.search-box kbd{display:none}.catalog-controls{align-items:flex-start;flex-direction:column}.sort-control{width:100%;justify-content:space-between}.sort-control select{flex:1}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.game-cover{height:145px}.game-card-info{padding:10px}.game-card-title{font-size:12px;min-height:35px}.game-card-summary{font-size:9px;height:45px}.game-card-footer{font-size:7px}.game-card-action{font-size:9px;padding:9px}.catalog-note{padding:15px;gap:10px}.catalog-note p{font-size:9px}.catalog-note>a{white-space:normal}.dialog-hero{height:145px}.dialog-body{padding:20px 17px}.dialog-title{font-size:24px}.release-row{align-items:flex-start;flex-direction:column}.release-details{justify-content:flex-start}}
 @media(prefers-reduced-motion:reduce){.catalog-orbit{animation:none}.game-card,.game-card-action{transition:none}}
+
+/* Homebrew catalog metadata */
+.cover-image-icon{object-fit:contain;padding:22px;background:radial-gradient(circle,rgba(155,131,255,.2),transparent 68%),#111827}
+.target-badge{font:7px var(--mono);letter-spacing:.07em;padding:5px 7px;border-radius:4px;color:#94e7e0;border:1px solid rgba(112,229,223,.18);background:rgba(112,229,223,.07)}
+.dialog-hero-homebrew{display:grid;place-items:center;background:radial-gradient(circle,rgba(155,131,255,.2),transparent 60%),linear-gradient(145deg,#22203e,#102131)}
+.dialog-hero-homebrew-icon{width:128px;height:128px;object-fit:contain;filter:drop-shadow(0 15px 30px rgba(0,0,0,.35))}
+.homebrew-details{margin-top:26px;padding:18px;border:1px solid rgba(112,229,223,.17);border-radius:10px;background:rgba(112,229,223,.035)}
+.homebrew-details h3{font-size:13px;margin:0 0 12px}
+.homebrew-requirements{white-space:pre-line;color:#a4b4c8;font-size:10px;line-height:1.8}
+.homebrew-changelog{margin-top:12px;color:#c0cbe0;font-size:10px}
+.homebrew-changelog summary{cursor:pointer;color:#a9a0ff;font-weight:700}
+.homebrew-changelog p{white-space:pre-line;color:#929fb8;line-height:1.75}
+.homebrew-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+.homebrew-links a{font-size:9px;font-weight:700;color:#9fe9e3;border:1px solid rgba(112,229,223,.19);padding:7px 9px;border-radius:5px}
+.homebrew-screenshots-heading{margin-top:23px!important}
+.homebrew-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.homebrew-gallery img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:#0b101c}
+@media(max-width:640px){.cover-image-icon{padding:17px}.homebrew-details{padding:13px}.homebrew-gallery{grid-template-columns:1fr}}
