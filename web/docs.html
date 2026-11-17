@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090b12">
+  <meta name="theme-color" content="#0b090f">
   <meta name="description" content="VITA NEXUS documentation, architecture, roadmap and catalog source notes.">
   <title>Documentation — VITA NEXUS</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="manga.css">
 </head>
 <body class="docs-page">
   <div class="ambient ambient-one" aria-hidden="true"></div>
@@ -15,28 +16,28 @@
   <header class="site-header">
     <a class="wordmark" href="index.html" aria-label="VITA NEXUS home"><span class="brand-mark">N</span><span>VITA <b>NEXUS</b></span></a>
     <nav class="main-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a><a href="catalog.html">Catalog</a><a class="active" href="docs.html" aria-current="page">Guides</a>
+      <a href="index.html">Home</a><a href="catalog.html">Catalog</a><a class="active" href="docs.html" aria-current="page">Field notes</a>
       <a href="https://github.com/SilverCrow2323/vita-nexus" target="_blank" rel="noreferrer">GitHub ↗</a>
     </nav>
-    <a class="header-cta" href="catalog.html">Explore catalog <span>↗</span></a>
+    <a class="header-cta" href="catalog.html">Browse games <span>↗</span></a>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </header>
 
   <main class="docs-wrap">
     <section class="docs-hero">
-      <div class="eyebrow"><span class="pulse"></span> THE FIELD GUIDE</div>
-      <h1>Know the system.<br><span>Explore the details.</span></h1>
-      <p>Product thinking, architecture notes and practical guides—organized to be read, not endured.</p>
-      <div class="docs-hero-meta"><span>✦ VISUAL, PRACTICAL DOCUMENTATION</span><span>LAST EDITED WITH THE PROJECT</span></div>
+      <div class="eyebrow"><span class="pulse"></span> READ THE NOTES. BUILD THE THING.</div>
+      <h1>How this thing<br><span>actually works.</span></h1>
+      <p>What we’re building, how it fits together and what’s actually working. No smoke. No mystery meat.</p>
+      <div class="docs-hero-meta"><span>✦ STRAIGHT TALK / USEFUL DETAILS</span><span>UPDATED WITH THE CODE</span></div>
     </section>
 
     <section class="docs-feature">
       <div class="docs-feature-copy">
-        <div class="section-kicker">START HERE / 00</div>
-        <span class="docs-feature-tag">THE BIG PICTURE</span>
-        <h2>One companion.<br>Two experiences.</h2>
-        <p>See how the native PS Vita app and the web companion share one catalog while keeping console-only features local.</p>
-        <a href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/PRODUCT-VISION.md" target="_blank" rel="noreferrer">Read the product vision ↗</a>
+        <div class="section-kicker">START HERE / READ THIS FIRST</div>
+        <span class="docs-feature-tag">THE SHORT VERSION</span>
+        <h2>One catalog.<br>Two places to use it.</h2>
+        <p>The Vita app handles console stuff. The website handles browsing. Both use the same game data.</p>
+        <a href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/PRODUCT-VISION.md" target="_blank" rel="noreferrer">See what we’re building ↗</a>
       </div>
       <div class="docs-map" aria-label="Architecture overview">
         <div class="map-node map-shared"><span>01</span><strong>SHARED CATALOG</strong><small>Games · Releases · Artwork</small></div>
@@ -47,41 +48,41 @@
     </section>
 
     <section class="docs-library">
-      <div class="docs-section-heading"><div><div class="section-kicker">THE KNOWLEDGE BASE</div><h2>Pick a chapter.</h2></div><span>UPDATED ALONGSIDE THE CODE</span></div>
+      <div class="docs-section-heading"><div><div class="section-kicker">THE PROJECT, WITHOUT THE FOG</div><h2>Pick a file. Get answers.</h2></div><span>DOCS MOVE WITH THE CODE</span></div>
       <div class="docs-grid">
         <a class="docs-card docs-card-violet" href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/PRODUCT-VISION.md" target="_blank" rel="noreferrer">
-          <div class="docs-card-top"><span>01 / PRODUCT</span><b>↗</b></div><div class="docs-card-icon">✧</div><h3>Product vision</h3><p>Why NEXUS exists, what it should feel like, and what belongs in the first release.</p><span class="docs-card-foot">THE WHY · EXPERIENCE · SCOPE</span>
+          <div class="docs-card-top"><span>01 / PRODUCT</span><b>↗</b></div><div class="docs-card-icon">✧</div><h3>Product vision</h3><p>The point of the project, who it is for and what makes the first cut.</p><span class="docs-card-foot">THE WHY · EXPERIENCE · SCOPE</span>
         </a>
         <a class="docs-card docs-card-cyan" href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noreferrer">
-          <div class="docs-card-top"><span>02 / ENGINEERING</span><b>↗</b></div><div class="docs-card-icon">⌘</div><h3>Architecture</h3><p>Component boundaries, shared contracts, local data, event flow and privacy rules.</p><span class="docs-card-foot">SYSTEM MAP · DATA · MODULES</span>
+          <div class="docs-card-top"><span>02 / ENGINEERING</span><b>↗</b></div><div class="docs-card-icon">⌘</div><h3>Architecture</h3><p>What talks to what, where data lives and what stays on the console.</p><span class="docs-card-foot">SYSTEM MAP · DATA · MODULES</span>
         </a>
         <a class="docs-card docs-card-orange" href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/NPS-CATALOG-IMPORT.md" target="_blank" rel="noreferrer">
-          <div class="docs-card-top"><span>03 / CATALOG</span><b>↗</b></div><div class="docs-card-icon">▤</div><h3>NPS catalog import</h3><p>How TSV indexes are normalized, how regional variants are grouped and which fields are excluded.</p><span class="docs-card-foot">TSV · RELEASES · PROVENANCE</span>
+          <div class="docs-card-top"><span>03 / CATALOG</span><b>↗</b></div><div class="docs-card-icon">▤</div><h3>NPS catalog import</h3><p>How the source indexes become clean game records and regional editions.</p><span class="docs-card-foot">TSV · RELEASES · PROVENANCE</span>
         </a>
         <a class="docs-card docs-card-green" href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/WEB-COMPANION.md" target="_blank" rel="noreferrer">
-          <div class="docs-card-top"><span>04 / WEB</span><b>↗</b></div><div class="docs-card-icon">◎</div><h3>Web companion</h3><p>GitHub Pages capabilities, deployment, catalog browsing and the future backend boundary.</p><span class="docs-card-foot">PAGES · STATIC DATA · API</span>
+          <div class="docs-card-top"><span>04 / WEB</span><b>↗</b></div><div class="docs-card-icon">◎</div><h3>Web companion</h3><p>What the website can do now, how it deploys and what needs a backend.</p><span class="docs-card-foot">PAGES · STATIC DATA · API</span>
         </a>
         <a class="docs-card docs-card-pink" href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/ROADMAP.md" target="_blank" rel="noreferrer">
-          <div class="docs-card-top"><span>05 / DELIVERY</span><b>↗</b></div><div class="docs-card-icon">⌁</div><h3>Roadmap</h3><p>Milestones, exit gates and a realistic view of what is planned, built or waiting for validation.</p><span class="docs-card-foot">MILESTONES · RELEASES · TESTS</span>
+          <div class="docs-card-top"><span>05 / DELIVERY</span><b>↗</b></div><div class="docs-card-icon">⌁</div><h3>Roadmap</h3><p>What is live, what comes next and what still needs a real test.</p><span class="docs-card-foot">MILESTONES · RELEASES · TESTS</span>
         </a>
         <a class="docs-card docs-card-violet" href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/CROSS-PLATFORM-RECOMMENDATIONS.md" target="_blank" rel="noreferrer">
-          <div class="docs-card-top"><span>06 / DISCOVERY</span><b>↗</b></div><div class="docs-card-icon">✧</div><h3>Recommendation engine</h3><p>How VITA NEXUS connects games across PS Vita, PSP and PS1—with explainable reasons and platform diversity.</p><span class="docs-card-foot">SIMILARITY · SIGNALS · DIVERSITY</span>
+          <div class="docs-card-top"><span>06 / DISCOVERY</span><b>↗</b></div><div class="docs-card-icon">✧</div><h3>Recommendation engine</h3><p>How similar games get linked across Vita, PSP and PS1.</p><span class="docs-card-foot">SIMILARITY · SIGNALS · DIVERSITY</span>
         </a>
         <a class="docs-card docs-card-slate" href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/DOCUMENTATION-STYLEGUIDE.md" target="_blank" rel="noreferrer">
-          <div class="docs-card-top"><span>06 / BRAND</span><b>↗</b></div><div class="docs-card-icon">✳</div><h3>Style guide</h3><p>The visual rhythm, writing voice, status vocabulary and asset rules behind NEXUS docs.</p><span class="docs-card-foot">VISUALS · VOICE · ACCESSIBILITY</span>
+          <div class="docs-card-top"><span>06 / BRAND</span><b>↗</b></div><div class="docs-card-icon">✳</div><h3>Style guide</h3><p>The look, the voice and the rules. Keep it rough, keep it readable.</p><span class="docs-card-foot">VISUALS · VOICE · ACCESSIBILITY</span>
         </a>
       </div>
     </section>
 
     <section class="docs-callout">
-      <div><div class="section-kicker">A SMALL PROMISE</div><h2>No mystery status badges.</h2><p>Every compatibility claim, feature and release gate should say what has actually been tested. Planned is not implemented. A mockup is not a build.</p></div>
-      <a href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/ROADMAP.md" target="_blank" rel="noreferrer">See the release gates ↗</a>
+      <div><div class="section-kicker">NO FAIRY TALES</div><h2>Built means built. Planned means planned.</h2><p>We label what works, what is still being built and what needs a real device test. A mockup is not an app. A checkbox is not proof.</p></div>
+      <a href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/ROADMAP.md" target="_blank" rel="noreferrer">Check the roadmap ↗</a>
     </section>
   </main>
 
   <footer class="site-footer docs-footer">
     <a class="wordmark" href="index.html"><span class="brand-mark">N</span><span>VITA <b>NEXUS</b></span></a>
-    <span>Clear notes. Better builds. Fewer surprises.</span>
+    <span>Straight answers. Better builds.</span>
     <a href="https://github.com/SilverCrow2323/vita-nexus" target="_blank" rel="noreferrer">GITHUB ↗</a>
   </footer>
   <script>
