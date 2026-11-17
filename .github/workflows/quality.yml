@@ -56,6 +56,7 @@ jobs:
         run: |
           node --check web/app.js
           node --check web/catalog.js
+          node --check web/lists.js
 
       - name: Test browser catalog logic
         run: node --test tests/*.test.cjs
