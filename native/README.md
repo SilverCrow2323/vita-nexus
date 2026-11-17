@@ -28,7 +28,9 @@ Expected output: native/build/vita_nexus_native.vpk.
 
 - D-pad up/down: select a module.
 - START: exit.
-- X on DISCOVER opens the selected game's metadata sheet; X on other modules remains inactive.\n- Circle returns from a game sheet to results, then from results to the module selector.
+- X on DISCOVER opens the selected game's metadata sheet; X on other modules remains inactive.
+- Circle returns from a game sheet to results, then from results to the module selector.
+- L/R cycles the alphabetical initial filter; Triangle cycles platform filters; Square clears filters.
 - D-pad wraparound is implemented in a VitaSDK-independent state helper and covered by a host-side C regression test.
 
 ## Safety boundary
@@ -67,3 +69,13 @@ The generated C file is a build output and is intentionally not committed. Run t
 The Discover browser can open a metadata detail sheet for the selected catalog entry. It shows platform coverage, release count, year, developer, publisher, genres, stable game ID and a short editorial summary when those fields exist. Missing values are labelled as unavailable instead of guessed.
 
 The detail fields are generated from the same shared JSON snapshot. The index builder bounds optional text fields to keep the native binary predictable. The screen is read-only; it does not launch games, inspect installed content or access save data.
+
+
+## Discover filters
+
+The offline catalog browser supports two independent filters without allocating a second copy of the catalog:
+- **Platform:** Triangle cycles All, PS Vita, PSP, PS1 and Homebrew. Multi-platform records remain visible in every matching platform filter.
+- **Initial:** L/R cycles A–Z. Titles are matched case-insensitively against their first character.
+- **Reset:** Square restores All platforms and All initials.
+
+The result counter reports visible matches against the complete catalog. D-pad navigation and the game detail sheet operate on the filtered result set. Search is currently filter-based rather than free-text; a virtual keyboard is a separate UX milestone.
