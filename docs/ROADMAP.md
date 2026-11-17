@@ -1,0 +1,83 @@
+# 🗺️ Roadmap
+
+The roadmap is organized around testable milestones. A feature is not complete because a screen exists: it must work, survive edge cases and be documented.
+
+> [!IMPORTANT]
+> Dates are intentionally omitted until the toolchain, hardware test setup and first native build are established.
+
+## Milestone 0 — Repository and product foundation
+
+- [x] Create the main repository.
+- [x] Define native + web product direction.
+- [x] Establish initial architecture and documentation.
+- [x] Add the GitHub Pages publishing workflow and web shell.
+- [ ] Add contribution, security and licensing policy.
+- [ ] Choose and pin the VitaSDK/toolchain baseline.
+- [ ] Establish CI for formatting and static checks.
+
+## Milestone 1 — Native proof of concept
+
+- [ ] Build a minimal VPK.
+- [ ] Render the first native screen.
+- [ ] Handle D-pad, analog and touchscreen input.
+- [ ] Create and migrate the local SQLite database.
+- [ ] Scan a supported set of PS Vita application metadata.
+- [ ] Validate read-only behavior on hardware.
+
+**Exit gate:** a reproducible VPK build, stable input/rendering and a scanner that reports findings without modifying files.
+
+## Milestone 2 — Catalog foundation
+
+- [ ] Define and version the canonical game/release schema.
+- [ ] Implement source adapters and provenance tracking.
+- [ ] Import Vita, PSP, PS1 and homebrew catalog data.
+- [ ] Implement region and edition matching.
+- [ ] Validate duplicate and ambiguous releases.
+- [ ] Publish the first static catalog snapshot for the web companion.
+
+**Exit gate:** the same canonical records can be consumed by the native database importer and web frontend.
+
+## Milestone 3 — Discovery experience
+
+- [ ] Animated Home Hero.
+- [ ] Library and Discover views.
+- [ ] Store index browser and regional release grouping.
+- [ ] Game details with attributed artwork.
+- [ ] Cross-platform "You may also like" recommendations.
+- [ ] Game Generator categories and explanations.
+
+**Exit gate:** recommendations are explainable, cross-platform and based on available data rather than invented metadata.
+
+## Milestone 4 — Personal gaming
+
+- [ ] Multiple local profiles.
+- [ ] Favorites, personal scores and backlog states.
+- [ ] Session/event journal.
+- [ ] Tracker proof of concept for native Vita games.
+- [ ] Validate suspend/resume and crash recovery.
+- [ ] Investigate and test PSP/Adrenaline and PS1/POPS tracking individually.
+- [ ] Personal statistics and session correction.
+
+**Exit gate:** reliable session attribution and recoverable local profiles on supported test setups.
+
+## Milestone 5 — Rankings and community
+
+- [ ] Personal and platform rankings.
+- [ ] Custom list creation and reordering.
+- [ ] JSON export/import.
+- [ ] Rating aggregation with vote counts and confidence.
+- [ ] Define optional backend and moderation model.
+- [ ] Public community submissions and voting only after backend implementation.
+
+## Milestone 6 — Release candidate
+
+- [ ] Test on PS Vita 1000 and 2000.
+- [ ] Test low-storage and offline scenarios.
+- [ ] Test missing or corrupt catalog data.
+- [ ] Test interrupted scans and tracker recovery.
+- [ ] Verify accessibility and reduced-motion behavior.
+- [ ] Publish user guide, compatibility notes and release artifacts.
+
+## Release philosophy
+
+The first public release must be useful even if advanced tracking or community features are still limited. Unsupported environments should be reported accurately, not hidden behind a green checkmark.
