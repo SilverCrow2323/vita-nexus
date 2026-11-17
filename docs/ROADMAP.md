@@ -42,7 +42,7 @@ The roadmap is organized around testable milestones. A feature is not complete b
 ## Milestone 3 — Discovery experience
 
 - [x] Animated web Home Hero and responsive navigation.
-- [ ] Native Library view.\n- [x] Native Discover catalog browser (offline, controller-driven, shared catalog source).
+- [ ] Native Library view.\n- [x] Native Discover catalog browser (offline, controller-driven, shared catalog source).\n- [x] Native game metadata detail sheet with attributed catalog fields and honest missing-data states.
 - [x] Web Store/catalog index and regional release grouping.
 - [x] Game detail sheets with attributed artwork and editorial indicators.
 - [x] Cross-platform "You may also like" recommendation engine.
