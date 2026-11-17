@@ -77,6 +77,33 @@ class NpsCatalogImporterTests(unittest.TestCase):
         self.assertEqual(catalog["totals"], {"games": 2, "releases": 2})
         self.assertEqual({game["platforms"][0] for game in catalog["games"]}, {"psp", "ps1"})
 
+    def test_duplicate_release_identifiers_are_deduplicated(self):
+        first = row(9, **{
+            "0": "NPJI00055",
+            "1": "JP",
+            "2": "Example PS1 Game",
+            "3": "DROP_URL",
+            "4": "JP9000-NPJI00055_00-0000000000000001",
+            "5": "2026-01-01 00:00:00",
+            "8": "123456",
+        })
+        duplicate = row(9, **{
+            "0": "NPJI00055",
+            "1": "JP",
+            "2": "Example PS1 Game",
+            "3": "DROP_URL",
+            "4": "JP9000-NPJI00055_00-0000000000000001",
+            "5": "2026-02-01 00:00:00",
+            "8": "123456",
+        })
+        catalog = build_catalog({"PSX_GAMES": "header\\n" + "\\n".join([
+            "\\t".join(first), "\\t".join(duplicate)
+        ])})
+        self.assertEqual(catalog["totals"], {"games": 1, "releases": 1})
+        self.assertEqual(catalog["sources"][0]["recordCount"], 1)
+        self.assertEqual(len(catalog["games"][0]["releases"]), 1)
+        self.assertEqual(catalog["games"][0]["releases"][0]["sourceUpdatedAt"], "2026-02-01 00:00:00")
+
     def test_malformed_rows_are_skipped(self):
         catalog = build_catalog({"PSV_GAMES": "header\nshort\n"})
         self.assertEqual(catalog["totals"], {"games": 0, "releases": 0})
