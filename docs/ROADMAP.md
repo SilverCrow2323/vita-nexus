@@ -95,6 +95,7 @@ The static website now has a project landing page, searchable catalog browser an
 - [x] Editorial fields for game features, age ratings and external scores.
 - [x] Cross-platform recommendation rendering and metadata-match ranking.
 - [x] Visual documentation portal with project chapters.
+- [x] Browser-side catalog logic regression tests wired into CI (editorial metadata fallback coverage).
 - [x] Public catalog snapshot generated and validated: **9,732 games / 12,357 releases** on 2026-11-17.
 - [ ] Add curated metadata and relation seeds for reviewed commercial titles.
 - [ ] Enable GitHub Pages in repository settings and confirm a successful deploy.
