@@ -24,7 +24,7 @@ REQUIRED_FONT_PATHS = (
     "assets/fonts/BarlowCondensed-Medium.ttf",
     "assets/fonts/BarlowCondensed-Bold.ttf",
 )
-VALID_TTF_SIGNATURES = (b"\\x00\\x01\\x00\\x00", b"OTTO", b"true", b"typ1")
+VALID_TTF_SIGNATURES = (bytes.fromhex("00010000"), b"OTTO", b"true", b"typ1")
 
 
 def validate_vpk(path: str | Path, title_id: str) -> dict[str, object]:
