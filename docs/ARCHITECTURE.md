@@ -141,3 +141,8 @@ Automatic grouping is deliberately conservative: identical normalized titles are
 The catalog builder imports the public VitaHomebrewDB Vita and PSP indexes as a separate content kind. The canonical platform remains `homebrew`; each release carries a `targetPlatform` field so the UI can label it as homebrew for Vita or PSP. This avoids confusing homebrew tools/apps with commercial store releases.
 
 The source adapter retains names, descriptions, author, version, category code, requirements, changelog, source project and release-page links, and source-hosted artwork references. It discards direct package URLs, payload blobs and integrity hashes. Artwork references stay on the upstream host with explicit credit and ownership caveats.
+
+
+## Native shell implementation status
+
+The initial native shell is a small C application built with VitaSDK CMake helpers. It renders a controller-driven module selector with libvita2d and the system PGF font. It is deliberately isolated from catalog and storage code: no filesystem scan, save access, package install, network request or tracker hook is performed by this shell. The next native slices should add versioned catalog loading and SQLite migration before any installed-title scanner is allowed to inspect console metadata.
