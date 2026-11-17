@@ -18,9 +18,21 @@ typedef struct {
     const char *developer;
     const char *publisher;
     const char *genres;
+    const char *content_kind;
+    const char *features;
+    const char *themes;
+    const char *age_rating;
+    const char *age_descriptors;
+    const char *age_rating_source;
+    const char *score_provider;
+    const char *score_source;
     uint8_t platform_mask;
     uint16_t release_count;
     uint16_t release_year;
+    float score_value;
+    float score_scale;
+    uint32_t score_votes;
+    uint8_t has_external_score;
 } VitaNexusCatalogEntry;
 
 extern const VitaNexusCatalogEntry vita_nexus_catalog[];
