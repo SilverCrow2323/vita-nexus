@@ -19,8 +19,8 @@ The roadmap is organized around testable milestones. A feature is not complete b
 
 - [x] Establish a pinned VitaSDK 2026.08 CMake/VPK project baseline and CI build job.
 - [x] Add the first controller-driven native shell with honest placeholder module states.
-- [ ] Build a minimal VPK.
-- [ ] Render the first native screen.
+- [x] Build a minimal VPK in the pinned VitaSDK CI container.
+- [x] Implement the first controller-driven native screen (hardware visual check still pending).
 - [ ] Handle D-pad, analog and touchscreen input.
 - [ ] Create and migrate the local SQLite database.
 - [ ] Scan a supported set of PS Vita application metadata.
