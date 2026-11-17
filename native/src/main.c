@@ -301,7 +301,7 @@ int main(void)
         previous_buttons = pad.buttons;
 
         if (in_detail) {
-            if (catalog_selected < vita_nexus_catalog_count) {
+            if (detail_catalog_index < vita_nexus_catalog_count) {
                 const char *game_id = vita_nexus_catalog[detail_catalog_index].game_id;
                 const VitaNexusLibraryRecord *existing = vita_nexus_library_find(&g_library, game_id);
                 uint8_t flags = existing ? existing->flags : 0;
@@ -368,7 +368,8 @@ int main(void)
 
         vita2d_start_drawing();
         vita2d_clear_screen();
-        if (in_detail && catalog_selected < visible_count) draw_game_detail(font, visible_games[catalog_selected]);
+        if (in_detail) draw_game_detail(font, detail_catalog_index);
+        else if (in_library) draw_library(font, &g_library, library_selected);
         else if (in_discover) draw_discover(font, catalog_selected, platform_filter, letter_filter);
         else draw_home(font, (int)menu_state.selected);
         vita2d_end_drawing();
