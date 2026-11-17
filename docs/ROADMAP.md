@@ -13,7 +13,7 @@ The roadmap is organized around testable milestones. A feature is not complete b
 - [x] Add the GitHub Pages publishing workflow and web shell.
 - [ ] Add contribution, security and licensing policy.
 - [ ] Choose and pin the VitaSDK/toolchain baseline.
-- [ ] Establish CI for formatting and static checks.
+- [x] Establish quality CI for catalog schema/data, importer tests, JavaScript syntax and browser-logic regression tests.
 
 ## Milestone 1 — Native proof of concept
 
@@ -30,20 +30,20 @@ The roadmap is organized around testable milestones. A feature is not complete b
 
 - [x] Define and version the canonical game/release schema.
 - [x] Add the first metadata-only NoPayStation TSV source adapter and provenance tracking.
-- [ ] Import Vita, PSP, PS1 and homebrew catalog data.
-- [ ] Implement region and edition matching.
-- [ ] Validate duplicate and ambiguous releases.
-- [x] Add the static catalog snapshot contract and web browser; first live import remains to be run.
+- [x] Import metadata-only Vita, PSP, PS1 and homebrew catalog data.
+- [x] Group regional editions while preserving release identifiers.
+- [x] Validate source rows, duplicate IDs and ambiguous title grouping.
+- [x] Generate and validate the live static catalog snapshot consumed by the web browser.
 
 **Exit gate:** the live source import must pass validation and the same canonical records must be consumed by the native database importer and web frontend.
 
 ## Milestone 3 — Discovery experience
 
-- [ ] Animated Home Hero.
-- [ ] Library and Discover views.
-- [ ] Store index browser and regional release grouping.
-- [ ] Game details with attributed artwork.
-- [ ] Cross-platform "You may also like" recommendations.
+- [x] Animated web Home Hero and responsive navigation.
+- [ ] Native Library and Discover views.
+- [x] Web Store/catalog index and regional release grouping.
+- [x] Game detail sheets with attributed artwork and editorial indicators.
+- [x] Cross-platform "You may also like" recommendation engine.
 - [ ] Game Generator categories and explanations.
 
 **Exit gate:** recommendations are explainable, cross-platform and based on available data rather than invented metadata.
@@ -98,6 +98,6 @@ The static website now has a project landing page, searchable catalog browser an
 - [x] Browser-side catalog logic regression tests wired into CI (editorial metadata fallback coverage).
 - [x] Public catalog snapshot generated and validated: **9,732 games / 12,357 releases** on 2026-11-17.
 - [ ] Add curated metadata and relation seeds for reviewed commercial titles.
-- [ ] Enable GitHub Pages in repository settings and confirm a successful deploy.
+- [x] Configure the GitHub Pages deployment workflow for the web companion; keep deployment health in the pre-release checklist.
 - [ ] Add static ranking snapshots and public ranking methodology.
 - [x] Browser-local custom lists with ordered entries and JSON backup/restore.

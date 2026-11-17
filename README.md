@@ -9,7 +9,7 @@
 </p>
 
 > [!NOTE]
-> **Foundation phase.** This repository currently contains the product blueprint, documentation and first web companion shell. The native app, scanner, catalog engine and tracker are not implemented yet.
+> **The web catalog is implemented; the native Vita runtime is the next major build.** The static catalog, NPS/homebrew metadata import, regional release browser, editorial layer and cross-platform recommendations are in the repository. The native VPK, on-device scanner, local profiles and automatic playtime tracker are still planned—not quietly pretending to exist.
 
 ## 🧨 The idea
 
@@ -47,6 +47,7 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 | [Web companion](docs/WEB-COMPANION.md) | Pages scope, deployment and backend boundary |
 | [Documentation style](docs/DOCUMENTATION-STYLEGUIDE.md) | Visual and editorial language |
 | [Roadmap](docs/ROADMAP.md) | Milestones and release gates |
+| [Pre-release checklist](docs/PRE-RELEASE-CHECKLIST.md) | Web alpha and native Vita release gates |
 | [NPS catalog import](docs/NPS-CATALOG-IMPORT.md) | Metadata-only TSV ingestion, homebrew source and regional grouping |
 | [Recommendation engine](docs/CROSS-PLATFORM-RECOMMENDATIONS.md) | Cross-platform similarity signals and ranking behavior |
 | [Web catalog](web/catalog.html) | Searchable PS Vita / PSP / PS1 release browser |
@@ -65,6 +66,9 @@ The metadata-only catalog build currently contains:
 <sub>Snapshot generated and validated on 2026-11-17. The scheduled catalog workflow refreshes these figures as upstream indexes change.</sub>
 
 Browse the [catalog interface](web/catalog.html) or inspect the [raw catalog snapshot](web/data/catalog.json).
+
+### Personal lists — local-first
+The web catalog also supports private browser-local collections: create lists, add titles from game sheets, reorder or remove entries, and export/import versioned JSON backups. Lists stay in the current browser and are never uploaded or shared. Public community rankings and voting remain a separate future backend feature.
 
 ## 🧩 Architecture at a glance
 
@@ -90,14 +94,16 @@ Keep the interface readable. Use short labels, plain English and direct copy. No
 
 | Capability | Status |
 |---|---|
-| Product direction and requirements | 🟢 Defined |
-| Repository and documentation foundation | 🟡 In progress |
-| GitHub Pages shell | 🟡 First scaffold |
-| Native Vita application | ⚪ Not started |
-| Catalog import and release matching | ⚪ Not started |
-| Installed-game scanner | ⚪ Not started |
-| Automatic tracker plugin | ⚪ Not started |
-| Rankings and community backend | ⚪ Future phase |
+| Product direction, architecture and visual system | 🟢 Defined |
+| Cyberpunk manga web portal and catalog browser | 🟢 Implemented |
+| NPS + Vita/PSP homebrew metadata pipeline | 🟢 Implemented; metadata-only |
+| Public catalog snapshot | 🟢 9,732 games · 12,357 releases · 4,466 homebrew entries |
+| Regional editions and release details | 🟢 Implemented |
+| Cross-platform recommendation engine | 🟢 Implemented; curated editorial coverage is growing |
+| Native PS Vita application / VPK | ⚪ Not implemented |
+| Installed-title scanner and local database | ⚪ Not implemented |
+| Automatic playtime tracker | ⚪ Not implemented |
+| Community accounts, votes and cloud sync | ⚪ Future backend phase |
 
 ## 🛠 Development principles
 
