@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 FORBIDDEN_KEYS = {
-    "url", "downloadurl", "packageurl", "pkgurl", "data", "hash", "hash2",
+    "downloadurl", "downloaduri", "binaryurl", "packageurl", "pkgurl", "data", "hash", "hash2",
     "sha256", "md5", "zrif", "licensekey", "digest"
 }
 ALLOWED_PLATFORMS = {"psvita", "psp", "ps1", "homebrew"}
