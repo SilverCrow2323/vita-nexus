@@ -1,0 +1,23 @@
+# Native builds
+/build/
+/out/
+/cmake-build-*/
+
+# Local databases, profiles and generated caches
+*.sqlite
+*.sqlite3
+*.db
+/local-data/
+/cache/
+/artwork-cache/
+
+# Tooling
+/web/node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Local environment
+.env
+.env.*
+!.env.example
