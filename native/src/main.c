@@ -289,7 +289,7 @@ static void draw_discover(vita2d_pgf *font, size_t selected, unsigned int platfo
             vita2d_draw_rectangle(58, y + 8,
                 64 + (int)vita_nexus_ui_motion_pulse(&g_ui_motion, 18, 48), 2, COLOR_CYAN);
         }
-        ui_draw_fit_text(58, y, index == selected ? COLOR_ACID : COLOR_PAPER,
+        ui_draw_fit_text(58, y, start + row == selected ? COLOR_ACID : COLOR_PAPER,
             0.66f, 710, entry->title);
         ui_draw_textf_with_font(font, 790, y, COLOR_CYAN, 0.5f, "%s", platform_label(entry->platform_mask));
     }
