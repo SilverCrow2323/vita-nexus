@@ -96,8 +96,8 @@ class NpsCatalogImporterTests(unittest.TestCase):
             "5": "2026-02-01 00:00:00",
             "8": "123456",
         })
-        catalog = build_catalog({"PSX_GAMES": "header\\n" + "\\n".join([
-            "\\t".join(first), "\\t".join(duplicate)
+        catalog = build_catalog({"PSX_GAMES": "header\n" + "\n".join([
+            "\t".join(first), "\t".join(duplicate)
         ])})
         self.assertEqual(catalog["totals"], {"games": 1, "releases": 1})
         self.assertEqual(catalog["sources"][0]["recordCount"], 1)
