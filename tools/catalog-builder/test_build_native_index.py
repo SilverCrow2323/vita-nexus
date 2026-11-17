@@ -13,6 +13,11 @@ class NativeIndexBuilderTests(unittest.TestCase):
             "games": [{
                 "gameId": "vita-test-001",
                 "title": 'A "Quoted" Game',
+                "summary": "A compact test summary.",
+                "developer": "Studio Test",
+                "publisher": "Publisher Test",
+                "releaseYear": 2004,
+                "genres": ["Action", "Adventure"],
                 "releases": [
                     {"platform": "psvita"},
                     {"platform": "psp"},
@@ -21,7 +26,7 @@ class NativeIndexBuilderTests(unittest.TestCase):
             }],
         }
 
-    def test_emits_platform_mask_and_release_count(self):
+    def test_emits_index_and_detail_metadata(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             source = root / "catalog.json"
@@ -31,7 +36,10 @@ class NativeIndexBuilderTests(unittest.TestCase):
             generated = output.read_text(encoding="utf-8")
             self.assertIn('"vita-test-001"', generated)
             self.assertIn('A \\"Quoted\\" Game', generated)
-            self.assertIn(", 3u, 3u}", generated)
+            self.assertIn('"A compact test summary."', generated)
+            self.assertIn('"Studio Test"', generated)
+            self.assertIn('"Action / Adventure"', generated)
+            self.assertIn(", 3u, 3u, 2004u}", generated)
 
     def test_rejects_unsupported_platform(self):
         with tempfile.TemporaryDirectory() as temp:
