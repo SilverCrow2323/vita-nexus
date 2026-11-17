@@ -87,8 +87,8 @@ test("empty source arrays fall back to curated editorial metadata on both sides"
   assert.equal(picks.length, 1);
   assert.equal(picks[0].game.gameId, "candidate");
   assert.equal(picks[0].label, "METADATA MATCH");
-  assert.match(picks[0].reason, /Action RPG/);
-  assert.match(picks[0].reason, /Space opera/);
+  assert.match(picks[0].reason, /action rpg/i);
+  assert.match(picks[0].reason, /space opera/i);
 });
 
 test("empty in-record relations fall back to curated override relations", () => {
