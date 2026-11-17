@@ -1,6 +1,7 @@
 #include "library_store.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define STORE_HEADER "VNXLIB|1\n"
