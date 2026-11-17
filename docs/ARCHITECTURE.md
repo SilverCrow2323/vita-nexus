@@ -134,3 +134,10 @@ The first source adapter imports the PS Vita, PSP and PS1 game TSV indexes publi
 The normalized snapshot is written to `web/data/catalog.json`, which is consumed by both the public catalog browser and, later, the native database importer. `catalog/schema/catalog.schema.json` is the versioned contract. Curated descriptions, artwork, age ratings and external scores live in `web/data/editorial-overrides.json` and must include attribution before publication.
 
 Automatic grouping is deliberately conservative: identical normalized titles are grouped within one platform. A game appearing on multiple platforms remains separate until an explicit cross-platform relationship or curated canonical mapping is supplied.
+
+
+## Homebrew source adapter
+
+The catalog builder imports the public VitaHomebrewDB Vita and PSP indexes as a separate content kind. The canonical platform remains `homebrew`; each release carries a `targetPlatform` field so the UI can label it as homebrew for Vita or PSP. This avoids confusing homebrew tools/apps with commercial store releases.
+
+The source adapter retains names, descriptions, author, version, category code, requirements, changelog, source project and release-page links, and source-hosted artwork references. It discards direct package URLs, payload blobs and integrity hashes. Artwork references stay on the upstream host with explicit credit and ownership caveats.
