@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <meta name="description" content="Browse the VITA NEXUS catalog across PS Vita, PSP and PS1.">
+  <title>Game Catalog — VITA NEXUS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="catalog.css">
+  <script src="catalog.js" defer></script>
+</head>
+<body class="catalog-page">
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="index.html" aria-label="VITA NEXUS home"><span class="brand-mark">N</span><span>VITA <b>NEXUS</b></span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a class="active" href="catalog.html" aria-current="page">Catalog</a>
+      <a href="https://github.com/SilverCrow2323/vita-nexus/tree/main/docs" target="_blank" rel="noreferrer">Documentation ↗</a>
+      <a href="https://github.com/SilverCrow2323/vita-nexus" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </nav>
+    <a class="header-cta" href="index.html">Back to NEXUS <span>↗</span></a>
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </header>
+
+  <main class="catalog-wrap">
+    <section class="catalog-hero">
+      <div>
+        <div class="eyebrow"><span class="pulse"></span> THE PLAYSTATION GAME UNIVERSE</div>
+        <h1>Explore the<br><span>entire catalog.</span></h1>
+        <p>One searchable library across PS Vita, PSP and PS1. Regional editions stay together, while every release keeps its own identity.</p>
+      </div>
+      <div class="catalog-orbit" aria-hidden="true">
+        <span class="orbit-label orbit-vita">PS VITA</span>
+        <span class="orbit-label orbit-psp">PSP</span>
+        <span class="orbit-label orbit-ps1">PS1</span>
+        <div class="orbit-core">N</div>
+      </div>
+    </section>
+
+    <section class="catalog-stats" aria-label="Catalog statistics">
+      <div><strong id="games-count">—</strong><span>CANONICAL GAMES</span></div>
+      <div><strong id="releases-count">—</strong><span>REGIONAL RELEASES</span></div>
+      <div><strong id="updated-at">—</strong><span>LAST CATALOG BUILD</span></div>
+    </section>
+
+    <section class="catalog-browser" aria-labelledby="catalog-heading">
+      <div class="browser-heading">
+        <div><div class="section-kicker">FIND YOUR NEXT FAVORITE</div><h2 id="catalog-heading">The catalog</h2></div>
+        <span class="catalog-live"><i></i> PUBLIC METADATA INDEX</span>
+      </div>
+
+      <label class="search-box" for="catalog-search">
+        <span aria-hidden="true">⌕</span>
+        <input id="catalog-search" type="search" placeholder="Search titles, Title IDs, Content IDs or regions…" autocomplete="off">
+        <kbd>⌘ / CTRL + K</kbd>
+      </label>
+
+      <div class="catalog-controls">
+        <div class="platform-filters" role="group" aria-label="Filter by platform">
+          <button class="filter-chip active" type="button" data-platform="all" aria-pressed="true">ALL PLATFORMS</button>
+          <button class="filter-chip" type="button" data-platform="psvita" aria-pressed="false">PS VITA</button>
+          <button class="filter-chip" type="button" data-platform="psp" aria-pressed="false">PSP</button>
+          <button class="filter-chip" type="button" data-platform="ps1" aria-pressed="false">PS1</button>
+          <button class="filter-chip" type="button" data-platform="homebrew" aria-pressed="false">HOMEBREW</button>
+        </div>
+        <label class="sort-control">SORT BY
+          <select id="catalog-sort">
+            <option value="title">TITLE A–Z</option>
+            <option value="size">LARGEST RELEASE</option>
+            <option value="updated">RECENTLY UPDATED</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="results-line"><span id="results-label" aria-live="polite">Loading catalog…</span><span id="source-label">SOURCE: VITA NEXUS INDEX</span></div>
+      <div id="catalog-grid" class="catalog-grid" aria-live="polite" aria-busy="true"></div>
+      <div id="catalog-empty" class="catalog-empty" hidden>
+        <div class="empty-symbol">✳</div>
+        <h3 id="empty-title">The catalog is getting ready.</h3>
+        <p id="empty-message">The first public metadata sync has not run yet. This page will populate when the catalog import workflow completes.</p>
+        <a href="https://github.com/SilverCrow2323/vita-nexus/actions/workflows/catalog-sync.yml" target="_blank" rel="noreferrer">View catalog sync workflow ↗</a>
+      </div>
+      <div class="load-more-wrap"><button id="load-more" class="button button-quiet" type="button" hidden>Load more games <span>＋</span></button></div>
+    </section>
+
+    <section class="catalog-note">
+      <div class="note-symbol">i</div>
+      <div><strong>Metadata, not downloads.</strong><p>This public catalog displays descriptive release metadata. It does not expose package download URLs, license material or decryption keys. Artwork, descriptions, age ratings and editorial scores are added through separately attributed metadata.</p></div>
+      <a href="../docs/NPS-CATALOG-IMPORT.md">How catalog data works ↗</a>
+    </section>
+  </main>
+
+  <dialog id="game-dialog" class="game-dialog">
+    <form method="dialog"><button class="dialog-close" aria-label="Close game details">×</button></form>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <footer class="site-footer catalog-footer">
+    <a class="wordmark" href="index.html"><span class="brand-mark">N</span><span>VITA <b>NEXUS</b></span></a>
+    <span>One game universe. Many ways to discover it.</span>
+    <a href="https://github.com/SilverCrow2323/vita-nexus" target="_blank" rel="noreferrer">GITHUB ↗</a>
+  </footer>
+</body>
+</html>
