@@ -27,11 +27,11 @@ def joined_values(value: object, limit: int) -> str:
     return " / ".join(parts)[:limit]
 
 
-def age_metadata(game: dict) -> tuple[str, str, str]:
-    """Prefer PEGI for the European handheld audience; retain honest source data."""
+def age_guidance(game: dict) -> str:
+    """Prefer PEGI in the European region; never invent a classification."""
     ratings = game.get("ageRatings", [])
     if not isinstance(ratings, list):
-        return "", "", ""
+        return ""
     candidates = []
     for index, rating in enumerate(ratings):
         if not isinstance(rating, dict):
@@ -43,19 +43,19 @@ def age_metadata(game: dict) -> tuple[str, str, str]:
         territory = optional_text(rating.get("territory"), 24)
         label = f"{system} {value}" + (f" ({territory})" if territory else "")
         descriptors = joined_values(rating.get("descriptors"), 100)
-        source = optional_text(rating.get("source"), 120)
-        candidates.append((AGE_SYSTEM_PRIORITY[system], index, label, descriptors, source))
+        if descriptors:
+            label += f" / {descriptors}"
+        candidates.append((AGE_SYSTEM_PRIORITY[system], index, label))
     if not candidates:
-        return "", "", ""
-    _, _, label, descriptors, source = min(candidates)
-    return label[:64], descriptors, source
+        return ""
+    return min(candidates)[2][:180]
 
 
-def score_metadata(game: dict) -> tuple[str, str, float, float, int, int]:
-    """Use the first valid catalog score; never invent a scale or a vote count."""
+def external_score_label(game: dict) -> str:
+    """Preserve the supplied scale/provider/votes, without assuming a denominator."""
     scores = game.get("externalScores", [])
     if not isinstance(scores, list):
-        return "", "", 0.0, 0.0, 0, 0
+        return ""
     for score in scores:
         if not isinstance(score, dict):
             continue
@@ -66,17 +66,35 @@ def score_metadata(game: dict) -> tuple[str, str, float, float, int, int]:
             continue
         scale = score.get("scale")
         if isinstance(scale, bool) or not isinstance(scale, (int, float)) or not math.isfinite(scale) or scale <= 0 or scale > 10000:
-            scale = 0.0
+            scale = 0
         provider = optional_text(score.get("provider"), 48)
-        source = optional_text(score.get("source"), 120)
         if not provider:
             continue
         votes = score.get("voteCount")
         if isinstance(votes, bool) or not isinstance(votes, int) or votes < 0:
             votes = 0
-        votes = min(votes, 4294967295)
-        return provider, source, float(value), float(scale), votes, 1
-    return "", "", 0.0, 0.0, 0, 0
+        label = f"{value:g}"
+        if scale:
+            label += f" / {scale:g}"
+        label += f" - {provider}"
+        if votes:
+            label += f" ({min(votes, 4294967295)} votes)"
+        return label[:140]
+    return ""
+
+
+def editorial_tag_line(game: dict) -> str:
+    tags = []
+    kind = optional_text(game.get("contentKind"), 24)
+    if kind:
+        tags.append(kind.replace("-", " ").upper())
+    features = joined_values(game.get("features"), 120)
+    themes = joined_values(game.get("themes"), 80)
+    if features:
+        tags.extend(part.strip() for part in features.split(" / ") if part.strip())
+    if themes:
+        tags.extend(part.strip() for part in themes.split(" / ") if part.strip())
+    return " / ".join(tags)[:180]
 
 
 def build(source: Path, destination: Path) -> int:
@@ -112,37 +130,27 @@ def build(source: Path, destination: Path) -> int:
         year = game.get("releaseYear")
         if not isinstance(year, int) or isinstance(year, bool) or not 1970 <= year <= 2100:
             year = 0
-        genres = joined_values(game.get("genres"), 120)
-        content_kind = optional_text(game.get("contentKind"), 24)
-        features = joined_values(game.get("features"), 140)
-        themes = joined_values(game.get("themes"), 100)
-        age_rating, age_descriptors, age_source = age_metadata(game)
-        score_provider, score_source, score_value, score_scale, score_votes, has_score = score_metadata(game)
         rows.append((
-            game_id, title.strip(), optional_text(game.get("summary"), 260),
-            optional_text(game.get("developer"), 100), optional_text(game.get("publisher"), 100),
-            genres, content_kind, features, themes, age_rating, age_descriptors, age_source,
-            score_provider, score_source, mask, len(releases), year,
-            score_value, score_scale, score_votes, has_score
+            game_id, title.strip(),
+            optional_text(game.get("summary"), 260),
+            optional_text(game.get("developer"), 100),
+            optional_text(game.get("publisher"), 100),
+            joined_values(game.get("genres"), 120),
+            editorial_tag_line(game), age_guidance(game),
+            external_score_label(game), mask, len(releases), year
         ))
 
     destination.parent.mkdir(parents=True, exist_ok=True)
     with destination.open("w", encoding="utf-8", newline="\n") as out:
         out.write('#include "catalog_index.h"\n\n')
         out.write("const VitaNexusCatalogEntry vita_nexus_catalog[] = {\n")
-        for row in rows:
-            (game_id, title, summary, developer, publisher, genres, content_kind,
-             features, themes, age_rating, age_descriptors, age_source,
-             score_provider, score_source, mask, count, year,
-             score_value, score_scale, score_votes, has_score) = row
+        for (game_id, title, summary, developer, publisher, genres, tags,
+             age, score, mask, count, year) in rows:
             out.write(
                 f"    {{{c_string(game_id)}, {c_string(title)}, {c_string(summary)}, "
                 f"{c_string(developer)}, {c_string(publisher)}, {c_string(genres)}, "
-                f"{c_string(content_kind)}, {c_string(features)}, {c_string(themes)}, "
-                f"{c_string(age_rating)}, {c_string(age_descriptors)}, {c_string(age_source)}, "
-                f"{c_string(score_provider)}, {c_string(score_source)}, "
-                f"{mask}u, {count}u, {year}u, {score_value:.3f}f, {score_scale:.3f}f, "
-                f"{score_votes}u, {has_score}u}},\n"
+                f"{c_string(tags)}, {c_string(age)}, {c_string(score)}, "
+                f"{mask}u, {count}u, {year}u}},\n"
             )
         out.write("};\n\n")
         out.write("const size_t vita_nexus_catalog_count =\n")
