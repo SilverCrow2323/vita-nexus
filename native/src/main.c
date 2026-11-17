@@ -66,16 +66,6 @@ static void ui_draw_text(int x, int y, unsigned int color, float scale, const ch
     }
 }
 
-static void ui_draw_textf(int x, int y, unsigned int color, float scale, const char *format, ...)
-{
-    char buffer[512];
-    va_list args;
-    va_start(args, format);
-    (void)vsnprintf(buffer, sizeof(buffer), format, args);
-    va_end(args);
-    ui_draw_text(x, y, color, scale, buffer);
-}
-
 static int ui_text_width_at_size(float scale, unsigned int size, const char *text)
 {
     vita2d_font *selected = ui_text_has_non_ascii(text) ? NULL : ui_font_for_scale(scale);
@@ -198,16 +188,27 @@ static void draw_wrapped(vita2d_pgf *font, int x, int y, unsigned int color,
         word[word_length] = '\0';
         cursor += word_length;
 
+        const size_t line_length = strlen(line);
+        const size_t word_length = strlen(word);
+        const size_t separator = line_length ? 1u : 0u;
         char candidate[256];
-        (void)snprintf(candidate, sizeof(candidate), "%s%s%s",
-            line, line[0] ? " " : "", word);
-        if (line[0] && ui_text_width_at_size(scale, ui_font_size(scale), candidate) > max_width) {
+        candidate[0] = '\0';
+        if (line_length + separator + word_length < sizeof(candidate)) {
+            (void)memcpy(candidate, line, line_length);
+            if (separator) candidate[line_length] = ' ';
+            (void)memcpy(candidate + line_length + separator, word, word_length + 1u);
+        } else {
+            candidate[0] = '\0';
+        }
+        if (line[0] && (!candidate[0] ||
+            ui_text_width_at_size(scale, ui_font_size(scale), candidate) > max_width)) {
             ui_draw_text_with_font(font, x, y + (line_number * 18), color, scale, line);
             ++line_number;
-            line[0] = '\0';
             (void)snprintf(line, sizeof(line), "%s", word);
-        } else {
+        } else if (candidate[0]) {
             (void)snprintf(line, sizeof(line), "%s", candidate);
+        } else {
+            (void)snprintf(line, sizeof(line), "%s", word);
         }
     }
     if (line[0] && line_number < max_lines) {
@@ -500,36 +501,6 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
 {
     if (selected >= vita_nexus_catalog_count) return;
     const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[selected];
-    char score_line[192];
-    char editorial_tags[256];
-
-    if (entry->has_external_score) {
-        if (entry->score_scale > 0.0f) {
-            (void)snprintf(score_line, sizeof(score_line), "%.1f / %.1f  %s",
-                entry->score_value, entry->score_scale, entry->score_provider);
-        } else {
-            (void)snprintf(score_line, sizeof(score_line), "%.1f  %s",
-                entry->score_value, entry->score_provider);
-        }
-        if (entry->score_votes > 0) {
-            const size_t used = strlen(score_line);
-            (void)snprintf(score_line + used, sizeof(score_line) - used,
-                "  /  %lu votes", (unsigned long)entry->score_votes);
-        }
-    } else {
-        (void)snprintf(score_line, sizeof(score_line), "%s", "NO EXTERNAL SCORE");
-    }
-
-    if (entry->features[0] && entry->themes[0]) {
-        (void)snprintf(editorial_tags, sizeof(editorial_tags), "%s  /  %s",
-            entry->features, entry->themes);
-    } else if (entry->features[0]) {
-        (void)snprintf(editorial_tags, sizeof(editorial_tags), "%s", entry->features);
-    } else if (entry->themes[0]) {
-        (void)snprintf(editorial_tags, sizeof(editorial_tags), "%s", entry->themes);
-    } else {
-        (void)snprintf(editorial_tags, sizeof(editorial_tags), "%s", "No feature or theme tags");
-    }
 
     vita2d_draw_rectangle(0, 0, 960, 544, COLOR_BG);
     vita2d_draw_rectangle(0, 0, 960, 8, COLOR_PINK);
@@ -552,18 +523,13 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
         ui_draw_textf_with_font(font, 222, 256, COLOR_PAPER, 0.62f, "%u", (unsigned int)entry->release_year);
     else
         ui_draw_text_with_font(font, 222, 256, COLOR_MUTED, 0.52f, "UNKNOWN");
-    ui_draw_text_with_font(font, 328, 231, COLOR_CYAN, 0.48f, "ENTRY TYPE");
-    ui_draw_fit_text(328, 256, COLOR_PAPER, 0.52f, 118,
-        entry->content_kind[0] ? entry->content_kind : "UNCLASSIFIED");
 
     ui_draw_text_with_font(font, 506, 173, COLOR_PINK, 0.58f, "AGE GUIDANCE");
-    ui_draw_fit_text(506, 197, COLOR_PAPER, 0.7f, 380,
-        entry->age_rating[0] ? entry->age_rating : "NOT LISTED IN SOURCE DATA");
-    ui_draw_fit_text(506, 220, COLOR_MUTED, 0.43f, 380,
-        entry->age_descriptors[0] ? entry->age_descriptors : "No descriptors supplied");
+    ui_draw_fit_text(506, 197, COLOR_PAPER, 0.62f, 380,
+        entry->age_guidance[0] ? entry->age_guidance : "NOT LISTED IN SOURCE DATA");
     ui_draw_text_with_font(font, 506, 244, COLOR_CYAN, 0.48f, "EXTERNAL SCORE");
-    ui_draw_fit_text(506, 267, entry->has_external_score ? COLOR_PAPER : COLOR_MUTED,
-        0.48f, 380, score_line);
+    ui_draw_fit_text(506, 267, entry->external_score[0] ? COLOR_PAPER : COLOR_MUTED,
+        0.48f, 380, entry->external_score[0] ? entry->external_score : "NO EXTERNAL SCORE");
 
     vita2d_draw_rectangle(48, 303, 864, 112, COLOR_PANEL);
     ui_draw_text_with_font(font, 70, 327, COLOR_ACID, 0.53f, "DEVELOPER");
@@ -576,8 +542,9 @@ static void draw_game_detail(vita2d_pgf *font, size_t selected)
     ui_draw_text_with_font(font, 500, 327, COLOR_PINK, 0.53f, "GENRES");
     ui_draw_fit_text(500, 350, COLOR_PAPER, 0.54f, 386,
         entry->genres[0] ? entry->genres : "Not classified");
-    ui_draw_text_with_font(font, 500, 379, COLOR_PINK, 0.53f, "FEATURES / THEMES");
-    ui_draw_fit_text(500, 401, COLOR_PAPER, 0.50f, 386, editorial_tags);
+    ui_draw_text_with_font(font, 500, 379, COLOR_PINK, 0.53f, "TYPE / FEATURES / THEMES");
+    ui_draw_fit_text(500, 401, COLOR_PAPER, 0.50f, 386,
+        entry->editorial_tags[0] ? entry->editorial_tags : "No editorial tags");
 
     ui_draw_text_with_font(font, 54, 437, COLOR_CYAN, 0.56f, "EDITORIAL NOTE");
     draw_wrapped(font, 54, 458, COLOR_PAPER, 0.47f, entry->summary, 850, 2);
