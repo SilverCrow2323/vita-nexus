@@ -51,3 +51,12 @@ The quality workflow runs the same test. This checks navigation state only; it d
 ## VPK integrity gate
 
 Before upload, the native build workflow runs `tools/verify_vpk.py` against the generated package. It checks ZIP integrity, required `eboot.bin` and `sce_sys/param.sfo` entries, the expected nine-character Title ID, unsafe paths, duplicate entries, symlinks, encrypted entries, oversized archives and forbidden game/license payloads. It records the package SHA-256 in the Actions summary. The verifier itself has host-side regression tests in `tests/test_verify_vpk.py`.
+
+
+## Native catalog and Discover screen
+
+The native build consumes the same `web/data/catalog.json` snapshot as the web companion. Before the VitaSDK container build, `tools/catalog-builder/build_native_index.py` validates schema version `1.0.0` and emits `native/generated/catalog_index.c`. The generated file is a compact, read-only index of game ID, title, platform bitmask and release count; it is not a second hand-maintained catalog and it contains no package URLs, license material or payloads.
+
+The generated index is compiled into the VPK, so Discover works offline. On the home screen select DISCOVER and press Cross; use Up/Down to browse and Circle to return. The list shows catalog titles, platform labels, game IDs and release counts. The Library, Rankings and Settings modules remain explicitly incomplete.
+
+The generated C file is a build output and is intentionally not committed. Run the generator before configuring CMake. CI tests the generator, compiles the Vita binary, verifies the VPK and uploads a temporary artifact. This is still a build-level validation, not a physical-console certification.

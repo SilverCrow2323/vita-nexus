@@ -13,13 +13,22 @@ include("${VITASDK}/share/vita.cmake" REQUIRED)
 
 set(VITA_APP_NAME "VITA NEXUS")
 set(VITA_TITLEID "VNXS00001")
-set(VITA_VERSION "00.01")
+set(VITA_VERSION "00.02")
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic")
 
-add_executable(${PROJECT_NAME} src/main.c)
+set(NATIVE_CATALOG_INDEX "${CMAKE_CURRENT_SOURCE_DIR}/generated/catalog_index.c")
+if(NOT EXISTS "${NATIVE_CATALOG_INDEX}")
+  message(FATAL_ERROR "Native catalog index is missing. Run tools/catalog-builder/build_native_index.py first.")
+endif()
+
+add_executable(${PROJECT_NAME}
+  src/main.c
+  ${NATIVE_CATALOG_INDEX}
+)
+target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
 target_link_libraries(${PROJECT_NAME}
   vita2d
   SceCtrl_stub
