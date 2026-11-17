@@ -34,7 +34,7 @@ int main(void)
     assert(vita_nexus_profile_save_active(active_path, VITA_NEXUS_PROFILE_COUNT) == VITA_NEXUS_STORE_INVALID);
     FILE *broken_active = fopen(active_path, "wb");
     assert(broken_active != NULL);
-    fputs("VNXP|1\\n1\\n00000000\\n", broken_active);
+    fputs("VNXP|1\n1\n00000000\n", broken_active);
     fclose(broken_active);
     assert(vita_nexus_profile_load_active(active_path, &active) == VITA_NEXUS_STORE_INVALID);
     assert(active == 2);
@@ -67,7 +67,7 @@ int main(void)
     remove(active_path);
     remove("/tmp/vita-nexus-active-profile.dat.tmp");
     remove(profile_path);
-    remove(profile_path[0] ? backup_path : backup_path);
+    remove(backup_path);
     remove(corrupt_path);
     remove("/tmp/vita-nexus-profile.dat.tmp");
     remove("/tmp/vita-nexus-profile-backup.dat.tmp");
