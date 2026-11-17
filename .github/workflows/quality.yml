@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "web/**"
+      - "README.md"
+      - "docs/**"
       - "catalog/schema/**"
       - "tools/catalog-builder/**"
       - "tools/verify_vpk.py"
@@ -15,6 +17,8 @@ on:
   pull_request:
     paths:
       - "web/**"
+      - "README.md"
+      - "docs/**"
       - "catalog/schema/**"
       - "tools/catalog-builder/**"
       - "tests/**"
