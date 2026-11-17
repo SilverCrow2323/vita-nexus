@@ -1,0 +1,51 @@
+name: VITA NEXUS quality checks
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "web/**"
+      - "catalog/schema/**"
+      - "tools/catalog-builder/**"
+      - ".github/workflows/quality.yml"
+  pull_request:
+    paths:
+      - "web/**"
+      - "catalog/schema/**"
+      - "tools/catalog-builder/**"
+      - ".github/workflows/quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Validate JSON documents
+        run: |
+          python -m json.tool catalog/schema/catalog.schema.json > /dev/null
+          python -m json.tool web/data/catalog.json > /dev/null
+          python -m json.tool web/data/editorial-overrides.json > /dev/null
+
+      - name: Test catalog importer
+        working-directory: tools/catalog-builder
+        run: python -m unittest -v
+
+      - name: Validate public catalog data
+        run: python tools/catalog-builder/validate_catalog.py web/data/catalog.json
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check web/app.js
+          node --check web/catalog.js
