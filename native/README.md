@@ -120,3 +120,12 @@ The font files and their SIL Open Font License 1.1 ship inside the VPK at `app0:
 The layout uses a consistent 48 px content gutter and more deliberate spacing between list rows, information panels and footer controls. Font sizes are mapped to real pixel sizes, long game titles and metadata are fitted to their available column widths, and editorial summaries wrap by measured text width rather than an arbitrary character count. The Library row height has been increased slightly to use the 544 px screen more evenly.
 
 The new VPK is **00.07**. CI verifies the font assets are packaged and the text-rendering code compiles; this version still needs a quick device check on the PS Vita 1000 before calling the visual refresh hardware-verified.
+
+
+## Native transitions and micro-motion (00.08)
+
+The native UI now uses a small, deterministic motion helper with no dynamic allocation and no external runtime dependency. Entering a different screen fades a dark overlay away over eight rendered frames; this keeps navigation feedback visible without adding expensive blur, scaling or texture effects. The first home screen also fades in on startup.
+
+The selected row in Home, Discover, Library and Profiles receives a short animated underline. Its width follows a bounded triangular pulse over a 48-frame cycle. Discover selection rendering uses the filtered-list position consistently for both the highlight and the title color, so the active row stays visually aligned when platform or alphabetical filters are enabled.
+
+The transition and pulse calculations live in `native/src/ui_motion.h` and are covered by a VitaSDK-independent host test. The package version is **00.08**. Effects are intentionally limited to a few rectangles and integer calculations to keep the UI responsive on real hardware.
