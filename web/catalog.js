@@ -36,7 +36,7 @@ function element(tag, className, text) {
 }
 
 function formatBytes(value) {
-  if (!Number.isFinite(value) || value <= 0) return "SIZE UNKNOWN";
+  if (!Number.isFinite(value) || value <= 0) return "SIZE NOT LISTED";
   const units = ["B", "KB", "MB", "GB"];
   let size = value;
   let unit = 0;
@@ -131,14 +131,14 @@ function createGameCard(game) {
   info.append(element("h3", "game-card-title", game.title));
 
   const summary = game.summary || state.overrides[game.gameId]?.summary;
-  info.append(element("p", "game-card-summary", summary || "Editorial description not added yet. Release metadata is available below."));
+  info.append(element("p", "game-card-summary", summary || "No blurb yet. Check the editions and IDs below."));
 
   const footer = element("div", "game-card-footer");
   footer.append(element("span", "", releases.length + (releases.length === 1 ? " EDITION" : " EDITIONS")));
   footer.append(element("span", "", uniqueRegions.length + (uniqueRegions.length === 1 ? " REGION" : " REGIONS")));
   info.append(footer);
 
-  const button = element("button", "game-card-action", "Explore game ↗");
+  const button = element("button", "game-card-action", "Open game ↗");
   button.type = "button";
   button.addEventListener("click", () => openGame(game));
   info.append(button);
@@ -163,7 +163,7 @@ function render() {
     : "NOT SYNCED";
 
   resultsLabel.textContent = state.loadError
-    ? "Catalog data could not be loaded."
+    ? "Catalog failed to load."
     : games.length.toLocaleString() + " game" + (games.length === 1 ? "" : "s") + " found";
   document.querySelector("#source-label").textContent = "SOURCE: " + (state.catalog?.sources?.length || 0) + " INDEX FEEDS";
 
@@ -174,13 +174,13 @@ function render() {
   if (showEmpty) {
     if (state.loadError) {
       emptyTitle.textContent = "Catalog unavailable.";
-      emptyMessage.textContent = "The catalog snapshot could not be loaded. Try again later or inspect the catalog sync workflow.";
+      emptyMessage.textContent = "Couldn’t load the catalog. Try again or check the sync workflow.";
     } else if (total === 0) {
-      emptyTitle.textContent = "The first catalog sync is pending.";
-      emptyMessage.textContent = "The browser is ready, but the first NoPayStation metadata import has not run yet. Start the catalog sync workflow on GitHub to populate the public index.";
+      emptyTitle.textContent = "The first sync hasn’t run yet.";
+      emptyMessage.textContent = "The page is ready, but the first NoPayStation import hasn’t run. Run the catalog sync on GitHub to fill the index.";
     } else {
-      emptyTitle.textContent = "No games found.";
-      emptyMessage.textContent = "Try another title, identifier, region or platform filter.";
+      emptyTitle.textContent = "Nothing found. Try another search.";
+      emptyMessage.textContent = "Change the title, ID, region or platform filter.";
     }
   }
 }
@@ -194,7 +194,7 @@ function addReleaseRow(release) {
     : ({EU: "Europe", US: "North America", JP: "Japan", AS: "Asia", INT: "International", KR: "Korea", CN: "China"}[release.region] || release.region) + " edition";
   main.append(element("strong", "", editionLabel));
   if (release.titleId) main.append(element("span", "", release.titleId));
-  if (release.sourceItemId) main.append(element("small", "", "SOURCE ENTRY · " + release.sourceItemId));
+  if (release.sourceItemId) main.append(element("small", "", "SOURCE ID · " + release.sourceItemId));
   if (release.contentId) main.append(element("small", "", release.contentId));
   const details = element("div", "release-details");
   if (release.packageSizeBytes) details.append(element("span", "", formatBytes(release.packageSizeBytes)));
@@ -340,7 +340,7 @@ function renderEditorialFacts(game, override, body) {
   ];
   if (tags.length) {
     const section = element("section", "editorial-facts");
-    section.append(element("h3", "", "Game characteristics"));
+    section.append(element("h3", "", "What’s in the game"));
     const list = element("div", "editorial-tags");
     tags.slice(0, 24).forEach((tag) => {
       list.append(element("span", "editorial-tag", tag.value));
@@ -352,7 +352,7 @@ function renderEditorialFacts(game, override, body) {
   const ageRatings = game.ageRatings || override.ageRatings || [];
   if (ageRatings.length) {
     const section = element("section", "age-rating-section");
-    section.append(element("h3", "", "Age classification"));
+    section.append(element("h3", "", "Age rating"));
     ageRatings.forEach((rating) => {
       const row = element("div", "age-rating-row");
       row.append(element("strong", "", rating.system + " · " + rating.value));
@@ -368,7 +368,7 @@ function renderEditorialFacts(game, override, body) {
   const externalScores = game.externalScores || override.externalScores || [];
   if (externalScores.length) {
     const section = element("section", "external-scores-section");
-    section.append(element("h3", "", "External review scores"));
+    section.append(element("h3", "", "Review scores"));
     const list = element("div", "external-scores-list");
     externalScores.forEach((score) => {
       const row = element("div", "external-score-row");
@@ -413,19 +413,19 @@ function openGame(game) {
   gamePlatforms(game).forEach((platform) => platformLine.append(makePlatformBadge(platform)));
   body.append(platformLine);
   body.append(element("h2", "dialog-title", game.title));
-  body.append(element("p", "dialog-summary", game.description || override.description || game.summary || override.summary || "No editorial description has been added yet."));
+  body.append(element("p", "dialog-summary", game.description || override.description || game.summary || override.summary || "No description yet. The release details are still worth a look."));
 
   const facts = element("div", "dialog-facts");
   if (game.developer || override.developer) facts.append(element("span", "", "DEVELOPER · " + (game.developer || override.developer)));
   if (game.publisher || override.publisher) facts.append(element("span", "", "PUBLISHER · " + (game.publisher || override.publisher)));
   if (game.releaseYear || override.releaseYear) facts.append(element("span", "", "YEAR · " + (game.releaseYear || override.releaseYear)));
-  if (game.homebrew && game.homebrew.author) facts.append(element("span", "", "AUTHOR · " + game.homebrew.author));
+  if (game.homebrew && game.homebrew.author) facts.append(element("span", "", "BY · " + game.homebrew.author));
   if (game.homebrew && game.homebrew.version) facts.append(element("span", "", "VERSION · " + game.homebrew.version));
   body.append(facts);
   renderEditorialFacts(game, override, body);
 
   const releasesHeading = element("div", "release-heading");
-  releasesHeading.append(element("h3", "", "Available editions"));
+  releasesHeading.append(element("h3", "", "Versions in the stack"));
   releasesHeading.append(element("span", "", (game.releases || []).length + " RELEASES"));
   body.append(releasesHeading);
 
@@ -446,8 +446,8 @@ function openGame(game) {
 
   if (game.homebrew) {
     const metadata = element("section", "homebrew-details");
-    metadata.append(element("h3", "", "Homebrew details"));
-    if (game.homebrew.requirements) metadata.append(element("p", "homebrew-requirements", "REQUIREMENTS · " + game.homebrew.requirements));
+    metadata.append(element("h3", "", "Homebrew notes"));
+    if (game.homebrew.requirements) metadata.append(element("p", "homebrew-requirements", "NEEDS · " + game.homebrew.requirements));
     if (game.homebrew.changelog) {
       const change = element("details", "homebrew-changelog");
       change.append(element("summary", "", "Release notes"));
@@ -463,9 +463,9 @@ function openGame(game) {
       anchor.rel = "noopener noreferrer";
       links.append(anchor);
     };
-    addExternalLink("Project source", game.homebrew.sourceProjectUrl);
+    addExternalLink("Source code", game.homebrew.sourceProjectUrl);
     addExternalLink("Release page", game.homebrew.releasePageUrl);
-    addExternalLink("Catalog attribution", game.homebrew.sourceCatalogUrl);
+    addExternalLink("Original catalog", game.homebrew.sourceCatalogUrl);
     if (links.childElementCount) metadata.append(links);
     const screenshots = game.homebrew.screenshotUrls || [];
     if (screenshots.length) {
@@ -486,14 +486,14 @@ function openGame(game) {
 
   const recommendations = getRecommendations(game, override);
   const recommendationSection = element("section", "similar-games-section");
-  recommendationSection.append(element("h3", "", "You may also like…"));
-  recommendationSection.append(element("p", "similar-games-intro", "A few more discoveries from across the PlayStation universe."));
+  recommendationSection.append(element("h3", "", "MORE LIKE THIS"));
+  recommendationSection.append(element("p", "similar-games-intro", "Same energy. Different platforms."));
   if (recommendations.length) {
     const recommendationGrid = element("div", "recommendation-grid");
     recommendations.forEach((item) => recommendationGrid.append(createRecommendationCard(item)));
     recommendationSection.append(recommendationGrid);
   } else {
-    recommendationSection.append(element("p", "similar-games-empty", "Cross-platform recommendations will appear here as verified genre, theme and gameplay metadata is added to this title."));
+    recommendationSection.append(element("p", "similar-games-empty", "No matches yet. Similar picks show up when we have enough genre, theme and gameplay data."));
   }
   body.append(recommendationSection);
 
