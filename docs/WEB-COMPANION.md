@@ -58,7 +58,9 @@ The responsive landing page, underground cyberpunk manga design system, searchab
 
 ### Phase 2 — Enriched catalog
 
-Add curated summaries, verified developers/publishers, cover and hero artwork, screenshots, age classifications, feature indicators and cross-platform game relationships. Each item must retain attribution and usage terms.
+The game-sheet renderer now supports compact PEGI / age-classification and external-score stamps, plus a PSM-inspired editorial review spread. Curated entries can publish a standfirst, original review, NEXUS score, verdict, strengths, caveats, back-page curiosities and byline/source links through the separate [editorial content contract](EDITORIAL-CONTENT.md). The current override file intentionally contains no fabricated reviews; publish each entry only after its copy and sources have been checked.
+
+Artwork, screenshots, verified developers/publishers, richer age classifications and cross-platform relationships continue to expand separately. Each item must retain attribution and usage terms.
 
 ### Phase 3 — Rankings and personal lists
 
