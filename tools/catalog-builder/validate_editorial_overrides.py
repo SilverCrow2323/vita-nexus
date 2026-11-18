@@ -70,7 +70,8 @@ def _validate_artwork_asset(asset: Any, label: str) -> None:
             _https_url(asset[field], f"{label}.{field}")
 
     allowed_rights = {"verified-license", "permission-granted", "public-domain", "pending-review", "rejected"}
-    _require(asset["rightsStatus"] in allowed_rights, f"{label}.rightsStatus is not supported")
+    _require(isinstance(asset["rightsStatus"], str) and asset["rightsStatus"] in allowed_rights,
+             f"{label}.rightsStatus is not supported")
     _validate_reviewed_at(asset["rightsReviewedAt"], f"{label}.rightsReviewedAt")
     for field in ("width", "height"):
         if field in asset:
