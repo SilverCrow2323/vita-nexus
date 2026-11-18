@@ -403,9 +403,19 @@ static void draw_discover(vita2d_pgf *font, size_t selected,
 {
     const size_t start = selected >= CATALOG_ROWS ? selected - CATALOG_ROWS + 1 : 0;
     char filter_note[96];
+    char catalog_strapline[64];
+    char catalog_snapshot[64];
+    char catalog_date[64];
+
+    (void)snprintf(catalog_strapline, sizeof(catalog_strapline), "%lu FILES  /  FOUR PLAYSTATION WORLDS",
+        (unsigned long)vita_nexus_catalog_count);
+    (void)snprintf(catalog_snapshot, sizeof(catalog_snapshot), "V%s / %.8s",
+        vita_nexus_catalog_schema_version, vita_nexus_catalog_source_sha256);
+    (void)snprintf(catalog_date, sizeof(catalog_date), "%s",
+        vita_nexus_catalog_generated_at[0] ? vita_nexus_catalog_generated_at : "DATE NOT RECORDED");
 
     draw_magazine_header(font, "THE INDEX  /  DISCOVER", "FIND YOUR NEXT OBSESSION",
-        "9,732 FILES  /  FOUR PLAYSTATION WORLDS", "INDEX / 04", COLOR_CYAN);
+        catalog_strapline, "INDEX / 04", COLOR_CYAN);
     draw_magazine_chip(font, 48, 165, 255, platform_filters[platform_filter], COLOR_CYAN);
     (void)snprintf(filter_note, sizeof(filter_note), "INITIAL  %s",
         letter_filter < 0 ? "ALL" : (char[2]){'A' + letter_filter, '\0'});
@@ -452,11 +462,9 @@ static void draw_discover(vita2d_pgf *font, size_t selected,
     ui_draw_text_with_font(font, 727, 350, COLOR_MUTED, 0.44f, "ALL CATALOG FILES");
     ui_draw_textf_with_font(font, 727, 378, COLOR_PAPER, 0.70f, "%lu",
         (unsigned long)vita_nexus_catalog_count);
-    ui_draw_text_with_font(font, 727, 408, COLOR_MUTED, 0.44f, "CURRENT EDITION");
-    ui_draw_fit_text(727, 434, COLOR_CYAN, 0.53f, 164,
-        platform_filters[platform_filter]);
-    ui_draw_text_with_font(font, 727, 459, COLOR_PINK, 0.44f,
-        "CROSS / OPEN GAME FILE");
+    ui_draw_text_with_font(font, 727, 408, COLOR_MUTED, 0.44f, "CATALOG SNAPSHOT");
+    ui_draw_fit_text(727, 434, COLOR_CYAN, 0.53f, 164, catalog_snapshot);
+    ui_draw_fit_text(727, 459, COLOR_PINK, 0.42f, 164, catalog_date);
 
     if (selected < visible_count) {
         const VitaNexusCatalogEntry *entry = &vita_nexus_catalog[visible_games[selected]];
