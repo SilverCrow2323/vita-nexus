@@ -53,3 +53,50 @@ body.catalog-page{min-height:100vh}.main-nav a.active{color:#f5f4ff}.catalog-wra
 .recommendation-copy p{margin:0;color:#8794ac;font-size:8px;line-height:1.55}
 .similar-games-empty{margin:0;padding:15px;border:1px dashed rgba(155,131,255,.22);border-radius:8px;color:#8491aa;font-size:9px;line-height:1.7}
 @media(max-width:640px){.editorial-facts,.age-rating-section,.external-scores-section{padding:13px}.recommendation-grid{grid-template-columns:1fr}.recommendation-card{grid-template-columns:68px minmax(0,1fr)}}
+
+
+/* Magazine-style metadata stamps and editorial review spread */
+.game-card-indicators{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px;min-height:19px}
+.game-card-indicator{display:inline-flex;align-items:center;max-width:100%;padding:4px 6px;border:1px solid rgba(255,255,255,.12);border-radius:3px;font:7px var(--mono);letter-spacing:.055em;line-height:1.2;overflow-wrap:anywhere}
+.game-card-indicator.age{color:#ffe09a;border-color:rgba(255,211,119,.24);background:rgba(255,190,80,.07)}
+.game-card-indicator.score{color:#9debe1;border-color:rgba(112,229,223,.23);background:rgba(112,229,223,.07)}
+.editorial-review{position:relative;margin-top:28px;padding:20px;border:1px solid rgba(155,131,255,.3);background:linear-gradient(145deg,rgba(155,131,255,.075),rgba(12,18,30,.7));overflow:hidden}
+.editorial-review:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background-image:radial-gradient(rgba(185,174,255,.48) .65px,transparent .65px);background-size:5px 5px;mask-image:linear-gradient(90deg,#000,transparent 58%)}
+.editorial-review>*{position:relative}
+.editorial-review-masthead{display:flex;justify-content:space-between;gap:12px;align-items:center;padding-bottom:10px;border-bottom:1px solid rgba(175,188,225,.18)}
+.editorial-review-rubric{color:#b9aaff;font:9px var(--mono);letter-spacing:.16em;font-weight:700}
+.editorial-review-folio{color:#65718a;font:7px var(--mono);letter-spacing:.08em}
+.editorial-review-standfirst{max-width:650px;margin:14px 0;color:#d2d6e5;font-size:13px;line-height:1.65;font-weight:600}
+.editorial-review-main{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:18px;align-items:start;margin-top:15px}
+.editorial-review-copy h3{margin:0 0 9px;color:#f3f1ff;font-size:20px;line-height:1.2;letter-spacing:-.035em}
+.editorial-review-copy p{margin:0;color:#9da9c0;font-size:11px;line-height:1.85;white-space:pre-line}
+.editorial-score-stamp{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:112px;padding:10px 7px;border:1px solid rgba(255,205,116,.34);background:rgba(255,190,80,.055);text-align:center;transform:rotate(1.5deg)}
+.editorial-score-stamp>span{color:#ffd98c;font:7px var(--mono);letter-spacing:.1em}
+.editorial-score-stamp strong{margin:3px 0 0;color:#fff0ca;font-size:38px;line-height:1;letter-spacing:-.08em}
+.editorial-score-stamp small{color:#b6a17a;font:9px var(--mono)}
+.editorial-score-stamp p{margin:7px 0 0;color:#9d927b;font-size:7px;line-height:1.45}
+.editorial-verdict{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:center;margin-top:15px;padding:12px 14px;border-left:3px solid #b6a4ff;background:rgba(155,131,255,.09)}
+.editorial-verdict span{color:#b9aaff;font:8px var(--mono);letter-spacing:.12em}
+.editorial-verdict p{margin:0;color:#e5e1f5;font-size:11px;line-height:1.6;font-weight:700}
+.editorial-review-notes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.editorial-review-list{padding:11px 12px;border:1px solid rgba(175,188,225,.14);background:rgba(9,14,24,.34)}
+.editorial-review-list h4,.editorial-curiosities h4{margin:0 0 8px;font:8px var(--mono);letter-spacing:.12em}
+.editorial-review-list.strengths h4{color:#91e5d9}
+.editorial-review-list.caveats h4{color:#ffc28d}
+.editorial-review-list ul,.editorial-curiosities ul{display:grid;gap:6px;margin:0;padding-left:15px;color:#9ba7bf;font-size:9px;line-height:1.6}
+.editorial-curiosities{margin-top:13px;padding:12px 14px;border:1px dashed rgba(255,210,130,.25);background:rgba(255,190,80,.035)}
+.editorial-curiosities h4{color:#f5d18e}
+.editorial-review-credit{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:9px;margin-top:14px;padding-top:10px;border-top:1px solid rgba(175,188,225,.15);color:#77849e;font:7px var(--mono);letter-spacing:.06em}
+.editorial-source-links{display:flex;flex-wrap:wrap;gap:9px}
+.editorial-source-links a{color:#a9a0ff;text-decoration:none}
+.editorial-source-links a:hover{text-decoration:underline}
+@media(max-width:640px){
+  .editorial-review{padding:14px}
+  .editorial-review-folio{display:none}
+  .editorial-review-main{grid-template-columns:minmax(0,1fr) 82px;gap:9px}
+  .editorial-score-stamp{min-height:88px}
+  .editorial-score-stamp strong{font-size:30px}
+  .editorial-verdict{grid-template-columns:1fr;gap:5px}
+  .editorial-review-notes{grid-template-columns:1fr}
+  .editorial-review-credit{align-items:flex-start;flex-direction:column}
+}
