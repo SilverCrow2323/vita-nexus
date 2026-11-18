@@ -20,6 +20,11 @@ on:
       - "tests/**"
       - "native/**"
       - ".github/workflows/quality.yml"
+  workflow_run:
+    workflows:
+      - Sync public catalog metadata
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -27,6 +32,7 @@ permissions:
 
 jobs:
   validate:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
