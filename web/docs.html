@@ -9,7 +9,26 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="docs.css">
   <link rel="stylesheet" href="manga.css">
-</head>
+<style>
+.native-guide{margin:28px auto;padding:clamp(22px,4vw,42px);border:1px solid #ffffff24;border-radius:24px;background:linear-gradient(135deg,#1a1427,#10121d 70%);color:#f6f1f8;position:relative;overflow:hidden}
+.native-guide:after{content:"00.10";position:absolute;right:20px;top:8px;font-size:clamp(3rem,9vw,7rem);font-weight:1000;color:#ffffff09;letter-spacing:-.08em;pointer-events:none}
+.native-guide h2{font-size:clamp(2rem,5vw,3.7rem);line-height:.95;letter-spacing:-.06em;margin:12px 0}
+.native-guide .guide-lede{max-width:720px;color:#c9c1d3}
+.native-map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:24px 0}
+.native-map article{padding:14px 12px;border:1px solid #ffffff24;background:#ffffff08;border-radius:14px;min-height:105px}
+.native-map b{display:block;color:#ff74bd;font-size:11px;letter-spacing:.12em}
+.native-map strong{display:block;margin-top:12px;font-size:13px}
+.native-map small{display:block;color:#b8afc2;margin-top:4px;font-size:10px}
+.native-controls{width:100%;border-collapse:collapse;margin-top:18px;font-size:13px}
+.native-controls th,.native-controls td{padding:11px 12px;border-bottom:1px solid #ffffff20;text-align:left;vertical-align:top}
+.native-controls th{color:#d8ff4b;font-size:10px;letter-spacing:.13em;text-transform:uppercase}
+.native-controls td:first-child{color:#ff8fc7;font-weight:850;white-space:nowrap}
+.native-status{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.native-status span{border:1px solid #ffffff2a;border-radius:99px;padding:6px 10px;font-size:10px;font-weight:850;letter-spacing:.08em}
+.native-note{margin-top:20px;padding:15px 17px;border-left:3px solid #ff8fc7;background:#ff8fc70d;color:#d7cedb;font-size:13px}
+.native-guide a{color:#d8ff4b}
+@media(max-width:720px){.native-map{grid-template-columns:repeat(2,minmax(0,1fr))}.native-controls{font-size:12px}.native-controls td:first-child{white-space:normal}}
+</style></head>
 <body class="docs-page">
   <div class="ambient ambient-one" aria-hidden="true"></div>
   <div class="ambient ambient-two" aria-hidden="true"></div>
@@ -74,7 +93,39 @@
       </div>
     </section>
 
-    <section class="docs-callout">
+<section class="native-guide">
+      <div class="section-kicker">NATIVE VITA / PLAYER FIELD GUIDE</div>
+      <h2>Five screens.<br>One offline-first player log.</h2>
+      <p class="guide-lede">The native 00.10 build is a local gaming companion, not a replacement launcher. It browses the bundled catalog, records your own collection state and keeps three player profiles in the app's data area. It does not scan installed titles, launch games, inspect licenses or touch save data.</p>
+      <div class="native-status"><span>00.10 / MAGAZINE UI</span><span>OFFLINE CATALOG</span><span>3 LOCAL PROFILES</span><span>VPK BUILD VERIFIED</span><span>DEVICE VISUAL RECHECK PENDING</span></div>
+      <div class="native-map" aria-label="Native application screen map">
+        <article><b>01 / HOME</b><strong>Editor's Desk</strong><small>Contents and quick stats</small></article>
+        <article><b>02 / DISCOVER</b><strong>The Index</strong><small>Browse, filter and inspect games</small></article>
+        <article><b>03 / LIBRARY</b><strong>Player's Log</strong><small>Favorites, backlog and completion</small></article>
+        <article><b>04 / PROFILES</b><strong>Player Dossiers</strong><small>Three independent local slots</small></article>
+        <article><b>05 / GAME FILE</b><strong>Review Desk</strong><small>Metadata and your personal score</small></article>
+      </div>
+      <div class="section-kicker">CONTROLLER MAP / QUICK REFERENCE</div>
+      <div style="overflow-x:auto"><table class="native-controls"><thead><tr><th>Where</th><th>Input</th><th>What it does</th></tr></thead><tbody>
+        <tr><td>Every screen</td><td>D-pad</td><td>Move through the selected list or module. Circle returns to the previous screen; START exits.</td></tr>
+        <tr><td>Discover</td><td>Cross</td><td>Open the selected game's information sheet.</td></tr>
+        <tr><td>Discover</td><td>Triangle</td><td>Cycle All, PS Vita, PSP, PS1 and Homebrew platform filters.</td></tr>
+        <tr><td>Discover</td><td>L / R</td><td>Cycle alphabetical initials A–Z.</td></tr>
+        <tr><td>Discover</td><td>Square</td><td>Clear platform and initial filters.</td></tr>
+        <tr><td>Game File</td><td>L / R</td><td>Toggle Favorite / Backlog.</td></tr>
+        <tr><td>Game File</td><td>Triangle</td><td>Toggle Completed.</td></tr>
+        <tr><td>Game File</td><td>Left / Right</td><td>Adjust your personal score from 0 to 10; zero means unrated.</td></tr>
+        <tr><td>Library</td><td>L / R</td><td>Switch All, Favorites, Backlog and Completed views.</td></tr>
+        <tr><td>Library</td><td>Square</td><td>Request removal of an entry; Cross confirms, Circle cancels.</td></tr>
+        <tr><td>Profiles</td><td>Cross</td><td>Activate the selected profile slot.</td></tr>
+        <tr><td>Profiles</td><td>Triangle</td><td>Export a backup of the selected profile.</td></tr>
+        <tr><td>Profiles</td><td>Square</td><td>Request restore; Cross confirms and Circle cancels.</td></tr>
+      </tbody></table></div>
+      <div class="native-note"><strong>Honest hardware status:</strong> the 00.05 baseline was confirmed on a PS Vita 1000. The 00.10 magazine redesign has compiled and passed package integrity checks, but still needs a fresh visual pass on the console. The native page map above is a guide, not a fabricated screenshot.</div>
+      <p style="margin-top:18px"><a href="https://github.com/SilverCrow2323/vita-nexus/blob/main/native/README.md" target="_blank" rel="noreferrer">Read the complete native build, storage and safety manual ↗</a> · <a href="https://github.com/SilverCrow2323/vita-nexus/releases" target="_blank" rel="noreferrer">Official VPK releases ↗</a></p>
+    </section>
+
+        <section class="docs-callout">
       <div><div class="section-kicker">NO FAIRY TALES</div><h2>Built means built. Planned means planned.</h2><p>We label what works, what is still being built and what needs a real device test. A mockup is not an app. A checkbox is not proof.</p></div>
       <a href="https://github.com/SilverCrow2323/vita-nexus/blob/main/docs/ROADMAP.md" target="_blank" rel="noreferrer">Check the roadmap ↗</a>
     </section>
