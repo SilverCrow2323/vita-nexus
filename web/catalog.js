@@ -68,6 +68,9 @@ function gameSearchText(game) {
   const homebrewText = game.homebrew ? [game.homebrew.author, game.homebrew.version, game.homebrew.categoryCode].join(" ") : "";
   const override = state.overrides[game.gameId] || {};
   const editorialText = [...(game.genres || []), ...(game.themes || []), ...(game.features || [])].join(" ");
+  const artworkText = Object.values(override.artwork || {}).flat()
+    .filter((asset) => asset && typeof asset === "object")
+    .map((asset) => [asset.alt, asset.caption, asset.source, asset.credit, asset.license].join(" ")).join(" ");
   const ageText = firstNonEmptyArray(game.ageRatings, override.ageRatings)
     .map((rating) => [rating.system, rating.value, rating.territory, ...(rating.descriptors || [])].join(" ")).join(" ");
   const scoreText = firstNonEmptyArray(game.externalScores, override.externalScores)
@@ -76,7 +79,7 @@ function gameSearchText(game) {
   const review = editorial.review || {};
   const reviewText = [editorial.rubric, editorial.standfirst, review.headline, review.body, review.verdict,
     ...(editorial.highlights || []), ...(editorial.caveats || []), ...(editorial.curiosities || [])].filter(Boolean).join(" ");
-  return [game.title, game.sortTitle, game.summary, game.developer, homebrewText, editorialText, ageText, scoreText, reviewText, releaseText].join(" ").toLocaleLowerCase();
+  return [game.title, game.sortTitle, game.summary, game.developer, homebrewText, editorialText, ageText, scoreText, reviewText, artworkText, releaseText].join(" ").toLocaleLowerCase();
 }
 
 function filteredGames() {
@@ -111,15 +114,17 @@ function createGameCard(game) {
   const uniqueRegions = [...new Set(releases.map((release) => release.region))].sort(
     (a, b) => REGION_ORDER.indexOf(a) - REGION_ORDER.indexOf(b)
   );
-  const artwork = game.artwork || state.overrides[game.gameId]?.artwork || {};
+  const override = state.overrides[game.gameId] || {};
+  const artwork = mergeGameArtwork(game, override);
+  const coverAsset = isDisplayableArtworkAsset(artwork.cover) ? artwork.cover : null;
   const cover = element("div", "game-cover");
-  const homebrewIcon = game.homebrew && game.homebrew.iconUrl;
-  const imageUrl = (artwork.cover && artwork.cover.url) || homebrewIcon;
+  const homebrewIcon = game.homebrew && isSafeImageUrl(game.homebrew.iconUrl) ? game.homebrew.iconUrl : "";
+  const imageUrl = (coverAsset && coverAsset.url) || homebrewIcon;
 
   if (imageUrl) {
-    const image = element("img", homebrewIcon && !(artwork.cover && artwork.cover.url) ? "cover-image cover-image-icon" : "cover-image");
+    const image = element("img", homebrewIcon && !coverAsset ? "cover-image cover-image-icon" : "cover-image");
     image.src = imageUrl;
-    image.alt = (artwork.cover && artwork.cover.alt) || (game.title + (homebrewIcon ? " homebrew icon" : " cover artwork"));
+    image.alt = (coverAsset && coverAsset.alt) || (game.title + (homebrewIcon ? " homebrew icon" : " cover artwork"));
     image.loading = "lazy";
     image.decoding = "async";
     image.addEventListener("error", () => {
@@ -128,6 +133,14 @@ function createGameCard(game) {
       cover.append(element("span", "cover-initial", game.title.slice(0, 1).toUpperCase()));
     }, {once: true});
     cover.append(image);
+    if (isDisplayableArtworkAsset(artwork.logo)) {
+      const logo = element("img", "game-cover-logo");
+      logo.src = artwork.logo.url;
+      logo.alt = artwork.logo.alt;
+      logo.loading = "lazy";
+      logo.decoding = "async";
+      cover.append(logo);
+    }
   } else {
     cover.classList.add("cover-fallback");
     cover.append(element("span", "cover-initial", game.title.slice(0, 1).toUpperCase()));
@@ -248,6 +261,34 @@ function formatScoreValue(score, requireScale = false) {
   if (!Number.isFinite(value) || (requireScale && (!Number.isFinite(scale) || scale <= 0))) return "";
   const format = (number) => Number.isInteger(number) ? String(number) : number.toFixed(1);
   return Number.isFinite(scale) && scale > 0 ? format(value) + "/" + format(scale) : format(value);
+}
+
+const APPROVED_ARTWORK_RIGHTS = new Set(["verified-license", "permission-granted", "public-domain"]);
+
+function isSafeImageUrl(value) {
+  return typeof value === "string" && value.startsWith("https://");
+}
+
+function isDisplayableArtworkAsset(asset) {
+  if (!asset || !isSafeImageUrl(asset.url) || typeof asset.alt !== "string" || !asset.alt.trim()) return false;
+  return !asset.rightsStatus || APPROVED_ARTWORK_RIGHTS.has(asset.rightsStatus);
+}
+
+function mergeGameArtwork(game, override = {}) {
+  const upstream = game.artwork || {};
+  const curated = override.artwork || {};
+  const merged = {...upstream, ...curated};
+  ["cover", "hero", "logo", "icon"].forEach((role) => {
+    if (!curated[role]) merged[role] = upstream[role];
+  });
+  const screenshots = [...(curated.screenshots || []), ...(upstream.screenshots || [])];
+  const seen = new Set();
+  merged.screenshots = screenshots.filter((asset) => {
+    if (!asset || !asset.url || seen.has(asset.url)) return false;
+    seen.add(asset.url);
+    return true;
+  });
+  return merged;
 }
 
 function createGameIndicators(game, override = {}) {
@@ -379,13 +420,15 @@ function createRecommendationCard(item) {
   const game = item.game;
   const card = element("button", "recommendation-card");
   card.type = "button";
-  const artwork = game.artwork || state.overrides[game.gameId]?.artwork || {};
-  const imageUrl = (artwork.cover && artwork.cover.url) || (game.homebrew && game.homebrew.iconUrl);
+  const artwork = mergeGameArtwork(game, state.overrides[game.gameId] || {});
+  const coverAsset = isDisplayableArtworkAsset(artwork.cover) ? artwork.cover : null;
+  const homebrewIcon = game.homebrew && isSafeImageUrl(game.homebrew.iconUrl) ? game.homebrew.iconUrl : "";
+  const imageUrl = (coverAsset && coverAsset.url) || homebrewIcon;
   const visual = element("div", "recommendation-visual");
   if (imageUrl) {
     const image = element("img", game.homebrew && !(artwork.cover && artwork.cover.url) ? "recommendation-icon" : "");
     image.src = imageUrl;
-    image.alt = game.title + " artwork";
+    image.alt = (coverAsset && coverAsset.alt) || (game.title + " artwork");
     image.loading = "lazy";
     visual.append(image);
   } else {
@@ -543,18 +586,133 @@ function renderEditorialReview(game, override, body) {
   body.append(section);
 }
 
+function artworkCreditLine(asset, role) {
+  const line = element("p", "artwork-credit-line");
+  line.append(element("strong", "", role.toUpperCase()));
+  if (asset.credit) line.append(element("span", "", "CREDIT · " + asset.credit));
+  if (asset.license) line.append(element("span", "", "RIGHTS · " + asset.license));
+  if (asset.rightsStatus) line.append(element("span", "artwork-rights-status", asset.rightsStatus.replace(/-/g, " ").toUpperCase()));
+  if (asset.sourceUrl && isSafeImageUrl(asset.sourceUrl)) {
+    const source = element("a", "", "SOURCE ↗");
+    source.href = asset.sourceUrl;
+    source.target = "_blank";
+    source.rel = "noopener noreferrer";
+    line.append(source);
+  } else if (asset.source) {
+    line.append(element("span", "", "SOURCE · " + asset.source));
+  }
+  return line;
+}
+
+function renderArtworkCredits(artwork, parent) {
+  const roles = [
+    ["cover", "COVER ART"],
+    ["hero", "FEATURE ART"],
+    ["logo", "LOGO"],
+    ["icon", "ICON"]
+  ].filter(([role]) => isDisplayableArtworkAsset(artwork[role]));
+  if (!roles.length) return;
+  const section = element("section", "artwork-credit-panel");
+  section.append(element("h3", "", "ARTWORK CREDITS & RIGHTS"));
+  roles.forEach(([role, label]) => section.append(artworkCreditLine(artwork[role], label)));
+  parent.append(section);
+}
+
+function renderArtworkGallery(game, artwork, body) {
+  const candidates = Array.isArray(artwork.screenshots) ? artwork.screenshots.slice() : [];
+  const upstreamShots = game.homebrew && Array.isArray(game.homebrew.screenshotUrls)
+    ? game.homebrew.screenshotUrls : [];
+  upstreamShots.forEach((url, index) => {
+    if (!isSafeImageUrl(url)) return;
+    candidates.push({
+      url,
+      alt: game.title + " homebrew screenshot " + (index + 1),
+      caption: "UPSTREAM HOMEBREW CATALOG SCREENSHOT",
+      source: "VitaHomebrewDB",
+      credit: "VitaHomebrewDB entry",
+      license: "Usage terms not supplied by the source index"
+    });
+  });
+
+  const seen = new Set();
+  const screenshots = candidates.filter((asset) => {
+    if (!isDisplayableArtworkAsset(asset) || seen.has(asset.url)) return false;
+    seen.add(asset.url);
+    return true;
+  }).slice(0, 12);
+  if (!screenshots.length) return;
+
+  const section = element("section", "artwork-gallery-section");
+  const heading = element("div", "artwork-gallery-heading");
+  heading.append(element("span", "artwork-gallery-kicker", "VISUAL ARCHIVE / " + String(screenshots.length).padStart(2, "0") + " FRAMES"));
+  heading.append(element("h3", "", "Screenshots & gallery"));
+  section.append(heading);
+  const grid = element("div", "artwork-gallery-grid");
+
+  screenshots.forEach((asset, index) => {
+    const figure = element("figure", "artwork-gallery-figure");
+    const link = element("a", "artwork-gallery-link");
+    link.href = asset.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", "Open full-size image: " + asset.alt);
+    const image = element("img", "artwork-gallery-image");
+    image.src = asset.url;
+    image.alt = asset.alt;
+    image.loading = "lazy";
+    image.decoding = "async";
+    if (Number.isInteger(asset.width) && Number.isInteger(asset.height)) {
+      image.setAttribute("width", String(asset.width));
+      image.setAttribute("height", String(asset.height));
+    }
+    image.addEventListener("error", () => {
+      figure.classList.add("artwork-image-unavailable");
+      link.remove();
+      figure.append(element("span", "", "IMAGE UNAVAILABLE"));
+    }, {once: true});
+    link.append(image);
+    figure.append(link);
+
+    const caption = element("figcaption", "artwork-gallery-caption");
+    caption.append(element("strong", "", asset.caption || asset.alt));
+    if (asset.credit) caption.append(element("span", "", "CREDIT · " + asset.credit));
+    if (asset.license) caption.append(element("span", "", "RIGHTS · " + asset.license));
+    if (!asset.rightsStatus) caption.append(element("span", "artwork-rights-warning", "RIGHTS NOT DECLARED BY UPSTREAM INDEX"));
+    if (asset.sourceUrl && isSafeImageUrl(asset.sourceUrl)) {
+      const source = element("a", "", "SOURCE ↗");
+      source.href = asset.sourceUrl;
+      source.target = "_blank";
+      source.rel = "noopener noreferrer";
+      caption.append(source);
+    } else if (asset.source) {
+      caption.append(element("span", "", "SOURCE · " + asset.source));
+    }
+    figure.append(caption);
+    grid.append(figure);
+  });
+  section.append(grid);
+  const notice = element("p", "artwork-gallery-note",
+    "Curated images are shown only after their rights status is approved. Legacy upstream screenshots remain attributed to their source; the source index does not provide a license statement.");
+  section.append(notice);
+  body.append(section);
+}
+
 function openGame(game) {
   const override = state.overrides[game.gameId] || {};
-  const artwork = game.artwork || override.artwork || {};
+  const artwork = mergeGameArtwork(game, override);
   dialogContent.replaceChildren();
 
   const hero = element("div", "dialog-hero");
-  if (artwork.hero && artwork.hero.url) {
+  const heroAsset = isDisplayableArtworkAsset(artwork.hero) ? artwork.hero
+    : isDisplayableArtworkAsset(artwork.cover) ? artwork.cover : null;
+  if (heroAsset) {
     const heroImage = element("img", "dialog-hero-image");
-    heroImage.src = artwork.hero.url;
-    heroImage.alt = artwork.hero.alt || (game.title + " artwork");
+    heroImage.src = heroAsset.url;
+    heroImage.alt = heroAsset.alt;
+    heroImage.loading = "eager";
+    heroImage.decoding = "async";
     hero.append(heroImage);
-  } else if (game.homebrew && game.homebrew.iconUrl) {
+  } else if (game.homebrew && isSafeImageUrl(game.homebrew.iconUrl)) {
     hero.classList.add("dialog-hero-homebrew");
     const iconImage = element("img", "dialog-hero-homebrew-icon");
     iconImage.src = game.homebrew.iconUrl;
@@ -564,6 +722,14 @@ function openGame(game) {
   } else {
     hero.classList.add("dialog-hero-fallback");
     hero.append(element("span", "", game.title.slice(0, 1).toUpperCase()));
+  }
+  if (isDisplayableArtworkAsset(artwork.logo)) {
+    const logoImage = element("img", "dialog-hero-logo");
+    logoImage.src = artwork.logo.url;
+    logoImage.alt = artwork.logo.alt;
+    logoImage.loading = "lazy";
+    logoImage.decoding = "async";
+    hero.append(logoImage);
   }
   dialogContent.append(hero);
 
@@ -577,6 +743,8 @@ function openGame(game) {
   body.append(listAction);
   body.append(element("h2", "dialog-title", game.title));
   body.append(element("p", "dialog-summary", game.description || override.description || game.summary || override.summary || "No description yet. The release details are still worth a look."));
+  renderArtworkCredits(artwork, body);
+  renderArtworkGallery(game, artwork, body);
 
   const facts = element("div", "dialog-facts");
   if (game.developer || override.developer) facts.append(element("span", "", "DEVELOPER · " + (game.developer || override.developer)));
@@ -631,20 +799,6 @@ function openGame(game) {
     addExternalLink("Release page", game.homebrew.releasePageUrl);
     addExternalLink("Original catalog", game.homebrew.sourceCatalogUrl);
     if (links.childElementCount) metadata.append(links);
-    const screenshots = game.homebrew.screenshotUrls || [];
-    if (screenshots.length) {
-      metadata.append(element("h3", "homebrew-screenshots-heading", "Screenshots"));
-      const gallery = element("div", "homebrew-gallery");
-      screenshots.forEach((url, index) => {
-        if (typeof url !== "string" || !url.startsWith("https://")) return;
-        const image = element("img", "");
-        image.src = url;
-        image.alt = game.title + " screenshot " + (index + 1);
-        image.loading = "lazy";
-        gallery.append(image);
-      });
-      if (gallery.childElementCount) metadata.append(gallery);
-    }
     body.append(metadata);
   }
 
