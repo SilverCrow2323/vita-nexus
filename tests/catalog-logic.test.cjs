@@ -257,6 +257,18 @@ test("curated artwork overrides merge per role and take priority over catalog as
   assert.deepEqual(Array.from(merged.screenshots, item => item.alt), ["Shot two", "Shot one"]);
 });
 
+test("pending curated cover falls back to an existing upstream cover", () => {
+  const context = loadCatalogContext();
+  context.testGame = {
+    artwork: {cover: {url: "https://cdn.example.org/catalog-cover.jpg", alt: "Upstream cover"}}
+  };
+  context.testOverride = {
+    artwork: {cover: {url: "https://cdn.example.org/pending-cover.jpg", alt: "Pending cover", rightsStatus: "pending-review"}}
+  };
+  const merged = vm.runInContext("mergeGameArtwork(testGame, testOverride)", context);
+  assert.equal(merged.cover.alt, "Upstream cover");
+});
+
 test("artwork is displayed only from HTTPS and approved curated rights states", () => {
   const context = loadCatalogContext();
   const asset = {url: "https://cdn.example.org/cover.jpg", alt: "Cover"};
