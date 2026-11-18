@@ -42,6 +42,8 @@ jobs:
           python -m json.tool catalog/schema/catalog.schema.json > /dev/null
           python -m json.tool web/data/catalog.json > /dev/null
           python -m json.tool web/data/editorial-overrides.json > /dev/null
+          python -m json.tool catalog/schema/editorial-overrides.schema.json > /dev/null
+          python tools/catalog-builder/validate_editorial_overrides.py web/data/editorial-overrides.json
 
       - name: Test catalog importer
         working-directory: tools/catalog-builder

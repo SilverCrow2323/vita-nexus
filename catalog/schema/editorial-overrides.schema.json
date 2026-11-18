@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://silvercrow2323.github.io/vita-nexus/schemas/editorial-overrides-1.0.0.json",
+  "title": "VITA NEXUS Editorial Overrides",
+  "description": "Curated editorial additions kept separate from upstream game and release metadata.",
+  "type": "object",
+  "required": ["schemaVersion", "description", "games"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "description": { "type": "string", "minLength": 1 },
+    "games": {
+      "type": "object",
+      "propertyNames": { "minLength": 1 },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "editorial": { "$ref": "#/$defs/editorial" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "editorial": {
+      "type": "object",
+      "properties": {
+        "rubric": { "type": "string", "maxLength": 40 },
+        "standfirst": { "type": "string", "maxLength": 260 },
+        "review": { "$ref": "#/$defs/review" },
+        "highlights": {
+          "type": "array",
+          "maxItems": 4,
+          "items": { "type": "string", "minLength": 1, "maxLength": 90 }
+        },
+        "caveats": {
+          "type": "array",
+          "maxItems": 3,
+          "items": { "type": "string", "minLength": 1, "maxLength": 90 }
+        },
+        "curiosities": {
+          "type": "array",
+          "maxItems": 4,
+          "items": { "type": "string", "minLength": 1, "maxLength": 180 }
+        },
+        "credit": { "$ref": "#/$defs/credit" }
+      },
+      "required": ["credit"],
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": ["headline", "body", "verdict"],
+      "properties": {
+        "headline": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "body": { "type": "string", "minLength": 1, "maxLength": 900 },
+        "verdict": { "type": "string", "minLength": 1, "maxLength": 180 },
+        "score": { "$ref": "#/$defs/score" }
+      },
+      "additionalProperties": false
+    },
+    "score": {
+      "type": "object",
+      "required": ["value", "scale"],
+      "properties": {
+        "value": { "type": "number", "minimum": 0 },
+        "scale": { "type": "number", "exclusiveMinimum": 0 },
+        "methodology": { "type": "string", "maxLength": 180 }
+      },
+      "additionalProperties": false
+    },
+    "credit": {
+      "type": "object",
+      "required": ["byline", "reviewedAt"],
+      "properties": {
+        "byline": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "reviewedAt": { "type": "string", "format": "date-time" },
+        "sources": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": ["title", "url"],
+            "properties": {
+              "title": { "type": "string", "minLength": 1, "maxLength": 100 },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

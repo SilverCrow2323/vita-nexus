@@ -45,6 +45,7 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 | [Product vision](docs/PRODUCT-VISION.md) | Goals, audiences and experience principles |
 | [Architecture](docs/ARCHITECTURE.md) | Components, boundaries and data contracts |
 | [Web companion](docs/WEB-COMPANION.md) | Pages scope, deployment and backend boundary |
+| [Editorial content](docs/EDITORIAL-CONTENT.md) | Review pages, scores, bylines and source rules |
 | [Documentation style](docs/DOCUMENTATION-STYLEGUIDE.md) | Visual and editorial language |
 | [Roadmap](docs/ROADMAP.md) | Milestones and release gates |
 | [Pre-release checklist](docs/PRE-RELEASE-CHECKLIST.md) | Web alpha and native Vita release gates |

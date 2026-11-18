@@ -169,3 +169,67 @@ test("size sorting uses the largest release package size and remains determinist
   vm.runInContext("state.catalog = {games: testGames}; state.platform = 'all'; state.query = ''; state.sort = 'size';", context);
   assert.deepEqual(Array.from(context.filteredGames(), game => game.gameId), ["large", "medium", "small"]);
 });
+
+test("age classification prefers PEGI while retaining the source territory", () => {
+  const context = loadCatalogContext();
+  const game = {
+    ageRatings: [
+      {system: "ESRB", value: "T", territory: "US"},
+      {system: "PEGI", value: "12", territory: "Europe"}
+    ]
+  };
+  const chosen = context.preferredAgeRating(game, {});
+  assert.equal(chosen.system, "PEGI");
+  assert.equal(chosen.value, "12");
+  assert.equal(chosen.territory, "Europe");
+});
+
+test("external score indicator prefers OpenCritic and preserves its own scale", () => {
+  const context = loadCatalogContext();
+  const game = {
+    externalScores: [
+      {provider: "GameSpot", value: 8, scale: 10},
+      {provider: "OpenCritic", value: 84, scale: 100},
+      {provider: "Metacritic", value: 81, scale: 100}
+    ]
+  };
+  const chosen = context.preferredExternalScore(game, {});
+  assert.equal(chosen.provider, "OpenCritic");
+  assert.equal(context.formatScoreValue(chosen), "84/100");
+});
+
+test("score formatting does not invent a scale or turn missing data into zero", () => {
+  const context = loadCatalogContext();
+  assert.equal(context.formatScoreValue({value: 8.5}), "8.5");
+  assert.equal(context.formatScoreValue({value: null, scale: 10}), "");
+  assert.equal(context.formatScoreValue({value: 8, scale: 0}, true), "");
+});
+
+test("curated review copy and rating descriptors are searchable", () => {
+  const context = loadCatalogContext();
+  const game = {
+    gameId: "reviewed-game",
+    title: "Example",
+    platforms: ["psvita"],
+    releases: [],
+    ageRatings: [],
+    externalScores: []
+  };
+  context.testGame = game;
+  vm.runInContext(`
+    state.overrides = {
+      "reviewed-game": {
+        ageRatings: [{system: "PEGI", value: "16", territory: "Europe", descriptors: ["Violence"]}],
+        editorial: {
+          standfirst: "A lost cyberpunk classic",
+          review: {headline: "Still electric", body: "Excellent pacing and atmosphere", verdict: "Worth revisiting."},
+          curiosities: ["Built for late-night sessions"]
+        }
+      }
+    };
+  `, context);
+  const searchText = context.gameSearchText(context.testGame);
+  assert.match(searchText, /cyberpunk classic/i);
+  assert.match(searchText, /violence/i);
+  assert.match(searchText, /late-night sessions/i);
+});
