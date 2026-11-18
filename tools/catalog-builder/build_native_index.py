@@ -148,6 +148,9 @@ def build(source: Path, destination: Path) -> int:
     destination.parent.mkdir(parents=True, exist_ok=True)
     with destination.open("w", encoding="utf-8", newline="\n") as out:
         out.write('#include "catalog_index.h"\n\n')
+        out.write(f"const char vita_nexus_catalog_schema_version[] = {c_string(schema_version)};\n")
+        out.write(f"const char vita_nexus_catalog_generated_at[] = {c_string(generated_at)};\n")
+        out.write(f"const char vita_nexus_catalog_source_sha256[] = {c_string(source_sha256)};\n\n")
         out.write("const VitaNexusCatalogEntry vita_nexus_catalog[] = {\n")
         for (game_id, title, summary, developer, publisher, genres, tags,
              age, score, mask, count, year) in rows:
