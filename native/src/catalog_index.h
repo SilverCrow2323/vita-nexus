@@ -28,5 +28,8 @@ typedef struct {
 
 extern const VitaNexusCatalogEntry vita_nexus_catalog[];
 extern const size_t vita_nexus_catalog_count;
+extern const char vita_nexus_catalog_schema_version[];
+extern const char vita_nexus_catalog_generated_at[];
+extern const char vita_nexus_catalog_source_sha256[];
 
 #endif

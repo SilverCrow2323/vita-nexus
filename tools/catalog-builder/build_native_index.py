@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import sys
@@ -98,9 +99,13 @@ def editorial_tag_line(game: dict) -> str:
 
 
 def build(source: Path, destination: Path) -> int:
-    catalog = json.loads(source.read_text(encoding="utf-8"))
-    if catalog.get("schemaVersion") != "1.0.0":
+    source_bytes = source.read_bytes()
+    catalog = json.loads(source_bytes.decode("utf-8"))
+    schema_version = catalog.get("schemaVersion")
+    if schema_version != "1.0.0":
         raise ValueError("unsupported catalog schema; expected 1.0.0")
+    generated_at = optional_text(catalog.get("generatedAt"), 64)
+    source_sha256 = hashlib.sha256(source_bytes).hexdigest()
     games = catalog.get("games")
     if not isinstance(games, list):
         raise ValueError("catalog.games must be an array")
@@ -143,6 +148,9 @@ def build(source: Path, destination: Path) -> int:
     destination.parent.mkdir(parents=True, exist_ok=True)
     with destination.open("w", encoding="utf-8", newline="\n") as out:
         out.write('#include "catalog_index.h"\n\n')
+        out.write(f"const char vita_nexus_catalog_schema_version[] = {c_string(schema_version)};\n")
+        out.write(f"const char vita_nexus_catalog_generated_at[] = {c_string(generated_at)};\n")
+        out.write(f"const char vita_nexus_catalog_source_sha256[] = {c_string(source_sha256)};\n\n")
         out.write("const VitaNexusCatalogEntry vita_nexus_catalog[] = {\n")
         for (game_id, title, summary, developer, publisher, genres, tags,
              age, score, mask, count, year) in rows:
