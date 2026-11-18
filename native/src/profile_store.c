@@ -27,8 +27,8 @@ static uint32_t profile_checksum(const char *value, size_t length)
  */
 static int parse_profile_slot(const char *line, unsigned int *profile)
 {
-    if (!line || !profile || line[0] < '0' || line[0] > '2' ||
-        line[1] != '\n' || line[2] != '\0') {
+    if (!line || !profile || strlen(line) != 2u ||
+        line[0] < '0' || line[0] > '2' || line[1] != '\n') {
         return 0;
     }
     *profile = (unsigned int)(line[0] - '0');
@@ -38,7 +38,7 @@ static int parse_profile_slot(const char *line, unsigned int *profile)
 static int parse_checksum_line(const char *line, uint32_t *checksum)
 {
     uint32_t value = 0;
-    if (!line || !checksum || line[8] != '\n' || line[9] != '\0') return 0;
+    if (!line || !checksum || strlen(line) != 9u || line[8] != '\n') return 0;
     for (size_t i = 0; i < 8; ++i) {
         const unsigned char c = (unsigned char)line[i];
         unsigned int digit;
