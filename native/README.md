@@ -58,11 +58,11 @@ Before upload, the native build workflow runs `tools/verify_vpk.py` against the 
 
 ## Native catalog and Discover screen
 
-The native build consumes the same `web/data/catalog.json` snapshot as the web companion. Before the VitaSDK container build, `tools/catalog-builder/build_native_index.py` validates schema version `1.0.0` and emits `native/generated/catalog_index.c`. The generated file is a compact, read-only index of game ID, title, platform bitmask and release count; it is not a second hand-maintained catalog and it contains no package URLs, license material or payloads.
+The native build consumes the same `web/data/catalog.json` snapshot as the web companion. Before the VitaSDK container build, `tools/catalog-builder/build_native_index.py` validates schema version `1.0.0` and emits `native/generated/catalog_index.c`. The generated file is a compact, read-only index of game ID, title, platform bitmask and release count; it is not a second hand-maintained catalog and it contains no package URLs, license material or payloads. The index also embeds the schema version, optional source `generatedAt` value and SHA-256 of the exact catalog JSON bytes. Discover displays the schema and shortened digest so a native artifact can be traced to the source snapshot without a network connection.
 
 The generated index is compiled into the VPK, so Discover works offline. On the home screen select DISCOVER and press Cross; use Up/Down to browse and Circle to return. The list shows catalog titles, platform labels, game IDs and release counts. Rankings and Settings remain planned modules.
 
-The generated C file is a build output and is intentionally not committed. Run the generator before configuring CMake. CI tests the generator, compiles the Vita binary, verifies the VPK and uploads a temporary artifact. This is still a build-level validation, not a physical-console certification.
+The generated C file is a build output and is intentionally not committed. Run the generator before configuring CMake. Generation is deterministic: identical catalog bytes produce identical C output, and the source digest changes when the catalog changes. CI tests these provenance contracts, compiles the Vita binary, verifies the VPK and uploads a temporary artifact. This is still a build-level validation, not a physical-console certification.
 
 
 ## Native game detail sheet
