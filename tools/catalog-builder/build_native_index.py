@@ -9,6 +9,8 @@ import math
 import sys
 from pathlib import Path
 
+from catalog_validation import validate_catalog
+
 PLATFORM_BITS = {"psvita": 1, "psp": 2, "ps1": 4, "homebrew": 8}
 AGE_SYSTEM_PRIORITY = {"PEGI": 0, "ESRB": 1, "CERO": 2, "USK": 3, "ACB": 4, "OTHER": 5}
 
@@ -100,37 +102,24 @@ def editorial_tag_line(game: dict) -> str:
 
 def build(source: Path, destination: Path) -> int:
     source_bytes = source.read_bytes()
-    catalog = json.loads(source_bytes.decode("utf-8"))
-    schema_version = catalog.get("schemaVersion")
-    if schema_version != "1.0.0":
-        raise ValueError("unsupported catalog schema; expected 1.0.0")
+    catalog = validate_catalog(json.loads(source_bytes.decode("utf-8")))
+    schema_version = catalog["schemaVersion"]
     generated_at = optional_text(catalog.get("generatedAt"), 64)
     source_sha256 = hashlib.sha256(source_bytes).hexdigest()
-    games = catalog.get("games")
-    if not isinstance(games, list):
-        raise ValueError("catalog.games must be an array")
+    games = catalog["games"]
 
     rows = []
     seen = set()
     for game in games:
-        game_id = game.get("gameId")
-        title = game.get("title")
-        releases = game.get("releases")
-        if not isinstance(game_id, str) or not game_id or game_id in seen:
-            raise ValueError(f"missing or duplicate gameId: {game_id!r}")
-        if not isinstance(title, str) or not title.strip():
-            raise ValueError(f"game {game_id} has no title")
-        if not isinstance(releases, list) or not releases:
-            raise ValueError(f"game {game_id} has no releases")
+        game_id = game["gameId"]
+        title = game["title"]
+        releases = game["releases"]
+        if game_id in seen:
+            raise ValueError(f"duplicate gameId: {game_id!r}")
         seen.add(game_id)
         mask = 0
         for release in releases:
-            platform = release.get("platform")
-            if platform not in PLATFORM_BITS:
-                raise ValueError(f"unsupported platform {platform!r} in {game_id}")
-            mask |= PLATFORM_BITS[platform]
-        if len(releases) > 65535:
-            raise ValueError(f"too many releases for {game_id}")
+            mask |= PLATFORM_BITS[release["platform"]]
 
         year = game.get("releaseYear")
         if not isinstance(year, int) or isinstance(year, bool) or not 1970 <= year <= 2100:
@@ -152,8 +141,8 @@ def build(source: Path, destination: Path) -> int:
         out.write(f"const char vita_nexus_catalog_generated_at[] = {c_string(generated_at)};\n")
         out.write(f"const char vita_nexus_catalog_source_sha256[] = {c_string(source_sha256)};\n\n")
         out.write("const VitaNexusCatalogEntry vita_nexus_catalog[] = {\n")
-        for (game_id, title, summary, developer, publisher, genres, tags,
-             age, score, mask, count, year) in rows:
+        for game_id, title, summary, developer, publisher, genres, tags,
+             age, score, mask, count, year in rows:
             out.write(
                 f"    {{{c_string(game_id)}, {c_string(title)}, {c_string(summary)}, "
                 f"{c_string(developer)}, {c_string(publisher)}, {c_string(genres)}, "
