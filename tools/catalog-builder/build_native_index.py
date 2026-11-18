@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import sys
@@ -98,9 +99,13 @@ def editorial_tag_line(game: dict) -> str:
 
 
 def build(source: Path, destination: Path) -> int:
-    catalog = json.loads(source.read_text(encoding="utf-8"))
-    if catalog.get("schemaVersion") != "1.0.0":
+    source_bytes = source.read_bytes()
+    catalog = json.loads(source_bytes.decode("utf-8"))
+    schema_version = catalog.get("schemaVersion")
+    if schema_version != "1.0.0":
         raise ValueError("unsupported catalog schema; expected 1.0.0")
+    generated_at = optional_text(catalog.get("generatedAt"), 64)
+    source_sha256 = hashlib.sha256(source_bytes).hexdigest()
     games = catalog.get("games")
     if not isinstance(games, list):
         raise ValueError("catalog.games must be an array")
