@@ -59,3 +59,15 @@ This checklist separates the **web companion alpha** from the **native Vita alph
 - Keep native and web version numbers independent when their release gates differ.
 - A draft release is a review artifact; do not describe it as hardware-certified.
 - Record the tested commit SHA, VPK SHA-256, Vita model, firmware, install result and test notes for every physical-device pass.
+
+## Exact-head evidence refresh · 18 November 2026
+
+Current native hardening PR: [#23](https://github.com/SilverCrow2323/vita-nexus/pull/23), branch `fix/vita-nexus-profile-validation-and-docs-ci`, exact HEAD `47dd99d628037668b1331a43b9682aeb392d77a7`.
+
+- [x] Quality workflow [#44380515951](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380515951) passed on this exact HEAD.
+- [x] Native Vita build [#44380516166](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380516166) passed on this exact HEAD and uploaded VPK artifact [#14462567294](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380516166/artifacts/14462567294).
+- [x] Generated VPK recorded at 1,314,811 bytes; SHA-256 `15749872431f76b3b465a8bc03435228fbf5a57b8261c35f0f9825a44e1424f1`.
+- [x] Profile parser rejects non-canonical slot encodings and malformed checksum lines; rejected backup imports preserve the existing on-disk profile.
+- [ ] Reconcile the generated catalog entry count with the README/catalog summary before the web alpha. Do not silently edit the count: regenerate from the canonical source snapshot and record its source hash and timestamp.
+
+These checks establish source/CI/package validity only. They do not satisfy the real-device 00.10 UI, input, lifecycle, install/update/rollback or reproducibility gates above. PR #23 remains Draft; no release is published.
