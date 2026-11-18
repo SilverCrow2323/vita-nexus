@@ -9,6 +9,10 @@ const loadMoreButton = document.querySelector("#load-more");
 const dialog = document.querySelector("#game-dialog");
 const dialogContent = document.querySelector("#dialog-content");
 
+dialog.addEventListener("click", (event) => {
+  if (event.target === dialog) dialog.close();
+});
+
 const PAGE_SIZE = 48;
 const PLATFORM_LABELS = {
   psvita: "PS VITA",
