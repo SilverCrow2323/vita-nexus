@@ -96,7 +96,9 @@ def validate_data(data: Any) -> int:
         reviewed_at = credit.get("reviewedAt")
         _text(reviewed_at, f"game {game_id} credit.reviewedAt", 40)
         try:
-            datetime.fromisoformat(reviewed_at.replace("Z", "+00:00"))
+            parsed_reviewed_at = datetime.fromisoformat(reviewed_at.replace("Z", "+00:00"))
+            _require(parsed_reviewed_at.tzinfo is not None,
+                     f"game {game_id} credit.reviewedAt must include a timezone")
         except ValueError as error:
             raise ValueError(f"game {game_id} credit.reviewedAt must be an ISO date-time") from error
         sources = credit.get("sources", [])
