@@ -133,18 +133,18 @@ function createGameCard(game) {
       cover.append(element("span", "cover-initial", game.title.slice(0, 1).toUpperCase()));
     }, {once: true});
     cover.append(image);
-    if (isDisplayableArtworkAsset(artwork.logo)) {
-      const logo = element("img", "game-cover-logo");
-      logo.src = artwork.logo.url;
-      logo.alt = artwork.logo.alt;
-      logo.loading = "lazy";
-      logo.decoding = "async";
-      cover.append(logo);
-    }
   } else {
     cover.classList.add("cover-fallback");
     cover.append(element("span", "cover-initial", game.title.slice(0, 1).toUpperCase()));
     cover.append(element("span", "cover-caption", "ARTWORK NOT ADDED"));
+  }
+  if (isDisplayableArtworkAsset(artwork.logo)) {
+    const logo = element("img", "game-cover-logo");
+    logo.src = artwork.logo.url;
+    logo.alt = artwork.logo.alt;
+    logo.loading = "lazy";
+    logo.decoding = "async";
+    cover.append(logo);
   }
 
   const info = element("div", "game-card-info");
@@ -279,7 +279,8 @@ function mergeGameArtwork(game, override = {}) {
   const curated = override.artwork || {};
   const merged = {...upstream, ...curated};
   ["cover", "hero", "logo", "icon"].forEach((role) => {
-    if (!curated[role]) merged[role] = upstream[role];
+    if (!curated[role] || !isDisplayableArtworkAsset(curated[role])) merged[role] = upstream[role];
+    else merged[role] = curated[role];
   });
   const screenshots = [...(curated.screenshots || []), ...(upstream.screenshots || [])];
   const seen = new Set();
