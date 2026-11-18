@@ -66,8 +66,17 @@ function gameSearchText(game) {
     .map((release) => [release.titleId, release.contentId, release.region].join(" "))
     .join(" ");
   const homebrewText = game.homebrew ? [game.homebrew.author, game.homebrew.version, game.homebrew.categoryCode].join(" ") : "";
+  const override = state.overrides[game.gameId] || {};
   const editorialText = [...(game.genres || []), ...(game.themes || []), ...(game.features || [])].join(" ");
-  return [game.title, game.sortTitle, game.summary, game.developer, homebrewText, editorialText, releaseText].join(" ").toLocaleLowerCase();
+  const ageText = firstNonEmptyArray(game.ageRatings, override.ageRatings)
+    .map((rating) => [rating.system, rating.value, rating.territory, ...(rating.descriptors || [])].join(" ")).join(" ");
+  const scoreText = firstNonEmptyArray(game.externalScores, override.externalScores)
+    .map((score) => [score.provider, score.value, score.scale].join(" ")).join(" ");
+  const editorial = override.editorial || {};
+  const review = editorial.review || {};
+  const reviewText = [editorial.rubric, editorial.standfirst, review.headline, review.body, review.verdict,
+    ...(editorial.highlights || []), ...(editorial.caveats || []), ...(editorial.curiosities || [])].filter(Boolean).join(" ");
+  return [game.title, game.sortTitle, game.summary, game.developer, homebrewText, editorialText, ageText, scoreText, reviewText, releaseText].join(" ").toLocaleLowerCase();
 }
 
 function filteredGames() {
@@ -131,6 +140,8 @@ function createGameCard(game) {
   if (game.homebrew) meta.append(element("span", "target-badge", "FOR " + (game.releases?.[0]?.targetPlatform === "psp" ? "PSP" : "PS VITA")));
   info.append(meta);
   info.append(element("h3", "game-card-title", game.title));
+  const indicators = createGameIndicators(game, state.overrides[game.gameId] || {});
+  if (indicators.childElementCount) info.append(indicators);
 
   const summary = game.summary || state.overrides[game.gameId]?.summary;
   info.append(element("p", "game-card-summary", summary || "No blurb yet. Check the editions and IDs below."));
@@ -209,6 +220,58 @@ function firstNonEmptyArray(primary, fallback) {
   if (Array.isArray(primary) && primary.length) return primary;
   if (Array.isArray(fallback) && fallback.length) return fallback;
   return Array.isArray(primary) ? primary : Array.isArray(fallback) ? fallback : [];
+}
+
+function preferredAgeRating(game, override = {}) {
+  const ratings = firstNonEmptyArray(game.ageRatings, override.ageRatings);
+  return ratings.find((rating) => rating && rating.system === "PEGI")
+    || ratings.find(Boolean)
+    || null;
+}
+
+function preferredExternalScore(game, override = {}) {
+  const scores = firstNonEmptyArray(game.externalScores, override.externalScores).filter(Boolean);
+  if (!scores.length) return null;
+  const priority = ["opencritic", "metacritic"];
+  scores.sort((a, b) => {
+    const indexA = priority.indexOf(String(a.provider || "").toLocaleLowerCase());
+    const indexB = priority.indexOf(String(b.provider || "").toLocaleLowerCase());
+    return (indexA < 0 ? priority.length : indexA) - (indexB < 0 ? priority.length : indexB);
+  });
+  return scores[0];
+}
+
+function formatScoreValue(score, requireScale = false) {
+  if (!score || score.value === undefined || score.value === null) return "";
+  const value = Number(score.value);
+  const scale = Number(score.scale);
+  if (!Number.isFinite(value) || (requireScale && (!Number.isFinite(scale) || scale <= 0))) return "";
+  const format = (number) => Number.isInteger(number) ? String(number) : number.toFixed(1);
+  return Number.isFinite(scale) && scale > 0 ? format(value) + "/" + format(scale) : format(value);
+}
+
+function createGameIndicators(game, override = {}) {
+  const indicators = element("div", "game-card-indicators");
+  const ageRating = preferredAgeRating(game, override);
+  if (ageRating) {
+    const badge = element("span", "game-card-indicator age", ageRating.system + " " + ageRating.value);
+    badge.setAttribute("aria-label", ageRating.system + " age rating: " + ageRating.value
+      + (ageRating.territory ? " · " + ageRating.territory : ""));
+    indicators.append(badge);
+  }
+
+  const externalScore = preferredExternalScore(game, override);
+  const editorialScore = override.editorial && override.editorial.review && override.editorial.review.score;
+  const chosenScore = externalScore || editorialScore;
+  const formattedScore = formatScoreValue(chosenScore, Boolean(editorialScore && !externalScore));
+  if (formattedScore) {
+    const label = externalScore ? String(externalScore.provider || "REVIEW").toUpperCase() : "NEXUS";
+    const badge = element("span", "game-card-indicator score", label + " " + formattedScore);
+    badge.setAttribute("aria-label", (externalScore ? "External score from " + externalScore.provider : "VITA NEXUS editorial score")
+      + ": " + formattedScore);
+    indicators.append(badge);
+  }
+  return indicators;
 }
 
 function normalizedTags(values) {
@@ -393,6 +456,93 @@ function renderEditorialFacts(game, override, body) {
   }
 }
 
+function addEditorialList(parent, heading, values, className) {
+  if (!Array.isArray(values) || !values.length) return;
+  const panel = element("section", className);
+  panel.append(element("h4", "", heading));
+  const list = element("ul", "");
+  values.forEach((value) => list.append(element("li", "", value)));
+  panel.append(list);
+  parent.append(panel);
+}
+
+function renderEditorialReview(game, override, body) {
+  const editorial = override.editorial || {};
+  const review = editorial.review || {};
+  const credit = editorial.credit || {};
+  const highlights = editorial.highlights || [];
+  const caveats = editorial.caveats || [];
+  const curiosities = editorial.curiosities || [];
+  const hasReview = Boolean(review.headline || review.body || review.verdict || review.score);
+  if (!hasReview && !editorial.standfirst && !highlights.length && !caveats.length && !curiosities.length) return;
+
+  const section = element("section", "editorial-review");
+  const masthead = element("div", "editorial-review-masthead");
+  masthead.append(element("span", "editorial-review-rubric", editorial.rubric || "NEXUS FIELD REPORT"));
+  masthead.append(element("span", "editorial-review-folio", "GAME FILE / " + game.gameId.slice(0, 12).toUpperCase()));
+  section.append(masthead);
+
+  if (editorial.standfirst) section.append(element("p", "editorial-review-standfirst", editorial.standfirst));
+
+  if (hasReview) {
+    const main = element("div", "editorial-review-main");
+    const copy = element("div", "editorial-review-copy");
+    if (review.headline) copy.append(element("h3", "", review.headline));
+    if (review.body) copy.append(element("p", "", review.body));
+    main.append(copy);
+
+    if (review.score) {
+      const formatted = formatScoreValue(review.score, true);
+      if (formatted) {
+        const stamp = element("aside", "editorial-score-stamp");
+        stamp.append(element("span", "", "NEXUS SCORE"));
+        stamp.append(element("strong", "", String(review.score.value)));
+        stamp.append(element("small", "", "/ " + String(review.score.scale)));
+        if (review.score.methodology) stamp.append(element("p", "", review.score.methodology));
+        main.append(stamp);
+      }
+    }
+    section.append(main);
+    if (review.verdict) {
+      const verdict = element("div", "editorial-verdict");
+      verdict.append(element("span", "", "THE VERDICT"));
+      verdict.append(element("p", "", review.verdict));
+      section.append(verdict);
+    }
+  }
+
+  if (highlights.length || caveats.length) {
+    const notes = element("div", "editorial-review-notes");
+    addEditorialList(notes, "THE GOOD STUFF", highlights, "editorial-review-list strengths");
+    addEditorialList(notes, "ROUGH EDGES", caveats, "editorial-review-list caveats");
+    section.append(notes);
+  }
+
+  addEditorialList(section, "BACK-PAGE CURIOSITIES", curiosities, "editorial-curiosities");
+
+  if (credit.byline || credit.reviewedAt || (credit.sources && credit.sources.length)) {
+    const footer = element("footer", "editorial-review-credit");
+    const signature = element("span", "", credit.byline ? "BY " + credit.byline : "VITA NEXUS EDITORIAL");
+    footer.append(signature);
+    if (credit.reviewedAt) footer.append(element("time", "", "REVIEWED " + credit.reviewedAt.slice(0, 10)));
+    if (credit.sources && credit.sources.length) {
+      const sourceLinks = element("div", "editorial-source-links");
+      credit.sources.forEach((source) => {
+        if (!source || typeof source.url !== "string" || !source.url.startsWith("https://")) return;
+        const link = element("a", "", source.title || "SOURCE");
+        link.href = source.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        sourceLinks.append(link);
+      });
+      if (sourceLinks.childElementCount) footer.append(sourceLinks);
+    }
+    section.append(footer);
+  }
+
+  body.append(section);
+}
+
 function openGame(game) {
   const override = state.overrides[game.gameId] || {};
   const artwork = game.artwork || override.artwork || {};
@@ -436,6 +586,7 @@ function openGame(game) {
   if (game.homebrew && game.homebrew.version) facts.append(element("span", "", "VERSION · " + game.homebrew.version));
   body.append(facts);
   renderEditorialFacts(game, override, body);
+  renderEditorialReview(game, override, body);
 
   const releasesHeading = element("div", "release-heading");
   releasesHeading.append(element("h3", "", "Versions in the stack"));
