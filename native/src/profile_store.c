@@ -15,6 +15,43 @@ static uint32_t profile_checksum(const char *value, size_t length)
     return hash;
 }
 
+/*
+ * Active-profile files are deliberately tiny and canonical:
+ *   VNXP|1\n
+ *   <one digit from 0 to 2>\n
+ *   <exactly eight hexadecimal checksum digits>\n
+ *
+ * Do not let scanf's permissive numeric grammar accept alternate encodings
+ * such as "+1", "01" or leading whitespace. They are not written by this
+ * application and should be treated as malformed state.
+ */
+static int parse_profile_slot(const char *line, unsigned int *profile)
+{
+    if (!line || !profile || line[0] < '0' || line[0] > '2' ||
+        line[1] != '\n' || line[2] != '\0') {
+        return 0;
+    }
+    *profile = (unsigned int)(line[0] - '0');
+    return 1;
+}
+
+static int parse_checksum_line(const char *line, uint32_t *checksum)
+{
+    uint32_t value = 0;
+    if (!line || !checksum || line[8] != '\n' || line[9] != '\0') return 0;
+    for (size_t i = 0; i < 8; ++i) {
+        const unsigned char c = (unsigned char)line[i];
+        unsigned int digit;
+        if (c >= '0' && c <= '9') digit = (unsigned int)(c - '0');
+        else if (c >= 'a' && c <= 'f') digit = (unsigned int)(c - 'a') + 10u;
+        else if (c >= 'A' && c <= 'F') digit = (unsigned int)(c - 'A') + 10u;
+        else return 0;
+        value = (value << 4) | digit;
+    }
+    *checksum = value;
+    return 1;
+}
+
 const char *vita_nexus_profile_data_path(unsigned int profile)
 {
     static const char *paths[VITA_NEXUS_PROFILE_COUNT] = {
@@ -40,28 +77,24 @@ VitaNexusStoreResult vita_nexus_profile_load_active(const char *path, unsigned i
     FILE *file;
     char line[32];
     char checksum_line[32];
-    unsigned long slot;
-    unsigned long expected;
-    char extra;
+    unsigned int slot;
+    uint32_t expected;
 
     if (!path || !profile) return VITA_NEXUS_STORE_INVALID;
     file = fopen(path, "rb");
     if (!file) return VITA_NEXUS_STORE_NOT_FOUND;
     if (!fgets(line, sizeof(line), file) || strcmp(line, ACTIVE_HEADER) != 0 ||
-        !fgets(line, sizeof(line), file) || !fgets(checksum_line, sizeof(checksum_line), file)) {
-        fclose(file);
-        return VITA_NEXUS_STORE_INVALID;
-    }
-    if (sscanf(line, "%lu\n%c", &slot, &extra) != 1 ||
-        sscanf(checksum_line, "%8lx\n%c", &expected, &extra) != 1 ||
-        slot >= VITA_NEXUS_PROFILE_COUNT ||
+        !fgets(line, sizeof(line), file) ||
+        !parse_profile_slot(line, &slot) ||
+        !fgets(checksum_line, sizeof(checksum_line), file) ||
+        !parse_checksum_line(checksum_line, &expected) ||
         expected != profile_checksum(line, strlen(line)) ||
         fgetc(file) != EOF || ferror(file)) {
         fclose(file);
         return VITA_NEXUS_STORE_INVALID;
     }
     fclose(file);
-    *profile = (unsigned int)slot;
+    *profile = slot;
     return VITA_NEXUS_STORE_OK;
 }
 
