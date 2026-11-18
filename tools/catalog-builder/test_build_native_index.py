@@ -58,6 +58,10 @@ class NativeIndexBuilderTests(unittest.TestCase):
             self.assertIn('"PEGI 12 (Europe) / Violence / Bad language"', generated)
             self.assertIn('"82 / 100 - OpenCritic (42 votes)"', generated)
             self.assertIn(", 3u, 3u, 2004u}", generated)
+            expected_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+            self.assertIn('const char vita_nexus_catalog_schema_version[] = "1.0.0";', generated)
+            self.assertIn('const char vita_nexus_catalog_generated_at[] = "2026-11-18T09:00:00Z";', generated)
+            self.assertIn(f'const char vita_nexus_catalog_source_sha256[] = "{expected_digest}";', generated)
 
     def test_missing_editorial_metadata_stays_unknown(self):
         data = self.fixture()
