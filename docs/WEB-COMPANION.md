@@ -10,7 +10,7 @@ Expected project URL:
 
 **https://silvercrow2323.github.io/vita-nexus/**
 
-The workflow publishes the contents of web/ to this project URL. A successful quality check is not itself a Pages deployment; use the Pages workflow result to confirm the published site.
+The workflow publishes the contents of web/ to this project URL. A successful quality check is not itself a Pages deployment; use the Pages workflow result to confirm the published site. When the metadata sync workflow completes successfully on main, it also triggers a follow-up quality run, native VPK build and Pages deployment against the refreshed catalog snapshot.
 
 ## Catalog browser
 

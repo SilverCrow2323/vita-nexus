@@ -36,6 +36,12 @@ jobs:
         working-directory: tools/catalog-builder
         run: python -m unittest -v
 
+      - name: Validate curated editorial overrides
+        run: |
+          python -m json.tool catalog/schema/editorial-overrides.schema.json > /dev/null
+          python -m json.tool web/data/editorial-overrides.json > /dev/null
+          python tools/catalog-builder/validate_editorial_overrides.py web/data/editorial-overrides.json
+
       - name: Import public metadata indexes
         run: python tools/catalog-builder/import_nps_tsv.py --output web/data/catalog.json
 

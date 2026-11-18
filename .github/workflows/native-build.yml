@@ -15,6 +15,11 @@ on:
       - "tools/catalog-builder/build_native_index.py"
       - "web/data/catalog.json"
       - ".github/workflows/native-build.yml"
+  workflow_run:
+    workflows:
+      - Sync public catalog metadata
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -22,6 +27,7 @@ permissions:
 
 jobs:
   build-vpk:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
