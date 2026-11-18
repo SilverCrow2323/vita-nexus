@@ -111,9 +111,8 @@ def validate_data(data: Any) -> int:
     for game_id, record in games.items():
         _text(game_id, "gameId", 200)
         _require(isinstance(record, dict), f"game {game_id} override must be an object")
-        artwork_count = 0
         if "artwork" in record:
-            artwork_count = _validate_artwork(record["artwork"], game_id)
+            _validate_artwork(record["artwork"], game_id)
         editorial = record.get("editorial")
         if editorial is None:
             continue
