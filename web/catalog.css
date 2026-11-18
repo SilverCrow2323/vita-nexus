@@ -100,3 +100,42 @@ body.catalog-page{min-height:100vh}.main-nav a.active{color:#f5f4ff}.catalog-wra
   .editorial-review-notes{grid-template-columns:1fr}
   .editorial-review-credit{align-items:flex-start;flex-direction:column}
 }
+
+
+/* Artwork archive — PSM-inspired image desk */
+.game-cover{isolation:isolate}
+.game-cover-logo{position:absolute;z-index:2;left:9px;right:9px;bottom:10px;width:calc(100% - 18px);max-height:45px;object-fit:contain;object-position:left bottom;filter:drop-shadow(0 2px 6px rgba(0,0,0,.8))}
+.dialog-hero{position:relative;isolation:isolate}
+.dialog-hero::after{content:"";position:absolute;inset:45% 0 0;z-index:1;pointer-events:none;background:linear-gradient(transparent,rgba(5,8,15,.48))}
+.dialog-hero-logo{position:absolute;z-index:2;left:24px;bottom:17px;max-width:min(42%,320px);max-height:64px;object-fit:contain;object-position:left bottom;filter:drop-shadow(0 3px 10px rgba(0,0,0,.75))}
+.artwork-credit-panel{display:grid;gap:7px;margin:18px 0;padding:14px 16px;border:1px solid rgba(112,229,223,.17);background:rgba(112,229,223,.035)}
+.artwork-credit-panel h3{margin:0 0 2px;color:#91e5dc;font:8px var(--mono);letter-spacing:.13em}
+.artwork-credit-line{display:flex;flex-wrap:wrap;gap:7px 12px;align-items:center;margin:0;color:#8795ad;font:8px var(--mono);line-height:1.6}
+.artwork-credit-line strong{color:#d9e3f1;font-weight:700;letter-spacing:.07em}
+.artwork-credit-line a,.artwork-gallery-caption a{color:#a99cff;text-decoration:none}
+.artwork-credit-line a:hover,.artwork-gallery-caption a:hover{text-decoration:underline}
+.artwork-rights-status{color:#8ce1d8;text-transform:uppercase}
+.artwork-gallery-section{margin:28px 0 24px;padding:20px;border:1px solid rgba(155,131,255,.25);background:linear-gradient(145deg,rgba(155,131,255,.065),rgba(9,15,26,.72))}
+.artwork-gallery-heading{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;padding-bottom:11px;border-bottom:1px solid rgba(175,188,225,.16)}
+.artwork-gallery-kicker{color:#aa9aff;font:8px var(--mono);letter-spacing:.16em}
+.artwork-gallery-heading h3{margin:0;color:#f0eff8;font-size:19px;letter-spacing:-.035em}
+.artwork-gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.artwork-gallery-figure{min-width:0;margin:0;border:1px solid rgba(175,188,225,.14);background:rgba(6,10,18,.6)}
+.artwork-gallery-link{display:block;overflow:hidden;aspect-ratio:16/9;background:radial-gradient(circle,rgba(155,131,255,.16),transparent 70%),#101827}
+.artwork-gallery-image{display:block;width:100%;height:100%;object-fit:cover;transition:transform .28s ease}
+.artwork-gallery-link:hover .artwork-gallery-image{transform:scale(1.035)}
+.artwork-gallery-caption{display:flex;flex-direction:column;gap:5px;padding:9px;color:#7f8da5;font:7px var(--mono);line-height:1.55;overflow-wrap:anywhere}
+.artwork-gallery-caption strong{color:#dbe1ee;font:600 9px var(--sans);line-height:1.45}
+.artwork-gallery-caption .artwork-rights-warning{color:#ffc98b}
+.artwork-gallery-note{margin:13px 0 0;color:#718098;font-size:8px;line-height:1.65}
+.artwork-image-unavailable{display:grid;place-items:center;min-height:105px;color:#8490a6;font:8px var(--mono);letter-spacing:.1em}
+.artwork-image-unavailable .artwork-gallery-caption{width:100%}
+@media(max-width:640px){
+  .artwork-gallery-section{padding:13px}
+  .artwork-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .artwork-gallery-caption{padding:7px;font-size:6px}
+  .artwork-gallery-caption strong{font-size:8px}
+  .artwork-credit-panel{padding:11px}
+  .dialog-hero-logo{left:15px;bottom:11px;max-height:46px}
+}
+@media(prefers-reduced-motion:reduce){.artwork-gallery-image{transition:none}}

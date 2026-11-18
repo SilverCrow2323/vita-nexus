@@ -60,7 +60,7 @@ This is a structural example, **not a review of a real game**. Replace the game 
 - A NEXUS score is an editorial assessment, not an average of user votes or a third-party score. Its scale and method must be explicit.
 - PEGI, ESRB and other external scores must retain the provider/system, value and source. Do not convert one rating system into another.
 - Every editorial block carries a byline and review date. Every listed source must use HTTPS.
-- Artwork must include source, credit and usage terms in the catalog artwork contract. Do not mirror a random image from search results.
+- Artwork must include source, credit, license/usage terms and a reviewed rights status. Curated asset rules and gallery behavior are documented in [Artwork management](ARTWORK-MANAGEMENT.md). Do not mirror a random image from search results.
 - Keep copy compact: 900 characters for review body, four highlights, three caveats and four sidebar curiosities.
 - Use plain language. Say what works, what does not, and who is likely to enjoy it.
 - If the evidence is missing or disputed, leave the field empty and mark the uncertainty in the copy only when useful.

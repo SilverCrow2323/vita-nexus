@@ -60,7 +60,7 @@ The responsive landing page, underground cyberpunk manga design system, searchab
 
 The game-sheet renderer now supports compact PEGI / age-classification and external-score stamps, plus a PSM-inspired editorial review spread. Curated entries can publish a standfirst, original review, NEXUS score, verdict, strengths, caveats, back-page curiosities and byline/source links through the separate [editorial content contract](EDITORIAL-CONTENT.md). The current override file intentionally contains no fabricated reviews; publish each entry only after its copy and sources have been checked.
 
-Artwork, screenshots, verified developers/publishers, richer age classifications and cross-platform relationships continue to expand separately. Each item must retain attribution and usage terms.
+The artwork system now merges upstream and curated cover, hero, logo, icon and screenshot assets by role. Game sheets have a magazine-style gallery with visible credits, source links and rights labels. Curated images are hidden unless their rights status is approved; legacy upstream screenshots are explicitly marked when the source index does not state usage terms. See [Artwork management](ARTWORK-MANAGEMENT.md) for the contribution and review workflow.
 
 ### Phase 3 — Rankings and personal lists
 

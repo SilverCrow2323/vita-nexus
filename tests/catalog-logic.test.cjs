@@ -233,3 +233,50 @@ test("curated review copy and rating descriptors are searchable", () => {
   assert.match(searchText, /violence/i);
   assert.match(searchText, /late-night sessions/i);
 });
+
+test("curated artwork overrides merge per role and take priority over catalog assets", () => {
+  const context = loadCatalogContext();
+  const game = {
+    artwork: {
+      cover: {url: "https://cdn.example.org/old-cover.jpg", alt: "Catalog cover"},
+      hero: {url: "https://cdn.example.org/hero.jpg", alt: "Catalog hero"},
+      screenshots: [{url: "https://cdn.example.org/shot-1.jpg", alt: "Shot one"}]
+    }
+  };
+  const override = {
+    artwork: {
+      cover: {url: "https://cdn.example.org/new-cover.jpg", alt: "Curated cover"},
+      screenshots: [{url: "https://cdn.example.org/shot-2.jpg", alt: "Shot two"}]
+    }
+  };
+  context.testGame = game;
+  context.testOverride = override;
+  const merged = vm.runInContext("mergeGameArtwork(testGame, testOverride)", context);
+  assert.equal(merged.cover.alt, "Curated cover");
+  assert.equal(merged.hero.alt, "Catalog hero");
+  assert.deepEqual(Array.from(merged.screenshots, item => item.alt), ["Shot two", "Shot one"]);
+});
+
+test("pending curated cover falls back to an existing upstream cover", () => {
+  const context = loadCatalogContext();
+  context.testGame = {
+    artwork: {cover: {url: "https://cdn.example.org/catalog-cover.jpg", alt: "Upstream cover"}}
+  };
+  context.testOverride = {
+    artwork: {cover: {url: "https://cdn.example.org/pending-cover.jpg", alt: "Pending cover", rightsStatus: "pending-review"}}
+  };
+  const merged = vm.runInContext("mergeGameArtwork(testGame, testOverride)", context);
+  assert.equal(merged.cover.alt, "Upstream cover");
+});
+
+test("artwork is displayed only from HTTPS and approved curated rights states", () => {
+  const context = loadCatalogContext();
+  const asset = {url: "https://cdn.example.org/cover.jpg", alt: "Cover"};
+  context.testAsset = asset;
+  assert.equal(vm.runInContext("isDisplayableArtworkAsset(testAsset)", context), true);
+  assert.equal(vm.runInContext("isDisplayableArtworkAsset({...testAsset, rightsStatus:'pending-review'})", context), false);
+  assert.equal(vm.runInContext("isDisplayableArtworkAsset({...testAsset, rightsStatus:'rejected'})", context), false);
+  assert.equal(vm.runInContext("isDisplayableArtworkAsset({...testAsset, rightsStatus:'permission-granted'})", context), true);
+  assert.equal(vm.runInContext("isDisplayableArtworkAsset({...testAsset, url:'http://cdn.example.org/cover.jpg'})", context), false);
+});
+

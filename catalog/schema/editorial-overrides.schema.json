@@ -4,17 +4,33 @@
   "title": "VITA NEXUS Editorial Overrides",
   "description": "Curated editorial additions kept separate from upstream game and release metadata.",
   "type": "object",
-  "required": ["schemaVersion", "description", "games"],
+  "required": [
+    "schemaVersion",
+    "description",
+    "games"
+  ],
   "properties": {
-    "schemaVersion": { "const": "1.0.0" },
-    "description": { "type": "string", "minLength": 1 },
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
     "games": {
       "type": "object",
-      "propertyNames": { "minLength": 1 },
+      "propertyNames": {
+        "minLength": 1
+      },
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "editorial": { "$ref": "#/$defs/editorial" }
+          "editorial": {
+            "$ref": "#/$defs/editorial"
+          },
+          "artwork": {
+            "$ref": "#/$defs/artwork"
+          }
         },
         "additionalProperties": true
       }
@@ -25,68 +41,244 @@
     "editorial": {
       "type": "object",
       "properties": {
-        "rubric": { "type": "string", "maxLength": 40 },
-        "standfirst": { "type": "string", "maxLength": 260 },
-        "review": { "$ref": "#/$defs/review" },
+        "rubric": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "standfirst": {
+          "type": "string",
+          "maxLength": 260
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        },
         "highlights": {
           "type": "array",
           "maxItems": 4,
-          "items": { "type": "string", "minLength": 1, "maxLength": 90 }
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90
+          }
         },
         "caveats": {
           "type": "array",
           "maxItems": 3,
-          "items": { "type": "string", "minLength": 1, "maxLength": 90 }
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90
+          }
         },
         "curiosities": {
           "type": "array",
           "maxItems": 4,
-          "items": { "type": "string", "minLength": 1, "maxLength": 180 }
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 180
+          }
         },
-        "credit": { "$ref": "#/$defs/credit" }
+        "credit": {
+          "$ref": "#/$defs/credit"
+        }
       },
-      "required": ["credit"],
+      "required": [
+        "credit"
+      ],
       "additionalProperties": false
     },
     "review": {
       "type": "object",
-      "required": ["headline", "body", "verdict"],
+      "required": [
+        "headline",
+        "body",
+        "verdict"
+      ],
       "properties": {
-        "headline": { "type": "string", "minLength": 1, "maxLength": 100 },
-        "body": { "type": "string", "minLength": 1, "maxLength": 900 },
-        "verdict": { "type": "string", "minLength": 1, "maxLength": 180 },
-        "score": { "$ref": "#/$defs/score" }
+        "headline": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 900
+        },
+        "verdict": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "score": {
+          "$ref": "#/$defs/score"
+        }
       },
       "additionalProperties": false
     },
     "score": {
       "type": "object",
-      "required": ["value", "scale"],
+      "required": [
+        "value",
+        "scale"
+      ],
       "properties": {
-        "value": { "type": "number", "minimum": 0 },
-        "scale": { "type": "number", "exclusiveMinimum": 0 },
-        "methodology": { "type": "string", "maxLength": 180 }
+        "value": {
+          "type": "number",
+          "minimum": 0
+        },
+        "scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "methodology": {
+          "type": "string",
+          "maxLength": 180
+        }
       },
       "additionalProperties": false
     },
     "credit": {
       "type": "object",
-      "required": ["byline", "reviewedAt"],
+      "required": [
+        "byline",
+        "reviewedAt"
+      ],
       "properties": {
-        "byline": { "type": "string", "minLength": 1, "maxLength": 80 },
-        "reviewedAt": { "type": "string", "format": "date-time" },
+        "byline": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "reviewedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
         "sources": {
           "type": "array",
           "maxItems": 8,
           "items": {
             "type": "object",
-            "required": ["title", "url"],
+            "required": [
+              "title",
+              "url"
+            ],
             "properties": {
-              "title": { "type": "string", "minLength": 1, "maxLength": 100 },
-              "url": { "type": "string", "format": "uri" }
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
             },
             "additionalProperties": false
           }
+        }
+      },
+      "additionalProperties": false
+    },
+    "artwork": {
+      "type": "object",
+      "properties": {
+        "cover": {
+          "$ref": "#/$defs/artworkAsset"
+        },
+        "hero": {
+          "$ref": "#/$defs/artworkAsset"
+        },
+        "logo": {
+          "$ref": "#/$defs/artworkAsset"
+        },
+        "icon": {
+          "$ref": "#/$defs/artworkAsset"
+        },
+        "screenshots": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "$ref": "#/$defs/artworkAsset"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "artworkAsset": {
+      "type": "object",
+      "required": [
+        "url",
+        "alt",
+        "source",
+        "credit",
+        "license",
+        "rightsStatus",
+        "rightsReviewedAt"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "caption": {
+          "type": "string",
+          "maxLength": 180
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "credit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "rightsStatus": {
+          "enum": [
+            "verified-license",
+            "permission-granted",
+            "public-domain",
+            "pending-review",
+            "rejected"
+          ]
+        },
+        "rightsReviewedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "proofUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
         }
       },
       "additionalProperties": false
