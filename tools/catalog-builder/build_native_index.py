@@ -141,8 +141,10 @@ def build(source: Path, destination: Path) -> int:
         out.write(f"const char vita_nexus_catalog_generated_at[] = {c_string(generated_at)};\n")
         out.write(f"const char vita_nexus_catalog_source_sha256[] = {c_string(source_sha256)};\n\n")
         out.write("const VitaNexusCatalogEntry vita_nexus_catalog[] = {\n")
-        for game_id, title, summary, developer, publisher, genres, tags,
-             age, score, mask, count, year in rows:
+        for (
+            game_id, title, summary, developer, publisher, genres, tags,
+            age, score, mask, count, year,
+        ) in rows:
             out.write(
                 f"    {{{c_string(game_id)}, {c_string(title)}, {c_string(summary)}, "
                 f"{c_string(developer)}, {c_string(publisher)}, {c_string(genres)}, "
