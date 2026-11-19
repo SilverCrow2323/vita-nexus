@@ -82,9 +82,9 @@ class CatalogSnapshotDocumentationTests(unittest.TestCase):
         manifest = (root / "docs" / "CATALOG-SNAPSHOT-MANIFEST.md").read_text(encoding="utf-8")
         self.assertIn(f"Schema version: `{snapshot['schemaVersion']}`", manifest)
         self.assertIn(f"Generated at (UTC): `{snapshot['generatedAt']}`", manifest)
-        self.assertIn(f"Games: **{len(games):,}**", manifest)
-        self.assertIn(f"Release records: **{len(releases):,}**", manifest)
-        self.assertIn(f"Homebrew entries: **{homebrew:,}**", manifest)
+        self.assertIn(f"| Games | **{len(games):,}** |", manifest)
+        self.assertIn(f"| Releases | **{len(releases):,}** |", manifest)
+        self.assertIn(f"| Homebrew entries | **{homebrew:,}** |", manifest)
         self.assertIn(f"SHA-256: `{digest}`", manifest)
 
         readme = (root / "README.md").read_text(encoding="utf-8")
