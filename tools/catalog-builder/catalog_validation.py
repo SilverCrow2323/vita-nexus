@@ -21,6 +21,9 @@ def validate_catalog(catalog: object) -> dict:
     if not isinstance(games, list):
         raise ValueError("catalog.games must be an array")
 
+    seen_game_ids: set[str] = set()
+    seen_release_ids: set[str] = set()
+
     for game_index, game in enumerate(games):
         game_path = f"catalog.games[{game_index}]"
         if not isinstance(game, dict):
@@ -29,6 +32,9 @@ def validate_catalog(catalog: object) -> dict:
         game_id = game.get("gameId")
         if not isinstance(game_id, str) or not game_id.strip():
             raise ValueError(f"{game_path}.gameId must be a non-empty string")
+        if game_id in seen_game_ids:
+            raise ValueError(f"{game_path}.gameId duplicates {game_id!r}")
+        seen_game_ids.add(game_id)
 
         title = game.get("title")
         if not isinstance(title, str) or not title.strip():
@@ -44,6 +50,14 @@ def validate_catalog(catalog: object) -> dict:
             release_path = f"{game_path}.releases[{release_index}]"
             if not isinstance(release, dict):
                 raise ValueError(f"{release_path} must be an object")
+
+            release_id = release.get("releaseId")
+            if not isinstance(release_id, str) or not release_id.strip():
+                raise ValueError(f"{release_path}.releaseId must be a non-empty string")
+            if release_id in seen_release_ids:
+                raise ValueError(f"{release_path}.releaseId duplicates {release_id!r}")
+            seen_release_ids.add(release_id)
+
             platform = release.get("platform")
             if not isinstance(platform, str) or platform not in PLATFORM_BITS:
                 raise ValueError(f"{release_path}.platform is unsupported: {platform!r}")
