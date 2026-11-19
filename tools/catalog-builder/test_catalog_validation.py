@@ -13,7 +13,7 @@ class CatalogShapeValidationTests(unittest.TestCase):
             "games": [{
                 "gameId": "test-001",
                 "title": "Test title",
-                "releases": [{"platform": "psvita"}],
+                "releases": [{"releaseId": "test-001-psvita-eu", "platform": "psvita"}],
             }],
         }
 
@@ -33,6 +33,12 @@ class CatalogShapeValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "gameId must be a non-empty string"):
             validate_catalog(data)
 
+    def test_rejects_duplicate_game_identity(self):
+        data = self.valid_catalog()
+        data["games"].append(json.loads(json.dumps(data["games"][0])))
+        with self.assertRaisesRegex(ValueError, "gameId duplicates 'test-001'"):
+            validate_catalog(data)
+
     def test_rejects_non_array_releases(self):
         data = self.valid_catalog()
         data["games"][0]["releases"] = {}
@@ -45,6 +51,22 @@ class CatalogShapeValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, r"catalog.games\[0\].releases\[0\] must be an object"):
             validate_catalog(data)
 
+    def test_rejects_missing_release_identity(self):
+        data = self.valid_catalog()
+        data["games"][0]["releases"][0].pop("releaseId")
+        with self.assertRaisesRegex(ValueError, "releaseId must be a non-empty string"):
+            validate_catalog(data)
+
+    def test_rejects_duplicate_release_identity_across_games(self):
+        data = self.valid_catalog()
+        data["games"].append({
+            "gameId": "test-002",
+            "title": "Another title",
+            "releases": [{"releaseId": "test-001-psvita-eu", "platform": "psp"}],
+        })
+        with self.assertRaisesRegex(ValueError, "releaseId duplicates 'test-001-psvita-eu'"):
+            validate_catalog(data)
+
     def test_rejects_unknown_platform_with_path(self):
         data = self.valid_catalog()
         data["games"][0]["releases"][0]["platform"] = "unknown"
@@ -53,17 +75,20 @@ class CatalogShapeValidationTests(unittest.TestCase):
 
     def test_rejects_oversized_release_count(self):
         data = self.valid_catalog()
-        data["games"][0]["releases"] = [{"platform": "psvita"}] * 65536
+        data["games"][0]["releases"] = [
+            {"releaseId": f"release-{index}", "platform": "psvita"}
+            for index in range(65536)
+        ]
         with self.assertRaisesRegex(ValueError, "native index limit"):
             validate_catalog(data)
 
     def test_accepts_supported_platforms(self):
         data = self.valid_catalog()
         data["games"][0]["releases"] = [
-            {"platform": "psvita"},
-            {"platform": "psp"},
-            {"platform": "ps1"},
-            {"platform": "homebrew"},
+            {"releaseId": "release-psvita", "platform": "psvita"},
+            {"releaseId": "release-psp", "platform": "psp"},
+            {"releaseId": "release-ps1", "platform": "ps1"},
+            {"releaseId": "release-homebrew", "platform": "homebrew"},
         ]
         self.assertIs(validate_catalog(data), data)
 
@@ -96,7 +121,6 @@ class CatalogSnapshotDocumentationTests(unittest.TestCase):
         roadmap = (root / "docs" / "ROADMAP.md").read_text(encoding="utf-8")
         self.assertIn(f"**{len(games):,} games / {len(releases):,} releases**", roadmap)
         self.assertIn("CATALOG-SNAPSHOT-MANIFEST.md", roadmap)
-
 
 
 if __name__ == "__main__":
