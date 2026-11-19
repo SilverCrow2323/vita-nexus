@@ -28,7 +28,7 @@
 | NoPayStation | `PSP_GAMES` | `2026-11-19T10:07:50Z` | 2,459 |
 | NoPayStation | `PSX_GAMES` | `2026-11-19T10:07:50Z` | 1,648 |
 | VitaHomebrewDB | `apps.json` | `2026-11-19T10:07:51Z` | 1,395 |
-| VitaHomebrewDB | `psp_apps.json` ` | `2026-11-19T10:07:51Z` | 3,095 |
+| VitaHomebrewDB | `psp_apps.json` | `2026-11-19T10:07:51Z` | 3,095 |
 
 The NPS importer records accepted, deduplicated rows per source dataset and reports malformed rows in its source notes. VitaHomebrewDB rows are normalized to descriptive metadata; the homebrew total above is recalculated from canonical release records.
 
