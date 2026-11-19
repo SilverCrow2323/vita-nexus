@@ -60,14 +60,17 @@ This checklist separates the **web companion alpha** from the **native Vita alph
 - A draft release is a review artifact; do not describe it as hardware-certified.
 - Record the tested commit SHA, VPK SHA-256, Vita model, firmware, install result and test notes for every physical-device pass.
 
-## Exact-head evidence refresh · 18 November 2026
+## Exact-head evidence refresh · 19 November 2026
 
-Current native hardening PR: [#23](https://github.com/SilverCrow2323/vita-nexus/pull/23), branch `fix/vita-nexus-profile-validation-and-docs-ci`, exact HEAD `47dd99d628037668b1331a43b9682aeb392d77a7`.
+Main HEAD at this evidence capture: `e24d0d7bb02d880738e6f0f664f9601c22983d65`. Native profile hardening PR [#23](https://github.com/SilverCrow2323/vita-nexus/pull/23) is merged as this commit.
 
-- [x] Quality workflow [#44380515951](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380515951) passed on this exact HEAD.
-- [x] Native Vita build [#44380516166](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380516166) passed on this exact HEAD and uploaded VPK artifact [#14462567294](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380516166/artifacts/14462567294).
-- [x] Generated VPK recorded at 1,314,811 bytes; SHA-256 `15749872431f76b3b465a8bc03435228fbf5a57b8261c35f0f9825a44e1424f1`.
-- [x] Profile parser rejects non-canonical slot encodings and malformed checksum lines; rejected backup imports preserve the existing on-disk profile.
-- [ ] Reconcile the generated catalog entry count with the README/catalog summary before the web alpha. Do not silently edit the count: regenerate from the canonical source snapshot and record its source hash and timestamp.
+- [x] Quality workflow [#44499800658](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44499800658) passed on the post-merge main HEAD.
+- [x] Native Vita build [#44499800692](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44499800692) passed on the same HEAD.
+- [x] Generated VPK: 1,314,811 bytes; SHA-256 `66658f4ec7387f3961a5e109adc3486e5c0d2f0e00662cd56f9c0cdfe5298991`; Title ID `VNXS00001`.
+- [x] Actions artifact [#14517011058](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44499800692/artifacts/14517011058): outer ZIP digest `sha256:1453f01ed0d58f54a05e416c7deca78981573f6526430d4325aa68702e463dc5`.
+- [x] Profile parser hardening from PR #23 is merged. Canonical slot/checksum validation and rejected-import preservation are covered by host tests.
+- [x] Reconciled the public catalog summary against the exact canonical snapshot: schema `1.0.0`, generated at `2026-11-18T13:01:01Z`, **9,734 games / 12,359 releases / 4,468 homebrew entries**.
+- [x] Recorded the catalog snapshot SHA-256 `e60cfe04a3d1b89024980a9f1a83682eaa4c1f40742f8060aaf9807c78245bb0` and Git blob SHA-1 `ba0e263ebdec8d32af1438649323a11f7e265b27` in [the catalog snapshot manifest](CATALOG-SNAPSHOT-MANIFEST.md).
+- [ ] Re-run the 00.10 visual, input, focus, lifecycle, install/update/rollback and offline-recovery acceptance on a real PS Vita 1000/2000.
 
-These checks establish source/CI/package validity only. They do not satisfy the real-device 00.10 UI, input, lifecycle, install/update/rollback or reproducibility gates above. PR #23 remains Draft; no release is published.
+The workflows prove host tests, VitaSDK cross-build and VPK packaging only. They do not prove physical installation or input behavior, and no public release is published.
