@@ -66,7 +66,7 @@ The metadata-only catalog build currently contains:
 | Release records | **12,381** |
 | Vita + PSP homebrew entries | **4,490** |
 
-<sub>Snapshot generated at 2026-11-19 10:53:04 UTC (schema 1.0.0). See the [catalog snapshot manifest](docs/CATALOG-SNAPSHOT-MANIFEST.md) for source counts and SHA-256 provenance.</sub>
+<sub>Snapshot generated at 2026-11-19 13:00:08 UTC (schema 1.0.0). See the [catalog snapshot manifest](docs/CATALOG-SNAPSHOT-MANIFEST.md) for source counts and SHA-256 provenance.</sub>
 
 Browse the [catalog interface](web/catalog.html) or inspect the [raw catalog snapshot](web/data/catalog.json).
 
