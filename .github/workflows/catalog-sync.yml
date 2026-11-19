@@ -32,7 +32,16 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Test catalog importer
+      - name: Import public metadata indexes
+        run: python tools/catalog-builder/import_nps_tsv.py --output web/data/catalog.json
+
+      - name: Import Vita and PSP homebrew metadata
+        run: python tools/catalog-builder/import_vitahomebrewdb.py --catalog web/data/catalog.json --output web/data/catalog.json
+
+      - name: Synchronize snapshot manifest and documentation
+        run: python tools/catalog-builder/update_snapshot_docs.py
+
+      - name: Test catalog importer and snapshot documentation
         working-directory: tools/catalog-builder
         run: python -m unittest -v
 
@@ -42,24 +51,18 @@ jobs:
           python -m json.tool web/data/editorial-overrides.json > /dev/null
           python tools/catalog-builder/validate_editorial_overrides.py web/data/editorial-overrides.json
 
-      - name: Import public metadata indexes
-        run: python tools/catalog-builder/import_nps_tsv.py --output web/data/catalog.json
-
-      - name: Import Vita and PSP homebrew metadata
-        run: python tools/catalog-builder/import_vitahomebrewdb.py --catalog web/data/catalog.json --output web/data/catalog.json
-
       - name: Validate public catalog snapshot
         run: python tools/catalog-builder/validate_catalog.py web/data/catalog.json
 
-      - name: Commit catalog snapshot when changed
+      - name: Commit catalog snapshot and documentation when changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add web/data/catalog.json
+          git add web/data/catalog.json docs/CATALOG-SNAPSHOT-MANIFEST.md README.md docs/ROADMAP.md
           if git diff --cached --quiet; then
-            echo "Catalog snapshot is already up to date."
+            echo "Catalog snapshot and documentation are already up to date."
             exit 0
           fi
-          git commit -m "data: refresh public game catalog"
+          git commit -m "data: refresh public catalog and provenance"
           git pull --rebase origin main
           git push origin HEAD:main
