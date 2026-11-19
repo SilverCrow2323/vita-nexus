@@ -7,31 +7,30 @@
 
 - File: `web/data/catalog.json`
 - Schema version: `1.0.0`
-- Generated at (UTC): `2026-11-18T13:01:01Z`
-- SHA-256: `e60cfe04a3d1b89024980a9f1a83682eaa4c1f40742f8060aaf9807c78245bb0`
-- Git blob SHA-1: `ba0e263ebdec8d32af1438649323a11f7e265b27`
-- Import workflow: [#44309423607](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44309423607)
-- Snapshot commit: `73b0ec32e3cf96b2e4d4e5e6e679f59b85e236a3` (included in main HEAD `e24d0d7bb02d880738e6f0f664f9601c22983d65))
+- Generated at (UTC): `2026-11-19T10:07:51Z`
+- SHA-256: `ee76821a55b0ef8216f2d3c947eca064df3a5bb26a57484748fab4dfe99379a9`
+- Git blob SHA-1: `baa70ed6b9942d202f9f401c9ebe7532efd29999`
+- Import workflow: [#44502734663](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44502734663)
 
 ## Canonical counts
 
 | Record type | Count |
 |---|---:|
-| Games | **9,734** |
-| Releases | **12,359** |
-| Homebrew entries | **4,468** |
+| Games | **9,756** |
+| Releases | **12,381** |
+| Homebrew entries | **4,490** |
 
 ## Source rows
 
 | Source | Dataset | Fetched at (UTC) | Accepted rows |
 |---|---|---|---:|
-| NoPayStation | `PSV_GAMES` | `2026-11-18T13:01:00Z` | 3,784 |
-| NoPayStation | `PSP_GAMES` | `2026-11-18T13:01:00Z` | 2,459 |
-| NoPayStation | `PSX_GAMES` | `2026-11-18T13:01:00Z` | 1,648 |
-| VitaHomebrewDB | `apps.json` | `2026-11-18T13:01:01Z` | 1,372 |
-| VitaHomebrewDB | `psp_apps.json` | `2026-11-18T13:01:01Z` | 3,096 |
+| NoPayStation | `PSV_GAMES` | `2026-11-19T10:07:50Z` | 3,784 |
+| NoPayStation | `PSP_GAMES` | `2026-11-19T10:07:50Z` | 2,459 |
+| NoPayStation | `PSX_GAMES` | `2026-11-19T10:07:50Z` | 1,648 |
+| VitaHomebrewDB | `apps.json` | `2026-11-19T10:07:51Z` | 1,395 |
+| VitaHomebrewDB | `psp_apps.json` ` | `2026-11-19T10:07:51Z` | 3,095 |
 
-The NPS import skipped malformed source rows according to the importer policy; the accepted row counts above are the values stored in the generated snapshot's `sources` metadata. The 4,468 homebrew entries are counted from the canonical release records and match the importer's `recordsAdded` value.
+The NPS importer records accepted, deduplicated rows per source dataset and reports malformed rows in its source notes. VitaHomebrewDB rows are normalized to descriptive metadata; the homebrew total above is recalculated from canonical release records.
 
 ## Integrity boundary
 
@@ -40,4 +39,4 @@ The NPS import skipped malformed source rows according to the importer policy; t
 - Artwork remains an attributed external reference; this repository does not mirror protected game content.
 - The native Vita build compiles a read-only C index from this exact JSON and embeds its schema version, generation timestamp and source SHA-256.
 
-The catalog-summary regression test recalculates the counts and SHA-256 from the checked-in JSON and verifies that this manifest, README and roadmap agree. When a future import changes the snapshot, update this manifest and the visible documentation in the same reviewed change.
+The catalog-summary regression test recalculates the counts and SHA-256 from the checked-in JSON and verifies that this manifest, README and roadmap agree. The catalog sync workflow regenerates these documents in the same commit as each refreshed snapshot.
