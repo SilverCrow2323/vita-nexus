@@ -1,8 +1,29 @@
 #include "profile_store.h"
 
 #include <assert.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+
+static uint32_t checksum(const char *value, size_t length)
+{
+    uint32_t hash = 2166136261u;
+    for (size_t i = 0; i < length; ++i) {
+        hash ^= (uint8_t)value[i];
+        hash *= 16777619u;
+    }
+    return hash;
+}
+
+static void write_active_record(const char *path, const char *slot_line)
+{
+    FILE *file = fopen(path, "wb");
+    assert(file != NULL);
+    fputs("VNXP|1\n", file);
+    fputs(slot_line, file);
+    fprintf(file, "%08X\n", (unsigned int)checksum(slot_line, strlen(slot_line)));
+    assert(fclose(file) == 0);
+}
 
 static void write_corrupt_backup(const char *path)
 {
@@ -19,7 +40,7 @@ int main(void)
     const char *backup_path = "/tmp/vita-nexus-profile-backup.dat";
     const char *corrupt_path = "/tmp/vita-nexus-profile-corrupt.dat";
     unsigned int active = 99;
-    VitaNexusLibrary profile, imported, untouched;
+    VitaNexusLibrary profile, imported, untouched, persisted;
     VitaNexusProfileStats stats;
 
     assert(strcmp(vita_nexus_profile_data_path(0), "ux0:data/VitaNexus-library-v1.dat") == 0);
@@ -39,6 +60,17 @@ int main(void)
     assert(vita_nexus_profile_load_active(active_path, &active) == VITA_NEXUS_STORE_INVALID);
     assert(active == 2);
     assert(vita_nexus_profile_save_active(active_path, 2) == VITA_NEXUS_STORE_OK);
+
+    /* A checksum-valid but non-canonical slot must not be accepted. */
+    write_active_record(active_path, "01\n");
+    assert(vita_nexus_profile_load_active(active_path, &active) == VITA_NEXUS_STORE_INVALID);
+    assert(active == 2);
+    write_active_record(active_path, "+1\n");
+    assert(vita_nexus_profile_load_active(active_path, &active) == VITA_NEXUS_STORE_INVALID);
+    assert(active == 2);
+    write_active_record(active_path, " 1\n");
+    assert(vita_nexus_profile_load_active(active_path, &active) == VITA_NEXUS_STORE_INVALID);
+    assert(active == 2);
 
     vita_nexus_library_init(&profile);
     assert(vita_nexus_library_set(&profile, "game-favorite", VITA_NEXUS_LIBRARY_FAVORITE, 9) == VITA_NEXUS_STORE_OK);
@@ -63,6 +95,14 @@ int main(void)
     assert(vita_nexus_profile_import_backup(corrupt_path, profile_path, &imported) == VITA_NEXUS_STORE_INVALID);
     assert(imported.count == untouched.count);
     assert(vita_nexus_library_find(&imported, "game-favorite") != NULL);
+
+    /* Rejected backup imports must leave the on-disk profile untouched too. */
+    vita_nexus_library_init(&persisted);
+    assert(vita_nexus_library_load(&persisted, profile_path) == VITA_NEXUS_STORE_OK);
+    assert(persisted.count == 3);
+    assert(vita_nexus_library_find(&persisted, "game-favorite") != NULL);
+    assert(vita_nexus_library_find(&persisted, "game-backlog") != NULL);
+    assert(vita_nexus_library_find(&persisted, "game-done") != NULL);
 
     remove(active_path);
     remove("/tmp/vita-nexus-active-profile.dat.tmp");

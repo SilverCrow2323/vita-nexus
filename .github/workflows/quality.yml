@@ -5,6 +5,8 @@ on:
     branches:
       - main
     paths:
+      - "README.md"
+      - "docs/**"
       - "web/**"
       - "catalog/schema/**"
       - "tools/catalog-builder/**"
@@ -14,6 +16,8 @@ on:
       - ".github/workflows/quality.yml"
   pull_request:
     paths:
+      - "README.md"
+      - "docs/**"
       - "web/**"
       - "catalog/schema/**"
       - "tools/catalog-builder/**"

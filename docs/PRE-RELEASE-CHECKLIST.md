@@ -1,6 +1,6 @@
 # VITA NEXUS · First pre-release gates
 
-This checklist separates the **web catalog alpha** from the future **native Vita alpha**. A successful browser build does not certify a VPK, and a generated catalog does not prove the native scanner.
+This checklist separates the **web companion alpha** from the **native Vita alpha**. A successful browser build does not certify a VPK, and a generated catalog does not prove the native scanner. Keep every gate tied to the exact commit and artifact that was tested.
 
 ## Web companion · 0.1.0-alpha
 
@@ -20,23 +20,54 @@ This checklist separates the **web catalog alpha** from the future **native Vita
 
 ### Known limitations
 - Editorial enrichment is incomplete; missing ratings, artwork and feature tags must remain unknown rather than guessed.
-- Rankings and custom lists are not yet a public community service.
+- Public rankings and community lists are not yet a public community service. Browser-local custom lists are private to the current browser and support versioned JSON backup/restore.
 - GitHub Pages is static hosting; public accounts, votes and cloud sync require a separate backend.
 
 ## Native application · separate gate
 
-- [ ] Pin the VitaSDK toolchain and produce a reproducible VPK.
-- [ ] Resolve the native app ID/title metadata and verify the package manifest.
-- [ ] Implement local database creation and migrations.
-- [ ] Implement read-only installed-title discovery with bounded metadata parsing.
-- [ ] Verify D-pad navigation, the 00.10 magazine page layouts, typography, focus and suspend/resume on a real Vita.
-- [ ] Verify offline startup, corrupt/missing catalog handling and interrupted scan recovery.
-- [ ] Implement local profiles and session journal before claiming automatic playtime.
+### Build and package
+- [x] Pin the VitaSDK 2026.08 toolchain and produce a CI-built VPK.
+- [x] Verify ZIP integrity, required SELF/SFO entries, Title ID, unsafe paths, duplicate entries, symlinks, encrypted entries, archive limits and forbidden game/license payloads in CI.
+- [x] Set and verify the current native Title ID VNXS00001 in the generated SFO.
+- [ ] Confirm Title ID uniqueness and final distribution identity before public release.
+- [ ] Confirm byte-identical reproducibility across independent clean builds.
+- [x] Generate the native read-only catalog index from the shared schema-v1.0.0 web snapshot, retaining its source SHA-256 and generation metadata.
+
+### Implemented native foundation
+- [x] Native Vita shell built with the pinned VitaSDK toolchain, libvita2d and SceCtrl.
+- [x] Offline Discover catalog browser and metadata detail sheets.
+- [x] Local Library with favorites, backlog, completion and personal score.
+- [x] Three local profiles with independent collections and explicit backup/restore.
+- [x] Digital D-pad menu state logic with host regression tests.
+- [x] App-owned data paths and atomic temporary-file replacement for Library/profile files.
+- [x] First editorial magazine interface (native package 00.10).
+
+### Remaining native work and device gates
+- [ ] Create and migrate a shared local SQLite database for user-owned state; the current profile/library files are versioned app-owned files, not SQLite.
+- [ ] Implement read-only installed-title discovery with bounded metadata parsing; scanning must never move, rename or modify game files.
+- [ ] Verify the 00.10 magazine layout, typography, focus visibility and frame pacing on a real PS Vita. The earlier 00.05 baseline was confirmed on a PS Vita 1000; that does not certify the 00.10 visual redesign.
+- [ ] Verify D-pad response, analog input, touchscreen behavior, suspend/resume and application lifecycle on a real Vita.
+- [ ] Verify offline startup and recovery from missing/corrupt catalog or local-state files.
+- [ ] Implement session journal and automatic playtime only after reliable lifecycle signals and recovery behavior are demonstrated.
 - [ ] Test install, update and rollback on PS Vita 1000 and 2000 where available.
 
 ## Release integrity
+
 - Never bundle commercial game data, license files or package downloads.
 - Keep upstream source attribution and asset usage notes with editorial metadata.
-- Publish only the metadata and artwork references that are safe and permitted to redistribute.
+- Publish only metadata and artwork references that are safe and permitted to redistribute.
 - Keep native and web version numbers independent when their release gates differ.
 - A draft release is a review artifact; do not describe it as hardware-certified.
+- Record the tested commit SHA, VPK SHA-256, Vita model, firmware, install result and test notes for every physical-device pass.
+
+## Exact-head evidence refresh · 18 November 2026
+
+Current native hardening PR: [#23](https://github.com/SilverCrow2323/vita-nexus/pull/23), branch `fix/vita-nexus-profile-validation-and-docs-ci`, exact HEAD `47dd99d628037668b1331a43b9682aeb392d77a7`.
+
+- [x] Quality workflow [#44380515951](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380515951) passed on this exact HEAD.
+- [x] Native Vita build [#44380516166](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380516166) passed on this exact HEAD and uploaded VPK artifact [#14462567294](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44380516166/artifacts/14462567294).
+- [x] Generated VPK recorded at 1,314,811 bytes; SHA-256 `15749872431f76b3b465a8bc03435228fbf5a57b8261c35f0f9825a44e1424f1`.
+- [x] Profile parser rejects non-canonical slot encodings and malformed checksum lines; rejected backup imports preserve the existing on-disk profile.
+- [ ] Reconcile the generated catalog entry count with the README/catalog summary before the web alpha. Do not silently edit the count: regenerate from the canonical source snapshot and record its source hash and timestamp.
+
+These checks establish source/CI/package validity only. They do not satisfy the real-device 00.10 UI, input, lifecycle, install/update/rollback or reproducibility gates above. PR #23 remains Draft; no release is published.
