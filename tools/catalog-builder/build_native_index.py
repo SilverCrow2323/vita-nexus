@@ -109,14 +109,10 @@ def build(source: Path, destination: Path) -> int:
     games = catalog["games"]
 
     rows = []
-    seen = set()
     for game in games:
         game_id = game["gameId"]
         title = game["title"]
         releases = game["releases"]
-        if game_id in seen:
-            raise ValueError(f"duplicate gameId: {game_id!r}")
-        seen.add(game_id)
         mask = 0
         for release in releases:
             mask |= PLATFORM_BITS[release["platform"]]
