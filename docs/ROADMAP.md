@@ -104,7 +104,7 @@ The static website now has a project landing page, searchable catalog browser an
 - [x] Cross-platform recommendation rendering and metadata-match ranking.
 - [x] Visual documentation portal with project chapters.
 - [x] Browser-side catalog logic regression tests wired into CI (editorial metadata fallback coverage).
-- [x] Public catalog snapshot generated and validated: **9,734 games / 12,359 releases** on 2026-11-18; provenance is recorded in [the snapshot manifest](CATALOG-SNAPSHOT-MANIFEST.md).
+- [x] Public catalog snapshot generated and validated: **9,756 games / 12,381 releases** on 2026-11-19; provenance is recorded in [the snapshot manifest](CATALOG-SNAPSHOT-MANIFEST.md).
 - [ ] Add curated metadata and relation seeds for reviewed commercial titles.
 - [x] Configure the GitHub Pages deployment workflow for the web companion; keep deployment health in the pre-release checklist.
 - [ ] Add static ranking snapshots and public ranking methodology.
@@ -114,7 +114,6 @@ The static website now has a project landing page, searchable catalog browser an
 ## Native foundation progress
 
 The native application lives in `native/` and uses the pinned VitaSDK 2026.08 toolchain, libvita2d and SceCtrl. The current 00.10 line includes Home, offline Discover, editorial game files, personal Library, three local profiles, backups, bundled typography, lightweight transitions and a consistent PSM-inspired magazine page system across every screen. A 00.05 smoke test was confirmed on a PS Vita 1000; the 00.10 layouts still need device revalidation. Installed-title discovery and automatic session tracking remain unimplemented.
-
 
 
 ## Native catalog progress
