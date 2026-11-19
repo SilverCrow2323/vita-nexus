@@ -48,6 +48,8 @@ python -m unittest -v
 
 The importer writes a stable JSON snapshot matching [catalog.schema.json](../catalog/schema/catalog.schema.json). It stores a generation timestamp and per-source record counts.
 
+**Identity contract:** every canonical `gameId` and every release `releaseId` must be non-empty and unique across the complete snapshot. The shared native-index validator enforces both identities before generating C data, so direct generator runs fail closed just like the public catalog validation workflow.
+
 ## Regional grouping
 
 The first automatic grouping pass is conservative: releases with the same normalized title on the same platform are grouped under one catalog entry. PSP and PS1 records remain distinct, even when the display title is the same.

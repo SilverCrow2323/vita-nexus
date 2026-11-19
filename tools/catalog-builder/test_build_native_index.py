@@ -34,9 +34,9 @@ class NativeIndexBuilderTests(unittest.TestCase):
                      "voteCount": 42, "source": "https://scores.test/game"},
                 ],
                 "releases": [
-                    {"platform": "psvita"},
-                    {"platform": "psp"},
-                    {"platform": "psvita"},
+                    {"releaseId": "vita-test-001-psvita-eu-1", "platform": "psvita"},
+                    {"releaseId": "vita-test-001-psp-eu-1", "platform": "psp"},
+                    {"releaseId": "vita-test-001-psvita-us-1", "platform": "psvita"},
                 ],
             }],
         }
