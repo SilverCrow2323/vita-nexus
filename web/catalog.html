@@ -78,7 +78,7 @@
       </div>
 
       <div class="results-line"><span id="results-label" aria-live="polite">Loading catalog…</span><span id="source-label">SOURCE: NEXUS INDEX</span></div>
-      <div id="catalog-grid" class="catalog-grid" aria-live="polite" aria-busy="true"></div>
+      <div id="catalog-grid" class="catalog-grid" aria-live="off" aria-busy="true"></div>
       <div id="catalog-empty" class="catalog-empty" hidden>
         <div class="empty-symbol">✳</div>
         <h3 id="empty-title">Nothing in the pile yet.</h3>
@@ -120,7 +120,7 @@
     </section>
   </main>
 
-  <dialog id="game-dialog" class="game-dialog">
+  <dialog id="game-dialog" class="game-dialog" aria-labelledby="game-dialog-title" aria-describedby="game-dialog-summary">
     <form method="dialog"><button class="dialog-close" aria-label="Close game details">×</button></form>
     <div id="dialog-content"></div>
   </dialog>
