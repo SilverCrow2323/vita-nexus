@@ -37,7 +37,7 @@ void vita_nexus_library_init(VitaNexusLibrary *library)
 
 const VitaNexusLibraryRecord *vita_nexus_library_find(const VitaNexusLibrary *library, const char *game_id)
 {
-    if (!library || !valid_id(game_id)) return NULL;
+    if (!library || library->count > VITA_NEXUS_LIBRARY_MAX_RECORDS || !valid_id(game_id)) return NULL;
     for (size_t i = 0; i < library->count; ++i)
         if (strcmp(library->records[i].game_id, game_id) == 0) return &library->records[i];
     return NULL;
@@ -46,7 +46,8 @@ const VitaNexusLibraryRecord *vita_nexus_library_find(const VitaNexusLibrary *li
 VitaNexusStoreResult vita_nexus_library_set(VitaNexusLibrary *library, const char *game_id,
     uint8_t flags, uint8_t rating)
 {
-    if (!library || !valid_id(game_id) || (flags & (uint8_t)~7u) || rating > 10)
+    if (!library || library->count > VITA_NEXUS_LIBRARY_MAX_RECORDS || !valid_id(game_id) ||
+        (flags & (uint8_t)~7u) || rating > 10)
         return VITA_NEXUS_STORE_INVALID;
     for (size_t i = 0; i < library->count; ++i) {
         if (strcmp(library->records[i].game_id, game_id) == 0) {
