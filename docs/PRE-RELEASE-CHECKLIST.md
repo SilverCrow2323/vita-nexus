@@ -12,7 +12,7 @@ This checklist separates the **web companion alpha** from the **native Vita alph
 - [x] Metadata-only NPS and homebrew source pipeline.
 - [x] Cross-platform recommendation engine with explicit explanations.
 - [x] Schema, source importer, catalog snapshot and browser-logic CI.
-- [ ] Confirm the latest GitHub Pages deployment is green and the public URL serves the same HEAD.
+- [ ] Smoke-test the public Pages URL after the latest successful deployment; deployment run #44715029929 is green and the current main differs from that deployed commit only in native files, so the web source tree is unchanged.
 - [ ] Run the mobile/desktop keyboard, touch, focus and reduced-motion acceptance pass.
 - [ ] Verify all external artwork and score attribution in the published catalog.
 - [ ] Confirm the catalog snapshot has no package download URLs, zRIF/license material or binary payloads.
@@ -60,7 +60,7 @@ This checklist separates the **web companion alpha** from the **native Vita alph
 - A draft release is a review artifact; do not describe it as hardware-certified.
 - Record the tested commit SHA, VPK SHA-256, Vita model, firmware, install result and test notes for every physical-device pass.
 
-## Exact-head evidence refresh · 19 November 2026
+## Historical evidence · 19 November 2026 (superseded by the 20 November refresh)
 
 Main HEAD at this evidence capture: `e24d0d7bb02d880738e6f0f664f9601c22983d65`. Native profile hardening PR [#23](https://github.com/SilverCrow2323/vita-nexus/pull/23) is merged as this commit.
 
@@ -74,3 +74,19 @@ Main HEAD at this evidence capture: `e24d0d7bb02d880738e6f0f664f9601c22983d65`. 
 - [ ] Re-run the 00.10 visual, input, focus, lifecycle, install/update/rollback and offline-recovery acceptance on a real PS Vita 1000/2000.
 
 The workflows prove host tests, VitaSDK cross-build and VPK packaging only. They do not prove physical installation or input behavior, and no public release is published.
+
+
+## Exact-head evidence refresh · 20 November 2026
+
+Current main HEAD: `6046df1583ffe54a8c88328f91e7c9202b5ec31e`. Native personal-library parser hardening PR [#31](https://github.com/SilverCrow2323/vita-nexus/pull/31) is merged at this HEAD.
+
+- [x] Quality workflow [#44723365959](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44723365959): passed on the current main HEAD.
+- [x] Native Vita build [#44723365958](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44723365958): passed on the same HEAD, including pinned VitaSDK compilation and VPK integrity verification.
+- [x] Generated VPK: 1,284,937 bytes; SHA-256 `275970467edb76885b631811babf5f0b646e5ab0b5ce42b00dd21ad5c22786a0`; Title ID `VNXS00001`.
+- [x] Actions artifact [#14621964499](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44723365958/artifacts/14621964499): 1,285,193-byte outer ZIP; digest `sha256:30b6f3533aeb51480c30509951ee73c72e178ef5feec1bdf3efce92d15a8a56f`.
+- [x] PR #31 parser hardening is merged: the `VNXLIB|1` reader now rejects signs, whitespace, leading-zero and overflowing decimal fields, and requires an exact eight-hex-digit checksum trailer. Host regression tests verify malformed loads preserve the prior in-memory collection.
+- [x] Public catalog snapshot remains schema `1.0.0`, generated at `2026-11-19T13:00:08Z`: **9,756 games / 12,381 releases / 4,490 homebrew entries**. The manifest records source provenance and SHA-256; catalog sync run [#44529105744](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44529105744) succeeded, followed by quality/native checks [#44529162909](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44529162909) and [#44529163312](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44529163312).
+- [x] Latest Pages deployment [#44715029929](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44715029929) succeeded on commit `8686f073e5f40d2cc9487ccf2dd545d52c992143`. Comparing that commit with current main shows only `native/README.md`, `native/src/library_store.c` and `tests/native_library_store_test.c` changed; the deployed web source tree therefore matches current main. The public URL itself still needs a direct smoke check.
+- [ ] Re-run the 00.10 visual, input, focus, lifecycle, install/update/rollback and offline-recovery acceptance on a real PS Vita 1000/2000.
+
+SQLite schema/migrations and installed-title discovery remain unimplemented. The earlier 00.05 Vita 1000 baseline is not evidence for the 00.10 magazine UI. The successful CI VPK is not a physical-device test, and no public release is published.
