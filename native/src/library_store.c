@@ -16,6 +16,48 @@ static uint32_t checksum_update(uint32_t hash, const char *data, size_t length)
     return hash;
 }
 
+static int parse_unsigned_decimal(const char *text, unsigned int maximum, unsigned int *value)
+{
+    unsigned int parsed = 0;
+    size_t length;
+
+    if (!text || !value) return 0;
+    length = strlen(text);
+    if (length == 0 || (length > 1 && text[0] == '0')) return 0;
+
+    for (size_t i = 0; i < length; ++i) {
+        const unsigned char c = (unsigned char)text[i];
+        unsigned int digit;
+        if (c < '0' || c > '9') return 0;
+        digit = (unsigned int)(c - '0');
+        if (digit > maximum || parsed > (maximum - digit) / 10u) return 0;
+        parsed = parsed * 10u + digit;
+    }
+
+    *value = parsed;
+    return 1;
+}
+
+static int parse_checksum_line(const char *line, uint32_t *checksum)
+{
+    uint32_t parsed = 0;
+    if (!line || !checksum || strlen(line) != 13u ||
+        memcmp(line, "END|", 4u) != 0 || line[12] != '\n') return 0;
+
+    for (size_t i = 4; i < 12; ++i) {
+        const unsigned char c = (unsigned char)line[i];
+        unsigned int digit;
+        if (c >= '0' && c <= '9') digit = (unsigned int)(c - '0');
+        else if (c >= 'a' && c <= 'f') digit = (unsigned int)(c - 'a') + 10u;
+        else if (c >= 'A' && c <= 'F') digit = (unsigned int)(c - 'A') + 10u;
+        else return 0;
+        parsed = (parsed << 4) | digit;
+    }
+
+    *checksum = parsed;
+    return 1;
+}
+
 static int valid_id(const char *game_id)
 {
     size_t length;
@@ -95,9 +137,8 @@ VitaNexusStoreResult vita_nexus_library_load(VitaNexusLibrary *library, const ch
             return VITA_NEXUS_STORE_INVALID;
         }
         if (strncmp(line, "END|", 4) == 0) {
-            unsigned int expected = 0;
-            char extra = '\0';
-            if (sscanf(line, "END|%8x\n%c", &expected, &extra) != 1 || expected != hash) {
+            uint32_t expected = 0;
+            if (!parse_checksum_line(line, &expected) || expected != hash) {
                 fclose(file);
                 return VITA_NEXUS_STORE_INVALID;
             }
@@ -117,11 +158,10 @@ VitaNexusStoreResult vita_nexus_library_load(VitaNexusLibrary *library, const ch
         if (!second) { fclose(file); return VITA_NEXUS_STORE_INVALID; }
         *second++ = '\0';
         if (!valid_id(line) || strchr(second, '|')) { fclose(file); return VITA_NEXUS_STORE_INVALID; }
-        char *end = NULL;
-        unsigned long flags = strtoul(first, &end, 10);
-        if (!end || end == first || *end != '\0') { fclose(file); return VITA_NEXUS_STORE_INVALID; }
-        unsigned long rating = strtoul(second, &end, 10);
-        if (!end || end == second || *end != '\0' || flags > 7 || rating > 10) {
+        unsigned int flags = 0;
+        unsigned int rating = 0;
+        if (!parse_unsigned_decimal(first, 7u, &flags) ||
+            !parse_unsigned_decimal(second, 10u, &rating)) {
             fclose(file);
             return VITA_NEXUS_STORE_INVALID;
         }
