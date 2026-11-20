@@ -15,16 +15,16 @@ static uint32_t test_checksum_update(uint32_t hash, const char *data, size_t len
 
 static void write_duplicate_records(const char *path)
 {
-    const char *line = "duplicate-id|1|0\\n";
+    const char *line = "duplicate-id|1|0\n";
     uint32_t hash = 2166136261u;
     hash = test_checksum_update(hash, line, strlen(line));
     hash = test_checksum_update(hash, line, strlen(line));
     FILE *file = fopen(path, "wb");
     assert(file != NULL);
-    fputs("VNXLIB|1\\n", file);
+    fputs("VNXLIB|1\n", file);
     fputs(line, file);
     fputs(line, file);
-    fprintf(file, "END|%08X\\n", (unsigned int)hash);
+    fprintf(file, "END|%08X\n", (unsigned int)hash);
     assert(fclose(file) == 0);
 }
 
@@ -52,7 +52,7 @@ int main(void)
 
     FILE *wrong_version = fopen(bad_path, "wb");
     assert(wrong_version != NULL);
-    fputs("VNXLIB|2\\nEND|811C9DC5\\n", wrong_version);
+    fputs("VNXLIB|2\nEND|811C9DC5\n", wrong_version);
     assert(fclose(wrong_version) == 0);
     assert(vita_nexus_library_load(&loaded, bad_path) == VITA_NEXUS_STORE_INVALID);
     assert(loaded.count == 2 && vita_nexus_library_find(&loaded, "future-catalog-id") != NULL);
@@ -63,7 +63,7 @@ int main(void)
 
     FILE *truncated = fopen(bad_path, "wb");
     assert(truncated != NULL);
-    fputs("VNXLIB|1\\ntruncated-record|1|4", truncated);
+    fputs("VNXLIB|1\ntruncated-record|1|4", truncated);
     assert(fclose(truncated) == 0);
     assert(vita_nexus_library_load(&loaded, bad_path) == VITA_NEXUS_STORE_INVALID);
     assert(loaded.count == 2 && vita_nexus_library_find(&loaded, "future-catalog-id") != NULL);
