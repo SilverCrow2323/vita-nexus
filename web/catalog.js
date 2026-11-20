@@ -742,8 +742,12 @@ function openGame(game) {
   listAction.type = "button";
   listAction.addEventListener("click", () => addGameToActiveList(game));
   body.append(listAction);
-  body.append(element("h2", "dialog-title", game.title));
-  body.append(element("p", "dialog-summary", game.description || override.description || game.summary || override.summary || "No description yet. The release details are still worth a look."));
+  const dialogTitle = element("h2", "dialog-title", game.title);
+  dialogTitle.id = "game-dialog-title";
+  body.append(dialogTitle);
+  const dialogSummary = element("p", "dialog-summary", game.description || override.description || game.summary || override.summary || "No description yet. The release details are still worth a look.");
+  dialogSummary.id = "game-dialog-summary";
+  body.append(dialogSummary);
   renderArtworkCredits(artwork, body);
   renderArtworkGallery(game, artwork, body);
 
