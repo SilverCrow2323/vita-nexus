@@ -93,7 +93,7 @@ From a game's Discover detail sheet:
 - **Left / Right** adjusts a personal score from 0 to 10 (0 means unrated).
 - Changes are written immediately to a temporary sibling file and committed with a rename.
 
-The versioned `VNXLIB|1` format is bounded to 512 records, validates stable game IDs and field ranges, rejects duplicate IDs and malformed/checksum-invalid files, and loads into a temporary in-memory structure before replacing live state. Unknown catalog IDs are retained so a catalog update does not silently erase a user's data. Host tests cover round-trip persistence, toggles/removal, ratings, unknown IDs and corruption handling.
+The versioned `VNXLIB|1` format is bounded to 512 records, validates stable game IDs and field ranges, rejects duplicate IDs and malformed/checksum-invalid files, and loads into a temporary in-memory structure before replacing live state. Unknown catalog IDs are retained so a catalog update does not silently erase a user's data. The public lookup and mutation API also rejects an out-of-range in-memory record count before traversing the fixed-size array. Host tests cover round-trip persistence, toggles/removal, ratings, unknown IDs, unsupported versions, duplicate/truncated records, corrupted counts and checksum failures.
 
 The Library screen lists locally tracked records. Selecting an entry opens its catalog detail when that game ID is present in the current catalog. This milestone is a local tracker, not an installed-title scanner, cloud sync or multi-profile system. CI builds and verifies the VPK; a real PS Vita test is still required.
 
