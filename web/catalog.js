@@ -18,6 +18,8 @@ const PLATFORM_LABELS = {
 };
 const REGION_ORDER = ["EU", "US", "JP", "AS", "INT", "KR", "CN", "UNKNOWN"];
 
+let dialogReturnFocus = null;
+
 const state = {
   catalog: null,
   overrides: {},
@@ -699,6 +701,7 @@ function renderArtworkGallery(game, artwork, body) {
 }
 
 function openGame(game) {
+  if (!dialog.open) dialogReturnFocus = document.activeElement;
   const override = state.overrides[game.gameId] || {};
   const artwork = mergeGameArtwork(game, override);
   dialogContent.replaceChildren();
@@ -823,12 +826,23 @@ function openGame(game) {
   const note = element("p", "dialog-source-note", "Release identifiers and descriptive fields are sourced from public metadata indexes. Package URLs, payloads and license material are not part of VITA NEXUS. Homebrew artwork remains hosted by its original catalog source and belongs to its respective creators.");
   body.append(note);
   dialogContent.append(body);
+  dialogTitle.tabIndex = -1;
   if (typeof dialog.showModal === "function") {
     if (!dialog.open) dialog.showModal();
   } else {
     dialog.setAttribute("open", "");
   }
+  // Recommendation navigation replaces the focused card while the dialog
+  // stays open. Move focus to the new heading instead of leaving it detached.
+  dialogTitle.focus();
 }
+
+dialog.addEventListener("close", () => {
+  const target = dialogReturnFocus;
+  dialogReturnFocus = null;
+  if (target && target.isConnected && typeof target.focus === "function") target.focus();
+  else searchInput.focus();
+});
 
 
 const listCreateForm = document.querySelector("#list-create-form");
