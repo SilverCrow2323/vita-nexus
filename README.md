@@ -62,11 +62,11 @@ The metadata-only catalog build currently contains:
 
 | Collection | Entries |
 |---|---:|
-| Canonical game records | **9,756** |
-| Release records | **12,381** |
-| Vita + PSP homebrew entries | **4,490** |
+| Canonical game records | **9,782** |
+| Release records | **12,407** |
+| Vita + PSP homebrew entries | **4,516** |
 
-<sub>Snapshot generated at 2026-11-19 13:00:08 UTC (schema 1.0.0). See the [catalog snapshot manifest](docs/CATALOG-SNAPSHOT-MANIFEST.md) for source counts and SHA-256 provenance.</sub>
+<sub>Snapshot generated at 2026-11-20 12:51:26 UTC (schema 1.0.0). See the [catalog snapshot manifest](docs/CATALOG-SNAPSHOT-MANIFEST.md) for source counts and SHA-256 provenance.</sub>
 
 Browse the [catalog interface](web/catalog.html) or inspect the [raw catalog snapshot](web/data/catalog.json).
 
@@ -100,7 +100,7 @@ Keep the interface readable. Use short labels, plain English and direct copy. No
 | Product direction, architecture and visual system | 🟢 Defined |
 | Cyberpunk manga web portal and catalog browser | 🟢 Implemented |
 | NPS + Vita/PSP homebrew metadata pipeline | 🟢 Implemented; metadata-only |
-| Public catalog snapshot | 🟢 9,756 games · 12,381 releases · 4,490 homebrew entries |
+| Public catalog snapshot | 🟢 9,782 games · 12,407 releases · 4,516 homebrew entries |
 | Regional editions and release details | 🟢 Implemented |
 | Cross-platform recommendation engine | 🟢 Implemented; curated editorial coverage is growing |
 | Native PS Vita application / VPK | 🟢 Implemented · native 00.10 (magazine redesign; visual recheck pending) |
