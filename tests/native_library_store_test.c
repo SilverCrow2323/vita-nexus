@@ -28,6 +28,20 @@ static void write_duplicate_records(const char *path)
     assert(fclose(file) == 0);
 }
 
+
+static void write_record_fixture(const char *path, const char *record_line, const char *checksum_suffix)
+{
+    uint32_t hash = 2166136261u;
+    hash = test_checksum_update(hash, record_line, strlen(record_line));
+    FILE *file = fopen(path, "wb");
+    assert(file != NULL);
+    fputs("VNXLIB|1\n", file);
+    fputs(record_line, file);
+    fprintf(file, "END|%08X%s\n", (unsigned int)hash,
+        checksum_suffix ? checksum_suffix : "");
+    assert(fclose(file) == 0);
+}
+
 int main(void)
 {
     VitaNexusLibrary library, loaded;
@@ -60,6 +74,29 @@ int main(void)
     write_duplicate_records(bad_path);
     assert(vita_nexus_library_load(&loaded, bad_path) == VITA_NEXUS_STORE_INVALID);
     assert(loaded.count == 2 && vita_nexus_library_find(&loaded, "future-catalog-id") != NULL);
+
+    static const char *noncanonical_records[] = {
+        "plus-flags|+1|4\n",
+        "space-flags| 1|4\n",
+        "minus-flags|-1|4\n",
+        "leading-zero-flags|01|4\n",
+        "plus-rating|1|+4\n",
+        "space-rating|1| 4\n",
+        "leading-zero-rating|1|04\n",
+        "overflow-flags|999999999999999999999999|4\n",
+        "overflow-rating|1|999999999999999999999999\n"
+    };
+    for (size_t i = 0; i < sizeof(noncanonical_records) / sizeof(noncanonical_records[0]); ++i) {
+        write_record_fixture(bad_path, noncanonical_records[i], "");
+        assert(vita_nexus_library_load(&loaded, bad_path) == VITA_NEXUS_STORE_INVALID);
+        assert(loaded.count == 2);
+        assert(vita_nexus_library_find(&loaded, "future-catalog-id") != NULL);
+    }
+
+    write_record_fixture(bad_path, "checksum-width|1|4\n", "0");
+    assert(vita_nexus_library_load(&loaded, bad_path) == VITA_NEXUS_STORE_INVALID);
+    assert(loaded.count == 2);
+    assert(vita_nexus_library_find(&loaded, "future-catalog-id") != NULL);
 
     FILE *truncated = fopen(bad_path, "wb");
     assert(truncated != NULL);
