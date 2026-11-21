@@ -6,6 +6,9 @@ on:
     paths:
       - "native/**"
       - "tools/catalog-builder/build_native_index.py"
+      - "tools/catalog-builder/catalog_validation.py"
+      - "tools/catalog-builder/test_build_native_index.py"
+      - "tools/catalog-builder/test_catalog_validation.py"
       - "web/data/catalog.json"
       - ".github/workflows/native-build.yml"
       - "tools/verify_vpk.py"
@@ -13,6 +16,9 @@ on:
     paths:
       - "native/**"
       - "tools/catalog-builder/build_native_index.py"
+      - "tools/catalog-builder/catalog_validation.py"
+      - "tools/catalog-builder/test_build_native_index.py"
+      - "tools/catalog-builder/test_catalog_validation.py"
       - "web/data/catalog.json"
       - ".github/workflows/native-build.yml"
   workflow_run:
