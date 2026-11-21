@@ -31,6 +31,8 @@ The generated public catalog does **not** contain package download URLs, zRIF/li
 
 Do not add those fields to the public schema, generated JSON, browser UI, logs or test snapshots.
 
+The public validator normalizes key case and punctuation before applying its denylist, and rejects non-object catalog roots with a controlled validation error. Regression tests cover hyphenated, dotted and underscored payload-key variants.
+
 ## Importer
 
 Run from the repository root:
