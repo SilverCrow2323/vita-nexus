@@ -97,6 +97,8 @@ Use a canonical game entity plus one or more release records.
 
 The native application and web frontend should consume the same versioned JSON contract. The native app may import it into SQLite; the web frontend may read the published JSON directly.
 
+The native storage foundation now includes a versioned SQLite v1 schema and a host-only transactional migration runner. It separates imported metadata (`catalog_games`, `catalog_releases`, `catalog_snapshot`) from local profile, collection and session state. This is a tested schema contract, not yet a Vita runtime dependency: the existing bounded file stores remain active until a compatible SQLite library, backup/recovery behavior and physical-device migration are verified.
+
 Keep data separate from presentation. Never hard-code a second independent copy of a game's metadata inside UI components.
 
 ## Data flow

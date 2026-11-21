@@ -9,7 +9,7 @@
 </p>
 
 > [!NOTE]
-> **The web companion and native Vita alpha foundation are implemented.** The native VPK now includes an offline catalog browser, game detail sheets, a personal Library and three local profiles with backups. An installed-title scanner, SQLite migration, automatic playtime and community sync remain separate future milestones. The earlier 00.05 baseline was confirmed on a PS Vita 1000; the 00.10 magazine-page redesign is now built in CI and needs a fresh device visual check.
+> **The web companion and native Vita alpha foundation are implemented.** The native VPK now includes an offline catalog browser, game detail sheets, a personal Library and three local profiles with backups. An installed-title scanner, SQLite runtime integration, automatic playtime and community sync remain separate future milestones. A versioned SQLite schema and host-only migration harness are now defined, but the Vita app still uses its existing local file stores. The earlier 00.05 baseline was confirmed on a PS Vita 1000; the 00.10 magazine-page redesign is now built in CI and needs a fresh device visual check.
 
 ## 🧨 The idea
 

@@ -153,3 +153,10 @@ The five native screens have distinct editorial jobs:
 - **Game File — Review Desk:** a typographic cover panel plus release, age/review, production-credit, genre and tag columns. The player's own score is kept separate from external scores.
 
 The layout is authored for the fixed 960×544 framebuffer: the page grid, title widths, row count and footer keep controller instructions and selected state visible. No network artwork is fetched at runtime; the page styling stays local, fast and offline. The package version is **00.10**. CI confirms the native compile and VPK integrity, but the new page compositions still require a fresh visual check on a real Vita.
+
+
+## SQLite schema foundation
+
+`native/db/migrations/0001_catalog_and_personal_state.sql` defines schema v1 for the shared metadata snapshot, catalog games/releases, local profiles, per-profile game state and future session/event records. The host migration runner is `tools/catalog-builder/migrate_native_db.py`; its tests are part of the catalog-builder unittest suite. Migrations are numbered, append-only and applied transactionally with `PRAGMA user_version` plus a `schema_migrations` ledger.
+
+**Runtime status: not integrated.** The Vita application still uses its existing bounded, checksummed file stores. The current VitaSDK target does not link SQLite. Do not describe this schema or its host tests as an on-device database. Runtime integration requires a reviewed SQLite library for the pinned VitaSDK toolchain, backup/restore and interrupted-migration handling, and a physical Vita test.

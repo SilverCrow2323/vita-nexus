@@ -23,7 +23,8 @@ The roadmap is organized around testable milestones. A feature is not complete b
 - [x] Implement the first controller-driven native screen (hardware visual check still pending).
 - [x] Implement controller-driven digital D-pad navigation across the native screens.
 - [ ] Add analog-stick and touchscreen input.
-- [ ] Create and migrate the local SQLite database for user-owned state.
+- [x] Define SQLite schema v1 and a transactional host migration harness for catalog, profile and session data.
+- [ ] Integrate SQLite into the native Vita runtime after the pinned VitaSDK library, backup/recovery and device-migration gates are verified.
 - [x] Generate a read-only native index from the shared schema v1.0.0 catalog snapshot.
 - [ ] Scan a supported set of PS Vita application metadata.
 - [ ] Validate read-only behavior on hardware.
