@@ -29,10 +29,23 @@ class CatalogShapeValidationTests(unittest.TestCase):
     def valid_catalog(self):
         return {
             "schemaVersion": "1.0.0",
+            "sources": [{
+                "sourceId": "nopaystation",
+                "dataset": "PSV_GAMES",
+                "recordCount": 1,
+            }],
+            "totals": {"games": 1, "releases": 1},
             "games": [{
                 "gameId": "test-001",
                 "title": "Test title",
-                "releases": [{"releaseId": "test-001-psvita-eu", "platform": "psvita"}],
+                "platforms": ["psvita"],
+                "releases": [{
+                    "releaseId": "test-001-psvita-eu",
+                    "platform": "psvita",
+                    "region": "EU",
+                    "sourceId": "nopaystation",
+                    "sourceDataset": "PSV_GAMES",
+                }],
             }],
         }
 
@@ -103,13 +116,86 @@ class CatalogShapeValidationTests(unittest.TestCase):
 
     def test_accepts_supported_platforms(self):
         data = self.valid_catalog()
-        data["games"][0]["releases"] = [
-            {"releaseId": "release-psvita", "platform": "psvita"},
-            {"releaseId": "release-psp", "platform": "psp"},
-            {"releaseId": "release-ps1", "platform": "ps1"},
-            {"releaseId": "release-homebrew", "platform": "homebrew"},
+        datasets = [
+            ("nopaystation", "PSV_GAMES", "psvita"),
+            ("nopaystation", "PSP_GAMES", "psp"),
+            ("nopaystation", "PSX_GAMES", "ps1"),
+            ("vitahomebrewdb", "apps.json", "homebrew"),
         ]
+        data["sources"] = [
+            {"sourceId": source_id, "dataset": dataset, "recordCount": 1}
+            for source_id, dataset, _platform in datasets
+        ]
+        data["games"][0]["platforms"] = [platform for _source, _dataset, platform in datasets]
+        data["games"][0]["releases"] = [
+            {
+                "releaseId": f"release-{platform}",
+                "platform": platform,
+                "sourceId": source_id,
+                "sourceDataset": dataset,
+            }
+            for source_id, dataset, platform in datasets
+        ]
+        data["totals"]["releases"] = len(datasets)
         self.assertIs(validate_catalog(data), data)
+
+    def test_accepts_repeated_provider_id_for_distinct_datasets(self):
+        data = self.valid_catalog()
+        data["sources"].append({
+            "sourceId": "nopaystation",
+            "dataset": "PSP_GAMES",
+            "recordCount": 1,
+        })
+        data["games"][0]["releases"].append({
+            "releaseId": "test-001-psp-eu",
+            "platform": "psp",
+            "region": "EU",
+            "sourceId": "nopaystation",
+            "sourceDataset": "PSP_GAMES",
+        })
+        data["totals"]["releases"] = 2
+        self.assertIs(validate_catalog(data), data)
+
+    def test_rejects_release_without_registered_source_pair(self):
+        data = self.valid_catalog()
+        data["games"][0]["releases"][0]["sourceDataset"] = "PSP_GAMES"
+        with self.assertRaisesRegex(ValueError, "references unknown source pair"):
+            validate_catalog(data)
+
+    def test_rejects_non_object_source_row(self):
+        data = self.valid_catalog()
+        data["sources"][0] = None
+        with self.assertRaisesRegex(ValueError, r"catalog.sources\[0\] must be an object"):
+            validate_catalog(data)
+
+    def test_rejects_invalid_source_record_count(self):
+        data = self.valid_catalog()
+        data["sources"][0]["recordCount"] = True
+        with self.assertRaisesRegex(ValueError, "recordCount must be a non-negative integer"):
+            validate_catalog(data)
+
+    def test_rejects_malformed_totals_without_attribute_error(self):
+        data = self.valid_catalog()
+        data["totals"] = "not-an-object"
+        with self.assertRaisesRegex(ValueError, "catalog.totals must be an object"):
+            validate_catalog(data)
+
+    def test_rejects_totals_that_do_not_match_canonical_arrays(self):
+        data = self.valid_catalog()
+        data["totals"]["releases"] = 2
+        with self.assertRaisesRegex(ValueError, "catalog.totals.releases is 2, expected 1"):
+            validate_catalog(data)
+
+    def test_public_validator_rejects_unregistered_source_pair(self):
+        data = self.valid_catalog()
+        data["games"][0]["releases"][0]["sourceDataset"] = "PSP_GAMES"
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "catalog.json"
+            path.write_text(json.dumps(data), encoding="utf-8")
+            with patch("sys.argv", ["validate_catalog.py", str(path)]):
+                with self.assertRaises(SystemExit) as result:
+                    validate_catalog_main()
+            self.assertEqual(result.exception.code, 1)
 
 
 class CatalogSnapshotDocumentationTests(unittest.TestCase):

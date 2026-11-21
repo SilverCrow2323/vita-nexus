@@ -8,6 +8,8 @@ import re
 import sys
 from pathlib import Path
 
+from catalog_validation import validate_catalog
+
 FORBIDDEN_KEYS = {
     "downloadurl", "downloaduri", "binaryurl", "packageurl", "pkgurl", "data", "hash", "hash2",
     "sha256", "md5", "zrif", "licensekey", "digest"
@@ -49,6 +51,11 @@ def main() -> int:
         fail("games must be an array")
 
     inspect_forbidden(catalog)
+    try:
+        validate_catalog(catalog)
+    except ValueError as error:
+        fail(str(error))
+
     seen_game_ids: set[str] = set()
     seen_release_ids: set[str] = set()
     release_count = 0
