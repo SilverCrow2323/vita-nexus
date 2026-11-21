@@ -153,6 +153,57 @@ def update_snapshot_docs(root: Path, workflow_run_id: str | None = None) -> dict
     )
     roadmap_path.write_text(roadmap, encoding="utf-8")
 
+    import_doc_path = root / "docs" / "NPS-CATALOG-IMPORT.md"
+    import_doc = import_doc_path.read_text(encoding="utf-8")
+    source_rows = []
+    for source in catalog.get("sources", []):
+        source_rows.append(
+            "| {dataset} | {fetched} | {count:,} |".format(
+                dataset=source.get("dataset", "unknown"),
+                fetched=source.get("fetchedAt", "unknown"),
+                count=int(source.get("recordCount", 0)),
+            )
+        )
+    workflow = (
+        f"[catalog sync run #{workflow_run_id}](https://github.com/SilverCrow2323/vita-nexus/actions/runs/{workflow_run_id})"
+        if workflow_run_id
+        else "[catalog-sync.yml](../.github/workflows/catalog-sync.yml)"
+    )
+    git_blob_sha1 = hashlib.sha1(
+        b"blob " + str(len(raw)).encode("ascii") + b"\0" + raw
+    ).hexdigest()
+    import_section = "\n".join(
+        [
+            f"## Latest verified snapshot · {catalog['generatedAt'][:10]}",
+            "",
+            f"The canonical snapshot on main was regenerated and validated by {workflow}.",
+            "",
+            "| Measure | Verified value |",
+            "|---|---:|",
+            f"| Schema version | {catalog['schemaVersion']} |",
+            f"| Generated at (UTC) | {catalog['generatedAt']} |",
+            f"| Canonical game records | **{len(games):,}** |",
+            f"| Release records | **{len(releases):,}** |",
+            f"| Homebrew entries | **{homebrew:,}** |",
+            "",
+            "| Source dataset | Fetched at (UTC) | Accepted rows |",
+            "|---|---|---:|",
+            *source_rows,
+            "",
+            f"The exact UTF-8 snapshot file web/data/catalog.json has SHA-256 {hashlib.sha256(raw).hexdigest()} (Git blob SHA-1 {git_blob_sha1}). Counts are recalculated from canonical JSON records.",
+            "",
+            "The scheduled importer keeps package URLs, license values, checksums and payloads out of the public catalog. This section is regenerated with the snapshot manifest, README and roadmap in the same catalog-sync commit.",
+            "",
+        ]
+    )
+    import_doc = _replace_once(
+        import_doc,
+        r"(?s)^## Latest verified snapshot ·.*\Z",
+        import_section,
+        "NPS import snapshot summary",
+    )
+    import_doc_path.write_text(import_doc, encoding="utf-8")
+
     return {
         "generatedAt": catalog["generatedAt"],
         "games": len(games),
