@@ -46,6 +46,12 @@ class SnapshotDocumentationSyncTests(unittest.TestCase):
                 encoding="utf-8",
             )
 
+            (root / "docs" / "NPS-CATALOG-IMPORT.md").write_text(
+                "## Importer\\n\\nKeep the current snapshot below.\\n\\n"
+                "## Latest verified snapshot · old\\nold data\\n",
+                encoding="utf-8",
+            )
+
             summary = update_snapshot_docs(root, workflow_run_id="12345")
             manifest = (root / "docs" / "CATALOG-SNAPSHOT-MANIFEST.md").read_text(
                 encoding="utf-8"
@@ -68,6 +74,14 @@ class SnapshotDocumentationSyncTests(unittest.TestCase):
             self.assertIn("| Vita + PSP homebrew entries | **1** |", readme)
             self.assertIn("2026-11-19 10:07:51 UTC", readme)
             self.assertIn("**2 games / 3 releases** on 2026-11-19", roadmap)
+            import_doc = (root / "docs" / "NPS-CATALOG-IMPORT.md").read_text(encoding="utf-8")
+            self.assertIn("## Latest verified snapshot · 2026-11-19", import_doc)
+            self.assertIn("| Canonical game records | **2** |", import_doc)
+            self.assertIn("| Release records | **3** |", import_doc)
+            self.assertIn("| Homebrew entries | **1** |", import_doc)
+            self.assertIn("| PSV_GAMES | 2026-11-19T10:07:50Z | 2 |", import_doc)
+            self.assertIn("catalog sync run #12345", import_doc)
+            self.assertIn(hashlib.sha256(raw).hexdigest(), import_doc)
 
 
 if __name__ == "__main__":
