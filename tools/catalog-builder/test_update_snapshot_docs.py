@@ -47,8 +47,8 @@ class SnapshotDocumentationSyncTests(unittest.TestCase):
             )
 
             (root / "docs" / "NPS-CATALOG-IMPORT.md").write_text(
-                "## Importer\\n\\nKeep the current snapshot below.\\n\\n"
-                "## Latest verified snapshot · old\\nold data\\n",
+                "## Importer\n\nKeep the current snapshot below.\n\n"
+                "## Latest verified snapshot · old\nold data\n",
                 encoding="utf-8",
             )
 
