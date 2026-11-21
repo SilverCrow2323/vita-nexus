@@ -1,12 +1,31 @@
 import hashlib
 import json
+import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from catalog_validation import validate_catalog
+from validate_catalog import inspect_forbidden, main as validate_catalog_main
 
 
 class CatalogShapeValidationTests(unittest.TestCase):
+    def test_public_validator_rejects_punctuation_variants_of_payload_keys(self):
+        for key in ("download-url", "package.url", "sha-256", "license-key", "download_url"):
+            with self.subTest(key=key):
+                with self.assertRaises(SystemExit) as result:
+                    inspect_forbidden({"nested": {key: "redacted"}})
+                self.assertEqual(result.exception.code, 1)
+
+    def test_public_validator_rejects_non_object_root_cleanly(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "catalog.json"
+            path.write_text("[]", encoding="utf-8")
+            with patch("sys.argv", ["validate_catalog.py", str(path)]):
+                with self.assertRaises(SystemExit) as result:
+                    validate_catalog_main()
+            self.assertEqual(result.exception.code, 1)
+
     def valid_catalog(self):
         return {
             "schemaVersion": "1.0.0",

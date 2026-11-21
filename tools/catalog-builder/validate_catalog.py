@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -23,7 +24,7 @@ def fail(message: str) -> None:
 def inspect_forbidden(value: object, location: str = "root") -> None:
     if isinstance(value, dict):
         for key, child in value.items():
-            normalized = str(key).replace("_", "").casefold()
+            normalized = re.sub(r"[^a-z0-9]", "", str(key).casefold())
             if normalized in FORBIDDEN_KEYS:
                 fail(f"forbidden package, payload or integrity field at {location}.{key}")
             inspect_forbidden(child, f"{location}.{key}")
@@ -38,6 +39,9 @@ def main() -> int:
         catalog = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         fail(f"cannot read valid JSON from {path}: {error}")
+
+    if not isinstance(catalog, dict):
+        fail("catalog root must be an object")
 
     if catalog.get("schemaVersion") != "1.0.0":
         fail("unsupported or missing schemaVersion")
