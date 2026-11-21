@@ -12,6 +12,11 @@ class NativeIndexBuilderTests(unittest.TestCase):
         return {
             "schemaVersion": "1.0.0",
             "generatedAt": "2026-11-18T09:00:00Z",
+            "sources": [
+                {"sourceId": "nopaystation", "dataset": "PSV_GAMES", "recordCount": 2},
+                {"sourceId": "nopaystation", "dataset": "PSP_GAMES", "recordCount": 1},
+            ],
+            "totals": {"games": 1, "releases": 3},
             "games": [{
                 "gameId": "vita-test-001",
                 "title": 'A "Quoted" Game',
@@ -34,9 +39,24 @@ class NativeIndexBuilderTests(unittest.TestCase):
                      "voteCount": 42, "source": "https://scores.test/game"},
                 ],
                 "releases": [
-                    {"releaseId": "vita-test-001-psvita-eu-1", "platform": "psvita"},
-                    {"releaseId": "vita-test-001-psp-eu-1", "platform": "psp"},
-                    {"releaseId": "vita-test-001-psvita-us-1", "platform": "psvita"},
+                    {
+                        "releaseId": "vita-test-001-psvita-eu-1",
+                        "platform": "psvita",
+                        "sourceId": "nopaystation",
+                        "sourceDataset": "PSV_GAMES",
+                    },
+                    {
+                        "releaseId": "vita-test-001-psp-eu-1",
+                        "platform": "psp",
+                        "sourceId": "nopaystation",
+                        "sourceDataset": "PSP_GAMES",
+                    },
+                    {
+                        "releaseId": "vita-test-001-psvita-us-1",
+                        "platform": "psvita",
+                        "sourceId": "nopaystation",
+                        "sourceDataset": "PSV_GAMES",
+                    },
                 ],
             }],
         }
