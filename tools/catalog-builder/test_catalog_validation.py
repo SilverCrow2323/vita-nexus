@@ -11,7 +11,7 @@ from validate_catalog import inspect_forbidden, main as validate_catalog_main
 
 class CatalogShapeValidationTests(unittest.TestCase):
     def test_public_validator_rejects_punctuation_variants_of_payload_keys(self):
-        for key in ("download-url", "package.url", "sha-256", "license-key"):
+        for key in ("download-url", "package.url", "sha-256", "license-key", "download_url"):
             with self.subTest(key=key):
                 with self.assertRaises(SystemExit) as result:
                     inspect_forbidden({"nested": {key: "redacted"}})
