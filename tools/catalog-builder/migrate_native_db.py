@@ -8,6 +8,7 @@ that the current VitaSDK runtime links SQLite or opens this database yet.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import sqlite3
 from pathlib import Path
@@ -65,20 +66,45 @@ def apply_migrations(database: str | Path, migration_dir: str | Path) -> tuple[i
                 f"database schema {current} is newer than available migrations {versions[-1]}"
             )
 
+        ledger_exists = connection.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='schema_migrations'"
+        ).fetchone() is not None
+        if current == 0 and ledger_exists:
+            raise ValueError("migration ledger exists but PRAGMA user_version is zero")
+        if current > 0:
+            if not ledger_exists:
+                raise ValueError("database schema version has no migration ledger")
+            ledger = {
+                int(version): (name, digest)
+                for version, name, digest in connection.execute(
+                    "SELECT version, name, sha256 FROM schema_migrations ORDER BY version"
+                )
+            }
+            if sorted(ledger) != list(range(1, current + 1)):
+                raise ValueError("migration ledger does not match PRAGMA user_version")
+            for version, path in migrations:
+                if version > current:
+                    continue
+                expected_digest = hashlib.sha256(path.read_bytes()).hexdigest()
+                if ledger[version] != (path.stem, expected_digest):
+                    raise ValueError(f"applied migration {version} name/checksum mismatch")
+
         for version, path in migrations:
             if version <= current:
                 continue
             if version != current + 1:
                 raise ValueError(f"cannot apply migration {version} after schema {current}")
 
-            script = path.read_text(encoding="utf-8")
+            migration_bytes = path.read_bytes()
+            migration_digest = hashlib.sha256(migration_bytes).hexdigest()
+            script = migration_bytes.decode("utf-8")
             connection.execute("BEGIN IMMEDIATE")
             try:
                 for statement in sql_statements(script):
                     connection.execute(statement)
                 connection.execute(
-                    "INSERT INTO schema_migrations(version, name) VALUES (?, ?)",
-                    (version, path.stem),
+                    "INSERT INTO schema_migrations(version, name, sha256) VALUES (?, ?, ?)",
+                    (version, path.stem, migration_digest),
                 )
                 connection.execute(f"PRAGMA user_version = {version}")
                 connection.commit()
