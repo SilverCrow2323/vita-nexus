@@ -84,5 +84,16 @@ class SnapshotDocumentationSyncTests(unittest.TestCase):
             self.assertIn(hashlib.sha256(raw).hexdigest(), import_doc)
 
 
+    def test_catalog_sync_stages_every_snapshot_document_written_by_updater(self):
+        root = Path(__file__).resolve().parents[2]
+        workflow = (root / ".github" / "workflows" / "catalog-sync.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            "git add web/data/catalog.json docs/CATALOG-SNAPSHOT-MANIFEST.md "
+            "docs/NPS-CATALOG-IMPORT.md README.md docs/ROADMAP.md",
+            workflow,
+        )
+
 if __name__ == "__main__":
     unittest.main()

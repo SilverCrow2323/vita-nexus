@@ -58,7 +58,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add web/data/catalog.json docs/CATALOG-SNAPSHOT-MANIFEST.md README.md docs/ROADMAP.md
+          git add web/data/catalog.json docs/CATALOG-SNAPSHOT-MANIFEST.md docs/NPS-CATALOG-IMPORT.md README.md docs/ROADMAP.md
           if git diff --cached --quiet; then
             echo "Catalog snapshot and documentation are already up to date."
             exit 0
