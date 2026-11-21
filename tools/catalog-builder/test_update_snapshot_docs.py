@@ -84,5 +84,16 @@ class SnapshotDocumentationSyncTests(unittest.TestCase):
             self.assertIn(hashlib.sha256(raw).hexdigest(), import_doc)
 
 
+    def test_catalog_sync_stages_every_snapshot_document_written_by_updater(self):
+        root = Path(__file__).resolve().parents[2]
+        workflow = (root / ".github" / "workflows" / "catalog-sync.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertRegex(
+            workflow,
+            r"(?m)^\s*git add .*docs/NPS-CATALOG-IMPORT\.md$",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
