@@ -89,11 +89,11 @@ class SnapshotDocumentationSyncTests(unittest.TestCase):
         workflow = (root / ".github" / "workflows" / "catalog-sync.yml").read_text(
             encoding="utf-8"
         )
-        self.assertRegex(
+        self.assertIn(
+            "git add web/data/catalog.json docs/CATALOG-SNAPSHOT-MANIFEST.md "
+            "docs/NPS-CATALOG-IMPORT.md README.md docs/ROADMAP.md",
             workflow,
-            r"(?m)^\s*git add .*docs/NPS-CATALOG-IMPORT\.md$",
         )
-
 
 if __name__ == "__main__":
     unittest.main()
