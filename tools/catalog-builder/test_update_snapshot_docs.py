@@ -95,5 +95,15 @@ class SnapshotDocumentationSyncTests(unittest.TestCase):
             workflow,
         )
 
+    def test_pages_artifact_name_is_unique_per_attempt_and_matches_deploy(self):
+        root = Path(__file__).resolve().parents[2]
+        workflow = (root / ".github" / "workflows" / "pages.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("name: github-pages-${{ github.run_attempt }}", workflow)
+        self.assertIn("artifact_name: github-pages-${{ github.run_attempt }}", workflow)
+        self.assertIn("Allow Pages artifact metadata to settle", workflow)
+
+
 if __name__ == "__main__":
     unittest.main()
