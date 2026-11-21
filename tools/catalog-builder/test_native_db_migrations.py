@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import shutil
 import sqlite3
 import tempfile
 import unittest
@@ -73,9 +75,13 @@ class NativeDatabaseMigrationTests(unittest.TestCase):
             self.assertIn("catalog_releases_platform_region_idx", indexes)
             self.assertEqual(
                 connection.execute(
-                    "SELECT version, name FROM schema_migrations"
+                    "SELECT version, name, sha256 FROM schema_migrations"
                 ).fetchall(),
-                [(1, "0001_catalog_and_personal_state")],
+                [(
+                    1,
+                    "0001_catalog_and_personal_state",
+                    hashlib.sha256((MIGRATIONS / "0001_catalog_and_personal_state.sql").read_bytes()).hexdigest(),
+                )],
             )
 
     def test_migration_is_idempotent_and_does_not_rewrite_applied_history(self) -> None:
@@ -209,6 +215,24 @@ class NativeDatabaseMigrationTests(unittest.TestCase):
                 "SELECT 1 FROM sqlite_master WHERE type='table' AND name='should_rollback'"
             ).fetchone()
             self.assertIsNone(table)
+
+    def test_applied_migration_content_change_fails_closed(self) -> None:
+        migration_dir = Path(self.temporary.name) / "mutable-migrations"
+        migration_dir.mkdir()
+        source = MIGRATIONS / "0001_catalog_and_personal_state.sql"
+        copied = migration_dir / source.name
+        shutil.copyfile(source, copied)
+        self.assertEqual(apply_migrations(self.database, migration_dir), (1, [1]))
+        copied.write_text(copied.read_text(encoding="utf-8") + "\n-- changed after application\n", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "name/checksum mismatch"):
+            apply_migrations(self.database, migration_dir)
+
+    def test_missing_migration_ledger_fails_closed(self) -> None:
+        self.migrate()
+        with self.connect() as connection:
+            connection.execute("DELETE FROM schema_migrations")
+        with self.assertRaisesRegex(ValueError, "migration ledger does not match"):
+            apply_migrations(self.database, MIGRATIONS)
 
     def test_newer_database_and_non_contiguous_migrations_fail_closed(self) -> None:
         with self.connect() as connection:
