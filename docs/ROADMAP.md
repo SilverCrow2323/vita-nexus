@@ -106,7 +106,7 @@ The static website now has a project landing page, searchable catalog browser an
 - [x] Visual documentation portal with project chapters.
 - [x] Browser-side catalog logic regression tests wired into CI (editorial metadata fallback coverage).
 - [x] Give game-detail dialogs an accessible name/summary, announce concise result counts, move focus to replacement recommendation sheets and restore it to the original catalog trigger (or search fallback); the broader keyboard and reduced-motion audit remains open.
-- [x] Public catalog snapshot generated and validated: **9,795 games / 12,420 releases** on 2026-11-21; provenance is recorded in [the snapshot manifest](CATALOG-SNAPSHOT-MANIFEST.md).
+- [x] Public catalog snapshot generated and validated: **9,809 games / 12,434 releases** on 2026-11-22; provenance is recorded in [the snapshot manifest](CATALOG-SNAPSHOT-MANIFEST.md).
 - [ ] Add curated metadata and relation seeds for reviewed commercial titles.
 - [x] Configure the GitHub Pages deployment workflow for the web companion; keep deployment health in the pre-release checklist.
 - [ ] Add static ranking snapshots and public ranking methodology.

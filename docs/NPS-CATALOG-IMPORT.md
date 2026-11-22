@@ -92,26 +92,26 @@ A homebrew release is represented as a `homebrew` catalog release with a separat
 The importer deliberately excludes `url`, `data`, `hash`, `hash2`, checksum and package payload fields. Project source and release-page links are retained only as ordinary informational links.
 
 
-## Latest verified snapshot · 2026-11-21
+## Latest verified snapshot · 2026-11-22
 
-The canonical snapshot on main was regenerated and validated by [catalog sync run #44904843901](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904843901).
+The canonical snapshot on main was regenerated and validated by [catalog sync run #45022871864](https://github.com/SilverCrow2323/vita-nexus/actions/runs/45022871864).
 
 | Measure | Verified value |
 |---|---:|
 | Schema version | 1.0.0 |
-| Generated at (UTC) | 2026-11-21T12:37:41Z |
-| Canonical game records | **9,795** |
-| Release records | **12,420** |
-| Homebrew entries | **4,529** |
+| Generated at (UTC) | 2026-11-22T12:33:18Z |
+| Canonical game records | **9,809** |
+| Release records | **12,434** |
+| Homebrew entries | **4,543** |
 
 | Source dataset | Fetched at (UTC) | Accepted rows |
 |---|---|---:|
-| PSV_GAMES | 2026-11-21T12:37:39Z | 3,784 |
-| PSP_GAMES | 2026-11-21T12:37:39Z | 2,459 |
-| PSX_GAMES | 2026-11-21T12:37:39Z | 1,648 |
-| apps.json | 2026-11-21T12:37:41Z | 1,433 |
-| psp_apps.json | 2026-11-21T12:37:41Z | 3,096 |
+| PSV_GAMES | 2026-11-22T12:33:17Z | 3,784 |
+| PSP_GAMES | 2026-11-22T12:33:17Z | 2,459 |
+| PSX_GAMES | 2026-11-22T12:33:17Z | 1,648 |
+| apps.json | 2026-11-22T12:33:18Z | 1,447 |
+| psp_apps.json | 2026-11-22T12:33:18Z | 3,096 |
 
-The exact UTF-8 snapshot file web/data/catalog.json has SHA-256 f10d6ab462bc348c9cc26e579420623d420bd9bf00f1b63e841816e034c24422 (Git blob SHA-1 80f8f867c0fc8caedf5f73a630e12960198b6a36). Counts are recalculated from canonical JSON records.
+The exact UTF-8 snapshot file web/data/catalog.json has SHA-256 b1dfcfc31591cc4c048a81028753707624477822f99d6def39cf4734ec0971dd (Git blob SHA-1 73a255e8a5c5edfe510258efc2aba7b72294e305). Counts are recalculated from canonical JSON records.
 
 The scheduled importer keeps package URLs, license values, checksums and payloads out of the public catalog. This section is regenerated with the snapshot manifest, README and roadmap in the same catalog-sync commit.
