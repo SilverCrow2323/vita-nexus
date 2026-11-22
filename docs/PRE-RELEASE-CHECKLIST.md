@@ -89,4 +89,27 @@ Current main HEAD: `6046df1583ffe54a8c88328f91e7c9202b5ec31e`. Native personal-l
 - [x] Latest Pages deployment [#44715029929](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44715029929) succeeded on commit `8686f073e5f40d2cc9487ccf2dd545d52c992143`. Comparing that commit with current main shows only `native/README.md`, `native/src/library_store.c` and `tests/native_library_store_test.c` changed; the deployed web source tree therefore matches current main. The public URL itself still needs a direct smoke check.
 - [ ] Re-run the 00.10 visual, input, focus, lifecycle, install/update/rollback and offline-recovery acceptance on a real PS Vita 1000/2000.
 
-SQLite schema/migrations and installed-title discovery remain unimplemented. The earlier 00.05 Vita 1000 baseline is not evidence for the 00.10 magazine UI. The successful CI VPK is not a physical-device test, and no public release is published.
+A versioned SQLite schema and host migration harness now exist, but they are not linked into the Vita runtime; installed-title discovery remains unimplemented. The earlier 00.05 Vita 1000 baseline is not evidence for the 00.10 magazine UI. The successful CI VPK is not a physical-device test, and no public release is published.
+
+---
+
+## Exact native alpha evidence · 21 November 2026
+
+This evidence record pins the current main build and the exact VPK file downloaded and inspected from GitHub Actions. It is an **alpha artifact**, not a published GitHub Release or a hardware-certified package.
+
+| Field | Verified value |
+|---|---|
+| Source HEAD | `8afc13694c5989a105eca07c5b00482aaa212a51` |
+| Native build | [#44904872013](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904872013) — success |
+| Quality | [#44904872062](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904872062) — success |
+| Pages deployment | [#44904872043](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904872043) — success |
+| Actions artifact | [#14707527114](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904872013/artifacts/14707527114) |
+| Outer ZIP | 1,290,512 bytes · SHA-256 `c2437cdcf411ad783277574602823352f0f452d54e45516aacd16f6022f530de` |
+| Extracted VPK | 1,290,260 bytes · SHA-256 `4f34c0a9fbe27d0a31e31c7546d3011593b79a2ad9211c35654e298927188ad2` |
+| SFO identity | `VNXS00001` · `APP_VER=00.10` · `VERSION=00.00` |
+
+The artifact ZIP was downloaded and extracted; the VPK's SHA-256 was calculated from its actual bytes. CI independently verifies the VPK structure and Title ID.
+
+The previous 00.05 baseline was confirmed on a PS Vita 1000. That does **not** certify the 00.10 magazine redesign or this exact VPK. Real-device installation, typography/layout, focus, controls/touch, suspend/resume, offline recovery and shutdown remain pending.
+
+The machine-readable [native alpha candidate manifest](releases/native-alpha-2026-11-21.json) is the source of truth for these exact checksums, workflow links and remaining gates. No stable release or tag is published.

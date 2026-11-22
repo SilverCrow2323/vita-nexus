@@ -1,0 +1,56 @@
+{
+  "schema": "vita-nexus.native-alpha-candidate/v1",
+  "product": "VITA NEXUS Native",
+  "channel": "alpha-artifact",
+  "official_release": false,
+  "prepared_date": "2026-11-21",
+  "source": {
+    "repository": "SilverCrow2323/vita-nexus",
+    "branch": "main",
+    "commit": "8afc13694c5989a105eca07c5b00482aaa212a51"
+  },
+  "package": {
+    "name": "vita_nexus_native.vpk",
+    "title_id": "VNXS00001",
+    "title": "VITA NEXUS",
+    "app_ver": "00.10",
+    "sfo_version": "00.00",
+    "size_bytes": 1290260,
+    "sha256": "4f34c0a9fbe27d0a31e31c7546d3011593b79a2ad9211c35654e298927188ad2"
+  },
+  "artifact": {
+    "id": 14707527114,
+    "name": "vita-nexus-native-alpha",
+    "workflow_run_id": 44904872013,
+    "archive_size_bytes": 1290512,
+    "archive_sha256": "c2437cdcf411ad783277574602823352f0f452d54e45516aacd16f6022f530de",
+    "url": "https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904872013/artifacts/14707527114",
+    "downloaded_and_inspected": true
+  },
+  "validation": {
+    "native_build_run": "https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904872013",
+    "native_build": "success; VitaSDK 2026.08; VPK structure and Title ID checks passed",
+    "quality_run": "https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904872062",
+    "quality": "success; catalog import, browser logic, native local-library/profile/UI host tests",
+    "pages_deploy_run": "https://github.com/SilverCrow2323/vita-nexus/actions/runs/44904872043",
+    "pages_deploy": "success"
+  },
+  "hardware_acceptance": {
+    "status": "pending",
+    "note": "Earlier 00.05 baseline was user-confirmed on a PS Vita 1000; that does not validate the 00.10 magazine redesign or this exact VPK.",
+    "required": [
+      "Install and launch this exact VPK on PS Vita 1000 and 2000 where available",
+      "Verify title identity and existing-data preservation",
+      "Check magazine layout, typography, focus, D-pad and touchscreen behavior",
+      "Check suspend/resume, offline startup, corrupt/missing local data recovery and shutdown",
+      "Record model, firmware, exact VPK SHA-256 and observed results"
+    ]
+  },
+  "limitations": [
+    "Installed-title scanner is not implemented.",
+    "Native app still uses versioned app-owned local files; the versioned SQLite schema and host migration harness are not yet integrated into Vita runtime.",
+    "Automatic playtime tracking is not implemented.",
+    "Community accounts, votes and cloud sync require a future backend."
+  ],
+  "release_decision": "Do not tag or publish a stable release until the exact 00.10 VPK passes the physical-device acceptance checklist."
+}
