@@ -89,7 +89,7 @@ Current main HEAD: `6046df1583ffe54a8c88328f91e7c9202b5ec31e`. Native personal-l
 - [x] Latest Pages deployment [#44715029929](https://github.com/SilverCrow2323/vita-nexus/actions/runs/44715029929) succeeded on commit `8686f073e5f40d2cc9487ccf2dd545d52c992143`. Comparing that commit with current main shows only `native/README.md`, `native/src/library_store.c` and `tests/native_library_store_test.c` changed; the deployed web source tree therefore matches current main. The public URL itself still needs a direct smoke check.
 - [ ] Re-run the 00.10 visual, input, focus, lifecycle, install/update/rollback and offline-recovery acceptance on a real PS Vita 1000/2000.
 
-SQLite schema/migrations and installed-title discovery remain unimplemented. The earlier 00.05 Vita 1000 baseline is not evidence for the 00.10 magazine UI. The successful CI VPK is not a physical-device test, and no public release is published.
+A versioned SQLite schema and host migration harness now exist, but they are not linked into the Vita runtime; installed-title discovery remains unimplemented. The earlier 00.05 Vita 1000 baseline is not evidence for the 00.10 magazine UI. The successful CI VPK is not a physical-device test, and no public release is published.
 
 ---
 
