@@ -80,7 +80,7 @@ static int valid_record_id(const char game_id[VITA_NEXUS_LIBRARY_ID_CAP])
 {
     const char *terminator;
     if (!game_id) return 0;
-    terminator = (const char *)memchr(game_id, '\\0', VITA_NEXUS_LIBRARY_ID_CAP);
+    terminator = (const char *)memchr(game_id, '\0', VITA_NEXUS_LIBRARY_ID_CAP);
     if (!terminator) return 0;
     return valid_id_length(game_id, (size_t)(terminator - game_id));
 }
