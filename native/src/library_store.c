@@ -58,18 +58,31 @@ static int parse_checksum_line(const char *line, uint32_t *checksum)
     return 1;
 }
 
-static int valid_id(const char *game_id)
+static int valid_id_length(const char *game_id, size_t length)
 {
-    size_t length;
-    if (!game_id) return 0;
-    length = strlen(game_id);
-    if (length == 0 || length >= VITA_NEXUS_LIBRARY_ID_CAP) return 0;
+    if (!game_id || length == 0 || length >= VITA_NEXUS_LIBRARY_ID_CAP) return 0;
     for (size_t i = 0; i < length; ++i) {
         const unsigned char c = (unsigned char)game_id[i];
         if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
               (c >= '0' && c <= '9') || c == '-' || c == '_' || c == '.')) return 0;
     }
     return 1;
+}
+
+static int valid_id(const char *game_id)
+{
+    return game_id && valid_id_length(game_id, strlen(game_id));
+}
+
+/* Record IDs live in fixed-size arrays. Never call strlen/strcmp on a record
+ * until its terminator has been found within that array's actual bounds. */
+static int valid_record_id(const char game_id[VITA_NEXUS_LIBRARY_ID_CAP])
+{
+    const char *terminator;
+    if (!game_id) return 0;
+    terminator = (const char *)memchr(game_id, '\0', VITA_NEXUS_LIBRARY_ID_CAP);
+    if (!terminator) return 0;
+    return valid_id_length(game_id, (size_t)(terminator - game_id));
 }
 
 void vita_nexus_library_init(VitaNexusLibrary *library)
@@ -81,6 +94,8 @@ const VitaNexusLibraryRecord *vita_nexus_library_find(const VitaNexusLibrary *li
 {
     if (!library || library->count > VITA_NEXUS_LIBRARY_MAX_RECORDS || !valid_id(game_id)) return NULL;
     for (size_t i = 0; i < library->count; ++i)
+        if (!valid_record_id(library->records[i].game_id)) return NULL;
+    for (size_t i = 0; i < library->count; ++i)
         if (strcmp(library->records[i].game_id, game_id) == 0) return &library->records[i];
     return NULL;
 }
@@ -91,6 +106,8 @@ VitaNexusStoreResult vita_nexus_library_set(VitaNexusLibrary *library, const cha
     if (!library || library->count > VITA_NEXUS_LIBRARY_MAX_RECORDS || !valid_id(game_id) ||
         (flags & (uint8_t)~7u) || rating > 10)
         return VITA_NEXUS_STORE_INVALID;
+    for (size_t i = 0; i < library->count; ++i)
+        if (!valid_record_id(library->records[i].game_id)) return VITA_NEXUS_STORE_INVALID;
     for (size_t i = 0; i < library->count; ++i) {
         if (strcmp(library->records[i].game_id, game_id) == 0) {
             if (flags == 0 && rating == 0) {
@@ -195,7 +212,7 @@ VitaNexusStoreResult vita_nexus_library_save(const VitaNexusLibrary *library, co
     for (size_t i = 0; i < library->count; ++i) {
         char line[STORE_LINE_CAP];
         const VitaNexusLibraryRecord *record = &library->records[i];
-        if (!valid_id(record->game_id) || (record->flags & (uint8_t)~7u) || record->rating > 10 ||
+        if (!valid_record_id(record->game_id) || (record->flags & (uint8_t)~7u) || record->rating > 10 ||
             (record->flags == 0 && record->rating == 0)) {
             fclose(file); remove(temp_path); return VITA_NEXUS_STORE_INVALID;
         }

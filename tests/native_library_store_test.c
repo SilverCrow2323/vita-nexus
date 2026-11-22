@@ -64,6 +64,17 @@ int main(void)
     assert(vita_nexus_library_set(&loaded, "bad/id", 1, 0) == VITA_NEXUS_STORE_INVALID);
     assert(vita_nexus_library_set(&loaded, "rating-overflow", 1, 11) == VITA_NEXUS_STORE_INVALID);
 
+    /* A fixed-size record without an in-bounds NUL must fail closed before
+       lookup, mutation or persistence can reach strcmp/strlen. */
+    VitaNexusLibrary malformed_record = loaded;
+    memset(malformed_record.records[0].game_id, 'x',
+        sizeof(malformed_record.records[0].game_id));
+    assert(vita_nexus_library_find(&malformed_record, "future-catalog-id") == NULL);
+    assert(vita_nexus_library_set(&malformed_record, "safe-id",
+        VITA_NEXUS_LIBRARY_FAVORITE, 0) == VITA_NEXUS_STORE_INVALID);
+    assert(malformed_record.count == loaded.count);
+    assert(vita_nexus_library_save(&malformed_record, bad_path) == VITA_NEXUS_STORE_INVALID);
+
     FILE *wrong_version = fopen(bad_path, "wb");
     assert(wrong_version != NULL);
     fputs("VNXLIB|2\nEND|811C9DC5\n", wrong_version);
