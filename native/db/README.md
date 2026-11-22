@@ -11,6 +11,7 @@ The native app currently uses its bounded, checksummed local library/profile fil
 - Foreign keys are enabled by the host migration runner and must also be enabled by any future runtime connection.
 - Public catalog rows are metadata-only. The schema has no package URL, zRIF, license, ROM, ISO or binary-payload columns.
 - Profiles, profile-game state, play sessions and session events are local user-owned records.
+- The active checksummed library store validates fixed-size record IDs with an in-bounds NUL check before lookup, mutation or save; malformed in-memory records fail closed rather than reaching unbounded string comparisons.
 
 ## Host verification
 
