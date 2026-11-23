@@ -23,9 +23,10 @@ The roadmap is organized around testable milestones. A feature is not complete b
 - [x] Implement the first controller-driven native screen (hardware visual check still pending).
 - [x] Implement controller-driven digital D-pad navigation across the native screens.
 - [ ] Add analog-stick and touchscreen input.
-- [x] Define SQLite schema v1 and a transactional host migration harness for catalog, profile and session data.
+- [x] Define a versioned SQLite schema and transactional host migration harness for catalog, profile and session data.
 - [ ] Integrate SQLite into the native Vita runtime after the pinned VitaSDK library, backup/recovery and device-migration gates are verified.
 - [x] Generate a read-only native index from the shared schema v1.0.0 catalog snapshot.
+- [x] Import that same validated snapshot into host SQLite with SHA-256/source provenance and safe retention of personal history when catalog rows disappear.
 - [ ] Scan a supported set of PS Vita application metadata.
 - [ ] Validate read-only behavior on hardware.
 
@@ -120,7 +121,7 @@ The native application lives in `native/` and uses the pinned VitaSDK 2026.08 to
 
 ## Native catalog progress
 
-The native Discover screen browses the shared public snapshot offline. CI generates a compact C index from `web/data/catalog.json`; the index carries the same source-backed age ratings, review scores, genres, features, themes and editorial text used by the web companion. The native app also contains its own local Library, three profiles and backups. SQLite migration, installed-title scanning and automatic playtime remain outside the current build.
+The native Discover screen browses the shared public snapshot offline. CI generates a compact C index from `web/data/catalog.json`; the index carries the same source-backed age ratings, review scores, genres, features, themes and editorial text used by the web companion. The native app also contains its own local Library, three profiles and backups. A host-side SQLite v2 importer now consumes the same validated snapshot, records its SHA-256 and source datasets, and marks removed public rows inactive without deleting user-owned profile/session history. SQLite is still not linked into the Vita runtime; installed-title scanning and automatic playtime remain outside the current build.
 
 
 ### Native Discover filters

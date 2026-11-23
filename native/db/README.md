@@ -19,10 +19,11 @@ From the repository root:
 
 \`\`\`sh
 python tools/catalog-builder/migrate_native_db.py --database /tmp/vita-nexus.db
-python tools/catalog-builder/migrate_native_db.py --database /tmp/vita-nexus.db
+python tools/catalog-builder/import_catalog_sqlite.py --catalog web/data/catalog.json --database /tmp/vita-nexus.db
+python tools/catalog-builder/import_catalog_sqlite.py --catalog web/data/catalog.json --database /tmp/vita-nexus.db
 \`\`\`
 
-The second invocation is a no-op. The standard-library test suite exercises constraints, foreign keys, profile cascades, single-active-profile enforcement, idempotency, sequence gaps and transactional rollback.
+The second migration invocation and repeated catalog import are no-ops for the same snapshot. The standard-library test suite exercises constraints, foreign keys, source provenance, snapshot hashes, idempotency, safe stale-row retention, sequence gaps and transactional rollback.
 
 ## Runtime boundary
 

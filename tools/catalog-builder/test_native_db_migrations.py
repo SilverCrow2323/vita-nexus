@@ -49,11 +49,11 @@ class NativeDatabaseMigrationTests(unittest.TestCase):
 
     def test_initial_migration_creates_versioned_tables_and_indexes(self) -> None:
         version, applied = self.migrate()
-        self.assertEqual(version, 1)
-        self.assertEqual(applied, [1])
+        self.assertEqual(version, 2)
+        self.assertEqual(applied, [1, 2])
 
         with self.connect() as connection:
-            self.assertEqual(connection.execute("PRAGMA user_version").fetchone()[0], 1)
+            self.assertEqual(connection.execute("PRAGMA user_version").fetchone()[0], 2)
             tables = {
                 row[0]
                 for row in connection.execute(
@@ -62,7 +62,7 @@ class NativeDatabaseMigrationTests(unittest.TestCase):
             }
             self.assertTrue({
                 "schema_migrations", "catalog_snapshot", "catalog_games",
-                "catalog_releases", "profiles", "profile_games",
+                "catalog_releases", "catalog_sources", "profiles", "profile_games",
                 "play_sessions", "session_events",
             }.issubset(tables))
             indexes = {
@@ -73,24 +73,34 @@ class NativeDatabaseMigrationTests(unittest.TestCase):
             }
             self.assertIn("profiles_single_active_idx", indexes)
             self.assertIn("catalog_releases_platform_region_idx", indexes)
+            self.assertIn("catalog_games_snapshot_idx", indexes)
+            self.assertIn("catalog_releases_snapshot_idx", indexes)
+            self.assertIn("catalog_sources_snapshot_idx", indexes)
             self.assertEqual(
                 connection.execute(
                     "SELECT version, name, sha256 FROM schema_migrations"
                 ).fetchall(),
-                [(
-                    1,
-                    "0001_catalog_and_personal_state",
-                    hashlib.sha256((MIGRATIONS / "0001_catalog_and_personal_state.sql").read_bytes()).hexdigest(),
-                )],
+                [
+                    (
+                        1,
+                        "0001_catalog_and_personal_state",
+                        hashlib.sha256((MIGRATIONS / "0001_catalog_and_personal_state.sql").read_bytes()).hexdigest(),
+                    ),
+                    (
+                        2,
+                        "0002_catalog_snapshot_membership",
+                        hashlib.sha256((MIGRATIONS / "0002_catalog_snapshot_membership.sql").read_bytes()).hexdigest(),
+                    ),
+                ],
             )
 
     def test_migration_is_idempotent_and_does_not_rewrite_applied_history(self) -> None:
-        self.assertEqual(self.migrate(), (1, [1]))
-        self.assertEqual(self.migrate(), (1, []))
+        self.assertEqual(self.migrate(), (2, [1, 2]))
+        self.assertEqual(self.migrate(), (2, []))
         with self.connect() as connection:
             self.assertEqual(
                 connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0],
-                1,
+                2,
             )
 
     def test_foreign_keys_profile_flags_and_session_lifecycle_are_enforced(self) -> None:
