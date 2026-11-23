@@ -4,7 +4,10 @@ The native app currently uses its bounded, checksummed local library/profile fil
 
 ## What is included
 
-- \`migrations/0001_catalog_and_personal_state.sql\` defines schema version 1.
+- `migrations/0001_catalog_and_personal_state.sql` defines the base catalog/profile/session schema.
+- `migrations/0002_catalog_snapshot_membership.sql` adds source provenance and snapshot-membership flags without deleting historical rows.
+- `tools/catalog-builder/import_catalog_sqlite.py` imports the same validated metadata-only JSON snapshot used by the web companion and native C-index builder, recording the exact SHA-256 and source datasets.
+- Rows removed from a newer public snapshot are marked `is_in_snapshot = 0`, not deleted; profile entries and play-session history retain their foreign-key targets.
 - \`PRAGMA user_version\` is the authoritative migration cursor.
 - \`schema_migrations\` records the exact numbered migration name and application time.
 - Each migration is applied inside its own \`BEGIN IMMEDIATE\` transaction. A failed statement rolls back both schema changes and the version bump.
@@ -19,11 +22,12 @@ From the repository root:
 
 \`\`\`sh
 python tools/catalog-builder/migrate_native_db.py --database /tmp/vita-nexus.db
+python tools/catalog-builder/migrate_native_db.py --database /tmp/vita-nexus.db
 python tools/catalog-builder/import_catalog_sqlite.py --catalog web/data/catalog.json --database /tmp/vita-nexus.db
 python tools/catalog-builder/import_catalog_sqlite.py --catalog web/data/catalog.json --database /tmp/vita-nexus.db
 \`\`\`
 
-The second migration invocation and repeated catalog import are no-ops for the same snapshot. The standard-library test suite exercises constraints, foreign keys, source provenance, snapshot hashes, idempotency, safe stale-row retention, sequence gaps and transactional rollback.
+The second migration invocation is a no-op. Re-importing the same snapshot keeps catalog rows and the snapshot hash stable while refreshing `imported_at` to record the successful import. The standard-library test suite exercises constraints, foreign keys, source provenance, snapshot hashes, idempotency, safe stale-row retention, sequence gaps and transactional rollback.
 
 ## Runtime boundary
 
