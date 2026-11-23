@@ -52,6 +52,8 @@ The importer writes a stable JSON snapshot matching [catalog.schema.json](../cat
 
 **Identity contract:** every canonical `gameId` and every release `releaseId` must be non-empty and unique across the complete snapshot. The shared native-index validator enforces both identities before generating C data, so direct generator runs fail closed just like the public catalog validation workflow.
 
+**Native SQLite size contract:** `packageSizeBytes` is either `null` (unknown) or a non-negative integer. The SQLite importer rejects booleans, strings, floating-point values and negative numbers instead of silently converting malformed metadata into an unknown size. This validation happens before database migration/import writes, so a bad snapshot cannot replace the last accepted catalog.
+
 ## Regional grouping
 
 The first automatic grouping pass is conservative: releases with the same normalized title on the same platform are grouped under one catalog entry. PSP and PS1 records remain distinct, even when the display title is the same.
@@ -67,7 +69,6 @@ The scheduled workflow runs daily and can also be started manually from GitHub A
 NPS rows do not provide the complete editorial content expected by VITA NEXUS. Descriptions, genre tags, age ratings, screenshots, cover art, hero artwork and logos belong in the separate editorial enrichment layer.
 
 Each external asset and score must have source attribution and usage terms recorded. Missing metadata should stay missing rather than being guessed.
-
 
 ## Homebrew catalog source
 
@@ -90,7 +91,6 @@ See the [VitaHomebrewDB README and credits](https://github.com/DrDecki/VitaHomeb
 A homebrew release is represented as a `homebrew` catalog release with a separate `targetPlatform` value (`psvita` or `psp`). It is not merged into commercial NPS releases. The upstream entry ID remains the stable source item identifier.
 
 The importer deliberately excludes `url`, `data`, `hash`, `hash2`, checksum and package payload fields. Project source and release-page links are retained only as ordinary informational links.
-
 
 ## Latest verified snapshot · 2026-11-23
 
