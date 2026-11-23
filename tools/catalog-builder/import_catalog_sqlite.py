@@ -40,9 +40,11 @@ def _required_text(value: object, label: str) -> str:
     return result
 
 
-def _release_size(value: object) -> int | None:
-    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+def _release_size(value: object, label: str) -> int | None:
+    if value is None:
         return None
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise ValueError(f"{label} must be a non-negative integer or null")
     return value
 
 
@@ -116,7 +118,10 @@ def import_catalog(
                 "",
                 "",
                 _text(release.get("version")),
-                _release_size(release.get("packageSizeBytes")),
+                _release_size(
+                    release.get("packageSizeBytes"),
+                    f"{release_prefix}.packageSizeBytes",
+                ),
                 source_id,
                 source_dataset,
                 1,

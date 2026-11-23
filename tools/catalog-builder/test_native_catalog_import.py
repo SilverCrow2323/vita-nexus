@@ -217,6 +217,40 @@ class NativeCatalogImportTests(unittest.TestCase):
                 (1,),
             )
 
+    def test_invalid_package_size_fails_closed_and_preserves_last_import(self) -> None:
+        self.write_catalog(make_catalog([
+            ("stable-game", "Stable Game", "psvita"),
+        ], "2026-11-23T00:00:00Z"))
+        import_catalog(self.catalog, self.database, MIGRATIONS)
+
+        for invalid_size in (True, -1, "4096", 4096.5):
+            with self.subTest(package_size_bytes=invalid_size):
+                invalid = make_catalog([
+                    ("replacement-game", "Replacement Game", "psp"),
+                ], "2026-11-23T01:00:00Z")
+                invalid["games"][0]["releases"][0]["packageSizeBytes"] = invalid_size
+                self.write_catalog(invalid)
+                with self.assertRaisesRegex(
+                    ValueError,
+                    r"catalog\.games\[0\]\.releases\[0\]\.packageSizeBytes",
+                ):
+                    import_catalog(self.catalog, self.database, MIGRATIONS)
+
+                with self.connect() as connection:
+                    self.assertEqual(
+                        connection.execute(
+                            "SELECT game_id, is_in_snapshot FROM catalog_games WHERE is_in_snapshot=1"
+                        ).fetchall(),
+                        [("stable-game", 1)],
+                    )
+                    self.assertEqual(
+                        connection.execute(
+                            "SELECT package_size_bytes FROM catalog_releases "
+                            "WHERE release_id='release-stable-game'"
+                        ).fetchone(),
+                        (4096,),
+                    )
+
 
 if __name__ == "__main__":
     unittest.main()
