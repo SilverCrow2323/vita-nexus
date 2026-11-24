@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-11-23T14:34:52Z",
+  "generatedAt": "2026-11-24T14:50:38Z",
   "sources": [
     {
       "sourceId": "nopaystation",
       "name": "NoPayStation",
       "dataset": "PSV_GAMES",
       "url": "https://nopaystation.org/tsv/PSV_GAMES.tsv",
-      "fetchedAt": "2026-11-23T14:34:51Z",
+      "fetchedAt": "2026-11-24T14:50:37Z",
       "recordCount": 3784,
       "notes": "Metadata-only import; 44 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -16,7 +16,7 @@
       "name": "NoPayStation",
       "dataset": "PSP_GAMES",
       "url": "https://nopaystation.org/tsv/PSP_GAMES.tsv",
-      "fetchedAt": "2026-11-23T14:34:51Z",
+      "fetchedAt": "2026-11-24T14:50:37Z",
       "recordCount": 2459,
       "notes": "Metadata-only import; 4 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -25,7 +25,7 @@
       "name": "NoPayStation",
       "dataset": "PSX_GAMES",
       "url": "https://nopaystation.org/tsv/PSX_GAMES.tsv",
-      "fetchedAt": "2026-11-23T14:34:51Z",
+      "fetchedAt": "2026-11-24T14:50:37Z",
       "recordCount": 1648,
       "notes": "Metadata-only import; 20 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -34,8 +34,8 @@
       "name": "VitaHomebrewDB",
       "dataset": "apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-23T14:34:52Z",
-      "recordCount": 1454,
+      "fetchedAt": "2026-11-24T14:50:38Z",
+      "recordCount": 1523,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     },
     {
@@ -43,14 +43,14 @@
       "name": "VitaHomebrewDB",
       "dataset": "psp_apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-23T14:34:52Z",
+      "fetchedAt": "2026-11-24T14:50:38Z",
       "recordCount": 3096,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     }
   ],
   "totals": {
-    "games": 9816,
-    "releases": 12441
+    "games": 9885,
+    "releases": 12510
   },
   "games": [
     {
@@ -3782,6 +3782,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4985",
+      "title": "Accessory Mount Plugin",
+      "sortTitle": "Accessory Mount Plugin",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Settings plugin and installer for PSVSD accessory port storage.",
+      "description": "Settings plugin and installer for PSVSD accessory port storage.",
+      "developer": "RT-Online",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "RT-Online",
+        "version": "v.0.1.6",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4985",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/ba6131b37e4db0e3d36c66c0b1e97f971428bdf38b09bc54278740fec44e81c7.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/RT-Online/PSVSD_Accessory-Port-Plugin",
+        "releasePageUrl": "https://github.com/RT-Online/PSVSD_Accessory-Port-Plugin/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4985",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1.6",
+          "packageSizeBytes": 182032,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4985",
+          "titleId": "RTPSV0002"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-28",
       "title": "AccountSwitcher",
       "sortTitle": "AccountSwitcher",
@@ -4004,6 +4048,50 @@
           "sourceUpdatedAt": "2011-01-01",
           "sourceItemId": "2944",
           "titleId": "ACOR01054"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4976",
+      "title": "Activity Log",
+      "sortTitle": "Activity Log",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Shows how long you played each game on PSVita.",
+      "description": "Shows how long you played each game on PSVita.",
+      "developer": "Bioskopie",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Bioskopie",
+        "version": "v.1.00",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4976",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/c5a625e332c1e95f8c9074ba18420426470df0e4946d1b31542d738e19ae712d.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Bioskopie/VitaActivityLog",
+        "releasePageUrl": "https://github.com/Bioskopie/VitaActivityLog/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4976",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.00",
+          "packageSizeBytes": 378181,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4976",
+          "titleId": "ACTLOG3DS"
         }
       ]
     },
@@ -6373,6 +6461,50 @@
           "sourceUpdatedAt": "2011-05-28",
           "sourceItemId": "2945",
           "titleId": "INST01147"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4921",
+      "title": "All is Lost",
+      "sortTitle": "All is Lost",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of All is Lost for PSVita.",
+      "description": "PSVita .so loader port of the Android game All is Lost. Extract the assets folder from your APK and copy main.obb and patch.obb to ux0:data/ail/.",
+      "developer": "MemoryHunter",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "MemoryHunter",
+        "version": "v.1.0",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of All is Lost (Android)\n- kubridge\n- FdFix",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4921",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/ab30f6e9afe529bd3a7d944db45afcb09aae276b6f062e2e43ed2b408cbdfa58.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/memory-hunter/all-is-lost-vita",
+        "releasePageUrl": "https://github.com/memory-hunter/all-is-lost-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4921",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 2386606,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-23",
+          "sourceItemId": "4921",
+          "titleId": "AILO69420"
         }
       ]
     },
@@ -10502,6 +10634,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4980",
+      "title": "Assassin's Creed Pirates",
+      "sortTitle": "Assassin's Creed Pirates",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Assassin's Creed Pirates (Android 2.9.1) for PSVita.",
+      "description": "Port of Assassin's Creed Pirates (Android 2.9.1) for PSVita.",
+      "developer": "Cynostial",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Cynostial",
+        "version": "v.0.81-beta",
+        "categoryCode": "2",
+        "requirements": "- libshacccg.suprx in ur0:data\n- kubridge.skprx in ur0:tai\n- fd_fix.skprx in ur0:tai\n- Game Data Files: your own APK and OBB of Assassin's Creed Pirates 2.9.1 (Android)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4980",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/a9edb617acbe4bdf29ebbc88a2d853dc0e33c8a1b6cccd5f2ff1ed8c641805fd.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Cynostial/ac-pirates-vita",
+        "releasePageUrl": "https://github.com/Cynostial/ac-pirates-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4980",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.81-beta",
+          "packageSizeBytes": 5920926,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4980",
+          "titleId": "ACPR00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2582",
       "title": "Assault",
       "sortTitle": "Assault",
@@ -11729,6 +11905,50 @@
           "sourceUpdatedAt": "2010-10-15",
           "sourceItemId": "2222",
           "titleId": "AUTO01178"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4929",
+      "title": "Autoboot Config",
+      "sortTitle": "Autoboot Config",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Configurator for the AutoBoot plugin.",
+      "description": "Configurator for the AutoBoot plugin.",
+      "developer": "DavisDev",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "DavisDev",
+        "version": "v.1.20",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4929",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/00a0dab1a5ce0cb3dab2759582280fe96e11398d4a27c5756b02709463239eb1.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/DavisDev/AutobootConf",
+        "releasePageUrl": "https://github.com/DavisDev/AutobootConf/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4929",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.20",
+          "packageSizeBytes": 2649539,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4929",
+          "titleId": "AUTOBOOTC"
         }
       ]
     },
@@ -15676,6 +15896,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4938",
+      "title": "BGFTP",
+      "sortTitle": "BGFTP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "FTP server for PSVita that runs in the background.",
+      "description": "FTP server for PSVita that runs in the background.",
+      "developer": "GrapheneCt",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "GrapheneCt",
+        "version": "v.3.24",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4938",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/0c4db597a0a90707f30896ec4e4429588f5cc41fe14ffb300a6ec8035d58f1a5.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/GrapheneCt/BGFTP",
+        "releasePageUrl": "https://github.com/GrapheneCt/BGFTP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4938",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.3.24",
+          "packageSizeBytes": 32488,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4938",
+          "titleId": "GRVA00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3069",
       "title": "BIG 20",
       "sortTitle": "BIG 20",
@@ -16602,6 +16866,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4931",
+      "title": "Blackout",
+      "sortTitle": "Blackout",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Lights Out puzzle game for PSVita.",
+      "description": "Lights Out puzzle game for PSVita.",
+      "developer": "dragaron",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "dragaron",
+        "version": "v.1.01",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4931",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/c6c51baacc4ace12114dcfd5b3d780356b4dfd24cd8bf173a49be684c8c520a7.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/dragaron/Blackout",
+        "releasePageUrl": "https://github.com/dragaron/Blackout/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4931",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.01",
+          "packageSizeBytes": 2677284,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4931",
+          "titleId": "BLACKOUT0"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1209",
       "title": "Blasphemous Vita",
       "sortTitle": "Blasphemous Vita",
@@ -16830,6 +17138,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2007-12-10",
           "sourceItemId": "3001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4918",
+      "title": "Blobby Volley 2",
+      "sortTitle": "Blobby Volley 2",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Blobby Volley 2 for PSVita.",
+      "description": "Native port of Blobby Volley 2, the free head-to-head beach volleyball game. All game data is included.",
+      "developer": "Sanya-arbuz",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Sanya-arbuz",
+        "version": "v.1.0",
+        "categoryCode": "2",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4918",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/65fa2c2dc7a0134cd740d8d90a26c010b76dabbd0d5ed08c2759466989441835.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Sanya-arbuz/blobbyvolley2",
+        "releasePageUrl": "https://github.com/Sanya-arbuz/blobbyvolley2/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4918",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 3413284,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-23",
+          "sourceItemId": "4918",
+          "titleId": "BLOB00001"
         }
       ]
     },
@@ -34388,6 +34740,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4940",
+      "title": "DaedalusX64 Vita",
+      "sortTitle": "DaedalusX64 Vita",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Nintendo 64 emulator for PSVita, a port of DaedalusX64 through vitaGL.",
+      "description": "Nintendo 64 emulator for PSVita, a port of DaedalusX64 through vitaGL.",
+      "developer": "Rinnegatamante",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Rinnegatamante",
+        "version": "Nightly 2026-11-24",
+        "categoryCode": "5",
+        "requirements": "- libshacccg.suprx in ur0:data",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4940",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/60c60207d3042086a19c85b629f3d15ff3c94afa50584e54887512477e5cd1dd.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Rinnegatamante/DaedalusX64-vitaGL",
+        "releasePageUrl": "https://github.com/Rinnegatamante/DaedalusX64-vitaGL/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4940",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "Nightly 2026-11-24",
+          "packageSizeBytes": 3152182,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4940",
+          "titleId": "DEDALOX64"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3250",
       "title": "Daft Energy",
       "sortTitle": "Daft Energy",
@@ -34939,6 +35335,50 @@
           "sourceUpdatedAt": "2021-06-07",
           "sourceItemId": "594",
           "titleId": "PLSG10001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4984",
+      "title": "Dark Souls (Ds1Vita)",
+      "sortTitle": "Dark Souls (Ds1Vita)",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Dark Souls for PSVita using the Remastered assets.",
+      "description": "Port of Dark Souls for PSVita using the Remastered assets.",
+      "developer": "Nep-Darksouls",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Nep-Darksouls",
+        "version": "v.0.89",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Dark Souls: Remastered (Steam)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4984",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/bc81d86a9301919bf1b9e5243621889243784aa7e5e02bd966c5c8d255490bce.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Nep-Darksouls/Ds1Vita",
+        "releasePageUrl": "https://github.com/Nep-Darksouls/Ds1Vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4984",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.89",
+          "packageSizeBytes": 1605276,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4984",
+          "titleId": "DSVV00001"
         }
       ]
     },
@@ -39202,6 +39642,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4969",
+      "title": "Dodge the Creeps",
+      "sortTitle": "Dodge the Creeps",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the Godot demo game Dodge the Creeps for PSVita.",
+      "description": "Port of the Godot demo game Dodge the Creeps for PSVita.",
+      "developer": "WolffsRoom",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "WolffsRoom",
+        "version": "v.0.1.1",
+        "categoryCode": "2",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4969",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/4355b50ec29aa15e2f3da80157073398349d14bf352c04699651a4745c3e7dcc.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/WolffsRoom/DodgeTheCreeps-PSVita",
+        "releasePageUrl": "https://github.com/WolffsRoom/DodgeTheCreeps-PSVita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4969",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1.1",
+          "packageSizeBytes": 32332444,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4969",
+          "titleId": "GDDC40001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3012",
       "title": "Dodge the Squares: MGS Edition",
       "sortTitle": "Dodge the Squares: MGS Edition",
@@ -40817,7 +41301,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "manumastro & arielxflores",
-        "version": "v.1.4",
+        "version": "v.1.5.1",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx\n- Game Data Files: PS2",
         "changelog": "- First Release",
@@ -40836,12 +41320,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.4",
-          "packageSizeBytes": 9691713,
+          "version": "v.1.5.1",
+          "packageSizeBytes": 12589859,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-18T15:53:39Z",
+          "sourceUpdatedAt": "2026-11-23T14:49:17Z",
           "sourceItemId": "1831",
           "titleId": "BTFV00010"
         }
@@ -41812,6 +42296,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4970",
+      "title": "DuckTales",
+      "sortTitle": "DuckTales",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of DuckTales: Remastered (Android) for PSVita.",
+      "description": "Port of DuckTales: Remastered (Android) for PSVita.",
+      "developer": "technicaljicama",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "technicaljicama",
+        "version": "v.1",
+        "categoryCode": "2",
+        "requirements": "- libshacccg.suprx in ur0:data\n- kubridge.skprx in ur0:tai\n- fd_fix.skprx in ur0:tai\n- Game Data Files: your own copy of DuckTales: Remastered (Android)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4970",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/18746b487153dc1ca3d728ce57b841b6e8faeca65a0900aa46864f73d07642c8.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/technicaljicama/duck-psv",
+        "releasePageUrl": "https://github.com/technicaljicama/duck-psv/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4970",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1",
+          "packageSizeBytes": 2074505,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4970",
+          "titleId": "DUK000000"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2980",
       "title": "Duelli della Scheda: Arte Persa",
       "sortTitle": "Duelli della Scheda: Arte Persa",
@@ -42712,6 +43240,50 @@
           "sourceUpdatedAt": "2026-08-29",
           "sourceItemId": "1513",
           "titleId": "E2DV00001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4922",
+      "title": "Earth and Legend",
+      "sortTitle": "Earth and Legend",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Earth And Legend for PSVita.",
+      "description": "Port of the Android game Earth And Legend for PSVita. Needs the 3.0.0 APK, prepared with tools/prepare_data.py and copied to ux0:data/earthandlegend/.",
+      "developer": "theFilthyAnimal",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "theFilthyAnimal",
+        "version": "v.1.0.0",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Earth And Legend 3.0.0 (Android)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4922",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/3f5548621e255386fb28ddf894d68267c51a2fe92000b93388fa61a75d6e7c5a.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/theFilthyAnimal/EarthAndLegend-Vita",
+        "releasePageUrl": "https://github.com/theFilthyAnimal/EarthAndLegend-Vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4922",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0.0",
+          "packageSizeBytes": 1043315,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-23",
+          "sourceItemId": "4922",
+          "titleId": "EALG00001"
         }
       ]
     },
@@ -44587,6 +45159,50 @@
           "sourceUpdatedAt": "2008-02-15",
           "sourceItemId": "4046",
           "titleId": "ELEM00829"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4941",
+      "title": "Eleven Music Player",
+      "sortTitle": "Eleven Music Player",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Music player for PSVita.",
+      "description": "Music player for PSVita.",
+      "developer": "GrapheneCt",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "GrapheneCt",
+        "version": "v.7.10",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4941",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/e19f4f4fb5c1ea91cf9c11b5d69deeeca9dcdff3224e53e826d5277c0ccaf4b3.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/GrapheneCt/ElevenMPV-A",
+        "releasePageUrl": "https://github.com/GrapheneCt/ElevenMPV-A/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4941",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.7.10",
+          "packageSizeBytes": 1730875,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4941",
+          "titleId": "GRVA00008"
         }
       ]
     },
@@ -48668,6 +49284,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4961",
+      "title": "FBNeo Vita",
+      "sortTitle": "FBNeo Vita",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the FinalBurn Neo arcade emulator for PSVita.",
+      "description": "Port of the FinalBurn Neo arcade emulator for PSVita.",
+      "developer": "cysin",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "cysin",
+        "version": "v.20260322",
+        "categoryCode": "5",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4961",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/6ff8a4f4f7b7c5992f1bceaee7af00bc736942fa8d4e3fa33be6777547f7436c.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/cysin/fbneo-vita",
+        "releasePageUrl": "https://github.com/cysin/fbneo-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4961",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.20260322",
+          "packageSizeBytes": 15624211,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4961",
+          "titleId": "FBNV00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4410",
       "title": "fBrowser",
       "sortTitle": "fBrowser",
@@ -49458,6 +50118,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2007-08-30",
           "sourceItemId": "3757"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4987",
+      "title": "File Manager (WolffsRoom)",
+      "sortTitle": "File Manager (WolffsRoom)",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "File manager for PSVita.",
+      "description": "File manager for PSVita.",
+      "developer": "WolffsRoom",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "WolffsRoom",
+        "version": "v.0.30-beta",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4987",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/e83fe256033be0cd81528d0e446c9ca115de640438c9965fff2f58c2c7b78591.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/WolffsRoom/FileManager",
+        "releasePageUrl": "https://github.com/WolffsRoom/FileManager/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4987",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.30-beta",
+          "packageSizeBytes": 1876654,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4987",
+          "titleId": "FILEMGR01"
         }
       ]
     },
@@ -50510,6 +51214,50 @@
           "sourceUpdatedAt": "2021-02-22",
           "sourceItemId": "620",
           "titleId": "ABCD52341"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4928",
+      "title": "Fix User Permissions",
+      "sortTitle": "Fix User Permissions",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Fixes broken user file permissions on the memory card.",
+      "description": "Fixes broken user file permissions on the memory card.",
+      "developer": "endrift",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "endrift",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4928",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/18746b487153dc1ca3d728ce57b841b6e8faeca65a0900aa46864f73d07642c8.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/endrift/vita-fix-permissions",
+        "releasePageUrl": "https://github.com/endrift/vita-fix-permissions/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4928",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 37112,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4928",
+          "titleId": "VFUP00001"
         }
       ]
     },
@@ -54331,6 +55079,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4930",
+      "title": "FTPzilla Vita",
+      "sortTitle": "FTPzilla Vita",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "FTP client for PSVita.",
+      "description": "FTP client for PSVita.",
+      "developer": "DavisDev",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "DavisDev",
+        "version": "v.0.90",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4930",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/eeef48c47fe6c5cfa59af3b6149b23fbaec793f82b5df0aa5995fd97572d760c.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/DavisDev/FtpzillaVita",
+        "releasePageUrl": "https://github.com/DavisDev/FtpzillaVita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4930",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.90",
+          "packageSizeBytes": 2117248,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4930",
+          "titleId": "FTPSZILLA"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3774",
       "title": "FuckTro",
       "sortTitle": "FuckTro",
@@ -54600,6 +55392,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2008-01-08",
           "sourceItemId": "2144"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4957",
+      "title": "Funky n Frank",
+      "sortTitle": "Funky n Frank",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Twin-stick shooter for PSVita.",
+      "description": "Twin-stick shooter for PSVita.",
+      "developer": "SoulTieGames",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "SoulTieGames",
+        "version": "v..00",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4957",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/04dc5a1ab2e44bb6aeee7b0bdbceb9bfe04a73eed21c06ec4a0c95860c660e05.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/SoulTieGames/FunkynFrank-Vita",
+        "releasePageUrl": "https://github.com/SoulTieGames/FunkynFrank-Vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4957",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v..00",
+          "packageSizeBytes": 39111289,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4957",
+          "titleId": "FUNKNFRAN"
         }
       ]
     },
@@ -57632,6 +58468,50 @@
           "sourceUpdatedAt": "2022-06-28",
           "sourceItemId": "834",
           "titleId": "CFFVNPGAW"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4979",
+      "title": "Gish",
+      "sortTitle": "Gish",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Gish for PSVita.",
+      "description": "Port of Gish for PSVita.",
+      "developer": "AGTS10k",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "AGTS10k",
+        "version": "v.1.6-revibed",
+        "categoryCode": "2",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4979",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/b70cc6432184f9845735478632c0b49de4954d981f0fe603f4a150d80b113dfd.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/AGTS10k/Gish-vita-revibed",
+        "releasePageUrl": "https://github.com/AGTS10k/Gish-vita-revibed/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4979",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.6-revibed",
+          "packageSizeBytes": 3802332,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4979",
+          "titleId": "GISH00001"
         }
       ]
     },
@@ -65145,6 +66025,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4942",
+      "title": "HEXFlow Launcher",
+      "sortTitle": "HEXFlow Launcher",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "3D cover flow launcher for PSVita.",
+      "description": "3D cover flow launcher for PSVita.",
+      "developer": "VitaHEX-Games",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "VitaHEX-Games",
+        "version": "v.0.5",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4942",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/86950add7ba6601eec2e834eea64835138b1274d73c1390071c1d7b89af35c88.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/VitaHEX-Games/HexFlow-Launcher",
+        "releasePageUrl": "https://github.com/VitaHEX-Games/HexFlow-Launcher/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4942",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.5",
+          "packageSizeBytes": 5261138,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4942",
+          "titleId": "HXFL00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-587",
       "title": "HEXFlow Launcher Custom",
       "sortTitle": "HEXFlow Launcher Custom",
@@ -72412,7 +73336,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "deathkiller",
-        "version": "Nightly 2026-11-22 (09e2a17)",
+        "version": "Nightly 2026-11-23 (99ece0e)",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Jazz Jackrabbit 2",
         "changelog": "- First Release",
@@ -72431,12 +73355,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-22 (09e2a17)",
-          "packageSizeBytes": 9043478,
+          "version": "Nightly 2026-11-23 (99ece0e)",
+          "packageSizeBytes": 9043343,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22T16:49:00Z",
+          "sourceUpdatedAt": "2026-11-24T05:26:08Z",
           "sourceItemId": "4909",
           "titleId": "JAZZ20000"
         }
@@ -77556,6 +78480,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4966",
+      "title": "Lagi",
+      "sortTitle": "Lagi",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Native runtime for Panzer Dragoon Saga on PSVita.",
+      "description": "Native runtime for Panzer Dragoon Saga on PSVita.",
+      "developer": "noradninja",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "noradninja",
+        "version": "v.0.3.0alpha",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Panzer Dragoon Saga (Saturn)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4966",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/78015c900a570a180fcb93c1c197f60d1ac1b27d5b22b69dfca7e7b169525323.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/noradninja/Lagi",
+        "releasePageUrl": "https://github.com/noradninja/Lagi/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4966",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.3.0alpha",
+          "packageSizeBytes": 1243075,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4966",
+          "titleId": "LAGI00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-907",
       "title": "Lamecraft",
       "sortTitle": "Lamecraft",
@@ -77731,6 +78699,50 @@
           "sourceUpdatedAt": "2023-02-07",
           "sourceItemId": "1038",
           "titleId": "LANGO0002"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4978",
+      "title": "Lantern Crossing",
+      "sortTitle": "Lantern Crossing",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "HD-2D Godot 4 tech demo for PSVita.",
+      "description": "HD-2D Godot 4 tech demo for PSVita.",
+      "developer": "jeeve-javari",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "jeeve-javari",
+        "version": "v.0.2.0-beta",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4978",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/dd86501bf16766be7d8f5bf12c60b10845f063b691a4963ffe0ade2d79d38a3d.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/jeeve-javari/lantern-crossing-vita",
+        "releasePageUrl": "https://github.com/jeeve-javari/lantern-crossing-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4978",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.2.0-beta",
+          "packageSizeBytes": 22987778,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4978",
+          "titleId": "LNTCR0004"
         }
       ]
     },
@@ -79323,11 +80335,11 @@
           "region": "INT",
           "languageCodes": [],
           "version": "v.0.1",
-          "packageSizeBytes": 7199047,
+          "packageSizeBytes": 7199931,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-21T23:03:10Z",
+          "sourceUpdatedAt": "2026-11-24T05:24:04Z",
           "sourceItemId": "1452",
           "titleId": "LEGO00001"
         }
@@ -81267,6 +82279,50 @@
           "sourceUpdatedAt": "2022-05-11",
           "sourceItemId": "822",
           "titleId": "YYLLOGDEL"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4936",
+      "title": "LOLIcon Switch",
+      "sortTitle": "LOLIcon Switch",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Enables or disables the LOLIcon plugin and restarts the PSVita.",
+      "description": "Enables or disables the LOLIcon plugin and restarts the PSVita.",
+      "developer": "MERLev",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "MERLev",
+        "version": "v.0.01",
+        "categoryCode": "4",
+        "requirements": "- LOLIcon",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4936",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/35dc8df29dd847c7b52d93af68da050b28a14fd3181770f2bd376e6042fde466.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/MERLev/LOLIconSwitch",
+        "releasePageUrl": "https://github.com/MERLev/LOLIconSwitch/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4936",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.01",
+          "packageSizeBytes": 25790,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4936",
+          "titleId": "LVSW00001"
         }
       ]
     },
@@ -86383,7 +87439,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "xesf",
-        "version": "v.0.9.0",
+        "version": "v.0.10.0",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx\n- Game Data Files: PC",
         "changelog": "- First Release",
@@ -86402,12 +87458,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.9.0",
-          "packageSizeBytes": 1804461,
+          "version": "v.0.10.0",
+          "packageSizeBytes": 1815912,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22T12:47:10Z",
+          "sourceUpdatedAt": "2026-11-23T14:50:17Z",
           "sourceItemId": "1758",
           "titleId": "MHRE00001"
         }
@@ -87475,7 +88531,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "PupueStudios",
-        "version": "v.1.0",
+        "version": "v.1.2",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own dump of Mario Kart DS (Europe, AMCP)",
         "changelog": "- First Release",
@@ -87494,12 +88550,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.0",
-          "packageSizeBytes": 2247025,
+          "version": "v.1.2",
+          "packageSizeBytes": 2288161,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22",
+          "sourceUpdatedAt": "2026-11-23T17:26:57Z",
           "sourceItemId": "4913",
           "titleId": "MKDS00001"
         }
@@ -93734,7 +94790,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "SaNch0sE",
-        "version": "v.0.3.2-alpha",
+        "version": "v.0.4-beta",
         "categoryCode": "2",
         "requirements": "- m4hunative.skprx\n- CapUnlocker.skprx\n- Game Data Files: 3DS",
         "changelog": "- First Release",
@@ -93753,12 +94809,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.3.2-alpha",
-          "packageSizeBytes": 8704357,
+          "version": "v.0.4-beta",
+          "packageSizeBytes": 8445012,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-19",
+          "sourceUpdatedAt": "2026-11-23T17:27:58Z",
           "sourceItemId": "4854",
           "titleId": "MH4UVITA0"
         }
@@ -97848,7 +98904,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "NZP Team",
-        "version": "Nightly 2026-11-19",
+        "version": "Nightly 2026-11-23",
         "categoryCode": "1",
         "requirements": "",
         "changelog": "",
@@ -97869,12 +98925,12 @@
           "targetPlatform": "psp",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-19",
-          "packageSizeBytes": 64756766,
+          "version": "Nightly 2026-11-23",
+          "packageSizeBytes": 65086918,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "psp_apps.json",
-          "sourceUpdatedAt": "2026-11-22T16:47:37Z",
+          "sourceUpdatedAt": "2026-11-23T20:33:26Z",
           "sourceItemId": "3967",
           "titleId": "NZPO01089"
         }
@@ -97894,7 +98950,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "NZP Team",
-        "version": "Nightly 2026-11-19",
+        "version": "Nightly 2026-11-23",
         "categoryCode": "2",
         "requirements": "- Data files: extract the data archive to ux0:data/",
         "changelog": "- First Release",
@@ -97913,12 +98969,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-19",
+          "version": "Nightly 2026-11-23",
           "packageSizeBytes": 2840867,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22",
+          "sourceUpdatedAt": "2026-11-23T20:34:32Z",
           "sourceItemId": "4917",
           "titleId": "NZZMBSPTB"
         }
@@ -99606,6 +100662,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4953",
+      "title": "NetStream",
+      "sortTitle": "NetStream",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Video streaming client for PSVita.",
+      "description": "Video streaming client for PSVita.",
+      "developer": "GrapheneCt",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "GrapheneCt",
+        "version": "v.3.35",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4953",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/5e9d2923c0fd01310605df5d0e356152912ac8cbf6afe8bee60be6ec1b6610ee.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/GrapheneCt/NetStream",
+        "releasePageUrl": "https://github.com/GrapheneCt/NetStream/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4953",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.3.35",
+          "packageSizeBytes": 4279238,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4953",
+          "titleId": "GRVA00024"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2077",
       "title": "Neutron",
       "sortTitle": "Neutron",
@@ -100429,6 +101529,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4919",
+      "title": "NFS Hot Pursuit 2 (elmnt22)",
+      "sortTitle": "NFS Hot Pursuit 2 (elmnt22)",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Native port of Need for Speed: Hot Pursuit 2 for PSVita.",
+      "description": "Native port of Need for Speed: Hot Pursuit 2 (PS2) for PSVita. Copy ZDIR.BIN and ZZDATA.BIN from your disc to ux0:data/NFSHP2/.",
+      "developer": "elmnt22",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "elmnt22",
+        "version": "v.0.1.1-alpha",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Need for Speed: Hot Pursuit 2 (PS2)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4919",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/b55017c58a4a73f46e771d3bdb461a1f8a83a24313e5b76cdb28405e7e0ac5eb.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/elmnt22/vita-nfshp2",
+        "releasePageUrl": "https://github.com/elmnt22/vita-nfshp2/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4919",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1.1-alpha",
+          "packageSizeBytes": 3453887,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-23",
+          "sourceItemId": "4919",
+          "titleId": "NFSHP2002"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1584",
       "title": "NFS II SE Recompiled",
       "sortTitle": "NFS II SE Recompiled",
@@ -100469,6 +101613,50 @@
           "sourceUpdatedAt": "2026-09-26",
           "sourceItemId": "1584",
           "titleId": "NFSR00001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4973",
+      "title": "NFS Most Wanted (germanalvarez15)",
+      "sortTitle": "NFS Most Wanted (germanalvarez15)",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Need for Speed: Most Wanted (PS2) for PSVita.",
+      "description": "Port of Need for Speed: Most Wanted (PS2) for PSVita.",
+      "developer": "germanalvarez15",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "germanalvarez15",
+        "version": "v.1.6.2",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Need for Speed: Most Wanted (PS2)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4973",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/9c7fe9f650afd7a64fdbce554b5747c51887480ddef16cac31045f4844d5cce6.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/germanalvarez15/nfsmw-vita",
+        "releasePageUrl": "https://github.com/germanalvarez15/nfsmw-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4973",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.6.2",
+          "packageSizeBytes": 3274720,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4973",
+          "titleId": "NFSMWVITA"
         }
       ]
     },
@@ -100530,7 +101718,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "elmnt22",
-        "version": "v.0.2.0-alpha",
+        "version": "v.0.2.1-alpha",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Need for Speed: Underground 2 (PC)",
         "changelog": "- First Release",
@@ -100549,12 +101737,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.2.0-alpha",
-          "packageSizeBytes": 5146059,
+          "version": "v.0.2.1-alpha",
+          "packageSizeBytes": 5170590,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-20",
+          "sourceUpdatedAt": "2026-11-23T14:47:16Z",
           "sourceItemId": "4885",
           "titleId": "NFSU20001"
         }
@@ -105185,6 +106373,94 @@
           "sourceUpdatedAt": "2026-11-17",
           "sourceItemId": "4821",
           "titleId": "OCMR20001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4974",
+      "title": "OpenEnroth",
+      "sortTitle": "OpenEnroth",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of OpenEnroth, an open engine for Might and Magic 6, 7 and 8, for PSVita.",
+      "description": "Port of OpenEnroth, an open engine for Might and Magic 6, 7 and 8, for PSVita.",
+      "developer": "gtrias",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "gtrias",
+        "version": "v.0.1",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Might and Magic VI, VII or VIII",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4974",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/af2954fd8f67a4166ba14d9a575f7f86c7433937e0cc0f36b43f4cbfe26bf582.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/gtrias/OpenEnroth",
+        "releasePageUrl": "https://github.com/gtrias/OpenEnroth/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4974",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1",
+          "packageSizeBytes": 8091033,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4974",
+          "titleId": "OPEN00001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4943",
+      "title": "OpenFodder",
+      "sortTitle": "OpenFodder",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Open Fodder, an open source engine for Cannon Fodder, for PSVita.",
+      "description": "Port of Open Fodder, an open source engine for Cannon Fodder, for PSVita.",
+      "developer": "isage",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "isage",
+        "version": "v.1.6.1",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Cannon Fodder",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4943",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/2ed62f1093fe7fd2de44fb3158c33ab375001d770fe5dfe36427841ac43febee.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/isage/openfodder",
+        "releasePageUrl": "https://github.com/isage/openfodder/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4943",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.6.1",
+          "packageSizeBytes": 2330946,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4943",
+          "titleId": "FDDR00001"
         }
       ]
     },
@@ -115133,7 +116409,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "fthdgn",
-        "version": "v.shelf-v0.6.1-beta.2",
+        "version": "v.0.6.1 beta 3",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -115152,12 +116428,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.shelf-v0.6.1-beta.2",
-          "packageSizeBytes": 2625982,
+          "version": "v.0.6.1 beta 3",
+          "packageSizeBytes": 2623836,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-11",
+          "sourceUpdatedAt": "2026-11-23T14:53:26Z",
           "sourceItemId": "1763",
           "titleId": "POCKTSHLF"
         }
@@ -140209,6 +141485,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4981",
+      "title": "PSVSD/AM",
+      "sortTitle": "PSVSD/AM",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Mounts microSD storage in the PSVita 1000 accessory port.",
+      "description": "Mounts microSD storage in the PSVita 1000 accessory port.",
+      "developer": "RT-Online",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "RT-Online",
+        "version": "v.1.3.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4981",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/d7159d32bf5b3f326c4d11d0b6be063b16bdf4eb869b45bab8dc8269a17e70fd.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/RT-Online/PSVSD-AM",
+        "releasePageUrl": "https://github.com/RT-Online/PSVSD-AM/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4981",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.3.1",
+          "packageSizeBytes": 1384268,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4981",
+          "titleId": "RTPSV0001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4413",
       "title": "pSwan",
       "sortTitle": "pSwan",
@@ -143137,6 +144457,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4958",
+      "title": "Rabbid MultiTool",
+      "sortTitle": "Rabbid MultiTool",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Toolbox app for PSVita.",
+      "description": "Toolbox app for PSVita.",
+      "developer": "HarommelRabbid",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "HarommelRabbid",
+        "version": "v.0.12pre2",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4958",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/746e78f96020b1c2f298b8d15120d8c40f375e260ba04367b6a9a5b612079b45.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/HarommelRabbid/RabbidMultiToolVita",
+        "releasePageUrl": "https://github.com/HarommelRabbid/RabbidMultiToolVita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4958",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.12pre2",
+          "packageSizeBytes": 8340011,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4958",
+          "titleId": "RBMT78900"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3463",
       "title": "RACE! PSP",
       "sortTitle": "RACE! PSP",
@@ -144452,6 +145816,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4971",
+      "title": "Real Racing 3",
+      "sortTitle": "Real Racing 3",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Real Racing 3 (Android) for PSVita.",
+      "description": "Port of Real Racing 3 (Android) for PSVita.",
+      "developer": "CHUTA7X",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "CHUTA7X",
+        "version": "v.3.6.3",
+        "categoryCode": "2",
+        "requirements": "- libshacccg.suprx in ur0:data\n- kubridge.skprx in ur0:tai\n- fd_fix.skprx in ur0:tai\n- Game Data Files: your own copy of Real Racing 3 (Android)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4971",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/26942d6e38fd16776b392fb8002b76c05c678fe4ab4855c78f7531348699f73e.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/CHUTA7X/Real-Racing-3-Port-Release",
+        "releasePageUrl": "https://github.com/CHUTA7X/Real-Racing-3-Port-Release/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4971",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.3.6.3",
+          "packageSizeBytes": 8602781,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4971",
+          "titleId": "RR3VITA01"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1809",
       "title": "Real Racing HD",
       "sortTitle": "Real Racing HD",
@@ -144813,6 +146221,50 @@
           "sourceUpdatedAt": "2009-01-09",
           "sourceItemId": "2917",
           "titleId": "REBO00605"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4920",
+      "title": "ReBOX",
+      "sortTitle": "ReBOX",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Multi arcade board emulator for PSVita.",
+      "description": "Arcade board emulator with drivers ported from MAME 0.289, from 8-bit classics up to CPS3, Sega System 32, Cave CV1000 and PGM2. Put non-merged MAME 0.260 romsets in ux0:data/rebox/roms/.",
+      "developer": "Reyanon",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Reyanon",
+        "version": "v.0.14.80",
+        "categoryCode": "5",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4920",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/a64d2b15900ec7686cb3b10e2282609a9d020f9d49d88459acebfcdad0b8eada.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Reyanon/ReBOX",
+        "releasePageUrl": "https://github.com/Reyanon/ReBOX/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4920",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.14.80",
+          "packageSizeBytes": 8463957,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-23",
+          "sourceItemId": "4920",
+          "titleId": "RBOX00001"
         }
       ]
     },
@@ -146406,6 +147858,50 @@
           "sourceUpdatedAt": "2022-05-14",
           "sourceItemId": "795",
           "titleId": "REMGR0001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4937",
+      "title": "RepoHub",
+      "sortTitle": "RepoHub",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Browse GitHub users, repositories and releases on PSVita.",
+      "description": "Browse GitHub users, repositories and releases on PSVita.",
+      "developer": "robDevs",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "robDevs",
+        "version": "v.0.15",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4937",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/5754fd760a0db60bdb5540050b8f63259987b4e0b251b399e02fbce248d06686.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/robDevs/RepoHub",
+        "releasePageUrl": "https://github.com/robDevs/RepoHub/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4937",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.15",
+          "packageSizeBytes": 2318041,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4937",
+          "titleId": "REPOHUB01"
         }
       ]
     },
@@ -150440,6 +151936,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4947",
+      "title": "Ruby Interpreter",
+      "sortTitle": "Ruby Interpreter",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Ruby 1.8 for PSVita.",
+      "description": "Port of Ruby 1.8 for PSVita.",
+      "developer": "LiEnby",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "LiEnby",
+        "version": "v.0.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4947",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/18746b487153dc1ca3d728ce57b841b6e8faeca65a0900aa46864f73d07642c8.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/LiEnby/ruby-vita",
+        "releasePageUrl": "https://github.com/LiEnby/ruby-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4947",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1",
+          "packageSizeBytes": 2270492,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4947",
+          "titleId": "RUBY00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3240",
       "title": "Ruckus",
       "sortTitle": "Ruckus",
@@ -150527,6 +152067,50 @@
           "sourceUpdatedAt": "2008-01-01",
           "sourceItemId": "4591",
           "titleId": "RUCK01532"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4963",
+      "title": "RuffleLoader",
+      "sortTitle": "RuffleLoader",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Flash game launcher and input mapper for Ruffle on PSVita.",
+      "description": "Flash game launcher and input mapper for Ruffle on PSVita.",
+      "developer": "KiddRwxSsj",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "KiddRwxSsj",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4963",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/f901ad822adcb758b3164a552ca7a36e588976336abd2beba443c57de32eda9e.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/KiddRwxSsj/ruffleloader",
+        "releasePageUrl": "https://github.com/KiddRwxSsj/ruffleloader/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4963",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 2600757,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4963",
+          "titleId": "RUFFLELDR"
         }
       ]
     },
@@ -154225,6 +155809,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4948",
+      "title": "Septerra Core",
+      "sortTitle": "Septerra Core",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Septerra Core for PSVita.",
+      "description": "Port of Septerra Core for PSVita.",
+      "developer": "isage",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "isage",
+        "version": "v.1.0",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Septerra Core (PC)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4948",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/c089c6b71036ca505cdeae4f8f333bd3d73eb052b7b02a9772e163e6f641ffd1.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/isage/septerra-core-vita",
+        "releasePageUrl": "https://github.com/isage/septerra-core-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4948",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 3736780,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4948",
+          "titleId": "SCLC00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1344",
       "title": "Serious Sam TFE Vita",
       "sortTitle": "Serious Sam TFE Vita",
@@ -157138,6 +158766,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2006-01-01",
           "sourceItemId": "3441"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4959",
+      "title": "SimpleVPK",
+      "sortTitle": "SimpleVPK",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Download and install homebrew and data files on PSVita, based on easyVPK.",
+      "description": "Download and install homebrew and data files on PSVita, based on easyVPK.",
+      "developer": "NFSHubster",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "NFSHubster",
+        "version": "v.1.5",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4959",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/406e27491280275ad6959b0566e33512b1551abee4be51864449c1697a24faaa.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/NFSHubster/SimpleVPK",
+        "releasePageUrl": "https://github.com/NFSHubster/SimpleVPK/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4959",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.5",
+          "packageSizeBytes": 3327376,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4959",
+          "titleId": "SIMPLEVPK"
         }
       ]
     },
@@ -162949,6 +164621,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4945",
+      "title": "SoRR",
+      "sortTitle": "SoRR",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the BennuGD engine for Streets of Rage Remake for PSVita.",
+      "description": "Port of the BennuGD engine for Streets of Rage Remake for PSVita.",
+      "developer": "isage",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "isage",
+        "version": "v.1.3",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Streets of Rage Remake",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4945",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/d3547674935520b59c39b9739199bc44b04ee11736b1969145cee2a284e16ba1.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/isage/sorr-vita",
+        "releasePageUrl": "https://github.com/isage/sorr-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4945",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.3",
+          "packageSizeBytes": 1377886,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4945",
+          "titleId": "SORR00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1321",
       "title": "Sort the Court Vita",
       "sortTitle": "Sort the Court Vita",
@@ -168124,6 +169840,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4933",
+      "title": "Sudorku",
+      "sortTitle": "Sudorku",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Sudoku for PSVita.",
+      "description": "Sudoku for PSVita.",
+      "developer": "dragaron",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "dragaron",
+        "version": "v.1.01",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4933",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/00ecbb5af909c6f9477f3cde6e3890756e9a37d234a06f8dfb4613e000a45e9c.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/dragaron/Sudorku",
+        "releasePageUrl": "https://github.com/dragaron/Sudorku/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4933",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.01",
+          "packageSizeBytes": 3246180,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4933",
+          "titleId": "SUDORKU00"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1026",
       "title": "Sunshine Cat",
       "sortTitle": "Sunshine Cat",
@@ -172168,6 +173928,50 @@
           "sourceUpdatedAt": "2009-08-02",
           "sourceItemId": "2384",
           "titleId": "TAIK01409"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4962",
+      "title": "Tails Adventure",
+      "sortTitle": "Tails Adventure",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the Tails Adventure reimplementation for PSVita.",
+      "description": "Port of the Tails Adventure reimplementation for PSVita.",
+      "developer": "kennyheidi",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "kennyheidi",
+        "version": "v..00",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own Tails Adventure ROM",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4962",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/18746b487153dc1ca3d728ce57b841b6e8faeca65a0900aa46864f73d07642c8.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/kennyheidi/tails-adventure-vita",
+        "releasePageUrl": "https://github.com/kennyheidi/tails-adventure-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4962",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v..00",
+          "packageSizeBytes": 5141539,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4962",
+          "titleId": "TAIL00003"
         }
       ]
     },
@@ -178687,6 +180491,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4944",
+      "title": "Thread Optimizer",
+      "sortTitle": "Thread Optimizer",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Optimizes thread usage of PSVita games.",
+      "description": "Optimizes thread usage of PSVita games.",
+      "developer": "GrapheneCt",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "GrapheneCt",
+        "version": "v.1.51",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4944",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/404794081e4bbfe0e5139d4a8f8194017c838a83d07b8cbcbfa7dbd1696fff74.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/GrapheneCt/ThreadOptimizer",
+        "releasePageUrl": "https://github.com/GrapheneCt/ThreadOptimizer/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4944",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.51",
+          "packageSizeBytes": 533620,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4944",
+          "titleId": "GRVA00004"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3345",
       "title": "Threes",
       "sortTitle": "Threes",
@@ -179550,6 +181398,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2011-05-30",
           "sourceItemId": "3169"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4939",
+      "title": "Time Machine",
+      "sortTitle": "Time Machine",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Changes the PSVita system time.",
+      "description": "Changes the PSVita system time.",
+      "developer": "BalisticksMain",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "BalisticksMain",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4939",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/a379fc8f9c3c1ac2765d1a19fb0445dd3ad730e2df029b9674390e2424d0bcd9.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/BalisticksMain/TimeMachine",
+        "releasePageUrl": "https://github.com/BalisticksMain/TimeMachine/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4939",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 167096,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4939",
+          "titleId": "TIMEMACHI"
         }
       ]
     },
@@ -182331,6 +184223,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4968",
+      "title": "TRAX",
+      "sortTitle": "TRAX",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Music player for PSVita with FLAC, ALAC, AAC, MP3, Opus and ATRAC support.",
+      "description": "Music player for PSVita with FLAC, ALAC, AAC, MP3, Opus and ATRAC support.",
+      "developer": "traxpsp",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "traxpsp",
+        "version": "v.1.0.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4968",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/f89479b04923be6456dae384ea985af1fb4fedf4e5ca28fc534e487ef167a5a6.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/traxpsp/traxpsp",
+        "releasePageUrl": "https://github.com/traxpsp/traxpsp/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4968",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0.0",
+          "packageSizeBytes": 1888949,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4968",
+          "titleId": "TRAX00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-678",
       "title": "Treasure Chasers",
       "sortTitle": "Treasure Chasers",
@@ -182607,6 +184543,50 @@
           "sourceUpdatedAt": "2026-08-09",
           "sourceItemId": "1470",
           "titleId": "TRFL00001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4950",
+      "title": "TriGL",
+      "sortTitle": "TriGL",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "WebGL implementation for the Trilithium browser engine on PSVita.",
+      "description": "WebGL implementation for the Trilithium browser engine on PSVita.",
+      "developer": "GrapheneCt",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "GrapheneCt",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4950",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/3dadb19fd7555bf89c2d9e142e06092bef354fc791457a020a89c18c979d334b.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/GrapheneCt/TriGL",
+        "releasePageUrl": "https://github.com/GrapheneCt/TriGL/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4950",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 7609522,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4950",
+          "titleId": "GRVA00021"
         }
       ]
     },
@@ -183101,6 +185081,50 @@
           "sourceUpdatedAt": "2026-08-13",
           "sourceItemId": "1471",
           "titleId": "TROPHAXSE"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4935",
+      "title": "Trophies Fixer",
+      "sortTitle": "Trophies Fixer",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Fixes broken trophy data on PSVita.",
+      "description": "Fixes broken trophy data on PSVita.",
+      "developer": "Yoti",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Yoti",
+        "version": "v.1.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4935",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/ea92b68e1a5ae9876c29f688268be901ea5d11b3f0202f38e6234d4fd9f2ea9d.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Yoti/psv_trophfix",
+        "releasePageUrl": "https://github.com/Yoti/psv_trophfix/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4935",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1",
+          "packageSizeBytes": 333418,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4935",
+          "titleId": "TROPHYFIX"
         }
       ]
     },
@@ -183616,7 +185640,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "PoissMi",
-        "version": "v.0.4.1",
+        "version": "v.0.4.2",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -183635,12 +185659,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.4.1",
-          "packageSizeBytes": 14231293,
+          "version": "v.0.4.2",
+          "packageSizeBytes": 14247555,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22T12:40:07Z",
+          "sourceUpdatedAt": "2026-11-23T14:46:16Z",
           "sourceItemId": "4894",
           "titleId": "TURBOVITA"
         }
@@ -184328,6 +186352,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2007-01-19",
           "sourceItemId": "2901"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4977",
+      "title": "TyphoonLLM",
+      "sortTitle": "TyphoonLLM",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Local LLM chat on PSVita using LiquidAI LFM2.5-230M.",
+      "description": "Local LLM chat on PSVita using LiquidAI LFM2.5-230M.",
+      "developer": "daivarsi",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "daivarsi",
+        "version": "v.03.06",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4977",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/fe60202a3cb43e441cd1e265485910a52bc21bfb2208d61759a9693136f6faa5.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/daivarsi/TyphoonLLM",
+        "releasePageUrl": "https://github.com/daivarsi/TyphoonLLM/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4977",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.03.06",
+          "packageSizeBytes": 1169023,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4977",
+          "titleId": "VLMCHAT01"
         }
       ]
     },
@@ -186046,6 +188114,50 @@
           "sourceUpdatedAt": "2008-07-18",
           "sourceItemId": "4483",
           "titleId": "UNCH01798"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4989",
+      "title": "Unciv",
+      "sortTitle": "Unciv",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Unciv, an open source remake of Civilization V, for PSVita.",
+      "description": "Port of Unciv, an open source remake of Civilization V, for PSVita.",
+      "developer": "JAKLI78",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "JAKLI78",
+        "version": "v.0.1",
+        "categoryCode": "2",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4989",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/32a625ee97facfb61808af8af8b20c479e4e8f6f669f5fb6dd94b60f6758ead7.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/JAKLI78/Unciv_ps_vita",
+        "releasePageUrl": "https://github.com/JAKLI78/Unciv_ps_vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4989",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1",
+          "packageSizeBytes": 78368580,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4989",
+          "titleId": "UNCV00001"
         }
       ]
     },
@@ -188687,6 +190799,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4951",
+      "title": "VBackup",
+      "sortTitle": "VBackup",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Backup tool for PSVita applications and saves.",
+      "description": "Backup tool for PSVita applications and saves.",
+      "developer": "GrapheneCt",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "GrapheneCt",
+        "version": "v.1.03",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4951",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/0ce7107ba3069e932b08bc5969cd57e9eded042468094e58159bf04e02df6cb9.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/GrapheneCt/VBackup",
+        "releasePageUrl": "https://github.com/GrapheneCt/VBackup/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4951",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.03",
+          "packageSizeBytes": 314428,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4951",
+          "titleId": "GRVA00020"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2952",
       "title": "VDJ Table",
       "sortTitle": "VDJ Table",
@@ -190274,6 +192430,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4967",
+      "title": "Vita Auto",
+      "sortTitle": "Vita Auto",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Android Auto and Apple CarPlay app for PSVita.",
+      "description": "Android Auto and Apple CarPlay app for PSVita.",
+      "developer": "Gavwalsh15",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Gavwalsh15",
+        "version": "v.0.2.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4967",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/716d49073a95ffb4ab446cfb2e98e18b4dce28fc60d0bba153e8ca965ecb24ce.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Gavwalsh15/Vita_Auto",
+        "releasePageUrl": "https://github.com/Gavwalsh15/Vita_Auto/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4967",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.2.1",
+          "packageSizeBytes": 720795,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4967",
+          "titleId": "VITAUTO01"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-361",
       "title": "Vita Backup",
       "sortTitle": "Vita Backup",
@@ -190725,6 +192925,50 @@
           "sourceUpdatedAt": "2026-11-11",
           "sourceItemId": "1626",
           "titleId": "VFLR00001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4952",
+      "title": "Vita FTDI Term",
+      "sortTitle": "Vita FTDI Term",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Terminal for FTDI USB serial adapters on PSVita.",
+      "description": "Terminal for FTDI USB serial adapters on PSVita.",
+      "developer": "isage",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "isage",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4952",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/9923dc8130164c3339bc76acd0fa61b2f7ce88a4ea81c4420246997f8e2ece7a.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/isage/vfterm",
+        "releasePageUrl": "https://github.com/isage/vfterm/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4952",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 1519442,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4952",
+          "titleId": "VFTM00001"
         }
       ]
     },
@@ -192108,6 +194352,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4983",
+      "title": "Vita Turbo VPN",
+      "sortTitle": "Vita Turbo VPN",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "System-wide VPN client for PSVita.",
+      "description": "System-wide VPN client for PSVita.",
+      "developer": "juanjsebgarcia",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "juanjsebgarcia",
+        "version": "v.0.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4983",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/b700a26452489375997d5bec42cd7df109387ce322bd2c0a85170e0db838a9db.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/juanjsebgarcia/vita-turbo-vpn",
+        "releasePageUrl": "https://github.com/juanjsebgarcia/vita-turbo-vpn/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4983",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1.0",
+          "packageSizeBytes": 1074517,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4983",
+          "titleId": "VPNT00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1405",
       "title": "Vita VirtualKeyboard",
       "sortTitle": "Vita VirtualKeyboard",
@@ -192194,6 +194482,50 @@
           "sourceUpdatedAt": "2026-11-20",
           "sourceItemId": "4887",
           "titleId": "VVOX00001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4965",
+      "title": "Vita Weather",
+      "sortTitle": "Vita Weather",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Weather app for PSVita.",
+      "description": "Weather app for PSVita.",
+      "developer": "reallootfury",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "reallootfury",
+        "version": "v.1.27",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4965",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/35bc78ed195bd0a30ea46118c138351befb30d99bad83a1b07f38a364f5d207a.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/reallootfury/vita-weather",
+        "releasePageUrl": "https://github.com/reallootfury/vita-weather/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4965",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.27",
+          "packageSizeBytes": 14587916,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4965",
+          "titleId": "VWEA00001"
         }
       ]
     },
@@ -193238,6 +195570,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4946",
+      "title": "VitaCord: Reboot",
+      "sortTitle": "VitaCord: Reboot",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Discord client for PSVita.",
+      "description": "Discord client for PSVita.",
+      "developer": "WeegeeDEVELOPER",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "WeegeeDEVELOPER",
+        "version": "v.1.0.5",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4946",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/e1287dd52df0af15b5c30f16c321bb3854d389f0d58daddabe12ad4c75b57266.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/WeegeeDEVELOPER/VitaCord-Reboot",
+        "releasePageUrl": "https://github.com/WeegeeDEVELOPER/VitaCord-Reboot/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4946",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0.5",
+          "packageSizeBytes": 3945593,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4946",
+          "titleId": "WDEV75912"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1621",
       "title": "VitaDay",
       "sortTitle": "VitaDay",
@@ -193327,6 +195703,50 @@
           "sourceUpdatedAt": "2026-11-11T21:05:52Z",
           "sourceItemId": "877",
           "titleId": "VITADBDLD"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4923",
+      "title": "VitaDeck",
+      "sortTitle": "VitaDeck",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Game library and launcher for PSVita.",
+      "description": "Fast game launcher and media library manager for PSVita, written in Rust. Downloads cover art automatically.",
+      "developer": "josephinoo",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "josephinoo",
+        "version": "v.0.0.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4923",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/3d372353f66f623a77ed5e0420b1faa267659fb71e4e97bec789a026560d9c25.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/josephinoo/vitaDeck",
+        "releasePageUrl": "https://github.com/josephinoo/vitaDeck/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4923",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.0.1",
+          "packageSizeBytes": 7637546,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-23",
+          "sourceItemId": "4923",
+          "titleId": "VITADECK1"
         }
       ]
     },
@@ -194418,6 +196838,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4982",
+      "title": "VitaMon",
+      "sortTitle": "VitaMon",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Wireless hardware monitor for a Windows PC on PSVita.",
+      "description": "Wireless hardware monitor for a Windows PC on PSVita.",
+      "developer": "MrWhite2312-IS",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "MrWhite2312-IS",
+        "version": "v.1.3.0-beta.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4982",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/3d0f65810ff54eb51d12e90d1fc5c60bdbbb816b2bf22cf6d11ec39d5be9de7b.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/MrWhite2312-IS/VitaPCMonitor",
+        "releasePageUrl": "https://github.com/MrWhite2312-IS/VitaPCMonitor/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4982",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.3.0-beta.1",
+          "packageSizeBytes": 98610,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4982",
+          "titleId": "VMON00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-353",
       "title": "Vitamon GO",
       "sortTitle": "Vitamon GO",
@@ -194709,7 +197173,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "ing156",
-        "version": "v.0.39.05",
+        "version": "v.0.40.06",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -194728,14 +197192,58 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.39.05",
-          "packageSizeBytes": 35738509,
+          "version": "v.0.40.06",
+          "packageSizeBytes": 41164296,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-11",
+          "sourceUpdatedAt": "2026-11-23T17:28:58Z",
           "sourceItemId": "1730",
           "titleId": "VITAGRM01"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4964",
+      "title": "VitaPlex",
+      "sortTitle": "VitaPlex",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Plex client for PSVita.",
+      "description": "Plex client for PSVita.",
+      "developer": "Breezyslasher",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Breezyslasher",
+        "version": "v.1.3.9",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4964",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/664eec49ce7c8107c2362b61d9e011e168a162b79912fac97221110c220d413d.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Breezyslasher/Vita_plex",
+        "releasePageUrl": "https://github.com/Breezyslasher/Vita_plex/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4964",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.3.9",
+          "packageSizeBytes": 11219570,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4964",
+          "titleId": "VPLEX0001"
         }
       ]
     },
@@ -195440,7 +197948,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Reyanon",
-        "version": "v.0.13.28",
+        "version": "v.0.14.37",
         "categoryCode": "2",
         "requirements": "- Game Data Files: The Sims 1 Legacy Collection",
         "changelog": "- First Release",
@@ -195459,12 +197967,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.13.28",
-          "packageSizeBytes": 2800514,
+          "version": "v.0.14.37",
+          "packageSizeBytes": 2875169,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22T12:43:08Z",
+          "sourceUpdatedAt": "2026-11-23T14:48:17Z",
           "sourceItemId": "4824",
           "titleId": "SIMS00001"
         }
@@ -196381,6 +198889,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4955",
+      "title": "Vitesin",
+      "sortTitle": "Vitesin",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Input tester for PSVita.",
+      "description": "Input tester for PSVita.",
+      "developer": "isage",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "isage",
+        "version": "v.1.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4955",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/72299aef58ffa3c2c6112b22fd351f7072879af759e187023d0d1da8ff764322.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/isage/vitesin",
+        "releasePageUrl": "https://github.com/isage/vitesin/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4955",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1",
+          "packageSizeBytes": 628530,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4955",
+          "titleId": "VIT000001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1135",
       "title": "ViTetris",
       "sortTitle": "ViTetris",
@@ -196658,6 +199210,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4956",
+      "title": "ViViD",
+      "sortTitle": "ViViD",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Use the PSVita as a virtual DualShock.",
+      "description": "Use the PSVita as a virtual DualShock.",
+      "developer": "isage",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "isage",
+        "version": "v.1.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4956",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/c01e574952c138b1493aaa86877e06cd554ed975dbd1c7e606deecb7437afde9.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/isage/vivid",
+        "releasePageUrl": "https://github.com/isage/vivid/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4956",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1",
+          "packageSizeBytes": 779354,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4956",
+          "titleId": "VVID00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1765",
       "title": "VivoTube",
       "sortTitle": "VivoTube",
@@ -196744,6 +199340,50 @@
           "sourceUpdatedAt": "2008-04-18",
           "sourceItemId": "2572",
           "titleId": "VIWI00383"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4954",
+      "title": "ViXEn Helper",
+      "sortTitle": "ViXEn Helper",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Companion app for the ViXEn controller plugin.",
+      "description": "Companion app for the ViXEn controller plugin.",
+      "developer": "isage",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "isage",
+        "version": "v.1.1",
+        "categoryCode": "4",
+        "requirements": "- vixen.skprx",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4954",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/9923dc8130164c3339bc76acd0fa61b2f7ce88a4ea81c4420246997f8e2ece7a.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/isage/vixen-helper",
+        "releasePageUrl": "https://github.com/isage/vixen-helper/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4954",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1",
+          "packageSizeBytes": 1325355,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4954",
+          "titleId": "VXNH00001"
         }
       ]
     },
@@ -199182,6 +201822,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4975",
+      "title": "Wayward Souls",
+      "sortTitle": "Wayward Souls",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Wayward Souls (Android) for PSVita with an on-device APK importer.",
+      "description": "Port of Wayward Souls (Android) for PSVita with an on-device APK importer.",
+      "developer": "Cynostial",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Cynostial",
+        "version": "v.0.16-rc1",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Wayward Souls (Android)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4975",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/99b350b6f8e98e2e1075b035a8c645ec2ad891d6509098baa0d707e97df1f558.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Cynostial/wayward-souls-vita",
+        "releasePageUrl": "https://github.com/Cynostial/wayward-souls-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4975",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.16-rc1",
+          "packageSizeBytes": 1480253,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4975",
+          "titleId": "WAYWARD01"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-634",
       "title": "We Are Broken",
       "sortTitle": "We Are Broken",
@@ -201329,6 +204013,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4986",
+      "title": "Wolff's Store",
+      "sortTitle": "Wolff's Store",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Client for the Wolff's Room homebrew collection.",
+      "description": "Client for the Wolff's Room homebrew collection.",
+      "developer": "WolffsRoom",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "WolffsRoom",
+        "version": "v.1.1.3",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4986",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/904816b7cd2806091d48c2baafa8be02221dc0f1b3c28b066c14c9dbc28a8dac.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/WolffsRoom/WolffsStore",
+        "releasePageUrl": "https://github.com/WolffsRoom/WolffsStore/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4986",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1.3",
+          "packageSizeBytes": 7962186,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4986",
+          "titleId": "WFFS00042"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-4847",
       "title": "Wonder Boy: The Dragon's Trap",
       "sortTitle": "Wonder Boy: The Dragon's Trap",
@@ -202663,7 +205391,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Xash3D-FWGS Team & fgsfds",
-        "version": "Nightly 2026-11-21",
+        "version": "Nightly 2026-11-24",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx in ur0:data\n- kubridge.skprx in ur0:tai\n- Game Data Files: PC in ux0:data/xash3d",
         "changelog": "- First Release.",
@@ -202684,12 +205412,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-21",
-          "packageSizeBytes": 27847258,
+          "version": "Nightly 2026-11-24",
+          "packageSizeBytes": 27896370,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-21T22:58:51Z",
+          "sourceUpdatedAt": "2026-11-24T05:25:05Z",
           "sourceItemId": "1157",
           "titleId": "XASH10000"
         }
@@ -202919,6 +205647,50 @@
           "sourceUpdatedAt": "2009-05-10",
           "sourceItemId": "3710",
           "titleId": "XDOW01420"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4932",
+      "title": "Xerox",
+      "sortTitle": "Xerox",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Simon memory game for PSVita.",
+      "description": "Simon memory game for PSVita.",
+      "developer": "dragaron",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "dragaron",
+        "version": "v.1.01",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4932",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/c72b0da51ce459508d3158e8ca640e281082d65f52894c7c6e3219f7364ff2cb.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/dragaron/Xerox",
+        "releasePageUrl": "https://github.com/dragaron/Xerox/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4932",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.01",
+          "packageSizeBytes": 2794750,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4932",
+          "titleId": "XEROX0000"
         }
       ]
     },
@@ -203553,6 +206325,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4960",
+      "title": "xsystem35",
+      "sortTitle": "xsystem35",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of xsystem35, an engine for AliceSoft System 3.x games, for PSVita.",
+      "description": "Port of xsystem35, an engine for AliceSoft System 3.x games, for PSVita.",
+      "developer": "nunuhara",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "nunuhara",
+        "version": "v.00.02",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of a System 3.x game",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4960",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/6ecfd391de63c39ee9aabdc85a4aaa24780fef0b7151d6be88431ff40348f5cd.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/nunuhara/xsystem35-vita",
+        "releasePageUrl": "https://github.com/nunuhara/xsystem35-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4960",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.00.02",
+          "packageSizeBytes": 9650891,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4960",
+          "titleId": "NNHR00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2380",
       "title": "XSystem35 Lite for PSP",
       "sortTitle": "XSystem35 Lite for PSP",
@@ -204001,6 +206817,50 @@
           "sourceUpdatedAt": "2005-09-02",
           "sourceItemId": "2297",
           "titleId": "YAHT01230"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4934",
+      "title": "Yakzee",
+      "sortTitle": "Yakzee",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Yahtzee dice game for PSVita.",
+      "description": "Yahtzee dice game for PSVita.",
+      "developer": "dragaron",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "dragaron",
+        "version": "v.1.00",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4934",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/a185d4b33f9ac565e9189223ae2ed4d15a00effa656a3cecc74e90c85d5027b7.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/dragaron/Yakzee",
+        "releasePageUrl": "https://github.com/dragaron/Yakzee/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4934",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.00",
+          "packageSizeBytes": 2872597,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4934",
+          "titleId": "YAKZEE000"
         }
       ]
     },
@@ -204688,6 +207548,94 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2006-08-22",
           "sourceItemId": "3716"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4988",
+      "title": "YouTube on Vita",
+      "sortTitle": "YouTube on Vita",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Unofficial YouTube client for PSVita.",
+      "description": "Unofficial YouTube client for PSVita.",
+      "developer": "WolffsRoom",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "WolffsRoom",
+        "version": "v.0.65",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4988",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/d189a140a96e7eef67c2639808839d3b660091333585939bfcce49df4053dc4a.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/WolffsRoom/YouTubeOnVita",
+        "releasePageUrl": "https://github.com/WolffsRoom/YouTubeOnVita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4988",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.65",
+          "packageSizeBytes": 22923055,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4988",
+          "titleId": "YTVCB0001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4949",
+      "title": "YoYo Loader",
+      "sortTitle": "YoYo Loader",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Loader for Android games made with GameMaker on PSVita.",
+      "description": "Loader for Android games made with GameMaker on PSVita.",
+      "developer": "Rinnegatamante",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Rinnegatamante",
+        "version": "Nightly 2026-11-24",
+        "categoryCode": "4",
+        "requirements": "- libshacccg.suprx in ur0:data\n- kubridge.skprx in ur0:tai\n- fd_fix.skprx in ur0:tai\n- Game Data Files: your own GameMaker game APK",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4949",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/7d46de503dd83eb4e1947982a56a7b2d81770236f2c77dc51582b95a93c1d1b7.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Rinnegatamante/yoyoloader_vita",
+        "releasePageUrl": "https://github.com/Rinnegatamante/yoyoloader_vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4949",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "Nightly 2026-11-24",
+          "packageSizeBytes": 8327746,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "4949",
+          "titleId": "YYOLOADER"
         }
       ]
     },
@@ -205891,6 +208839,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-4924",
+      "title": "Zenonia 2 (MetalSyntax)",
+      "sortTitle": "Zenonia 2 (MetalSyntax)",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Zenonia 2 for PSVita.",
+      "description": "Port of the Android version of Zenonia 2 for PSVita.",
+      "developer": "MetalSyntax",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "MetalSyntax",
+        "version": "v.1.40",
+        "categoryCode": "2",
+        "requirements": "- libshacccg.suprx in ur0:data\n- kubridge.skprx in ur0:tai\n- fd_fix.skprx in ur0:tai\n- Game Data Files: Zenonia 2 (Android) in ux0:data/zenonia2",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4924",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/04124d1aff5a6795a0271411f6e1c537486f8e2797f1d503b1c7f71b9bd73a32.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/MetalSyntax/Zenonia2-psvita-port",
+        "releasePageUrl": "https://github.com/MetalSyntax/Zenonia2-psvita-port/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4924",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.40",
+          "packageSizeBytes": 973727,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-23",
+          "sourceItemId": "4924",
+          "titleId": "PSVZ00002"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1504",
       "title": "Zenonia 3",
       "sortTitle": "Zenonia 3",
@@ -206571,6 +209563,50 @@
           "sourceUpdatedAt": "2010-06-24",
           "sourceItemId": "4707",
           "titleId": "ZOMB02373"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-4925",
+      "title": "Zombie Tsunami (rodi)",
+      "sortTitle": "Zombie Tsunami (rodi)",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Zombie Tsunami for PSVita.",
+      "description": "so-loader port of Zombie Tsunami for PSVita. Needs your own copy of Zombie Tsunami 4.7.3 for Android.",
+      "developer": "rodi",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "rodi",
+        "version": "v.1.0",
+        "categoryCode": "2",
+        "requirements": "- libshacccg.suprx in ur0:data\n- kubridge.skprx in ur0:tai\n- fd_fix.skprx in ur0:tai\n- Game Data Files: Zombie Tsunami 4.7.3 (Android) in ux0:data/zombietsunami",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:4925",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/1078c2905152bfb1ff8b237d823c2c0703005cfd8592edf8ccec4837cc476054.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/rodingley/zombietsunami_vita",
+        "releasePageUrl": "https://github.com/rodingley/zombietsunami_vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:4925",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 904923,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-23",
+          "sourceItemId": "4925",
+          "titleId": "ZMBT00001"
         }
       ]
     },
@@ -370581,7 +373617,7 @@
     }
   ],
   "homebrewImport": {
-    "lastImported": "2026-11-23T14:34:52Z",
-    "recordsAdded": 4550
+    "lastImported": "2026-11-24T14:50:38Z",
+    "recordsAdded": 4619
   }
 }
