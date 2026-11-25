@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-11-24T14:50:38Z",
+  "generatedAt": "2026-11-25T14:18:34Z",
   "sources": [
     {
       "sourceId": "nopaystation",
       "name": "NoPayStation",
       "dataset": "PSV_GAMES",
       "url": "https://nopaystation.org/tsv/PSV_GAMES.tsv",
-      "fetchedAt": "2026-11-24T14:50:37Z",
+      "fetchedAt": "2026-11-25T14:18:32Z",
       "recordCount": 3784,
       "notes": "Metadata-only import; 44 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -16,7 +16,7 @@
       "name": "NoPayStation",
       "dataset": "PSP_GAMES",
       "url": "https://nopaystation.org/tsv/PSP_GAMES.tsv",
-      "fetchedAt": "2026-11-24T14:50:37Z",
+      "fetchedAt": "2026-11-25T14:18:32Z",
       "recordCount": 2459,
       "notes": "Metadata-only import; 4 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -25,7 +25,7 @@
       "name": "NoPayStation",
       "dataset": "PSX_GAMES",
       "url": "https://nopaystation.org/tsv/PSX_GAMES.tsv",
-      "fetchedAt": "2026-11-24T14:50:37Z",
+      "fetchedAt": "2026-11-25T14:18:32Z",
       "recordCount": 1648,
       "notes": "Metadata-only import; 20 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -34,8 +34,8 @@
       "name": "VitaHomebrewDB",
       "dataset": "apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-24T14:50:38Z",
-      "recordCount": 1523,
+      "fetchedAt": "2026-11-25T14:18:34Z",
+      "recordCount": 1525,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     },
     {
@@ -43,14 +43,14 @@
       "name": "VitaHomebrewDB",
       "dataset": "psp_apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-24T14:50:38Z",
-      "recordCount": 3096,
+      "fetchedAt": "2026-11-25T14:18:34Z",
+      "recordCount": 3163,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     }
   ],
   "totals": {
-    "games": 9885,
-    "releases": 12510
+    "games": 9954,
+    "releases": 12579
   },
   "games": [
     {
@@ -4725,6 +4725,49 @@
           "sourceUpdatedAt": "2017-01-28",
           "sourceItemId": "117",
           "titleId": "SHDW00001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5067",
+      "title": "aemu",
+      "sortTitle": "aemu",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "PRO Online plugin fork with PPSSPP compatibility.",
+      "description": "PRO Online plugin fork with PPSSPP compatibility.",
+      "developer": "Kethen",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Kethen",
+        "version": "v.2026-11-15",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5067",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Kethen/aemu",
+        "releasePageUrl": "https://github.com/Kethen/aemu/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5067",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.2026-11-15",
+          "packageSizeBytes": 2961872,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:09Z",
+          "sourceItemId": "5067"
         }
       ]
     },
@@ -9947,6 +9990,93 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5058",
+      "title": "ARK-4",
+      "sortTitle": "ARK-4",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Custom firmware for PSP and the PSVita ePSP.",
+      "description": "Custom firmware for PSP and the PSVita ePSP.",
+      "developer": "PSP-Archive",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "PSP-Archive",
+        "version": "v.42069r206",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5058",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/102b5220929375193e38c95cbcc8ecd686621f820238790478210dd18fe62b20.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/PSP-Archive/ARK-4",
+        "releasePageUrl": "https://github.com/PSP-Archive/ARK-4/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5058",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.42069r206",
+          "packageSizeBytes": 40193265,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:03Z",
+          "sourceItemId": "5058",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5070",
+      "title": "ARK-5",
+      "sortTitle": "ARK-5",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Custom firmware for PSP and the PSVita ePSP.",
+      "description": "Custom firmware for PSP and the PSVita ePSP.",
+      "developer": "PSP-Arkfive",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "PSP-Arkfive",
+        "version": "Nightly 2026-11-24",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5070",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/PSP-Arkfive/ARK-5",
+        "releasePageUrl": "https://github.com/PSP-Arkfive/ARK-5/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5070",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "Nightly 2026-11-24",
+          "packageSizeBytes": 345599,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:11Z",
+          "sourceItemId": "5070"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4797",
       "title": "Arkanoid",
       "sortTitle": "Arkanoid",
@@ -10282,7 +10412,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "DeQxJ00",
-        "version": "v.1.5.4",
+        "version": "v.1.5.5",
         "categoryCode": "5",
         "requirements": "- libshacccg.suprx\n- CapUnlocker.skprx",
         "changelog": "- First Release",
@@ -10301,12 +10431,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.5.4",
-          "packageSizeBytes": 30380875,
+          "version": "v.1.5.5",
+          "packageSizeBytes": 30723001,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-17T18:26:58Z",
+          "sourceUpdatedAt": "2026-11-24T20:48:36Z",
           "sourceItemId": "1606",
           "titleId": "ART3DIR01"
         }
@@ -11905,6 +12035,49 @@
           "sourceUpdatedAt": "2010-10-15",
           "sourceItemId": "2222",
           "titleId": "AUTO01178"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5049",
+      "title": "Auto TV Out",
+      "sortTitle": "Auto TV Out",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Enables TV out automatically.",
+      "description": "Enables TV out automatically.",
+      "developer": "ste2425",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "ste2425",
+        "version": "v.1.0.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5049",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/ste2425/Auto-Tv-Out",
+        "releasePageUrl": "https://github.com/ste2425/Auto-Tv-Out/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5049",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0.1",
+          "packageSizeBytes": 3130,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:41Z",
+          "sourceItemId": "5049"
         }
       ]
     },
@@ -14025,6 +14198,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5062",
+      "title": "Battery Icon",
+      "sortTitle": "Battery Icon",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Shows a blinking indicator when the battery is low.",
+      "description": "Shows a blinking indicator when the battery is low.",
+      "developer": "nuxa17",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "nuxa17",
+        "version": "v.1.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5062",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/nuxa17/battery_icon",
+        "releasePageUrl": "https://github.com/nuxa17/battery_icon/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5062",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1",
+          "packageSizeBytes": 414041,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:06Z",
+          "sourceItemId": "5062"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-78",
       "title": "Battery Indicator",
       "sortTitle": "Battery Indicator",
@@ -15708,6 +15924,49 @@
           "sourceUpdatedAt": "2025-07-24",
           "sourceItemId": "1286",
           "titleId": "BETTERQRS"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5069",
+      "title": "BetterBright",
+      "sortTitle": "BetterBright",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Finer control of the display brightness.",
+      "description": "Finer control of the display brightness.",
+      "developer": "hobbo91",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "hobbo91",
+        "version": "v.0.93",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5069",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/hobbo91/BetterBright",
+        "releasePageUrl": "https://github.com/hobbo91/BetterBright/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5069",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.93",
+          "packageSizeBytes": 24048,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:11Z",
+          "sourceItemId": "5069"
         }
       ]
     },
@@ -17677,6 +17936,50 @@
           "sourceUpdatedAt": "2007-01-01",
           "sourceItemId": "2844",
           "titleId": "BLOC00453"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5040",
+      "title": "BloodPSP",
+      "sortTitle": "BloodPSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Blood for PSP.",
+      "description": "Port of Blood for PSP.",
+      "developer": "RainArcanjo",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "RainArcanjo",
+        "version": "v.0.4.0",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Blood",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5040",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/a5d7feb92dca324a6b1c9d50e58f51d9af35db19c41f151eeac6bc868f62522f.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/RainArcanjo/BloodPSP",
+        "releasePageUrl": "https://github.com/RainArcanjo/BloodPSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5040",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.4.0",
+          "packageSizeBytes": 1129175,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:26Z",
+          "sourceItemId": "5040",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -23112,6 +23415,92 @@
           "sourceUpdatedAt": "2008-04-06",
           "sourceItemId": "3301",
           "titleId": "CALY00731"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5054",
+      "title": "Camera Patch Lite",
+      "sortTitle": "Camera Patch Lite",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Right analog stick camera support for PSP games on eCFW.",
+      "description": "Right analog stick camera support for PSP games on eCFW.",
+      "developer": "Freakler",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Freakler",
+        "version": "v.1.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5054",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Freakler/psp-camera_patch_lite",
+        "releasePageUrl": "https://github.com/Freakler/psp-camera_patch_lite/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5054",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1",
+          "packageSizeBytes": 9689,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:45Z",
+          "sourceItemId": "5054"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5017",
+      "title": "Camera Patch Lite (PSP Go)",
+      "sortTitle": "Camera Patch Lite (PSP Go)",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Right analog stick camera support for PSP Go, port of Camera Patch Lite.",
+      "description": "Right analog stick camera support for PSP Go, port of Camera Patch Lite.",
+      "developer": "rereprep",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "rereprep",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5017",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/rereprep/Camera-Patch-Lite-PSP-Go",
+        "releasePageUrl": "https://github.com/rereprep/Camera-Patch-Lite-PSP-Go/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5017",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 13838,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:29Z",
+          "sourceItemId": "5017"
         }
       ]
     },
@@ -33366,6 +33755,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5064",
+      "title": "CTW Cheat Device",
+      "sortTitle": "CTW Cheat Device",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Cheat device for GTA: Chinatown Wars.",
+      "description": "Cheat device for GTA: Chinatown Wars.",
+      "developer": "daniemun",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "daniemun",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5064",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/daniemun/CTW-CheatDevice-Reversed",
+        "releasePageUrl": "https://github.com/daniemun/CTW-CheatDevice-Reversed/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5064",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 5345,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:07Z",
+          "sourceItemId": "5064"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2577",
       "title": "Cube Runner",
       "sortTitle": "Cube Runner",
@@ -41552,6 +41984,50 @@
           "sourceUpdatedAt": "2026-09-10T23:31:40Z",
           "sourceItemId": "823",
           "titleId": "DERA00002"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5071",
+      "title": "DratiniFS",
+      "sortTitle": "DratiniFS",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "exFAT and 1 TB+ SD card support for PSP.",
+      "description": "exFAT and 1 TB+ SD card support for PSP.",
+      "developer": "qberty1337",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "qberty1337",
+        "version": "v.2.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5071",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/b647ce109b7c774d6efbc2c1446d650253a2dc411f12c83c210cb3b88e030099.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/qberty1337/DratiniFS",
+        "releasePageUrl": "https://github.com/qberty1337/DratiniFS/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5071",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.2.0",
+          "packageSizeBytes": 730644,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:12Z",
+          "sourceItemId": "5071",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -55409,7 +55885,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "SoulTieGames",
-        "version": "v..00",
+        "version": "v.1.0",
         "categoryCode": "1",
         "requirements": "",
         "changelog": "- First Release",
@@ -55428,12 +55904,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v..00",
+          "version": "v.1.0",
           "packageSizeBytes": 39111289,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-24",
+          "sourceUpdatedAt": "2026-11-24T23:46:10Z",
           "sourceItemId": "4957",
           "titleId": "FUNKNFRAN"
         }
@@ -55618,6 +56094,49 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2010-01-03",
           "sourceItemId": "3930"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5060",
+      "title": "FuSa SD",
+      "sortTitle": "FuSa SD",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Play games on a TV without restrictions.",
+      "description": "Play games on a TV without restrictions.",
+      "developer": "andy-man",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "andy-man",
+        "version": "v.1.0.50",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5060",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/andy-man/psp-fusa-sd",
+        "releasePageUrl": "https://github.com/andy-man/psp-fusa-sd/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5060",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0.50",
+          "packageSizeBytes": 112162,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:05Z",
+          "sourceItemId": "5060"
         }
       ]
     },
@@ -56305,6 +56824,49 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2008-08-15",
           "sourceItemId": "962"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5066",
+      "title": "Game Categories Lite",
+      "sortTitle": "Game Categories Lite",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Folder categories for the XMB game menu.",
+      "description": "Folder categories for the XMB game menu.",
+      "developer": "codestation",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "codestation",
+        "version": "v.1.6",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5066",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/codestation/gclite",
+        "releasePageUrl": "https://github.com/codestation/gclite/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5066",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.6",
+          "packageSizeBytes": 97933,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:08Z",
+          "sourceItemId": "5066"
         }
       ]
     },
@@ -57863,6 +58425,49 @@
           "sourceUpdatedAt": "2009-01-20",
           "sourceItemId": "3215",
           "titleId": "GWPH00238"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5015",
+      "title": "GePatch",
+      "sortTitle": "GePatch",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Native resolution patch for several PSP games on Adrenaline.",
+      "description": "Native resolution patch for several PSP games on Adrenaline.",
+      "developer": "TheOfficialFloW",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "TheOfficialFloW",
+        "version": "v.0.2",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5015",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/TheOfficialFloW/GePatch",
+        "releasePageUrl": "https://github.com/TheOfficialFloW/GePatch/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5015",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.2",
+          "packageSizeBytes": 14350,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:27Z",
+          "sourceItemId": "5015"
         }
       ]
     },
@@ -61610,6 +62215,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5014",
+      "title": "GTA Native Resolution",
+      "sortTitle": "GTA Native Resolution",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Native resolution patch for the PSP GTA games.",
+      "description": "Native resolution patch for the PSP GTA games.",
+      "developer": "TheOfficialFloW",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "TheOfficialFloW",
+        "version": "v.0.3",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5014",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/TheOfficialFloW/GTANativeRes",
+        "releasePageUrl": "https://github.com/TheOfficialFloW/GTANativeRes/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5014",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.3",
+          "packageSizeBytes": 20014,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:27Z",
+          "sourceItemId": "5014"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-625",
       "title": "GTA: CTW Vita",
       "sortTitle": "GTA: CTW Vita",
@@ -63812,7 +64460,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Asukate",
-        "version": "v.0.6.0-alpha",
+        "version": "v.0.6.1-alpha",
         "categoryCode": "5",
         "requirements": "- libshacccg.suprx",
         "changelog": "- First Release",
@@ -63831,12 +64479,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.6.0-alpha",
-          "packageSizeBytes": 30849928,
+          "version": "v.0.6.1-alpha",
+          "packageSizeBytes": 31017402,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-17T18:24:05Z",
+          "sourceUpdatedAt": "2026-11-24T20:47:36Z",
           "sourceItemId": "1678",
           "titleId": "HARDRPG01"
         }
@@ -74371,6 +75019,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5023",
+      "title": "JoyCenterFix",
+      "sortTitle": "JoyCenterFix",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Fixes misaligned analog sticks.",
+      "description": "Fixes misaligned analog sticks.",
+      "developer": "vladimir-cucu",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "vladimir-cucu",
+        "version": "v.1.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5023",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/vladimir-cucu/joycenterfix",
+        "releasePageUrl": "https://github.com/vladimir-cucu/joycenterfix/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5023",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1.0",
+          "packageSizeBytes": 3902,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:37Z",
+          "sourceItemId": "5023"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2894",
       "title": "Jpong",
       "sortTitle": "Jpong",
@@ -78703,6 +79394,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5022",
+      "title": "langPatch",
+      "sortTitle": "langPatch",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Changes the game language without changing the XMB language.",
+      "description": "Changes the game language without changing the XMB language.",
+      "developer": "zSamyMan",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "zSamyMan",
+        "version": "v.0.2",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5022",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/zSamyMan/langPatch",
+        "releasePageUrl": "https://github.com/zSamyMan/langPatch/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5022",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.2",
+          "packageSizeBytes": 2738,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:36Z",
+          "sourceItemId": "5022"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-4978",
       "title": "Lantern Crossing",
       "sortTitle": "Lantern Crossing",
@@ -80335,11 +81069,11 @@
           "region": "INT",
           "languageCodes": [],
           "version": "v.0.1",
-          "packageSizeBytes": 7199931,
+          "packageSizeBytes": 7200797,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-24T05:24:04Z",
+          "sourceUpdatedAt": "2026-11-25T02:39:22Z",
           "sourceItemId": "1452",
           "titleId": "LEGO00001"
         }
@@ -87106,6 +87840,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5041",
+      "title": "Majora's Mask PSP",
+      "sortTitle": "Majora's Mask PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the Majora's Mask decompilation for PSP.",
+      "description": "Port of the Majora's Mask decompilation for PSP.",
+      "developer": "z2442",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "z2442",
+        "version": "Nightly 2026-11-24",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own Majora's Mask US ROM",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5041",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/z2442/mm-PSP",
+        "releasePageUrl": "https://github.com/z2442/mm-PSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5041",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "Nightly 2026-11-24",
+          "packageSizeBytes": 3322159,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:28Z",
+          "sourceItemId": "5041",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4325",
       "title": "Making a Legend",
       "sortTitle": "Making a Legend",
@@ -87439,7 +88217,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "xesf",
-        "version": "v.0.10.0",
+        "version": "v.0.10.2",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx\n- Game Data Files: PC",
         "changelog": "- First Release",
@@ -87458,12 +88236,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.10.0",
-          "packageSizeBytes": 1815912,
+          "version": "v.0.10.2",
+          "packageSizeBytes": 1835963,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23T14:50:17Z",
+          "sourceUpdatedAt": "2026-11-24T20:46:35Z",
           "sourceItemId": "1758",
           "titleId": "MHRE00001"
         }
@@ -89751,6 +90529,50 @@
           "sourceUpdatedAt": "2007-12-30",
           "sourceItemId": "3033",
           "titleId": "MAZZ00620"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5055",
+      "title": "MC-PSP",
+      "sortTitle": "MC-PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Minecraft-like block game for PSP, continued from Minecraft-PSP.",
+      "description": "Minecraft-like block game for PSP, continued from Minecraft-PSP.",
+      "developer": "IridescentRose",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "IridescentRose",
+        "version": "v.0.5-pre2",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5055",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/8b15fe257bcff3b0c559ad2cb16f5ca844cfff68d48d31f8ec6315540ac8fec3.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/IridescentRose/MC-PSP",
+        "releasePageUrl": "https://github.com/IridescentRose/MC-PSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5055",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.5-pre2",
+          "packageSizeBytes": 5946336,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:46Z",
+          "sourceItemId": "5055",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -93776,6 +94598,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5020",
+      "title": "MissyHUD",
+      "sortTitle": "MissyHUD",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Plugin that shows a simple HUD with battery, clock and CPU speed.",
+      "description": "Plugin that shows a simple HUD with battery, clock and CPU speed.",
+      "developer": "pebeto",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "pebeto",
+        "version": "v.0.7",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5020",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/pebeto/missyhud.prx",
+        "releasePageUrl": "https://github.com/pebeto/missyhud.prx/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5020",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.7",
+          "packageSizeBytes": 17846,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:30Z",
+          "sourceItemId": "5020"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3744",
       "title": "Mitsubishi Remote",
       "sortTitle": "Mitsubishi Remote",
@@ -94593,6 +95458,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-5082",
+      "title": "mofa-vita",
+      "sortTitle": "mofa-vita",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Native PSVita engine for Witch on the Holy Night, based on knife.",
+      "description": "Native GXM engine for Witch on the Holy Night (Mahoutsukai no Yoru), based on AuroraWright's knife. Reads converted Switch game data from ux0:data/WitchontheHolyNight/assets/.",
+      "developer": "ATSPwang618 & DeQxJ00 & SpriteLisen",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "ATSPwang618 & DeQxJ00 & SpriteLisen",
+        "version": "v.1.20",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Witch on the Holy Night (Switch), converted with prepare-mofa-vita.py",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:5082",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/43122887407ca74c3137f68a8f0c0e1c4d6957dda0257be93bae152ca2991b07.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/ATSPwang618/mofa-vita",
+        "releasePageUrl": "https://github.com/ATSPwang618/mofa-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:5082",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.20",
+          "packageSizeBytes": 4938904,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "5082",
+          "titleId": "KNIF00540"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1414",
       "title": "Mog Vita",
       "sortTitle": "Mog Vita",
@@ -94682,6 +95591,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2013-01-01",
           "sourceItemId": "3264"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5047",
+      "title": "Monk Tower PSP",
+      "sortTitle": "Monk Tower PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Monk Tower by Maciej Glowka for PSP.",
+      "description": "Port of Monk Tower by Maciej Glowka for PSP.",
+      "developer": "dadcapgamer",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "dadcapgamer",
+        "version": "v.RC2",
+        "categoryCode": "2",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5047",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/9d097ce8e3bafc78133a3daf8c0893d6780dbbbd01031d28504d5ff12731c9b5.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/dadcapgamer/monktowerPSP",
+        "releasePageUrl": "https://github.com/dadcapgamer/monktowerPSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5047",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.RC2",
+          "packageSizeBytes": 1100580,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:27:52Z",
+          "sourceItemId": "5047",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -94790,7 +95743,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "SaNch0sE",
-        "version": "v.0.4-beta",
+        "version": "v.0.4.3-beta",
         "categoryCode": "2",
         "requirements": "- m4hunative.skprx\n- CapUnlocker.skprx\n- Game Data Files: 3DS",
         "changelog": "- First Release",
@@ -94809,12 +95762,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.4-beta",
-          "packageSizeBytes": 8445012,
+          "version": "v.0.4.3-beta",
+          "packageSizeBytes": 8446081,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23T17:27:58Z",
+          "sourceUpdatedAt": "2026-11-24T20:42:35Z",
           "sourceItemId": "4854",
           "titleId": "MH4UVITA0"
         }
@@ -101478,7 +102431,7 @@
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-19T20:01:48Z",
+          "sourceUpdatedAt": "2026-11-24T20:37:42Z",
           "sourceItemId": "1155",
           "titleId": "GDOT00002"
         }
@@ -101498,7 +102451,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Swisha33",
-        "version": "v.0.1.5",
+        "version": "v.0.1.7",
         "categoryCode": "2",
         "requirements": "- Game Data Files: PC",
         "changelog": "- First Release",
@@ -101517,12 +102470,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.1.5",
-          "packageSizeBytes": 14470046,
+          "version": "v.0.1.7",
+          "packageSizeBytes": 15130705,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22T12:42:08Z",
+          "sourceUpdatedAt": "2026-11-24T20:41:34Z",
           "sourceItemId": "4855",
           "titleId": "NFSCVITA0"
         }
@@ -102560,6 +103513,49 @@
           "sourceUpdatedAt": "2008-10-03",
           "sourceItemId": "2349",
           "titleId": "NINT01561"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5019",
+      "title": "NIPvP",
+      "sortTitle": "NIPvP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Enables PvP in Naruto Shippuden: Ultimate Ninja Impact.",
+      "description": "Enables PvP in Naruto Shippuden: Ultimate Ninja Impact.",
+      "developer": "cello0314",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "cello0314",
+        "version": "v.1.1.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5019",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/cello0314/nipvp",
+        "releasePageUrl": "https://github.com/cello0314/nipvp/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5019",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1.1",
+          "packageSizeBytes": 11518,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:30Z",
+          "sourceItemId": "5019"
         }
       ]
     },
@@ -103932,6 +104928,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5078",
+      "title": "NovaOS",
+      "sortTitle": "NovaOS",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Launcher for PSP on ARK-4 and ARK-5.",
+      "description": "Launcher for PSP on ARK-4 and ARK-5.",
+      "developer": "gabriele-gessaghi",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "gabriele-gessaghi",
+        "version": "v.1.0.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5078",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/9045099b1b608f53bf93509ea416a7b6e7f2a7aea3214f22f0f5aec96e6065bf.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/gabriele-gessaghi/NovaOS-releases",
+        "releasePageUrl": "https://github.com/gabriele-gessaghi/NovaOS-releases/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5078",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0.0",
+          "packageSizeBytes": 621943,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:17Z",
+          "sourceItemId": "5078",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-4808",
       "title": "NovelReader",
       "sortTitle": "NovelReader",
@@ -104151,6 +105191,49 @@
           "sourceUpdatedAt": "2007-01-01",
           "sourceItemId": "2478",
           "titleId": "NPAI00884"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5063",
+      "title": "nploader",
+      "sortTitle": "nploader",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "DLC loader for PSP.",
+      "description": "DLC loader for PSP.",
+      "developer": "codestation",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "codestation",
+        "version": "v.0.9",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5063",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/codestation/nploader",
+        "releasePageUrl": "https://github.com/codestation/nploader/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5063",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.9",
+          "packageSizeBytes": 33927,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:06Z",
+          "sourceItemId": "5063"
         }
       ]
     },
@@ -104838,6 +105921,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2011-09-06",
           "sourceItemId": "2396"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5034",
+      "title": "Ocarina of Time PSP",
+      "sortTitle": "Ocarina of Time PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the Ocarina of Time decompilation for PSP.",
+      "description": "Port of the Ocarina of Time decompilation for PSP.",
+      "developer": "z2442",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "z2442",
+        "version": "Nightly 2026-11-24",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own Ocarina of Time NTSC 1.0 ROM",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5034",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/0ff68d915351a430876ec1d6b95326f700ffb48df51e5c249dc7dc3f8f67e13a.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/z2442/oot-PSP",
+        "releasePageUrl": "https://github.com/z2442/oot-PSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5034",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "Nightly 2026-11-24",
+          "packageSizeBytes": 2791142,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:55Z",
+          "sourceItemId": "5034",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -112049,7 +113176,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "germanalvarez15",
-        "version": "v.0.0.4-beta",
+        "version": "v.0.0.6-beta",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own legal copy of the game as an ISO file",
         "changelog": "- First Release",
@@ -112068,12 +113195,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.0.4-beta",
-          "packageSizeBytes": 27255200,
+          "version": "v.0.0.6-beta",
+          "packageSizeBytes": 27264658,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-21",
+          "sourceUpdatedAt": "2026-11-24T20:39:34Z",
           "sourceItemId": "4896",
           "titleId": "PESV00006"
         }
@@ -113488,6 +114615,50 @@
           "sourceUpdatedAt": "2008-04-17",
           "sourceItemId": "4552",
           "titleId": "PIGR00770"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5038",
+      "title": "Pikachu Volleyball",
+      "sortTitle": "Pikachu Volleyball",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Pikachu Volleyball for PSP.",
+      "description": "Port of Pikachu Volleyball for PSP.",
+      "developer": "athekat",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "athekat",
+        "version": "v.1.0",
+        "categoryCode": "2",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5038",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/8091271cc372017f670974ccf5b93106490e61ad07ad605d98e348d562534356.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/athekat/Pikachu-Volleyball-PSP",
+        "releasePageUrl": "https://github.com/athekat/Pikachu-Volleyball-PSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5038",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 6909344,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:20Z",
+          "sourceItemId": "5038",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -115170,6 +116341,50 @@
           "sourceUpdatedAt": "2011-01-01",
           "sourceItemId": "2133",
           "titleId": "PLAT01694"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5076",
+      "title": "Platform Shooter",
+      "sortTitle": "Platform Shooter",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Platformer for PSP with mod packs.",
+      "description": "Platformer for PSP with mod packs.",
+      "developer": "jmgamer1199",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "jmgamer1199",
+        "version": "v.0.6.2-alpha",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5076",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/ee423689afa54e284eed99b7b92984add247700081985489c0592dbf73a3e685.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/jmgamer1199/platform-shooter",
+        "releasePageUrl": "https://github.com/jmgamer1199/platform-shooter/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5076",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.6.2-alpha",
+          "packageSizeBytes": 3557029,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:15Z",
+          "sourceItemId": "5076",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -118045,6 +119260,92 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5045",
+      "title": "POPS Analog",
+      "sortTitle": "POPS Analog",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Real analog and dual analog input for PS1 games on PSP.",
+      "description": "Real analog and dual analog input for PS1 games on PSP.",
+      "developer": "ste2425",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "ste2425",
+        "version": "v.1.2.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5045",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/ste2425/POPS-Analog",
+        "releasePageUrl": "https://github.com/ste2425/POPS-Analog/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5045",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.2.0",
+          "packageSizeBytes": 5510,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:38Z",
+          "sourceItemId": "5045"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5028",
+      "title": "POPSAnalog",
+      "sortTitle": "POPSAnalog",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Analog controller mode for PS1 games on PSP Go.",
+      "description": "Analog controller mode for PS1 games on PSP Go.",
+      "developer": "rereprep",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "rereprep",
+        "version": "v.0.2",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5028",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/rereprep/POPSAnalog",
+        "releasePageUrl": "https://github.com/rereprep/POPSAnalog/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5028",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.2",
+          "packageSizeBytes": 2578,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:40Z",
+          "sourceItemId": "5028"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4406",
       "title": "PopsDeco",
       "sortTitle": "PopsDeco",
@@ -118084,6 +119385,49 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "",
           "sourceItemId": "4406"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5074",
+      "title": "POPSDualAnalog",
+      "sortTitle": "POPSDualAnalog",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Second analog stick support for PS1 games on PSP.",
+      "description": "Second analog stick support for PS1 games on PSP.",
+      "developer": "tojikoumori",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "tojikoumori",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5074",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/tojikoumori/POPSDualAnalog-PSP",
+        "releasePageUrl": "https://github.com/tojikoumori/POPSDualAnalog-PSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5074",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 2993,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:14Z",
+          "sourceItemId": "5074"
         }
       ]
     },
@@ -119767,6 +121111,50 @@
           "sourceUpdatedAt": "2017-08-16",
           "sourceItemId": "297",
           "titleId": "PCM300001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5053",
+      "title": "PRO CFW C2B",
+      "sortTitle": "PRO CFW C2B",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "PRO custom firmware for PSP.",
+      "description": "PRO custom firmware for PSP.",
+      "developer": "kyleatlast",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "kyleatlast",
+        "version": "PRO-C2B",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5053",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/6660316454ae9b5c4c6f07076f3c2f60c8052c318a96d043460f927d50b49399.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/kyleatlast/procfw",
+        "releasePageUrl": "https://github.com/kyleatlast/procfw/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5053",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "PRO-C2B",
+          "packageSizeBytes": 1008536,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:27:52Z",
+          "sourceItemId": "5053",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -121641,6 +123029,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5025",
+      "title": "PSP Achievements System",
+      "sortTitle": "PSP Achievements System",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Achievement system for PSP games.",
+      "description": "Achievement system for PSP games.",
+      "developer": "avetis-dev",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "avetis-dev",
+        "version": "v.2.0.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5025",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/avetis-dev/PSPAchievementsSystem",
+        "releasePageUrl": "https://github.com/avetis-dev/PSPAchievementsSystem/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5025",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.2.0.0",
+          "packageSizeBytes": 53734,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:38Z",
+          "sourceItemId": "5025"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4455",
       "title": "PSP Action Replay Converter",
       "sortTitle": "PSP Action Replay Converter",
@@ -121998,6 +123429,49 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2006-03-08",
           "sourceItemId": "2902"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5052",
+      "title": "PSP ARK Plugins",
+      "sortTitle": "PSP ARK Plugins",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Plugins for ARK-5 with save states, quick resume and more.",
+      "description": "Plugins for ARK-5 with save states, quick resume and more.",
+      "developer": "00KAM1",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "00KAM1",
+        "version": "v.2026-11-23",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5052",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/00KAM1/psp-ark-plugins",
+        "releasePageUrl": "https://github.com/00KAM1/psp-ark-plugins/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5052",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.2026-11-23",
+          "packageSizeBytes": 9132275,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:44Z",
+          "sourceItemId": "5052"
         }
       ]
     },
@@ -124979,6 +126453,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5050",
+      "title": "PSP Go BT Controllers",
+      "sortTitle": "PSP Go BT Controllers",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Bluetooth controller support for PSP Go.",
+      "description": "Bluetooth controller support for PSP Go.",
+      "developer": "z2442",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "z2442",
+        "version": "v.1.0-build.9",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5050",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/z2442/pspgobtcontrollers",
+        "releasePageUrl": "https://github.com/z2442/pspgobtcontrollers/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5050",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0-build.9",
+          "packageSizeBytes": 129451,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:41Z",
+          "sourceItemId": "5050"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2981",
       "title": "PSP Golden Goal",
       "sortTitle": "PSP Golden Goal",
@@ -125337,6 +126854,50 @@
           "sourceUpdatedAt": "2009-01-24",
           "sourceItemId": "4389",
           "titleId": "EBOO00649"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5042",
+      "title": "PSP Hero",
+      "sortTitle": "PSP Hero",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Guitar Hero style rhythm game for PSP.",
+      "description": "Guitar Hero style rhythm game for PSP.",
+      "developer": "ravsil",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "ravsil",
+        "version": "v.1.0",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5042",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/d265dec77660b321eaf697a4817a1c3adf2fac3b98b76cfbbb983a330d03d30b.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/ravsil/PSP-Hero",
+        "releasePageUrl": "https://github.com/ravsil/PSP-Hero/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5042",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 5601255,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:36Z",
+          "sourceItemId": "5042",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -129183,6 +130744,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5036",
+      "title": "PSP Stream",
+      "sortTitle": "PSP Stream",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Streams a PC screen and audio to the PSP over WiFi with button input back.",
+      "description": "Streams a PC screen and audio to the PSP over WiFi with button input back.",
+      "developer": "k7vinilstorage",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "k7vinilstorage",
+        "version": "v.1.12",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5036",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/k7vinilstorage/PSP-Stream",
+        "releasePageUrl": "https://github.com/k7vinilstorage/PSP-Stream/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5036",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.12",
+          "packageSizeBytes": 397098,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:03Z",
+          "sourceItemId": "5036",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3221",
       "title": "PSP Strife",
       "sortTitle": "PSP Strife",
@@ -129996,6 +131601,92 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5043",
+      "title": "PSP USB Capture",
+      "sortTitle": "PSP USB Capture",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Streams the PSP screen and sound to a PC over USB.",
+      "description": "Streams the PSP screen and sound to a PC over USB.",
+      "developer": "AfinaLoves",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "AfinaLoves",
+        "version": "v.0.9.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5043",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/AfinaLoves/psp-usb-capture",
+        "releasePageUrl": "https://github.com/AfinaLoves/psp-usb-capture/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5043",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.9.0",
+          "packageSizeBytes": 24498,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:36Z",
+          "sourceItemId": "5043"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5016",
+      "title": "PSP UVC",
+      "sortTitle": "PSP UVC",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Streams the PSP screen over USB as a webcam.",
+      "description": "Streams the PSP screen over USB as a webcam.",
+      "developer": "xerpi",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "xerpi",
+        "version": "v.0.2",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5016",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/xerpi/psp-uvc-usb-video-class",
+        "releasePageUrl": "https://github.com/xerpi/psp-uvc-usb-video-class/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5016",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.2",
+          "packageSizeBytes": 99278,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:28Z",
+          "sourceItemId": "5016"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3872",
       "title": "PSP Vi",
       "sortTitle": "PSP Vi",
@@ -130038,6 +131729,49 @@
           "sourceUpdatedAt": "2007-01-23",
           "sourceItemId": "3872",
           "titleId": "EBOO00649"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5077",
+      "title": "PSP VideoBG",
+      "sortTitle": "PSP VideoBG",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Video background for the XMB.",
+      "description": "Video background for the XMB.",
+      "developer": "Wyped",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Wyped",
+        "version": "v.22",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5077",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Wyped/PSP-VideoBG",
+        "releasePageUrl": "https://github.com/Wyped/PSP-VideoBG/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5077",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.22",
+          "packageSizeBytes": 1441128,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:16Z",
+          "sourceItemId": "5077"
         }
       ]
     },
@@ -130717,6 +132451,49 @@
           "sourceUpdatedAt": "2007-02-25",
           "sourceItemId": "3351",
           "titleId": "PSPD00993"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5024",
+      "title": "PSP-DRP",
+      "sortTitle": "PSP-DRP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Discord Rich Presence for PSP with a PC companion app.",
+      "description": "Discord Rich Presence for PSP with a PC companion app.",
+      "developer": "qberty1337",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "qberty1337",
+        "version": "v.0.4.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5024",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/qberty1337/PSP-DRP",
+        "releasePageUrl": "https://github.com/qberty1337/PSP-DRP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5024",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.4.0",
+          "packageSizeBytes": 107933,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:38Z",
+          "sourceItemId": "5024"
         }
       ]
     },
@@ -134063,6 +135840,93 @@
           "sourceUpdatedAt": "2006-12-13",
           "sourceItemId": "3676",
           "titleId": "PSPE01498"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5044",
+      "title": "PSPExp",
+      "sortTitle": "PSPExp",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Lets a Linux board run games while the PSP shows them and sends input.",
+      "description": "Lets a Linux board run games while the PSP shows them and sends input.",
+      "developer": "pleft",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "pleft",
+        "version": "v.1.4.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5044",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/17360a6f51070ea44e5774a7b0182d6be3f80ac1f3bf59b8c256c46054c89be1.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/pleft/PSPExp",
+        "releasePageUrl": "https://github.com/pleft/PSPExp/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5044",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.4.0",
+          "packageSizeBytes": 320747,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:37Z",
+          "sourceItemId": "5044",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5029",
+      "title": "PSPFatSave",
+      "sortTitle": "PSPFatSave",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Save tool for PSP.",
+      "description": "Save tool for PSP.",
+      "developer": "Grunwalskii",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Grunwalskii",
+        "version": "v.981",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5029",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Grunwalskii/PSPFatSave-Public",
+        "releasePageUrl": "https://github.com/Grunwalskii/PSPFatSave-Public/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5029",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.981",
+          "packageSizeBytes": 1565374,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:41Z",
+          "sourceItemId": "5029"
         }
       ]
     },
@@ -141894,6 +143758,94 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5080",
+      "title": "PTube Native",
+      "sortTitle": "PTube Native",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "YouTube client for PSP.",
+      "description": "YouTube client for PSP.",
+      "developer": "Vilusia",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Vilusia",
+        "version": "v.0.6.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5080",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/75523054d4a949d9f208e25f855067180836c5b6dd7063020d6e7d926440decf.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Vilusia/PTube-Native",
+        "releasePageUrl": "https://github.com/Vilusia/PTube-Native/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5080",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.6.0",
+          "packageSizeBytes": 1371428,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:20Z",
+          "sourceItemId": "5080",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5051",
+      "title": "PTwitch Native",
+      "sortTitle": "PTwitch Native",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Twitch client for PSP 3000.",
+      "description": "Twitch client for PSP 3000.",
+      "developer": "Vilusia",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Vilusia",
+        "version": "v.24",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5051",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Vilusia/PTwitch-Native",
+        "releasePageUrl": "https://github.com/Vilusia/PTwitch-Native/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5051",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.24",
+          "packageSizeBytes": 1362286,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:42Z",
+          "sourceItemId": "5051",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3333",
       "title": "PucePong",
       "sortTitle": "PucePong",
@@ -145454,6 +147406,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5021",
+      "title": "rawgl PSP",
+      "sortTitle": "rawgl PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the Another World engine reimplementation rawgl for PSP.",
+      "description": "Port of the Another World engine reimplementation rawgl for PSP.",
+      "developer": "internalregister",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "internalregister",
+        "version": "v.1.0",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Another World",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5021",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/internalregister/rawgl_psp",
+        "releasePageUrl": "https://github.com/internalregister/rawgl_psp/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5021",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 737047,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:36Z",
+          "sourceItemId": "5021",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1813",
       "title": "Rayman Fiesta Run",
       "sortTitle": "Rayman Fiesta Run",
@@ -146238,7 +148234,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Reyanon",
-        "version": "v.0.14.80",
+        "version": "v.0.15.1",
         "categoryCode": "5",
         "requirements": "",
         "changelog": "- First Release",
@@ -146257,12 +148253,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.14.80",
-          "packageSizeBytes": 8463957,
+          "version": "v.0.15.1",
+          "packageSizeBytes": 8506117,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23",
+          "sourceUpdatedAt": "2026-11-24T20:38:34Z",
           "sourceItemId": "4920",
           "titleId": "RBOX00001"
         }
@@ -147720,6 +149716,49 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2006-01-29",
           "sourceItemId": "3631"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5032",
+      "title": "RemoteJoy Minus",
+      "sortTitle": "RemoteJoy Minus",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "RemoteJoy without video capture, for controller input over USB.",
+      "description": "RemoteJoy without video capture, for controller input over USB.",
+      "developer": "SourceK78",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "SourceK78",
+        "version": "v.1.7.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5032",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/SourceK78/remotejoy-minus",
+        "releasePageUrl": "https://github.com/SourceK78/remotejoy-minus/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5032",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.7.0",
+          "packageSizeBytes": 43570,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:47Z",
+          "sourceItemId": "5032"
         }
       ]
     },
@@ -149269,6 +151308,50 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2005-08-22",
           "sourceItemId": "3313"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5072",
+      "title": "RIN GB Camera",
+      "sortTitle": "RIN GB Camera",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "RIN Game Boy emulator fork that feeds the Go!Cam into the Game Boy Camera.",
+      "description": "RIN Game Boy emulator fork that feeds the Go!Cam into the Game Boy Camera.",
+      "developer": "beckerd",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "beckerd",
+        "version": "v.1.4",
+        "categoryCode": "5",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5072",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/126d82e6fcd09f73d1bdc2169393636251c057418f1c9ec0dc6b7c55379fde84.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/beckerd/psp_rin_gbcam",
+        "releasePageUrl": "https://github.com/beckerd/psp_rin_gbcam/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5072",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.4",
+          "packageSizeBytes": 394975,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:12Z",
+          "sourceItemId": "5072",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -154208,6 +156291,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5073",
+      "title": "SavegameDeemer",
+      "sortTitle": "SavegameDeemer",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Decrypts and exports PSP save data.",
+      "description": "Decrypts and exports PSP save data.",
+      "developer": "Kethen",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Kethen",
+        "version": "v.2024-05-05",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5073",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Kethen/SavegameDeemer",
+        "releasePageUrl": "https://github.com/Kethen/SavegameDeemer/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5073",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.2024-05-05",
+          "packageSizeBytes": 2965,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:13Z",
+          "sourceItemId": "5073"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4146",
       "title": "SaveHacker",
       "sortTitle": "SaveHacker",
@@ -156178,6 +158304,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5068",
+      "title": "SFA3 MAX Widescreen",
+      "sortTitle": "SFA3 MAX Widescreen",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Native 16:9 widescreen patch for Street Fighter Alpha 3 MAX.",
+      "description": "Native 16:9 widescreen patch for Street Fighter Alpha 3 MAX.",
+      "developer": "Rickow",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Rickow",
+        "version": "v.1.1.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5068",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Rickow/Street-Fighter-Alpha-3-MAX-PSP-widescreen",
+        "releasePageUrl": "https://github.com/Rickow/Street-Fighter-Alpha-3-MAX-PSP-widescreen/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5068",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.1.1",
+          "packageSizeBytes": 69669,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:10Z",
+          "sourceItemId": "5068"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-2687",
       "title": "SG57's Robot",
       "sortTitle": "SG57's Robot",
@@ -156353,6 +158522,50 @@
           "sourceUpdatedAt": "2013-10-18",
           "sourceItemId": "2988",
           "titleId": "SHAD01663"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psvita-5012",
+      "title": "Shards of Dawn",
+      "sortTitle": "Shards of Dawn",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Online isometric RPG with turn-based card battles for PSVita.",
+      "description": "Free online isometric RPG where every fight is a turn-based card battle. Shares one world with players in the browser.",
+      "developer": "HunterAzar",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "HunterAzar",
+        "version": "v.12.07",
+        "categoryCode": "1",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:5012",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/b11de2e6e519249f82f4d2ea8ac8c7d1c60aacc30531df0d9e63da17d95ab327.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://shardsofdawn.com/en/",
+        "releasePageUrl": "https://hunterazar.itch.io/shards-of-dawn"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:5012",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.12.07",
+          "packageSizeBytes": 7957216,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-24",
+          "sourceItemId": "5012",
+          "titleId": "ODLS00001"
         }
       ]
     },
@@ -160288,6 +162501,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5061",
+      "title": "Slim Colors",
+      "sortTitle": "Slim Colors",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Adds Slim colors to the PSP 1000.",
+      "description": "Adds Slim colors to the PSP 1000.",
+      "developer": "krazynez",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "krazynez",
+        "version": "v.2.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5061",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/8591e67b4b046f425b0c58b2c9ee531c675501009becefc8456162053f4491f3.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/krazynez/slim_colors",
+        "releasePageUrl": "https://github.com/krazynez/slim_colors/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5061",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.2.1",
+          "packageSizeBytes": 148419,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:05Z",
+          "sourceItemId": "5061",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3149",
       "title": "Slime Volleyball PSP",
       "sortTitle": "Slime Volleyball PSP",
@@ -163880,6 +166137,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5035",
+      "title": "Sonic Mania PSP",
+      "sortTitle": "Sonic Mania PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the Sonic Mania decompilation for PSP.",
+      "description": "Port of the Sonic Mania decompilation for PSP.",
+      "developer": "girlyoulookthebest",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "girlyoulookthebest",
+        "version": "v.1.5",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Sonic Mania (Data.rsdk)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5035",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/a3f8bdedc503211b205e8888d2f37f0a6051ce333d408211a575b35e0ba499ae.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/girlyoulookthebest/Sonic-Mania-Decompilation",
+        "releasePageUrl": "https://github.com/girlyoulookthebest/Sonic-Mania-Decompilation/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5035",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.5",
+          "packageSizeBytes": 2081551,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:02Z",
+          "sourceItemId": "5035",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-858",
       "title": "Sonic Mania Vita",
       "sortTitle": "Sonic Mania Vita",
@@ -163969,6 +166270,50 @@
           "sourceUpdatedAt": "2026-11-18T16:06:21Z",
           "sourceItemId": "1582",
           "titleId": "SONICR001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5039",
+      "title": "Sonic R PSP",
+      "sortTitle": "Sonic R PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of a reimplementation of Sonic R for PSP.",
+      "description": "Port of a reimplementation of Sonic R for PSP.",
+      "developer": "HiroStuff",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "HiroStuff",
+        "version": "v.1.0",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Sonic R (PC)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5039",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/658f57f1938c6a4a851d2a8af691a16caf2989569f5ae17136d3a049476e82c2.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/HiroStuff/sonic-r-psp-public",
+        "releasePageUrl": "https://github.com/HiroStuff/sonic-r-psp-public/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5039",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 2180271,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:21Z",
+          "sourceItemId": "5039",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -168268,7 +170613,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "KP77C",
-        "version": "v.",
+        "version": "v.1.0",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own legal copy of StarCraft and Brood War (PC)",
         "changelog": "- First Release",
@@ -168287,12 +170632,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.",
+          "version": "v.1.0",
           "packageSizeBytes": 1363315,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-21",
+          "sourceUpdatedAt": "2026-11-24T23:46:10Z",
           "sourceItemId": "4895",
           "titleId": "SCVITA001"
         }
@@ -169611,6 +171956,50 @@
           "sourceUpdatedAt": "2026-11-11",
           "sourceItemId": "1669",
           "titleId": "SFIV00001"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5059",
+      "title": "Street Racing PSP",
+      "sortTitle": "Street Racing PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the GameMaker 8 example game Street Racing for PSP.",
+      "description": "Port of the GameMaker 8 example game Street Racing for PSP.",
+      "developer": "LiEnby",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "LiEnby",
+        "version": "v.1.0",
+        "categoryCode": "2",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5059",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/30d4c511ee664c1dbb58d07638f45f136800fe2489d43e6249d730f6561adde9.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/LiEnby/StreetRacingPSP",
+        "releasePageUrl": "https://github.com/LiEnby/StreetRacingPSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5059",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 3714311,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:04Z",
+          "sourceItemId": "5059",
+          "titleId": "STRE00000"
         }
       ]
     },
@@ -173454,7 +175843,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "GeoffreyMetais",
-        "version": "v.0.1.0",
+        "version": "v.0.2.0",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -173473,12 +175862,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.1.0",
-          "packageSizeBytes": 1312266,
+          "version": "v.0.2.0",
+          "packageSizeBytes": 1444248,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-18",
+          "sourceUpdatedAt": "2026-11-24T20:43:35Z",
           "sourceItemId": "4825",
           "titleId": "SYNCTHING"
         }
@@ -173945,7 +176334,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "kennyheidi",
-        "version": "v..00",
+        "version": "v.1.0",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own Tails Adventure ROM",
         "changelog": "- First Release",
@@ -173964,12 +176353,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v..00",
+          "version": "v.1.0",
           "packageSizeBytes": 5141539,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-24",
+          "sourceUpdatedAt": "2026-11-24T23:46:10Z",
           "sourceItemId": "4962",
           "titleId": "TAIL00003"
         }
@@ -179826,7 +182215,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "marcocatena",
-        "version": "v.1.2",
+        "version": "v.1.2.1",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx\n- Game Data Files: PC",
         "changelog": "- First Release",
@@ -179845,12 +182234,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.2",
-          "packageSizeBytes": 5006776,
+          "version": "v.1.2.1",
+          "packageSizeBytes": 5041417,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-21T12:45:58Z",
+          "sourceUpdatedAt": "2026-11-24T20:45:35Z",
           "sourceItemId": "4810",
           "titleId": "TSVITA001"
         }
@@ -181999,6 +184388,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5065",
+      "title": "Title Sorter",
+      "sortTitle": "Title Sorter",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Sorts homebrew on the PSP.",
+      "description": "Sorts homebrew on the PSP.",
+      "developer": "PsArchive",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "PsArchive",
+        "version": "v.1.0.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5065",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/1f1071b1e48ae32cafb685251833bab93dbbdbbc84a2dac31d4c0e745fc0c95e.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/PsArchive/Title_Sorter",
+        "releasePageUrl": "https://github.com/PsArchive/Title_Sorter/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5065",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0.0",
+          "packageSizeBytes": 432533,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:08Z",
+          "sourceItemId": "5065",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-984",
       "title": "TJAPlayer",
       "sortTitle": "TJAPlayer",
@@ -182448,6 +184881,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5033",
+      "title": "ToadGBA",
+      "sortTitle": "ToadGBA",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Modernised TempGBA Game Boy Advance emulator for PSP.",
+      "description": "Modernised TempGBA Game Boy Advance emulator for PSP.",
+      "developer": "AlfonsoVM",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "AlfonsoVM",
+        "version": "v.1.0.43",
+        "categoryCode": "5",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5033",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/067e67eda7f57e4c948825779284ccd87352c4c1754868e4e335623658c79247.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/AlfonsoVM/ToadGBA",
+        "releasePageUrl": "https://github.com/AlfonsoVM/ToadGBA/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5033",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0.43",
+          "packageSizeBytes": 5606067,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:54Z",
+          "sourceItemId": "5033",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3998",
       "title": "Todo Español",
       "sortTitle": "Todo Español",
@@ -182861,6 +185338,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5013",
+      "title": "Tony Hawk Remastered Controls",
+      "sortTitle": "Tony Hawk Remastered Controls",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Dual analog controls for Tony Hawk games on Adrenaline.",
+      "description": "Dual analog controls for Tony Hawk games on Adrenaline.",
+      "developer": "TheOfficialFloW",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "TheOfficialFloW",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5013",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/TheOfficialFloW/RemasteredControls",
+        "releasePageUrl": "https://github.com/TheOfficialFloW/RemasteredControls/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5013",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 2898,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:26Z",
+          "sourceItemId": "5013"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1721",
       "title": "Tony Hawk's Pro Skater",
       "sortTitle": "Tony Hawk's Pro Skater",
@@ -183217,6 +185737,50 @@
           "sourceUpdatedAt": "2021-03-10",
           "sourceItemId": "622",
           "titleId": "TORN12345"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5018",
+      "title": "TOTP4PSP",
+      "sortTitle": "TOTP4PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Two-factor authentication code generator for PSP.",
+      "description": "Two-factor authentication code generator for PSP.",
+      "developer": "arcyleung",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "arcyleung",
+        "version": "v.0.0.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5018",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/arcyleung/TOTP4PSP",
+        "releasePageUrl": "https://github.com/arcyleung/TOTP4PSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5018",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.0.1",
+          "packageSizeBytes": 202252,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:29Z",
+          "sourceItemId": "5018",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -190111,6 +192675,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5030",
+      "title": "UTUBBU",
+      "sortTitle": "UTUBBU",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Unofficial YouTube client for PSP.",
+      "description": "Unofficial YouTube client for PSP.",
+      "developer": "XayroWhite",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "XayroWhite",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5030",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/d5e5c3dafce1a4be296e92f10b2b42df432e0a617b2dca0ca48f618da2ffe47c.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/XayroWhite/UTUBBU",
+        "releasePageUrl": "https://github.com/XayroWhite/UTUBBU/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5030",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 952529,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:46Z",
+          "sourceItemId": "5030",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-1843",
       "title": "Uvao Project",
       "sortTitle": "Uvao Project",
@@ -190353,7 +192961,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Botarguirix",
-        "version": "v.0.7.0-alpha",
+        "version": "v.0.8.0-alpha",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Valdis Story: Abyssal City",
         "changelog": "- First Release",
@@ -190372,12 +192980,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.7.0-alpha",
-          "packageSizeBytes": 1622138,
+          "version": "v.0.8.0-alpha",
+          "packageSizeBytes": 1653039,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-21T12:43:58Z",
+          "sourceUpdatedAt": "2026-11-24T20:40:34Z",
           "sourceItemId": "4884",
           "titleId": "VALDIS001"
         }
@@ -196034,7 +198642,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "josephinoo",
-        "version": "v.0.1.13",
+        "version": "v.0.1.14",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -196053,12 +198661,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.1.13",
-          "packageSizeBytes": 6201848,
+          "version": "v.0.1.14",
+          "packageSizeBytes": 6274545,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22T12:50:11Z",
+          "sourceUpdatedAt": "2026-11-24T20:49:37Z",
           "sourceItemId": "1451",
           "titleId": "VITAFORGE"
         }
@@ -197948,7 +200556,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Reyanon",
-        "version": "v.0.14.37",
+        "version": "v.0.16.4",
         "categoryCode": "2",
         "requirements": "- Game Data Files: The Sims 1 Legacy Collection",
         "changelog": "- First Release",
@@ -197967,12 +200575,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.14.37",
-          "packageSizeBytes": 2875169,
+          "version": "v.0.16.4",
+          "packageSizeBytes": 3238114,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23T14:48:17Z",
+          "sourceUpdatedAt": "2026-11-24T20:44:35Z",
           "sourceItemId": "4824",
           "titleId": "SIMS00001"
         }
@@ -199434,6 +202042,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5075",
+      "title": "Viz Tape",
+      "sortTitle": "Viz Tape",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Animated cassette visualizer for the PSP music player.",
+      "description": "Animated cassette visualizer for the PSP music player.",
+      "developer": "beckerd",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "beckerd",
+        "version": "v.1.3",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5075",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/beckerd/psp_viz_tape",
+        "releasePageUrl": "https://github.com/beckerd/psp_viz_tape/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5075",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.3",
+          "packageSizeBytes": 45529,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:14Z",
+          "sourceItemId": "5075"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4144",
       "title": "VkontaktePSP",
       "sortTitle": "VkontaktePSP",
@@ -199923,6 +202574,50 @@
           "sourceUpdatedAt": "2015-10-19",
           "sourceItemId": "3456",
           "titleId": "VNPS00407"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5037",
+      "title": "vnpsp-RE",
+      "sortTitle": "vnpsp-RE",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "VNDS visual novel interpreter for PSP.",
+      "description": "VNDS visual novel interpreter for PSP.",
+      "developer": "Hermes-Digital234",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Hermes-Digital234",
+        "version": "v.0.0.3",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5037",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Hermes-Digital234/vnpsp-RE",
+        "releasePageUrl": "https://github.com/Hermes-Digital234/vnpsp-RE/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5037",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.0.3",
+          "packageSizeBytes": 1541683,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:10Z",
+          "sourceItemId": "5037",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -200464,6 +203159,49 @@
           "sourceUpdatedAt": "2006-06-02",
           "sourceItemId": "4348",
           "titleId": "LUAP01126"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5027",
+      "title": "vshbgmX",
+      "sortTitle": "vshbgmX",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Plays your own MP3 files as XMB background music.",
+      "description": "Plays your own MP3 files as XMB background music.",
+      "developer": "farnsworth3010",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "farnsworth3010",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5027",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/farnsworth3010/vshbgmX",
+        "releasePageUrl": "https://github.com/farnsworth3010/vshbgmX/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5027",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 12434,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:39Z",
+          "sourceItemId": "5027"
         }
       ]
     },
@@ -201822,6 +204560,49 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5026",
+      "title": "wavezbg",
+      "sortTitle": "wavezbg",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Custom XMB waves for PSP.",
+      "description": "Custom XMB waves for PSP.",
+      "developer": "koutsie",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "koutsie",
+        "version": "v.1.0",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5026",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/koutsie/wavezbg",
+        "releasePageUrl": "https://github.com/koutsie/wavezbg/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5026",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.0",
+          "packageSizeBytes": 17498,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:39Z",
+          "sourceItemId": "5026"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-4975",
       "title": "Wayward Souls",
       "sortTitle": "Wayward Souls",
@@ -202998,6 +205779,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5079",
+      "title": "WiliMini",
+      "sortTitle": "WiliMini",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Bilibili client for PSP.",
+      "description": "Bilibili client for PSP.",
+      "developer": "wilimini",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "wilimini",
+        "version": "v.2.14",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5079",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/0801c0db4281682fa6e7dfc5eadf86d878485e01a383342f7e0e05cb8df450f4.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/wilimini/WiliMini",
+        "releasePageUrl": "https://github.com/wilimini/WiliMini/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5079",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.2.14",
+          "packageSizeBytes": 13862384,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:50:37Z",
+          "sourceItemId": "5079",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1164",
       "title": "wiliwili",
       "sortTitle": "wiliwili",
@@ -203918,6 +206743,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5046",
+      "title": "Wolfenstein RPG PSP",
+      "sortTitle": "Wolfenstein RPG PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Wolfenstein RPG for PSP, based on WolfensteinRPG-RE.",
+      "description": "Port of Wolfenstein RPG for PSP, based on WolfensteinRPG-RE.",
+      "developer": "dadcapgamer",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "dadcapgamer",
+        "version": "v.0.1.0",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own copy of Wolfenstein RPG",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5046",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/fbefd217948e54cd123026214d2e190eb7f7218a824420a3b69e3fdb4525013c.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/dadcapgamer/WolfensteinRPG4PSP",
+        "releasePageUrl": "https://github.com/dadcapgamer/WolfensteinRPG4PSP/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5046",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1.0",
+          "packageSizeBytes": 1278733,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:38Z",
+          "sourceItemId": "5046",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1268",
       "title": "Wolfenstein RPG Vita",
       "sortTitle": "Wolfenstein RPG Vita",
@@ -204026,7 +206895,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "WolffsRoom",
-        "version": "v.1.1.3",
+        "version": "v.1.1.4",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -204045,12 +206914,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.1.3",
-          "packageSizeBytes": 7962186,
+          "version": "v.1.1.4",
+          "packageSizeBytes": 7972179,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-24",
+          "sourceUpdatedAt": "2026-11-24T20:37:29Z",
           "sourceItemId": "4986",
           "titleId": "WFFS00042"
         }
@@ -204698,6 +207567,50 @@
           "sourceUpdatedAt": "2008-01-01",
           "sourceItemId": "4198",
           "titleId": "WORM01223"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5048",
+      "title": "WoWee PSP",
+      "sortTitle": "WoWee PSP",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the WoWee World of Warcraft engine experiment for PSP.",
+      "description": "Port of the WoWee World of Warcraft engine experiment for PSP.",
+      "developer": "SandstoneDev",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "SandstoneDev",
+        "version": "v.0.2.0",
+        "categoryCode": "2",
+        "requirements": "- Game Data Files: your own World of Warcraft client data",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5048",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/SandstoneDev/WoWee-psp-port",
+        "releasePageUrl": "https://github.com/SandstoneDev/WoWee-psp-port/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5048",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.2.0",
+          "packageSizeBytes": 3850897,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:25:40Z",
+          "sourceItemId": "5048",
+          "titleId": "UCJS10041"
         }
       ]
     },
@@ -205781,6 +208694,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psp-5081",
+      "title": "XLT",
+      "sortTitle": "XLT",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Launcher for ARK custom firmware.",
+      "description": "Launcher for ARK custom firmware.",
+      "developer": "boubounokefalos",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "boubounokefalos",
+        "version": "v.1.3.1",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5081",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/a41021338fd5c3b9a3e72526a76ba96097f3c4d4cab0ce85ba037c3c15140af6.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/boubounokefalos/xlt",
+        "releasePageUrl": "https://github.com/boubounokefalos/xlt/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5081",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.3.1",
+          "packageSizeBytes": 2256094,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:26:21Z",
+          "sourceItemId": "5081",
+          "titleId": "UCJS10041"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-4458",
       "title": "xmame for PSP",
       "sortTitle": "xmame for PSP",
@@ -206006,6 +208963,49 @@
           "sourceDataset": "psp_apps.json",
           "sourceUpdatedAt": "2008-01-01",
           "sourceItemId": "2111"
+        }
+      ]
+    },
+    {
+      "gameId": "homebrew-psp-5031",
+      "title": "XMB Game Cache",
+      "sortTitle": "XMB Game Cache",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Faster XMB game menu for large memory cards on ARK-4.",
+      "description": "Faster XMB game menu for large memory cards on ARK-4.",
+      "developer": "beckerd",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "beckerd",
+        "version": "v.1.8",
+        "categoryCode": "4",
+        "requirements": "",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psp:5031",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/69c8d9a67034bd7c494bf68a82d26dfe065782e0ec9b12dced99e314cd62d851.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/beckerd/xmb_gamecache",
+        "releasePageUrl": "https://github.com/beckerd/xmb_gamecache/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psp:5031",
+          "platform": "homebrew",
+          "targetPlatform": "psp",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.8",
+          "packageSizeBytes": 45306,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "psp_apps.json",
+          "sourceUpdatedAt": "2026-11-24T20:24:46Z",
+          "sourceItemId": "5031"
         }
       ]
     },
@@ -373617,7 +376617,7 @@
     }
   ],
   "homebrewImport": {
-    "lastImported": "2026-11-24T14:50:38Z",
-    "recordsAdded": 4619
+    "lastImported": "2026-11-25T14:18:34Z",
+    "recordsAdded": 4688
   }
 }
