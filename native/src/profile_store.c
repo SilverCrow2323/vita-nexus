@@ -131,12 +131,11 @@ VitaNexusStoreResult vita_nexus_profile_save_active(const char *path, unsigned i
 
     if (!path || profile >= VITA_NEXUS_PROFILE_COUNT || strlen(path) + sizeof(".tmp.XXXXXX") > sizeof(temp_path))
         return VITA_NEXUS_STORE_INVALID;
-    snprintf(temp_path, sizeof(temp_path), "%s.tmp", path);
     length = snprintf(line, sizeof(line), "%u\n", profile);
     if (length <= 0 || (size_t)length >= sizeof(line)) return VITA_NEXUS_STORE_INVALID;
     checksum = profile_checksum(line, (size_t)length);
 
-    file = fopen(temp_path, "wb");
+    file = open_unique_temp(path, temp_path, sizeof(temp_path));
     if (!file) return VITA_NEXUS_STORE_IO_ERROR;
     if (fputs(ACTIVE_HEADER, file) < 0 ||
         fwrite(line, 1, (size_t)length, file) != (size_t)length ||
