@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 static uint32_t test_checksum_update(uint32_t hash, const char *data, size_t length)
 {
@@ -51,6 +52,27 @@ int main(void)
     assert(vita_nexus_library_set(&library, "vita-game-001", VITA_NEXUS_LIBRARY_FAVORITE, 8) == VITA_NEXUS_STORE_OK);
     assert(vita_nexus_library_set(&library, "psp-game-002", VITA_NEXUS_LIBRARY_BACKLOG | VITA_NEXUS_LIBRARY_COMPLETED, 10) == VITA_NEXUS_STORE_OK);
     assert(vita_nexus_library_save(&library, path) == VITA_NEXUS_STORE_OK);
+    {
+        char sentinel_path[256], hostile_temp[256];
+        FILE *sentinel;
+        snprintf(sentinel_path, sizeof(sentinel_path), "%s-sentinel", path);
+        snprintf(hostile_temp, sizeof(hostile_temp), "%s.tmp.%ld.0", path, (long)getpid());
+        sentinel = fopen(sentinel_path, "wb");
+        assert(sentinel != NULL);
+        fputs("DO NOT TRUNCATE", sentinel);
+        assert(fclose(sentinel) == 0);
+        remove(hostile_temp);
+        assert(symlink(sentinel_path, hostile_temp) == 0);
+        assert(vita_nexus_library_save(&library, path) == VITA_NEXUS_STORE_OK);
+        sentinel = fopen(sentinel_path, "rb");
+        assert(sentinel != NULL);
+        char sentinel_data[32] = {0};
+        assert(fread(sentinel_data, 1, sizeof(sentinel_data) - 1, sentinel) == strlen("DO NOT TRUNCATE"));
+        assert(fclose(sentinel) == 0);
+        assert(strcmp(sentinel_data, "DO NOT TRUNCATE") == 0);
+        remove(hostile_temp);
+        remove(sentinel_path);
+    }
     vita_nexus_library_init(&loaded);
     assert(vita_nexus_library_load(&loaded, path) == VITA_NEXUS_STORE_OK);
     assert(loaded.count == 2);
