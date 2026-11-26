@@ -250,7 +250,7 @@ VitaNexusStoreResult vita_nexus_library_save(const VitaNexusLibrary *library, co
         }
         hash = checksum_update(hash, line, (size_t)length);
     }
-    if (fprintf(file, "END|%08X\n", (unsigned int)hash) < 0 || fflush(file) != 0) {
+    if (fprintf(file, "END|%08X\n", (unsigned int)hash) < 0 || fflush(file) != 0 || fsync(fileno(file)) != 0) {
         fclose(file); remove(temp_path); return VITA_NEXUS_STORE_IO_ERROR;
     }
     if (fclose(file) != 0) { remove(temp_path); return VITA_NEXUS_STORE_IO_ERROR; }

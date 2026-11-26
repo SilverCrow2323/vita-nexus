@@ -141,7 +141,7 @@ VitaNexusStoreResult vita_nexus_profile_save_active(const char *path, unsigned i
     if (fputs(ACTIVE_HEADER, file) < 0 ||
         fwrite(line, 1, (size_t)length, file) != (size_t)length ||
         fprintf(file, "%08X\n", (unsigned int)checksum) < 0 ||
-        fflush(file) != 0) {
+        fflush(file) != 0 || fsync(fileno(file)) != 0) {
         fclose(file);
         remove(temp_path);
         return VITA_NEXUS_STORE_IO_ERROR;

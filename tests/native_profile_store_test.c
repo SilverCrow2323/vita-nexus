@@ -131,7 +131,7 @@ int main(void)
         assert(fclose(outside_file) == 0);
         link_length = readlink(active_tmp, link_target, sizeof(link_target) - 1);
         assert(link_length > 0);
-        link_target[link_length] = '\\0';
+                link_target[link_length] = '\0';
         assert(strcmp(link_target, outside) == 0);
         unlink(active_tmp);
         unlink(library_tmp);
