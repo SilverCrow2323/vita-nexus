@@ -1,7 +1,30 @@
+#define _POSIX_C_SOURCE 200809L
 #include "profile_store.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+
+
+static FILE *open_unique_temp(const char *path, char *temp_path, size_t capacity)
+{
+    int descriptor;
+    FILE *file;
+    if (!path || !temp_path || strlen(path) + sizeof(".tmp.XXXXXX") > capacity)
+        return NULL;
+    if (snprintf(temp_path, capacity, "%s.tmp.XXXXXX", path) < 0)
+        return NULL;
+    descriptor = mkstemp(temp_path);
+    if (descriptor < 0) return NULL;
+    file = fdopen(descriptor, "wb");
+    if (!file) {
+        close(descriptor);
+        remove(temp_path);
+        return NULL;
+    }
+    return file;
+}
 
 #define ACTIVE_HEADER "VNXP|1\n"
 
@@ -106,7 +129,7 @@ VitaNexusStoreResult vita_nexus_profile_save_active(const char *path, unsigned i
     int length;
     uint32_t checksum;
 
-    if (!path || profile >= VITA_NEXUS_PROFILE_COUNT || strlen(path) + 5 >= sizeof(temp_path))
+    if (!path || profile >= VITA_NEXUS_PROFILE_COUNT || strlen(path) + sizeof(".tmp.XXXXXX") > sizeof(temp_path))
         return VITA_NEXUS_STORE_INVALID;
     snprintf(temp_path, sizeof(temp_path), "%s.tmp", path);
     length = snprintf(line, sizeof(line), "%u\n", profile);

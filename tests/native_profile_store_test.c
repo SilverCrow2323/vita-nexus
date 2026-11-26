@@ -1,9 +1,11 @@
+#define _POSIX_C_SOURCE 200809L
 #include "profile_store.h"
 
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 static uint32_t checksum(const char *value, size_t length)
 {
@@ -103,6 +105,38 @@ int main(void)
     assert(vita_nexus_library_find(&persisted, "game-favorite") != NULL);
     assert(vita_nexus_library_find(&persisted, "game-backlog") != NULL);
     assert(vita_nexus_library_find(&persisted, "game-done") != NULL);
+
+    /* A stale predictable .tmp symlink must never redirect an atomic save. */
+    {
+        const char *outside = "/tmp/vita-nexus-atomic-temp-outside.dat";
+        const char *active_tmp = "/tmp/vita-nexus-active-profile.dat.tmp";
+        const char *library_tmp = "/tmp/vita-nexus-profile.dat.tmp";
+        char link_target[256];
+        FILE *outside_file;
+        ssize_t link_length;
+        remove(active_tmp);
+        remove(library_tmp);
+        outside_file = fopen(outside, "wb");
+        assert(outside_file != NULL);
+        fputs("must remain untouched", outside_file);
+        assert(fclose(outside_file) == 0);
+        assert(symlink(outside, active_tmp) == 0);
+        assert(symlink(outside, library_tmp) == 0);
+        assert(vita_nexus_profile_save_active(active_path, 1) == VITA_NEXUS_STORE_OK);
+        assert(vita_nexus_library_save(&profile, profile_path) == VITA_NEXUS_STORE_OK);
+        outside_file = fopen(outside, "rb");
+        assert(outside_file != NULL);
+        assert(fgets(link_target, sizeof(link_target), outside_file) != NULL);
+        assert(strcmp(link_target, "must remain untouched") == 0);
+        assert(fclose(outside_file) == 0);
+        link_length = readlink(active_tmp, link_target, sizeof(link_target) - 1);
+        assert(link_length > 0);
+        link_target[link_length] = '\\0';
+        assert(strcmp(link_target, outside) == 0);
+        unlink(active_tmp);
+        unlink(library_tmp);
+        unlink(outside);
+    }
 
     remove(active_path);
     remove("/tmp/vita-nexus-active-profile.dat.tmp");
