@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - fix/native-atomic-temp-files
     paths:
       - "README.md"
       - "docs/**"
