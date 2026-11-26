@@ -45,3 +45,25 @@ test("normalization drops malformed entries and duplicate game IDs", () => {
   assert.equal(lists.length, 1);
   assert.deepEqual(lists[0].games, ["A", "B"]);
 });
+
+test("import normalizes duplicate and unsafe list IDs without merging lists", () => {
+  const restored = Lists.importLists({
+    product: "VITA NEXUS",
+    schemaVersion: "1.0.0",
+    lists: [
+      {id: "same-id", name: "First", games: ["game-a"]},
+      {id: "same-id", name: "Second", games: ["game-b"]},
+      {id: "../unsafe", name: "Third", games: ["game-c"]}
+    ]
+  });
+  assert.equal(new Set(restored.map((list) => list.id)).size, 3);
+  assert.deepEqual(restored.map((list) => list.games), [["game-a"], ["game-b"], ["game-c"]]);
+  assert.equal(restored[1].id, "imported-1");
+  assert.equal(restored[2].id, "imported-2");
+});
+
+test("creating a list rejects duplicate or malformed IDs", () => {
+  const initial = Lists.createList([], "First", "stable-id", "2026-11-17T00:00:00.000Z");
+  assert.throws(() => Lists.createList(initial, "Duplicate", "stable-id"), /already exists/i);
+  assert.throws(() => Lists.createList([], "Malformed", "../escape"), /invalid/i);
+});

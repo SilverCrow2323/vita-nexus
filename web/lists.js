@@ -5,26 +5,39 @@
   const MAX_ENTRIES = 500;
   const MAX_NAME = 80;
   const STORAGE_KEY = "vita-nexus.user-lists.v1";
+  const ID_RE = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$/;
 
   function cleanName(value) {
     return typeof value === "string" ? value.trim().slice(0, MAX_NAME) : "";
   }
 
+  function importedId(value, index, used) {
+    const candidate = typeof value === "string" ? value.trim() : "";
+    if (ID_RE.test(candidate) && !used.has(candidate)) return candidate;
+    let fallback = "imported-" + index;
+    let suffix = 1;
+    while (used.has(fallback)) fallback = "imported-" + index + "-" + suffix++;
+    return fallback;
+  }
+
   function normalizeLists(value) {
     if (!Array.isArray(value)) return [];
+    const usedIds = new Set();
     return value.slice(0, MAX_LISTS).map((item, index) => {
-      if (!item || typeof item !== "object") return null;
+      if (!item || typeof item !== "object" || Array.isArray(item)) return null;
       const name = cleanName(item.name);
       if (!name) return null;
+      const id = importedId(item.id, index, usedIds);
+      usedIds.add(id);
       const games = Array.isArray(item.games)
-        ? [...new Set(item.games.filter((id) => typeof id === "string" && id.length > 0 && id.length <= 160))].slice(0, MAX_ENTRIES)
+        ? [...new Set(item.games.filter((gameId) => typeof gameId === "string" && gameId.length > 0 && gameId.length <= 160))].slice(0, MAX_ENTRIES)
         : [];
       return {
-        id: typeof item.id === "string" && item.id ? item.id.slice(0, 120) : "imported-" + index,
+        id,
         name,
         description: typeof item.description === "string" ? item.description.slice(0, 280) : "",
-        createdAt: typeof item.createdAt === "string" ? item.createdAt : "",
-        updatedAt: typeof item.updatedAt === "string" ? item.updatedAt : "",
+        createdAt: typeof item.createdAt === "string" ? item.createdAt.slice(0, 40) : "",
+        updatedAt: typeof item.updatedAt === "string" ? item.updatedAt.slice(0, 40) : "",
         games
       };
     }).filter(Boolean);
@@ -34,8 +47,12 @@
     const clean = cleanName(name);
     if (!clean) throw new Error("Give the list a name first.");
     if (lists.length >= MAX_LISTS) throw new Error("You have reached the 100-list limit.");
+    const usedIds = new Set(lists.map((item) => item && item.id).filter((value) => typeof value === "string"));
+    let nextId = id || "list-" + Date.now().toString(36);
+    if (typeof nextId !== "string" || !ID_RE.test(nextId)) throw new Error("The list ID is invalid.");
+    if (usedIds.has(nextId)) throw new Error("A list with this ID already exists.");
     const now = timestamp || new Date().toISOString();
-    return [...lists, {id: id || "list-" + Date.now().toString(36), name: clean, description: "", createdAt: now, updatedAt: now, games: []}];
+    return [...lists, {id: nextId, name: clean, description: "", createdAt: now, updatedAt: now, games: []}];
   }
 
   function addGame(lists, listId, gameId, timestamp) {
