@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-11-26T13:52:42Z",
+  "generatedAt": "2026-11-27T13:49:24Z",
   "sources": [
     {
       "sourceId": "nopaystation",
       "name": "NoPayStation",
       "dataset": "PSV_GAMES",
       "url": "https://nopaystation.org/tsv/PSV_GAMES.tsv",
-      "fetchedAt": "2026-11-26T13:52:41Z",
+      "fetchedAt": "2026-11-27T13:49:23Z",
       "recordCount": 3784,
       "notes": "Metadata-only import; 44 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -16,7 +16,7 @@
       "name": "NoPayStation",
       "dataset": "PSP_GAMES",
       "url": "https://nopaystation.org/tsv/PSP_GAMES.tsv",
-      "fetchedAt": "2026-11-26T13:52:41Z",
+      "fetchedAt": "2026-11-27T13:49:23Z",
       "recordCount": 2459,
       "notes": "Metadata-only import; 4 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -25,7 +25,7 @@
       "name": "NoPayStation",
       "dataset": "PSX_GAMES",
       "url": "https://nopaystation.org/tsv/PSX_GAMES.tsv",
-      "fetchedAt": "2026-11-26T13:52:41Z",
+      "fetchedAt": "2026-11-27T13:49:23Z",
       "recordCount": 1648,
       "notes": "Metadata-only import; 20 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -34,8 +34,8 @@
       "name": "VitaHomebrewDB",
       "dataset": "apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-26T13:52:42Z",
-      "recordCount": 1536,
+      "fetchedAt": "2026-11-27T13:49:24Z",
+      "recordCount": 1538,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     },
     {
@@ -43,14 +43,14 @@
       "name": "VitaHomebrewDB",
       "dataset": "psp_apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-26T13:52:42Z",
+      "fetchedAt": "2026-11-27T13:49:24Z",
       "recordCount": 3163,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     }
   ],
   "totals": {
-    "games": 9965,
-    "releases": 12590
+    "games": 9967,
+    "releases": 12592
   },
   "games": [
     {
@@ -16895,6 +16895,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-5099",
+      "title": "Black Ops Zombies",
+      "sortTitle": "Black Ops Zombies",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of the Call of Duty: Black Ops zombies mode. Game files are converted on your PC from your own copy.",
+      "description": "Port of the Call of Duty: Black Ops zombies mode. Game files are converted on your PC from your own copy.",
+      "developer": "Voyd282",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "Voyd282",
+        "version": "v.1.00",
+        "categoryCode": "2",
+        "requirements": "Own copy of Call of Duty: Black Ops for PC (English)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:5099",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/56fa2809b977755228852dcc88f21a298fd906f7d33599414e09437fdabd5473.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/Voyd282/bo1-zombies-vita",
+        "releasePageUrl": "https://github.com/Voyd282/bo1-zombies-vita/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:5099",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.1.00",
+          "packageSizeBytes": 8687892,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-26",
+          "sourceItemId": "5099",
+          "titleId": "BOZM00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psvita-1248",
       "title": "Black Sails: Curse of the Deep",
       "sortTitle": "Black Sails: Curse of the Deep",
@@ -30537,7 +30581,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "GITitdoneboi",
-        "version": "v.0.5.0",
+        "version": "v.0.5.1",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own game files of Cosmo's Cosmic Adventure",
         "changelog": "- First Release",
@@ -30556,12 +30600,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.5.0",
-          "packageSizeBytes": 25937998,
+          "version": "v.0.5.1",
+          "packageSizeBytes": 26386208,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22",
+          "sourceUpdatedAt": "2026-11-26T14:02:50Z",
           "sourceItemId": "4910",
           "titleId": "CSMO00001"
         }
@@ -62269,7 +62313,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "joaopedr00000",
-        "version": "v.0.3.1",
+        "version": "v.0.3.3",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -62288,12 +62332,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.3.1",
-          "packageSizeBytes": 14282368,
+          "version": "v.0.3.3",
+          "packageSizeBytes": 14504974,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-25",
+          "sourceUpdatedAt": "2026-11-26T13:58:43Z",
           "sourceItemId": "5090",
           "titleId": "GREENVITA"
         }
@@ -74384,7 +74428,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "deathkiller",
-        "version": "Nightly 2026-11-23 (99ece0e)",
+        "version": "Nightly 2026-11-27 (20156b5)",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Jazz Jackrabbit 2",
         "changelog": "- First Release",
@@ -74403,12 +74447,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-23 (99ece0e)",
-          "packageSizeBytes": 9043343,
+          "version": "Nightly 2026-11-27 (20156b5)",
+          "packageSizeBytes": 9047319,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-24T05:26:08Z",
+          "sourceUpdatedAt": "2026-11-27T03:42:49Z",
           "sourceItemId": "4909",
           "titleId": "JAZZ20000"
         }
@@ -89709,7 +89753,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "PupueStudios",
-        "version": "v.1.2",
+        "version": "v.1.3",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own dump of Mario Kart DS (Europe, AMCP)",
         "changelog": "- First Release",
@@ -89728,12 +89772,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.2",
-          "packageSizeBytes": 2288161,
+          "version": "v.1.3",
+          "packageSizeBytes": 2290308,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23T17:26:57Z",
+          "sourceUpdatedAt": "2026-11-26T14:01:49Z",
           "sourceItemId": "4913",
           "titleId": "MKDS00001"
         }
@@ -93303,6 +93347,50 @@
       ]
     },
     {
+      "gameId": "homebrew-psvita-5100",
+      "title": "MGS Mobile",
+      "sortTitle": "MGS Mobile",
+      "platforms": [
+        "homebrew"
+      ],
+      "summary": "Port of Metal Gear Solid Mobile (N-Gage). Requires your own copy of the game.",
+      "description": "Port of Metal Gear Solid Mobile (N-Gage). Requires your own copy of the game.",
+      "developer": "LeithSilver",
+      "releaseYear": 2026,
+      "contentKind": "homebrew",
+      "homebrew": {
+        "author": "LeithSilver",
+        "version": "v.0.1",
+        "categoryCode": "2",
+        "requirements": "Own copy of Metal Gear Solid Mobile (N-Gage)",
+        "changelog": "- First Release",
+        "sourceCatalog": "VitaHomebrewDB",
+        "sourceCatalogEntryId": "psvita:5100",
+        "sourceCatalogUrl": "https://github.com/DrDecki/VitaHomebrewDB/blob/main/README.md",
+        "iconUrl": "https://drdecki.github.io/VitaHomebrewDB/icons/c66a2cc2225d0e3b52aa609de5a94899d5a18a73f256ce3970a6881bd9591367.png",
+        "screenshotUrls": [],
+        "sourceProjectUrl": "https://github.com/LeithSilver/mgsm",
+        "releasePageUrl": "https://github.com/LeithSilver/mgsm/releases"
+      },
+      "releases": [
+        {
+          "releaseId": "homebrew:psvita:5100",
+          "platform": "homebrew",
+          "targetPlatform": "psvita",
+          "region": "INT",
+          "languageCodes": [],
+          "version": "v.0.1",
+          "packageSizeBytes": 1781329,
+          "requiredFirmware": "",
+          "sourceId": "vitahomebrewdb",
+          "sourceDataset": "apps.json",
+          "sourceUpdatedAt": "2026-11-26",
+          "sourceItemId": "5100",
+          "titleId": "MGSM00001"
+        }
+      ]
+    },
+    {
       "gameId": "homebrew-psp-3857",
       "title": "MHF Unite Quest Importer",
       "sortTitle": "MHF Unite Quest Importer",
@@ -96143,7 +96231,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "SaNch0sE",
-        "version": "v.0.4.5-beta",
+        "version": "v.0.4.6-beta",
         "categoryCode": "2",
         "requirements": "- m4hunative.skprx\n- CapUnlocker.skprx\n- Game Data Files: 3DS",
         "changelog": "- First Release",
@@ -96162,12 +96250,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.4.5-beta",
-          "packageSizeBytes": 8462391,
+          "version": "v.0.4.6-beta",
+          "packageSizeBytes": 8453171,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-25T14:31:30Z",
+          "sourceUpdatedAt": "2026-11-26T14:04:51Z",
           "sourceItemId": "4854",
           "titleId": "MH4UVITA0"
         }
@@ -100257,7 +100345,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "NZP Team",
-        "version": "Nightly 2026-11-23",
+        "version": "Nightly 2026-11-26",
         "categoryCode": "1",
         "requirements": "",
         "changelog": "",
@@ -100278,12 +100366,12 @@
           "targetPlatform": "psp",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-23",
-          "packageSizeBytes": 65086918,
+          "version": "Nightly 2026-11-26",
+          "packageSizeBytes": 65095684,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "psp_apps.json",
-          "sourceUpdatedAt": "2026-11-23T20:33:26Z",
+          "sourceUpdatedAt": "2026-11-26T19:10:36Z",
           "sourceItemId": "3967",
           "titleId": "NZPO01089"
         }
@@ -100303,7 +100391,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "NZP Team",
-        "version": "Nightly 2026-11-23",
+        "version": "Nightly 2026-11-26",
         "categoryCode": "2",
         "requirements": "- Data files: extract the data archive to ux0:data/",
         "changelog": "- First Release",
@@ -100322,12 +100410,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-23",
+          "version": "Nightly 2026-11-26",
           "packageSizeBytes": 2840867,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23T20:34:32Z",
+          "sourceUpdatedAt": "2026-11-26T19:11:42Z",
           "sourceItemId": "4917",
           "titleId": "NZZMBSPTB"
         }
@@ -102895,7 +102983,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "elmnt22",
-        "version": "v.0.1.1-alpha",
+        "version": "v.0.1.2-alpha",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Need for Speed: Hot Pursuit 2 (PS2)",
         "changelog": "- First Release",
@@ -102914,12 +103002,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.1.1-alpha",
-          "packageSizeBytes": 3453887,
+          "version": "v.0.1.2-alpha",
+          "packageSizeBytes": 4258410,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23",
+          "sourceUpdatedAt": "2026-11-26T14:00:49Z",
           "sourceItemId": "4919",
           "titleId": "NFSHP2002"
         }
@@ -106358,11 +106446,11 @@
           "region": "INT",
           "languageCodes": [],
           "version": "Nightly 2026-11-26",
-          "packageSizeBytes": 2793033,
+          "packageSizeBytes": 2804497,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "psp_apps.json",
-          "sourceUpdatedAt": "2026-11-26T08:40:33Z",
+          "sourceUpdatedAt": "2026-11-27T03:41:46Z",
           "sourceItemId": "5034",
           "titleId": "UCJS10041"
         }
@@ -108373,7 +108461,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "josephinoo",
-        "version": "v.0.3.3",
+        "version": "v.0.3.5",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -108394,12 +108482,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.3.3",
-          "packageSizeBytes": 9439097,
+          "version": "v.0.3.5",
+          "packageSizeBytes": 9459807,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-11T21:05:52Z",
+          "sourceUpdatedAt": "2026-11-26T14:06:52Z",
           "sourceItemId": "1449",
           "titleId": "OPENNOWV0"
         }
@@ -148683,7 +148771,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Reyanon",
-        "version": "v.0.15.38",
+        "version": "v.0.16.69",
         "categoryCode": "5",
         "requirements": "",
         "changelog": "- First Release",
@@ -148702,12 +148790,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.15.38",
-          "packageSizeBytes": 8530135,
+          "version": "v.0.16.69",
+          "packageSizeBytes": 9285912,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-25T14:28:29Z",
+          "sourceUpdatedAt": "2026-11-26T13:59:48Z",
           "sourceItemId": "4920",
           "titleId": "RBOX00001"
         }
@@ -172466,7 +172554,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "mmrmagno",
-        "version": "v.1.0.0",
+        "version": "v.1.0.1",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx\n- Game Data Files: PC",
         "changelog": "- First Release",
@@ -172485,12 +172573,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.0.0",
-          "packageSizeBytes": 97498,
+          "version": "v.1.0.1",
+          "packageSizeBytes": 415899,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-25",
+          "sourceUpdatedAt": "2026-11-26T13:57:42Z",
           "sourceItemId": "5096",
           "titleId": "STSV00001"
         }
@@ -193454,7 +193542,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Botarguirix",
-        "version": "v.0.9.2-alpha",
+        "version": "v.0.9.3",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Valdis Story: Abyssal City",
         "changelog": "- First Release",
@@ -193473,12 +193561,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.9.2-alpha",
-          "packageSizeBytes": 2156074,
+          "version": "v.0.9.3",
+          "packageSizeBytes": 2173535,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-25T14:29:29Z",
+          "sourceUpdatedAt": "2026-11-26T14:03:51Z",
           "sourceItemId": "4884",
           "titleId": "VALDIS001"
         }
@@ -201049,7 +201137,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Reyanon",
-        "version": "v.0.16.4",
+        "version": "v.0.16.73",
         "categoryCode": "2",
         "requirements": "- Game Data Files: The Sims 1 Legacy Collection",
         "changelog": "- First Release",
@@ -201068,12 +201156,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.16.4",
-          "packageSizeBytes": 3238114,
+          "version": "v.0.16.73",
+          "packageSizeBytes": 3375450,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-24T20:44:35Z",
+          "sourceUpdatedAt": "2026-11-26T14:05:52Z",
           "sourceItemId": "4824",
           "titleId": "SIMS00001"
         }
@@ -377110,7 +377198,7 @@
     }
   ],
   "homebrewImport": {
-    "lastImported": "2026-11-26T13:52:42Z",
-    "recordsAdded": 4699
+    "lastImported": "2026-11-27T13:49:24Z",
+    "recordsAdded": 4701
   }
 }
