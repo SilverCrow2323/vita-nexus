@@ -160,3 +160,8 @@ The layout is authored for the fixed 960×544 framebuffer: the page grid, title 
 `native/db/migrations/0001_catalog_and_personal_state.sql` defines schema v1 for the shared metadata snapshot, catalog games/releases, local profiles, per-profile game state and future session/event records. The host migration runner is `tools/catalog-builder/migrate_native_db.py`; its tests are part of the catalog-builder unittest suite. Migrations are numbered, append-only and applied transactionally with `PRAGMA user_version` plus a `schema_migrations` ledger.
 
 **Runtime status: not integrated.** The Vita application still uses its existing bounded, checksummed file stores. The current VitaSDK target does not link SQLite. Do not describe this schema or its host tests as an on-device database. Runtime integration requires a reviewed SQLite library for the pinned VitaSDK toolchain, backup/restore and interrupted-migration handling, and a physical Vita test.
+
+
+## Native library save hardening
+
+Library snapshots use unique temporary files created with exclusive O_EXCL semantics and mode 0600. A pre-existing temporary symlink is never followed or truncated. The completed snapshot is flushed and fsync'd before atomic rename; host tests create a hostile temporary symlink and verify its target remains unchanged.
