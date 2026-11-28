@@ -26,6 +26,12 @@ The web companion is the public front door. Its first responsibilities are to ex
 
 The web companion cannot inspect a PS Vita memory card or local database directly. Native/web transfer or cloud synchronization must be explicit—for example, through an exported data bundle or a future authenticated sync service.
 
+## Data provenance and accuracy
+
+Every imported game/release fact must retain the exact provider and dataset pair that supplied it. A provider may expose multiple datasets, but a provider/dataset pair must be unique in a snapshot. Missing metadata is omitted or marked unknown; titles, regions, release identifiers, ratings and compatibility facts must never be guessed. The native index and public catalogue must consume the same validated source-pair contract.
+
+Automated catalogue validation proves structure and provenance references, not that an upstream provider is complete or that a title is legally redistributable. Source URLs, retrieval time, dataset identity and generated snapshot hashes remain visible to maintainers.
+
 ## Product principles
 
 | Principle | What it means in practice |
