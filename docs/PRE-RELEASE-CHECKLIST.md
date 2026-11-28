@@ -40,6 +40,7 @@ This checklist separates the **web companion alpha** from the **native Vita alph
 - [x] Three local profiles with independent collections and explicit backup/restore.
 - [x] Digital D-pad menu state logic with host regression tests.
 - [x] App-owned data paths and atomic temporary-file replacement for Library/profile files.
+- [x] Exclusive per-save temporary files, file fsync before rename, and regression coverage against stale .tmp symlinks.
 - [x] First editorial magazine interface (native package 00.10).
 
 ### Remaining native work and device gates

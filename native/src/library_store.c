@@ -1,8 +1,30 @@
+#define _POSIX_C_SOURCE 200809L
 #include "library_store.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+
+
+static FILE *open_unique_temp(const char *path, char *temp_path, size_t capacity)
+{
+    int descriptor;
+    FILE *file;
+    if (!path || !temp_path || strlen(path) + sizeof(".tmp.XXXXXX") > capacity)
+        return NULL;
+    if (snprintf(temp_path, capacity, "%s.tmp.XXXXXX", path) < 0)
+        return NULL;
+    descriptor = mkstemp(temp_path);
+    if (descriptor < 0) return NULL;
+    file = fdopen(descriptor, "wb");
+    if (!file) {
+        close(descriptor);
+        remove(temp_path);
+        return NULL;
+    }
+    return file;
+}
 
 #define STORE_HEADER "VNXLIB|1\n"
 #define STORE_LINE_CAP 96
@@ -204,9 +226,8 @@ VitaNexusStoreResult vita_nexus_library_save(const VitaNexusLibrary *library, co
     FILE *file;
     uint32_t hash = 2166136261u;
     if (!library || !path || library->count > VITA_NEXUS_LIBRARY_MAX_RECORDS ||
-        strlen(path) + 5 >= sizeof(temp_path)) return VITA_NEXUS_STORE_INVALID;
-    snprintf(temp_path, sizeof(temp_path), "%s.tmp", path);
-    file = fopen(temp_path, "wb");
+        strlen(path) + sizeof(".tmp.XXXXXX") > sizeof(temp_path)) return VITA_NEXUS_STORE_INVALID;
+    file = open_unique_temp(path, temp_path, sizeof(temp_path));
     if (!file) return VITA_NEXUS_STORE_IO_ERROR;
     if (fputs(STORE_HEADER, file) < 0) { fclose(file); remove(temp_path); return VITA_NEXUS_STORE_IO_ERROR; }
     for (size_t i = 0; i < library->count; ++i) {
@@ -229,7 +250,7 @@ VitaNexusStoreResult vita_nexus_library_save(const VitaNexusLibrary *library, co
         }
         hash = checksum_update(hash, line, (size_t)length);
     }
-    if (fprintf(file, "END|%08X\n", (unsigned int)hash) < 0 || fflush(file) != 0) {
+    if (fprintf(file, "END|%08X\n", (unsigned int)hash) < 0 || fflush(file) != 0 || fsync(fileno(file)) != 0) {
         fclose(file); remove(temp_path); return VITA_NEXUS_STORE_IO_ERROR;
     }
     if (fclose(file) != 0) { remove(temp_path); return VITA_NEXUS_STORE_IO_ERROR; }
