@@ -92,26 +92,26 @@ A homebrew release is represented as a `homebrew` catalog release with a separat
 
 The importer deliberately excludes `url`, `data`, `hash`, `hash2`, checksum and package payload fields. Project source and release-page links are retained only as ordinary informational links.
 
-## Latest verified snapshot · 2026-11-27
+## Latest verified snapshot · 2026-11-28
 
-The canonical snapshot on main was regenerated and validated by [catalog sync run #46010400444](https://github.com/SilverCrow2323/vita-nexus/actions/runs/46010400444).
+The canonical snapshot on main was regenerated and validated by [catalog sync run #46147177181](https://github.com/SilverCrow2323/vita-nexus/actions/runs/46147177181).
 
 | Measure | Verified value |
 |---|---:|
 | Schema version | 1.0.0 |
-| Generated at (UTC) | 2026-11-27T13:49:24Z |
+| Generated at (UTC) | 2026-11-28T12:57:26Z |
 | Canonical game records | **9,967** |
 | Release records | **12,592** |
 | Homebrew entries | **4,701** |
 
 | Source dataset | Fetched at (UTC) | Accepted rows |
 |---|---|---:|
-| PSV_GAMES | 2026-11-27T13:49:23Z | 3,784 |
-| PSP_GAMES | 2026-11-27T13:49:23Z | 2,459 |
-| PSX_GAMES | 2026-11-27T13:49:23Z | 1,648 |
-| apps.json | 2026-11-27T13:49:24Z | 1,538 |
-| psp_apps.json | 2026-11-27T13:49:24Z | 3,163 |
+| PSV_GAMES | 2026-11-28T12:57:25Z | 3,784 |
+| PSP_GAMES | 2026-11-28T12:57:25Z | 2,459 |
+| PSX_GAMES | 2026-11-28T12:57:25Z | 1,648 |
+| apps.json | 2026-11-28T12:57:26Z | 1,538 |
+| psp_apps.json | 2026-11-28T12:57:26Z | 3,163 |
 
-The exact UTF-8 snapshot file web/data/catalog.json has SHA-256 c390114a0f693c09f343e445521fd214384a9711b392295f758e96e07a5d1bbd (Git blob SHA-1 f8172f86f84328d1bdcd297837af77f943ad35b9). Counts are recalculated from canonical JSON records.
+The exact UTF-8 snapshot file web/data/catalog.json has SHA-256 e9746ac873c3f458c935cddd27a9114cad17b38b76fdddbe2bce69ae06136c1c (Git blob SHA-1 8afebe39e2dd6def743ff326faa52e0d76f0aba5). Counts are recalculated from canonical JSON records.
 
 The scheduled importer keeps package URLs, license values, checksums and payloads out of the public catalog. This section is regenerated with the snapshot manifest, README and roadmap in the same catalog-sync commit.

@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-11-27T13:49:24Z",
+  "generatedAt": "2026-11-28T12:57:26Z",
   "sources": [
     {
       "sourceId": "nopaystation",
       "name": "NoPayStation",
       "dataset": "PSV_GAMES",
       "url": "https://nopaystation.org/tsv/PSV_GAMES.tsv",
-      "fetchedAt": "2026-11-27T13:49:23Z",
+      "fetchedAt": "2026-11-28T12:57:25Z",
       "recordCount": 3784,
       "notes": "Metadata-only import; 44 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -16,7 +16,7 @@
       "name": "NoPayStation",
       "dataset": "PSP_GAMES",
       "url": "https://nopaystation.org/tsv/PSP_GAMES.tsv",
-      "fetchedAt": "2026-11-27T13:49:23Z",
+      "fetchedAt": "2026-11-28T12:57:25Z",
       "recordCount": 2459,
       "notes": "Metadata-only import; 4 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -25,7 +25,7 @@
       "name": "NoPayStation",
       "dataset": "PSX_GAMES",
       "url": "https://nopaystation.org/tsv/PSX_GAMES.tsv",
-      "fetchedAt": "2026-11-27T13:49:23Z",
+      "fetchedAt": "2026-11-28T12:57:25Z",
       "recordCount": 1648,
       "notes": "Metadata-only import; 20 malformed rows skipped. Package URLs, license values and digests are discarded."
     },
@@ -34,7 +34,7 @@
       "name": "VitaHomebrewDB",
       "dataset": "apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-27T13:49:24Z",
+      "fetchedAt": "2026-11-28T12:57:26Z",
       "recordCount": 1538,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     },
@@ -43,7 +43,7 @@
       "name": "VitaHomebrewDB",
       "dataset": "psp_apps.json",
       "url": "https://github.com/DrDecki/VitaHomebrewDB",
-      "fetchedAt": "2026-11-27T13:49:24Z",
+      "fetchedAt": "2026-11-28T12:57:26Z",
       "recordCount": 3163,
       "notes": "Descriptive metadata only. Direct package URLs, payloads, checksums and hashes are excluded. Artwork is referenced from the upstream host; ownership remains with original creators. Credit VitaHomebrewDB and the original homebrew authors."
     }
@@ -10047,7 +10047,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "PSP-Arkfive",
-        "version": "Nightly 2026-11-25",
+        "version": "Nightly 2026-11-27",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -10066,12 +10066,12 @@
           "targetPlatform": "psp",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-25",
-          "packageSizeBytes": 347801,
+          "version": "Nightly 2026-11-27",
+          "packageSizeBytes": 347929,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "psp_apps.json",
-          "sourceUpdatedAt": "2026-11-25T23:44:05Z",
+          "sourceUpdatedAt": "2026-11-27T16:52:37Z",
           "sourceItemId": "5070"
         }
       ]
@@ -14298,7 +14298,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Rinnegatamante",
-        "version": "v.1.1",
+        "version": "v.1.2",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Battle for Bikini Bottom",
         "changelog": "- First Release",
@@ -14317,12 +14317,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.1",
-          "packageSizeBytes": 4458266,
+          "version": "v.1.2",
+          "packageSizeBytes": 4458754,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22T12:41:07Z",
+          "sourceUpdatedAt": "2026-11-27T14:00:31Z",
           "sourceItemId": "4882",
           "titleId": "BBVT00002"
         }
@@ -74428,7 +74428,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "deathkiller",
-        "version": "Nightly 2026-11-27 (20156b5)",
+        "version": "Nightly 2026-11-27 (ad2a9c6)",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Jazz Jackrabbit 2",
         "changelog": "- First Release",
@@ -74447,12 +74447,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-27 (20156b5)",
-          "packageSizeBytes": 9047319,
+          "version": "Nightly 2026-11-27 (ad2a9c6)",
+          "packageSizeBytes": 9047459,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-27T03:42:49Z",
+          "sourceUpdatedAt": "2026-11-28T01:33:52Z",
           "sourceItemId": "4909",
           "titleId": "JAZZ20000"
         }
@@ -88661,7 +88661,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "xesf",
-        "version": "v.0.10.3",
+        "version": "v.0.10.5",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx\n- Game Data Files: PC",
         "changelog": "- First Release",
@@ -88680,12 +88680,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.10.3",
-          "packageSizeBytes": 1850755,
+          "version": "v.0.10.5",
+          "packageSizeBytes": 1862643,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-25T14:32:30Z",
+          "sourceUpdatedAt": "2026-11-27T14:04:34Z",
           "sourceItemId": "1758",
           "titleId": "MHRE00001"
         }
@@ -103159,7 +103159,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "elmnt22",
-        "version": "v.0.2.1-alpha",
+        "version": "v.0.3.0-alpha",
         "categoryCode": "2",
         "requirements": "- Game Data Files: your own copy of Need for Speed: Underground 2 (PC)",
         "changelog": "- First Release",
@@ -103178,12 +103178,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.2.1-alpha",
-          "packageSizeBytes": 5170590,
+          "version": "v.0.3.0-alpha",
+          "packageSizeBytes": 4897190,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23T14:47:16Z",
+          "sourceUpdatedAt": "2026-11-27T13:59:31Z",
           "sourceItemId": "4885",
           "titleId": "NFSU20001"
         }
@@ -148771,7 +148771,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Reyanon",
-        "version": "v.0.16.69",
+        "version": "v.0.16.87",
         "categoryCode": "5",
         "requirements": "",
         "changelog": "- First Release",
@@ -148790,12 +148790,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.16.69",
-          "packageSizeBytes": 9285912,
+          "version": "v.0.16.87",
+          "packageSizeBytes": 9300325,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-26T13:59:48Z",
+          "sourceUpdatedAt": "2026-11-27T13:57:29Z",
           "sourceItemId": "4920",
           "titleId": "RBOX00001"
         }
@@ -150583,7 +150583,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Rinnegatamante",
-        "version": "v.1.4.5",
+        "version": "v.1.5",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx\n- Game Data Files: PS2",
         "changelog": "- First Release",
@@ -150602,12 +150602,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.4.5",
-          "packageSizeBytes": 28873254,
+          "version": "v.1.5",
+          "packageSizeBytes": 28870168,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-18T15:56:48Z",
+          "sourceUpdatedAt": "2026-11-27T14:02:33Z",
           "sourceItemId": "1768",
           "titleId": "RECVX0001"
         }
@@ -188785,7 +188785,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "PoissMi",
-        "version": "v.0.4.2",
+        "version": "v.0.4.3",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -188804,12 +188804,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.4.2",
-          "packageSizeBytes": 14247555,
+          "version": "v.0.4.3",
+          "packageSizeBytes": 14248763,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-23T14:46:16Z",
+          "sourceUpdatedAt": "2026-11-27T13:58:30Z",
           "sourceItemId": "4894",
           "titleId": "TURBOVITA"
         }
@@ -200450,7 +200450,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "joaopedr00000",
-        "version": "v.0.0.3",
+        "version": "v.0.0.6",
         "categoryCode": "4",
         "requirements": "",
         "changelog": "- First Release",
@@ -200469,12 +200469,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.0.3",
-          "packageSizeBytes": 3618666,
+          "version": "v.0.0.6",
+          "packageSizeBytes": 3717272,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-25",
+          "sourceUpdatedAt": "2026-11-27T13:56:25Z",
           "sourceItemId": "5089",
           "titleId": "PLVTB0001"
         }
@@ -201137,7 +201137,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Reyanon",
-        "version": "v.0.16.73",
+        "version": "v.0.17.44",
         "categoryCode": "2",
         "requirements": "- Game Data Files: The Sims 1 Legacy Collection",
         "changelog": "- First Release",
@@ -201156,12 +201156,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.0.16.73",
-          "packageSizeBytes": 3375450,
+          "version": "v.0.17.44",
+          "packageSizeBytes": 3463987,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-26T14:05:52Z",
+          "sourceUpdatedAt": "2026-11-27T14:01:31Z",
           "sourceItemId": "4824",
           "titleId": "SIMS00001"
         }
@@ -203306,7 +203306,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Syncriel",
-        "version": "v.1.6.9",
+        "version": "v.1.6.11",
         "categoryCode": "1",
         "requirements": "- libshacccg.suprx",
         "changelog": "- First Release",
@@ -203325,12 +203325,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "v.1.6.9",
-          "packageSizeBytes": 1954033,
+          "version": "v.1.6.11",
+          "packageSizeBytes": 3733099,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-22T12:46:10Z",
+          "sourceUpdatedAt": "2026-11-27T14:03:33Z",
           "sourceItemId": "1766",
           "titleId": "VTRD00001"
         }
@@ -208885,7 +208885,7 @@
       "contentKind": "homebrew",
       "homebrew": {
         "author": "Xash3D-FWGS Team & fgsfdsfgs",
-        "version": "Nightly 2026-11-24",
+        "version": "Nightly 2026-11-27",
         "categoryCode": "2",
         "requirements": "- libshacccg.suprx in ur0:data\n- kubridge.skprx in ur0:tai\n- Game Data Files: PC in ux0:data/xash3d",
         "changelog": "- First Release.",
@@ -208906,12 +208906,12 @@
           "targetPlatform": "psvita",
           "region": "INT",
           "languageCodes": [],
-          "version": "Nightly 2026-11-24",
-          "packageSizeBytes": 27896370,
+          "version": "Nightly 2026-11-27",
+          "packageSizeBytes": 27896426,
           "requiredFirmware": "",
           "sourceId": "vitahomebrewdb",
           "sourceDataset": "apps.json",
-          "sourceUpdatedAt": "2026-11-24T05:25:05Z",
+          "sourceUpdatedAt": "2026-11-28T01:32:47Z",
           "sourceItemId": "1157",
           "titleId": "XASH10000"
         }
@@ -377198,7 +377198,7 @@
     }
   ],
   "homebrewImport": {
-    "lastImported": "2026-11-27T13:49:24Z",
+    "lastImported": "2026-11-28T12:57:26Z",
     "recordsAdded": 4701
   }
 }

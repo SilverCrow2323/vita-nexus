@@ -7,10 +7,10 @@
 
 - File: `web/data/catalog.json`
 - Schema version: `1.0.0`
-- Generated at (UTC): `2026-11-27T13:49:24Z`
-- SHA-256: `c390114a0f693c09f343e445521fd214384a9711b392295f758e96e07a5d1bbd`
-- Git blob SHA-1: `f8172f86f84328d1bdcd297837af77f943ad35b9`
-- Import workflow: [#46010400444](https://github.com/SilverCrow2323/vita-nexus/actions/runs/46010400444)
+- Generated at (UTC): `2026-11-28T12:57:26Z`
+- SHA-256: `e9746ac873c3f458c935cddd27a9114cad17b38b76fdddbe2bce69ae06136c1c`
+- Git blob SHA-1: `8afebe39e2dd6def743ff326faa52e0d76f0aba5`
+- Import workflow: [#46147177181](https://github.com/SilverCrow2323/vita-nexus/actions/runs/46147177181)
 
 ## Canonical counts
 
@@ -24,11 +24,11 @@
 
 | Source | Dataset | Fetched at (UTC) | Accepted rows |
 |---|---|---|---:|
-| NoPayStation | `PSV_GAMES` | `2026-11-27T13:49:23Z` | 3,784 |
-| NoPayStation | `PSP_GAMES` | `2026-11-27T13:49:23Z` | 2,459 |
-| NoPayStation | `PSX_GAMES` | `2026-11-27T13:49:23Z` | 1,648 |
-| VitaHomebrewDB | `apps.json` | `2026-11-27T13:49:24Z` | 1,538 |
-| VitaHomebrewDB | `psp_apps.json` | `2026-11-27T13:49:24Z` | 3,163 |
+| NoPayStation | `PSV_GAMES` | `2026-11-28T12:57:25Z` | 3,784 |
+| NoPayStation | `PSP_GAMES` | `2026-11-28T12:57:25Z` | 2,459 |
+| NoPayStation | `PSX_GAMES` | `2026-11-28T12:57:25Z` | 1,648 |
+| VitaHomebrewDB | `apps.json` | `2026-11-28T12:57:26Z` | 1,538 |
+| VitaHomebrewDB | `psp_apps.json` | `2026-11-28T12:57:26Z` | 3,163 |
 
 The NPS importer records accepted, deduplicated rows per source dataset and reports malformed rows in its source notes. VitaHomebrewDB rows are normalized to descriptive metadata; the homebrew total above is recalculated from canonical release records.
 
