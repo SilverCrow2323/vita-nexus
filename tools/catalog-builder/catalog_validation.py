@@ -43,7 +43,13 @@ def validate_catalog(catalog: object) -> dict:
         if isinstance(record_count, bool) or not isinstance(record_count, int) or record_count < 0:
             raise ValueError(f"{source_path}.recordCount must be a non-negative integer")
 
-        source_pairs.add((source_id.strip(), dataset.strip()))
+        source_pair = (source_id.strip(), dataset.strip())
+        if source_pair in source_pairs:
+            raise ValueError(
+                f"{source_path} duplicates source dataset "
+                f"{source_pair[0]!r}/{source_pair[1]!r}"
+            )
+        source_pairs.add(source_pair)
 
     games = catalog.get("games")
     if not isinstance(games, list):
