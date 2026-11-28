@@ -32,6 +32,7 @@ class CatalogShapeValidationTests(unittest.TestCase):
             "sources": [{
                 "sourceId": "nopaystation",
                 "dataset": "PSV_GAMES",
+                "url": "https://example.com/PSV_GAMES.tsv",
                 "recordCount": 1,
             }],
             "totals": {"games": 1, "releases": 1},
@@ -123,7 +124,7 @@ class CatalogShapeValidationTests(unittest.TestCase):
             ("vitahomebrewdb", "apps.json", "homebrew"),
         ]
         data["sources"] = [
-            {"sourceId": source_id, "dataset": dataset, "recordCount": 1}
+            {"sourceId": source_id, "dataset": dataset, "url": f"https://example.com/{dataset}", "recordCount": 1}
             for source_id, dataset, _platform in datasets
         ]
         data["games"][0]["platforms"] = [platform for _source, _dataset, platform in datasets]
@@ -144,6 +145,7 @@ class CatalogShapeValidationTests(unittest.TestCase):
         data["sources"].append({
             "sourceId": "nopaystation",
             "dataset": "PSP_GAMES",
+            "url": "https://example.com/PSP_GAMES.tsv",
             "recordCount": 1,
         })
         data["games"][0]["releases"].append({
@@ -198,6 +200,27 @@ class CatalogShapeValidationTests(unittest.TestCase):
             self.assertEqual(result.exception.code, 1)
 
 
+    def test_rejects_duplicate_provider_dataset_pair(self):
+        data = self.valid_catalog()
+        data["sources"].append({
+            "sourceId": "nopaystation",
+            "dataset": "PSV_GAMES",
+            "url": "https://example.com/duplicate.tsv",
+            "recordCount": 1,
+        })
+        with self.assertRaisesRegex(ValueError, "duplicates source dataset"):
+            validate_catalog(data)
+
+    def test_allows_multiple_datasets_from_the_same_provider(self):
+        data = self.valid_catalog()
+        data["sources"].append({
+            "sourceId": "nopaystation",
+            "dataset": "PSP_GAMES",
+            "recordCount": 0,
+        })
+        self.assertIs(validate_catalog(data), data)
+
+
 class CatalogSnapshotDocumentationTests(unittest.TestCase):
     def test_public_snapshot_counts_and_provenance_match_docs(self):
         root = Path(__file__).resolve().parents[2]
@@ -226,6 +249,33 @@ class CatalogSnapshotDocumentationTests(unittest.TestCase):
         roadmap = (root / "docs" / "ROADMAP.md").read_text(encoding="utf-8")
         self.assertIn(f"**{len(games):,} games / {len(releases):,} releases**", roadmap)
         self.assertIn("CATALOG-SNAPSHOT-MANIFEST.md", roadmap)
+
+
+
+    def test_rejects_non_https_or_ambiguous_source_urls(self):
+        for url in (
+            "http://example.com/feed.tsv",
+            "https:///missing-host",
+            "https://user:pass@example.com/feed.tsv",
+            "https://example.com/feed.tsv#fragment",
+            "https://example.com:bad/feed.tsv",
+        ):
+            with self.subTest(url=url):
+                data = self.valid_catalog()
+                data["sources"][0]["url"] = url
+                with self.assertRaisesRegex(ValueError, "HTTPS"):
+                    validate_catalog(data)
+
+    def test_rejects_casefolded_duplicate_provider_dataset_pairs(self):
+        data = self.valid_catalog()
+        data["sources"].append({
+            "sourceId": "NoPayStation",
+            "dataset": "psv_games",
+            "url": "https://example.com/duplicate.tsv",
+            "recordCount": 0,
+        })
+        with self.assertRaisesRegex(ValueError, "duplicates source dataset"):
+            validate_catalog(data)
 
 
 if __name__ == "__main__":
