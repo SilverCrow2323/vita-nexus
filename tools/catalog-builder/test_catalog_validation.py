@@ -198,6 +198,26 @@ class CatalogShapeValidationTests(unittest.TestCase):
             self.assertEqual(result.exception.code, 1)
 
 
+    def test_rejects_duplicate_provider_dataset_pair(self):
+        data = self.valid_catalog()
+        data["sources"].append({
+            "sourceId": "nopaystation",
+            "dataset": "PSV_GAMES",
+            "recordCount": 1,
+        })
+        with self.assertRaisesRegex(ValueError, "duplicates source dataset"):
+            validate_catalog(data)
+
+    def test_allows_multiple_datasets_from_the_same_provider(self):
+        data = self.valid_catalog()
+        data["sources"].append({
+            "sourceId": "nopaystation",
+            "dataset": "PSP_GAMES",
+            "recordCount": 0,
+        })
+        self.assertIs(validate_catalog(data), data)
+
+
 class CatalogSnapshotDocumentationTests(unittest.TestCase):
     def test_public_snapshot_counts_and_provenance_match_docs(self):
         root = Path(__file__).resolve().parents[2]
