@@ -7,6 +7,10 @@ on:
     paths:
       - "web/**"
       - ".github/workflows/pages.yml"
+  pull_request:
+    paths:
+      - "web/**"
+      - ".github/workflows/pages.yml"
   workflow_run:
     workflows:
       - Sync public catalog metadata
@@ -22,8 +26,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Validate web companion and native guide
+        run: |
+          test -s web/index.html
+          test -s web/catalog.html
+          test -s web/docs.html
+          python3 -m json.tool web/data/catalog.json > /dev/null
+          grep -q 'Five screens' web/docs.html
+          grep -q 'DEVICE VISUAL RECHECK PENDING' web/docs.html
+
   deploy:
-    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'))
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -6,9 +6,11 @@ The website is a first-class VITA NEXUS surface, not a second native app.
 
 The initial web companion is published with **GitHub Pages** from the **web/** directory using GitHub Actions.
 
-Expected project URL:
+Live project URL:
 
-**https://silvercrow2323.github.io/vita-nexus/**
+**[https://silvercrow2323.github.io/vita-nexus/](https://silvercrow2323.github.io/vita-nexus/)**
+
+The deployment workflow has completed successfully on `main`; the public portal is the project's live web entry point.
 
 The workflow publishes the contents of web/ to this project URL. A successful quality check is not itself a Pages deployment; use the Pages workflow result to confirm the published site. When the metadata sync workflow completes successfully on main, it also triggers a follow-up quality run, native VPK build and Pages deployment against the refreshed catalog snapshot.
 

@@ -8,6 +8,8 @@
   <img alt="Web" src="https://img.shields.io/badge/web-GitHub%20Pages-20232a?style=flat-square">
 </p>
 
+<p align="center"><strong><a href="https://silvercrow2323.github.io/vita-nexus/">OPEN VITA NEXUS WEB PORTAL ↗</a></strong><br><a href="https://silvercrow2323.github.io/vita-nexus/catalog.html">Catalog</a> · <a href="https://silvercrow2323.github.io/vita-nexus/docs.html">Field notes</a> · <a href="https://github.com/SilverCrow2323/vita-nexus">Source repository</a></p>
+
 > [!NOTE]
 > **The web companion and native Vita alpha foundation are implemented.** The native VPK now includes an offline catalog browser, game detail sheets, a personal Library and three local profiles with backups. An installed-title scanner, SQLite runtime integration, automatic playtime and community sync remain separate future milestones. A versioned SQLite schema and host-only migration harness are now defined, but the Vita app still uses its existing local file stores. The earlier 00.05 baseline was confirmed on a PS Vita 1000; the 00.10 magazine-page redesign is now built in CI and needs a fresh device visual check.
 
@@ -39,6 +41,11 @@ VITA NEXUS is an **offline-first gaming companion**, not a replacement launcher.
 - **PLAYTIME** — automatic session tracking where reliable lifecycle signals exist.
 
 ## 🧭 Project map
+
+| Project home | What it opens |
+|---|---|
+| [Live VITA NEXUS website ↗](https://silvercrow2323.github.io/vita-nexus/) | Landing page, catalog browser and Field Notes |
+| [Documentation / Wiki index](docs/README.md) | Maintained guide index, product decisions and technical references |
 
 | Area | What lives here |
 |---|---|
