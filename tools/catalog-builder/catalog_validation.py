@@ -6,11 +6,33 @@ Every release must resolve the exact (sourceId, sourceDataset) pair.
 
 from __future__ import annotations
 
+from urllib.parse import urlsplit
+
 PLATFORM_BITS = {"psvita": 1, "psp": 2, "ps1": 4, "homebrew": 8}
 
 
 def _non_empty_text(value: object) -> bool:
     return isinstance(value, str) and bool(value.strip())
+
+
+def _validate_source_url(value: object, source_path: str) -> None:
+    if not _non_empty_text(value) or value != value.strip():
+        raise ValueError(f"{source_path} must be a clean HTTPS URL")
+    try:
+        parsed = urlsplit(value)
+        hostname = parsed.hostname
+        _ = parsed.port
+    except ValueError as exc:
+        raise ValueError(f"{source_path} is malformed: {exc}") from exc
+    if (
+        parsed.scheme.lower() != "https"
+        or not hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.fragment
+        or any(ord(char) < 32 or ord(char) == 127 for char in value)
+    ):
+        raise ValueError(f"{source_path} must use HTTPS with a host and no user-info or fragment")
 
 
 def validate_catalog(catalog: object) -> dict:
@@ -38,12 +60,13 @@ def validate_catalog(catalog: object) -> dict:
             raise ValueError(f"{source_path}.sourceId must be a non-empty string")
         if not _non_empty_text(dataset):
             raise ValueError(f"{source_path}.dataset must be a non-empty string")
+        _validate_source_url(source.get("url"), f"{source_path}.url")
 
         record_count = source.get("recordCount")
         if isinstance(record_count, bool) or not isinstance(record_count, int) or record_count < 0:
             raise ValueError(f"{source_path}.recordCount must be a non-negative integer")
 
-        source_pair = (source_id.strip(), dataset.strip())
+        source_pair = (source_id.strip().casefold(), dataset.strip().casefold())
         if source_pair in source_pairs:
             raise ValueError(
                 f"{source_path} duplicates source dataset "
@@ -101,7 +124,7 @@ def validate_catalog(catalog: object) -> dict:
             source_dataset = release.get("sourceDataset")
             if not _non_empty_text(source_id) or not _non_empty_text(source_dataset):
                 raise ValueError(f"{release_path} must declare sourceId and sourceDataset")
-            if (source_id.strip(), source_dataset.strip()) not in source_pairs:
+            if (source_id.strip().casefold(), source_dataset.strip().casefold()) not in source_pairs:
                 raise ValueError(
                     f"{release_path} references unknown source pair "
                     f"{source_id!r}/{source_dataset!r}"
