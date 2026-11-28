@@ -145,6 +145,7 @@ class CatalogShapeValidationTests(unittest.TestCase):
         data["sources"].append({
             "sourceId": "nopaystation",
             "dataset": "PSP_GAMES",
+            "url": "https://example.com/PSP_GAMES.tsv",
             "recordCount": 1,
         })
         data["games"][0]["releases"].append({
@@ -204,6 +205,7 @@ class CatalogShapeValidationTests(unittest.TestCase):
         data["sources"].append({
             "sourceId": "nopaystation",
             "dataset": "PSV_GAMES",
+            "url": "https://example.com/duplicate.tsv",
             "recordCount": 1,
         })
         with self.assertRaisesRegex(ValueError, "duplicates source dataset"):
